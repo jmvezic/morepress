@@ -1,0 +1,16 @@
+<?php return array (
+  'plugins.generic.openads.description' => 'OpenAds dodatak omogućuje prikaz dinamičnih oglasa prikupljenih sa OpenAds poslužitelja.',
+  'plugins.generic.openads.descriptionUnconfigured' => 'OpenAds dodatak omogućuje umetanje dinamičnih oglasa prikupljenih sa OpenAds poslužitelja u OJS. <strong>Molimo pročitajte README datoteku u plugins/generic/openAds za informacije o aktiviranju ovog dodatka.</strong>',
+  'plugins.generic.openads' => 'OpenAds dodatak',
+  'plugins.generic.openads.settings.description' => 'Koristite ovaj obrazac kako biste odabrali OpenAds oglasne zone koje će se prikazati u OJS-u za svaku potencijalnu lokaciju.',
+  'plugins.generic.openads.manager.settings' => 'Postavke',
+  'plugins.generic.openads.error.configFileNotFound' => 'Nije moguć pristup konfiguracijskoj datoteci {$filename}.',
+  'plugins.generic.openads.error.missingParameter' => 'Barem jedan od potrebnih OpenAds konfiguracijskih parametara nije bilo moguće očitati iz konfiguracijske datoteka. Traženi parametri su: dbhost, dbuser, dbpassword, dbname, url_prefix i table_prefix.',
+  'plugins.generic.openads.error.dbConnectionError' => 'Povezivanje sa OpenAds bazom podataka nije uspjelo.',
+  'plugins.generic.openads.headerAd' => 'Oglas u zaglavlju',
+  'plugins.generic.openads.contentAd' => 'Oglas u sadržaju',
+  'plugins.generic.openads.sidebarAd' => 'Oglas u rubnom izborniku',
+  'plugins.generic.openads.orientation.left' => 'Lijevo',
+  'plugins.generic.openads.orientation.centre' => 'Centralno',
+  'plugins.generic.openads.orientation.right' => 'Desno',
+); ?>

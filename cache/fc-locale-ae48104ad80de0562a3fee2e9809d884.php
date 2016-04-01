@@ -1,0 +1,15 @@
+<?php return array (
+  'plugins.importexport.METSExport.displayName' => 'Dodatak za iznos u METS',
+  'plugins.importexport.METSExport.description' => 'Iznošenje časopisa u METS XML formatu',
+  'plugins.importexport.METSExport.settings' => 'Postavke',
+  'plugins.importexport.METSExport.export' => 'Iznošenje podataka',
+  'plugins.importexport.METSExport.export.issues' => 'Iznošenje brojeva',
+  'plugins.importexport.METSExport.export.selectIssue' => 'Odaberite brojeve za iznošenje',
+  'plugins.importexport.METSExport.export.error.IssuesNotFound' => 'Niti jedan broj nema navedeni identifikator "{$issueId}".',
+  'plugins.importexport.METSExport.export.error.unknownIssue' => 'Ne postoji staza {$journalPath}',
+  'plugins.importexport.METSExport.settings.FContent' => 'Sadržaj predstavi u base64 formatu',
+  'plugins.importexport.METSExport.settings.FLocat' => 'Sadržaj predstavi kao URL "sirovih" podataka',
+  'plugins.importexport.METSExport.settings.organization' => 'METS:agent XML atribut za organizaciju čvorova',
+  'plugins.importexport.METSExport.settings.preservationLevel' => 'PREMIS razina metapodataka za očuvanje sadržaja',
+  'plugins.importexport.METSExport.settings.exportSuppFiles' => 'Iznesi dopunske datoteke',
+); ?>
