@@ -162,6 +162,7 @@
 {/if}
 
 <div id="main">
+<h1>Pero</h1>
 {include file="common/navbar.tpl"}
 
 {include file="common/breadcrumbs.tpl"}
