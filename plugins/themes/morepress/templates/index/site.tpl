@@ -31,7 +31,11 @@
 		<div style="clear:left;">
 		{if $displayJournalThumbnail && is_array($displayJournalThumbnail)}
 			{assign var="altText" value=$journal->getLocalizedSetting('journalThumbnailAltText')}
-			<div class="homepageImage"><a href="{url journal=$journal->getPath()}" class="action"><img src="{$journalFilesPath}{$journal->getId()}/{$displayJournalThumbnail.uploadName|escape:"url"}" {if $altText != ''}alt="{$altText|escape}"{else}alt="{translate key="common.pageHeaderLogo.altText"}"{/if} /></a></div>
+			<div class="homepageImage"><a href="{url journal=$journal->getPath()}" class="action">
+				<img src="{$journalFilesPath}{$journal->getId()}/{$displayJournalThumbnail.uploadName|escape:"url"}" 
+				{if $altText != ''}alt="{$altText|escape}"{else}alt="{translate key="common.pageHeaderLogo.altText"}"{/if} />
+				</a>
+			</div>
 		{/if}
 		</div>
 	{/if}

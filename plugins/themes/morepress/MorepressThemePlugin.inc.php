@@ -4,7 +4,7 @@
 
 import('classes.plugins.ThemePlugin');
 
-class BlueSteelThemePlugin extends ThemePlugin {
+class MorepressThemePlugin extends ThemePlugin {
 	/**
 	 * Get the name of this plugin. The name must be unique within
 	 * its category.

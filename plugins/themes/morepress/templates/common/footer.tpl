@@ -17,6 +17,7 @@
 	<div id="pageFooter">{$pageFooter}</div>
 {/if}
 </div><!-- content -->
+{$rightSidebarCode}
 </div><!-- main -->
 </div><!-- body -->
 
