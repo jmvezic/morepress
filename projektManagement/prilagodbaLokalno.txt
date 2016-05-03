@@ -1,5 +1,4 @@
 MAC
 
-sudo chmod -R 777 /Applications/XAMPP/xamppfiles/htdocs/morepress/public/
-sudo chmod -R 777 /Applications/XAMPP/xamppfiles/htdocs/morepress/cache/
+sudo chmod -R 777 /Applications/XAMPP/xamppfiles/htdocs/morepress
 sudo chmod -R 777 /Applications/XAMPP/xamppfiles/htdocs/morepressfiles
