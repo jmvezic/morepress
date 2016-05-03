@@ -1,8 +1,8 @@
 <?php
 
 
-require_once('MorepressThemePlugin.inc.php');
+require_once('MorePressThemePlugin.inc.php');
 
-return new MorepressThemePlugin();
+return new MorePressThemePlugin();
 
 ?>

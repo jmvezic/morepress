@@ -4,18 +4,18 @@
 
 import('classes.plugins.ThemePlugin');
 
-class MorepressThemePlugin extends ThemePlugin {
+class MorePressThemePlugin extends ThemePlugin {
 	/**
 	 * Get the name of this plugin. The name must be unique within
 	 * its category.
 	 * @return String name of plugin
 	 */
 	function getName() {
-		return 'MorepressThemePlugin';
+		return 'MorePressThemePlugin';
 	}
 
 	function getDisplayName() {
-		return 'Morepress Theme';
+		return 'More Press tema časopisa';
 	}
 
 	function getDescription() {
@@ -23,7 +23,7 @@ class MorepressThemePlugin extends ThemePlugin {
 	}
 
 	function getStylesheetFilename() {
-		return 'morepress.css';
+		return 'MorePress.css';
 	}
 
 	function getLocaleFilename($locale) {
