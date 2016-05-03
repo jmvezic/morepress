@@ -497,7 +497,7 @@ show_stacktrace = On
 
 ; Display an error message when something goes wrong.
 ;display_errors = Off
-display_errors = On
+display_errors = Off
 
 ; Display deprecation warnings
 ;deprecation_warnings = Off
