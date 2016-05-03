@@ -165,11 +165,12 @@
 
 	<!-- User -->
 	<message key="user.showAllJournals">Prikaz mojih časopisa</message>
-
+	<message key="user.userHome">Korisnička</message>
 	<message key="user.registerForOtherJournals">Registracija za ostale časopise</message>
 	<message key="user.myJournals">Moji časopisi</message>
 
 	<!-- Roles -->	
+	<message key="user.role.siteAdmin">Administrator sustava</message>
 	<message key="user.role.manager">Glavni urednik</message>
 	<message key="user.role.editor">Urednik</message>
 	<message key="user.role.sectionEditor">Urednik rubrike</message>
@@ -254,6 +255,8 @@
 	<message key="comments.authenticated">{$userName}</message>
 
 	<!-- Site Administration -->
+	siteAdmin
+	<message key="admin.siteAdmin">Administracija</message>
 	<message key="admin.settings.oaiRegistrationDescription"><![CDATA[Kako biste učinili sadržaj svih časopisa izdanih u okviru ovih stranica indeksiranim unutar globalno distribuiranog sustava istraživačkih baza podataka, <a href="http://pkp.sfu.ca/harvester/add.php" target="_blank">registrirajte</a> URL ove stranice pri <a href="http://pkp.sfu.ca/harvester/" target="_blank">sakupljaču</a> metapodataka Public Knowledge Project-a. Ovaj alat sakuplja metapodatke iz svakog indeksiranog priloga svakog časopisa na ovim stranicama, omogućujući precizno i kolektivno pretraživanje istraživačkih stranica koje sudjeluju u <a href="http://www.openarchives.org/OAI/openarchivesprotocol.htm#Introduction" target="_blank">Open Archives Initiative Protocol for Metadata Harvesting</a>.
 <br /><br />
 Za registraciju pri PKP sakupljaču <a href="http://pkp.sfu.ca/harvester/add.php" target="_blank">kliknite ovdje</a> i upišite: <span class="highlight">{$siteUrl}</span> unutar <b>Site URL</b>-a i <span class="highlight">{$oaiUrl}</span> unutar <b>Base URL for OAI Archive</b>.
@@ -285,6 +288,8 @@ Aktivirani OAI protokol može biti isključen na razini čitave stranice promjen
 	<!-- General plugin information -->
 	<message key="plugins.categories.generic.description">Opći dodaci služe proširivanju funkcionalnosti OJS-a. Ovo je rezidualna kategorije u koju spadaju dodaci koji ne pripadaju ni jednoj od sistematiziranih kategorija.</message>
 	<message key="plugins.categories.auth.description">Autorizacijski dodaci omogućuju Open Journal Systems-u da vrši provjeru vjerodostojnosti korisničkih pristupa putem vanjskih sustava, kao što su LDAP poslužitelji.</message>
+
+	<message key="plugins.block.navigation.searchScope">Područje pretraživanja</message>
 
 
 
@@ -534,6 +539,9 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 
 
 	<!-- Search -->
+	<message key="search.advancedSearchMore">Napredno pretraživanje</message>
+	<message key="search.advancedSearchLess">Jednostavno pretraživanje</message>
+	<message key="search.indexTermsLong">Indeks pojmovi</message>
 	<message key="search.browseAuthorIndex">Kazalo autora</message>
 	<message key="search.searchFor">Pretražite članke za</message>
 	<message key="search.author">Autori</message>
@@ -571,6 +579,7 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 	<message key="archive.issueUnavailable">Broj časopisa je nedostupan</message>
 	
 	<!-- About The Journal -->	<message key="about.statistics">Statistike</message>
+	<message key="about.aboutSite">O časopisu</message>
 	<message key="about.journalContact">Kontakt časopisa</message>
 	<message key="about.aboutTheJournal">O časopisu</message>
 	<message key="about.editorialTeam">Časopis uređuju</message>
