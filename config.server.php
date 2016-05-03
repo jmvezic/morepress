@@ -29,7 +29,7 @@
 installed = On
 
 ; The canonical URL to the OJS installation (excluding the trailing slash)
-base_url = "http://localhost/morepress"
+base_url = "http://morepress.unizd.hr"
 
 ; Path to the registry directory (containing various settings files)
 ; Although the files in this directory generally do not contain any
@@ -121,8 +121,8 @@ enable_beacon = on
 
 driver = mysql
 host = localhost
-username = root
-password = "000000"
+username = morepress
+password = "Ux.Fp.QUq5).d6u."
 name = morepress
 
 ; Enable persistent connections
@@ -203,7 +203,7 @@ charset_normalization = Off
 ; Complete path to directory to store uploaded files
 ; (This directory should not be directly web-accessible)
 ; Windows users should use forward slashes
-files_dir = /Applications/XAMPP/xamppfiles/htdocs/morepressfiles
+files_dir = /home/morepress/files
 
 ; Path to the directory to store public uploaded files
 ; (This directory should be web-accessible and the specified path
@@ -492,13 +492,10 @@ show_stats =  Off
 ; Display a stack trace when a fatal error occurs.
 ; Note that this may expose private information and should be disabled
 ; for any production system.
-;show_stacktrace = Off
-show_stacktrace = On
+show_stacktrace = Off
 
 ; Display an error message when something goes wrong.
-;display_errors = Off
-display_errors = On
+display_errors = Off
 
 ; Display deprecation warnings
-;deprecation_warnings = Off
 deprecation_warnings = Off
