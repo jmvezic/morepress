@@ -496,7 +496,7 @@ show_stats =  Off
 ; Note that this may expose private information and should be disabled
 ; for any production system.
 ;show_stacktrace = Off
-show_stacktrace = On
+show_stacktrace = Off
 
 ; Display an error message when something goes wrong.
 ;display_errors = Off
