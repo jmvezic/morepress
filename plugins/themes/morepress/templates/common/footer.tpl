@@ -29,12 +29,10 @@
 {/if}
 {call_hook name="Templates::Common::Footer::PageFooter"}
 	<div id="standardFooter">
-		{if $issn}
-			<p>ISSN: {$issn}</p>
-		{/if}		
-		<p>Published by <a href="http://publishing.gmu.edu">Mason Publishing</a>, part of the <a href="http://library.gmu.edu">George Mason University Libraries</a>.</p>
-		<a href="http://publishing.gmu.edu">
-			<img src="{$baseUrl}/plugins/themes/mpg/img/15-392_UnitLogo_MasonPubGroup-wide-blk.png" alt="Mason Publishing Logo"/>
+		&copy; 2016
+		<br />
+		<a href="http://unizd.hr">
+			<img src="{$baseUrl}/plugins/themes/morepress/img/unizd-logo.png" alt="UNIZD"/>
 		</a>
 	</div>
 {/strip}
