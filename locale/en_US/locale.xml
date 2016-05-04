@@ -12,6 +12,24 @@
   -->
 
 <locale name="en_US" full_name="U.S. English">
+	
+	<!-- poruke od morepress -->
+	<message key="submition.submitArticle">Submit article</message>
+	<message key="common.contact">Contact us</message>
+	<message key="navigation.morepress">More Press</message>
+	<message key="navigation.aboutSite">About platform</message>
+	<message key="notification.notifications">Notifications</message>
+	<message key="notification.subscribe">Subscribe</message>
+	<message key="notification.mailList">Mailing list</message>
+	<message key="notification.mailList.register">Register</message>
+	<message key="common.manage">Manage</message>
+	<message key="common.archive">Archive</message>
+	<message key="user.profile.editProfile">Edit profile</message>
+	<message key="user.affiliation.description">Affiliation descritption</message>
+	<message key="user.confirmEmail">Confirm email</message>
+	<message key="common.journalInSystems">Journals in system</message>
+
+	
 	<!--
 	 * This file is organized into several major sections, separated
 	 * by comments like this one. These sections are called:

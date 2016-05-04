@@ -1,0 +1,43 @@
+
+
+.siroko{
+	width: 100%;
+}
+
+#languageSelect{
+	height: 2.5em;
+}
+
+#languageSelectButton{
+	width: 100%;
+	margin-top: 1em;
+	height: 2.5em;
+}
+
+#body ul.journalActions {
+    padding: 1.5em 0em;
+}
+#body ul.journalActions li a{
+    padding: 1em;
+}
+
+ul.journalActions{
+    background:#eee;
+    list-style:none;
+    width:100%;
+    padding:10px 0;
+    margin:0;
+    text-align:center;
+}
+
+ul.journalActions li{
+    display:inline-block;
+    padding:10px;
+    min-height: 4em;
+}
+
+
+#content > p{
+	background-color: #ececed;
+	
+}

@@ -16,9 +16,7 @@
 {include file="common/header.tpl"}
 {/strip}
 
-<br />
 
-{if $intro}<div id="intro">{$intro|nl2br}</div>{/if}
 
 <a name="journals"></a>
 
@@ -37,14 +35,19 @@
 		</div>
 	{/if}
 	{if $site->getSetting('showTitle')}
-		<h3>{$journal->getLocalizedTitle()|escape}</h3>
+		<h3 style="padding: 10px;">{$journal->getLocalizedTitle()|escape}</h3>
 	{/if}
 	{if $site->getSetting('showDescription')}
 		{if $journal->getLocalizedDescription()}
-			<p>{$journal->getLocalizedDescription()|nl2br}</p>
+			<p style="padding-left: 10px;">{$journal->getLocalizedDescription()|nl2br}</p>
 		{/if}
 	{/if}
-	<p><a href="{url journal=$journal->getPath()}" class="action">{translate key="site.journalView"}</a> | <a href="{url journal=$journal->getPath() page="issue" op="current"}" class="action">{translate key="site.journalCurrent"}</a> | <a href="{url journal=$journal->getPath() page="user" op="register"}" class="action">{translate key="site.journalRegister"}</a></p>
+		<ul class="journalActions">
+		    <li><a href="{url journal=$journal->getPath()}" class="action">{translate key="site.journalView"}</a></li>
+		    <li><a href="{url journal=$journal->getPath() page="issue" op="current"}" class="action">{translate key="site.journalCurrent"}</a></li>
+		    <li><a href="{url journal=$journal->getPath() page="user" op="register"}" class="action">{translate key="site.journalRegister"}</a></li>
+		    
+		</ul>
 {/iterate}
 {if $journals->wasEmpty()}
 	{translate key="site.noJournals"}

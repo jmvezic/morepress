@@ -14,6 +14,29 @@
  -->
 
 <locale name="hr_HR" full_name="Hrvatski">
+	
+	<!-- poruke od morepress -->
+	<message key="submition.submitArticle">Predajte članak</message>
+	<message key="common.contact">Kontaktirajte nas</message>
+	<message key="navigation.morepress">More Press</message>
+	<message key="navigation.aboutSite">O platformi</message>
+	<message key="notification.notifications">Obavijesti</message>
+	<message key="notification.subscribe">Pretplati se</message>
+	<message key="notification.mailList">Mailing lista</message>
+	<message key="notification.mailList.register">Registracija</message>
+	<message key="common.manage">Upravljanje</message>
+	<message key="common.archive">Arhiva</message>
+	<message key="user.profile.editProfile">Promijena podataka profila</message>
+	<message key="user.affiliation.description">Opis ustanove</message>
+	<message key="user.confirmEmail">Potvrdi E-poštu</message>
+	<message key="common.journalInSystems">Časopisi u sustavu</message>
+
+
+	
+	
+	
+	
+	
 	<!--
 	 * This file is organized into several major sections, separated
 	 * by comments like this one. These sections are called:
@@ -289,7 +312,7 @@ Aktivirani OAI protokol može biti isključen na razini čitave stranice promjen
 	<message key="plugins.categories.generic.description">Opći dodaci služe proširivanju funkcionalnosti OJS-a. Ovo je rezidualna kategorije u koju spadaju dodaci koji ne pripadaju ni jednoj od sistematiziranih kategorija.</message>
 	<message key="plugins.categories.auth.description">Autorizacijski dodaci omogućuju Open Journal Systems-u da vrši provjeru vjerodostojnosti korisničkih pristupa putem vanjskih sustava, kao što su LDAP poslužitelji.</message>
 
-	<message key="plugins.block.navigation.searchScope">Područje pretraživanja</message>
+	<message key="plugins.block.navigation.searchScope">Polje</message>
 
 
 

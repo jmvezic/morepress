@@ -136,30 +136,20 @@
 
 <div id="container">
 <div id="header" role="banner">
-<div id="headerTitle">
 
-{if $displayPageHeaderLogo && is_array($displayPageHeaderLogo)}
-<figure>
-	<img src="{$publicFilesDir}/{$displayPageHeaderLogo.uploadName|escape:"url"}" width="{$displayPageHeaderLogo.width|escape}" height="{$displayPageHeaderLogo.height|escape}" {if $displayPageHeaderLogoAltText != ''}alt="{$displayPageHeaderLogoAltText|escape}"{else}alt="{translate key="common.pageHeaderLogo.altText"}"{/if} />
-</figure>
-{/if}
-<h1>
-	
-{if $displayPageHeaderTitle && is_array($displayPageHeaderTitle)}
-	<figure>
-	<img src="{$publicFilesDir}/{$displayPageHeaderTitle.uploadName|escape:"url"}" {if $displayPageHeaderTitleAltText != ''}alt="{$displayPageHeaderTitleAltText|escape}"{else}alt="{translate key="common.pageHeader.altText"}"{/if} />
-	</figure>
-{elseif $displayPageHeaderTitle}
-	{$displayPageHeaderTitle}
-{elseif $alternatePageHeader}
-	{$alternatePageHeader}
-{elseif $siteTitle}
-	{$siteTitle}
-{else}
-	{$applicationName}
-{/if}
-	
-</h1>
+<div id="body">
+<div id="sidebar">
+			<div id="leftSidebar" class="slide" role="complementary">
+				<img style="width: 100%; " src="{$baseUrl}/plugins/themes/morepress/img/morepress-logo.svg" alt="morepress"/>
+			</div>
+		
+			
+	</div>
+<div id="main" role="main" tabindex="-1">
+	<div id="headerTitle">
+	<img style="width: 100%; " src="{$baseUrl}/plugins/themes/morepress/img/morepress-text.svg" alt="morepress"/>
+</div>
+</div>
 </div>
 </div>
 
@@ -168,15 +158,22 @@
 {if $leftSidebarCode || $rightSidebarCode}
 	<div id="sidebar">
 		{if $leftSidebarCode}
-			<div id="leftSidebar" class="slide" role="complementary">
+			<div id="rightSidebar" class="slide" role="complementary">
 				{include file="common/submit.tpl"}
 				{$leftSidebarCode}
 			</div>
 		{/if}
 		{if $rightSidebarCode}
-			<div id="rightSidebar" class="slide" role="complementary">
-				{include file="common/submit.tpl"}
-				{$rightSidebarCode}
+			<div id="leftSidebar" class="slide" role="complementary">
+				{if ($currentJournal==null)}
+					{include file="common/submit.tpl"}
+						{include file="common/userSideBar.tpl"}
+						{include file="common/languageToggle.tpl"}
+					{else}
+						{include file="common/submit.tpl"}
+						{$rightSidebarCode}
+				{/if}
+				
 			</div>
 		{/if}
 	</div>
@@ -186,7 +183,7 @@
 
 {include file="common/breadcrumbs.tpl"}
 
-<h2>{$pageTitleTranslated}</h2>
+
 
 {if $pageSubtitle && !$pageSubtitleTranslated}{translate|assign:"pageSubtitleTranslated" key=$pageSubtitle}{/if}
 {if $pageSubtitleTranslated}

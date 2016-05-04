@@ -29,11 +29,11 @@
 {/if}
 {call_hook name="Templates::Common::Footer::PageFooter"}
 	<div id="standardFooter">
-		&copy; 2016
-		<br />
+	
 		<a href="http://unizd.hr">
-			<img src="{$baseUrl}/plugins/themes/morepress/img/unizd-logo.png" alt="UNIZD"/>
+			<img src="{$baseUrl}/plugins/themes/morepress/img/unizd-logo.svg" alt="UNIZD"/>
 		</a>
+		<h2>&copy; 2016</h2>
 	</div>
 {/strip}
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/mpg/js/menu.js"></script>

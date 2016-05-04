@@ -12,10 +12,15 @@
 <nav>
 
 <div id="fullNav">
-<div id="navbar" role="navigation">
+<div id="navbar" role="navigation" class="body">
 	<ul class="navMenu menu">
-		<li id="home"><a href="{url page="index"}">{translate key="navigation.home"}</a></li>
-		<li id="about"><a href="{url page="about"}">{translate key="navigation.about"}</a></li>
+		<li id="home"><a href="{$baseUrl}">{translate key="navigation.morepress"}</a></li>
+		{if ($currentJournal==null)}
+			<li id="about"><a href="{url page="about"}">{translate key="navigation.aboutSite"}</a></li>
+			{else}
+			<li id="about"><a href="{url page="about"}">{translate key="navigation.about"}</a></li>
+		{/if}
+		
 
 		{if $isUserLoggedIn}
 			<li id="userHome"><a href="{url page="user"}">{translate key="navigation.userHome"}</a></li>
@@ -36,7 +41,7 @@
 
 		{if $currentJournal && $currentJournal->getSetting('publishingMode') != $smarty.const.PUBLISHING_MODE_NONE}
 			
-			<li id="archives"><a href="{url page="issue" op="archive"}">Browse</a></li>
+			<li id="archives"><a href="{url page="issue" op="archive"}">{translate key="common.archive"}</a></li>
 		{/if}
 
 		{if $enableAnnouncements}
