@@ -41,3 +41,6 @@ ul.journalActions li{
 	background-color: #ececed;
 	
 }
+nav{
+	position: fixed;
+}
