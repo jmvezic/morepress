@@ -30,6 +30,8 @@
 	<message key="user.confirmEmail">Confirm email</message>
 	<message key="common.journalInSystems">Journals in system</message>
 	<message key="common.searchTerm">Search terms</message>
+	<message key="user.login.loginError">Login error</message>
+	<message key="admin.scheduledTask.clearLogs">Cleat logs</message>
 	
 
 	

@@ -32,7 +32,8 @@
 	<message key="user.confirmEmail">Potvrdi E-poštu</message>
 	<message key="common.journalInSystems">Časopisi u sustavu</message>
 	<message key="common.searchTerm">Uvjet pretrage</message>
-
+	<message key="user.login.loginError">Neispravna kombinacija korisničkog imena i lozinke</message>
+	<message key="admin.scheduledTask.clearLogs">Očisti logove</message>
 
 	
 	
