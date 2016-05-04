@@ -16,8 +16,9 @@
 	<!-- poruke od morepress -->
 	<message key="submition.submitArticle">Submit article</message>
 	<message key="common.contact">Contact us</message>
-	<message key="navigation.morepress">More Press</message>
+	<message key="navigation.morepress">morepress</message>
 	<message key="navigation.aboutSite">About platform</message>
+	<message key="notification.notification">Notification</message>
 	<message key="notification.notifications">Notifications</message>
 	<message key="notification.subscribe">Subscribe</message>
 	<message key="notification.mailList">Mailing list</message>

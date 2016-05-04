@@ -1,0 +1,7 @@
+pozicionirati se u morepress projekt
+scp locale/hr_HR/locale.xml morepress@morepress.unizd.hr:/home/morepress/www/locale/hr_HR/locale.xml
+scp locale/en_US/locale.xml morepress@morepress.unizd.hr:/home/morepress/www/locale/en_US/locale.xml
+
+cd plugins/themes/
+tar -czf morepress.tar.gz morepress/
+scp morepress.tar.gz morepress@morepress.unizd.hr:/home/morepress/www/plugins/themes/

@@ -18,8 +18,9 @@
 	<!-- poruke od morepress -->
 	<message key="submition.submitArticle">Predajte članak</message>
 	<message key="common.contact">Kontaktirajte nas</message>
-	<message key="navigation.morepress">More Press</message>
+	<message key="navigation.morepress">morepress</message>
 	<message key="navigation.aboutSite">O platformi</message>
+	<message key="notification.notification">Obavijest</message>
 	<message key="notification.notifications">Obavijesti</message>
 	<message key="notification.subscribe">Pretplati se</message>
 	<message key="notification.mailList">Mailing lista</message>
