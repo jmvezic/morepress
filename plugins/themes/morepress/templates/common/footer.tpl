@@ -36,7 +36,7 @@
 		<h2>&copy; 2016</h2>
 	</div>
 {/strip}
-<script type="text/javascript" src="{$baseUrl}/plugins/themes/mpg/js/menu.js"></script>
+<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/menu.js"></script>
 </div>
 
 
