@@ -2,3 +2,5 @@ MAC
 
 sudo chmod -R 777 /Applications/XAMPP/xamppfiles/htdocs/morepress
 sudo chmod -R 777 /Applications/XAMPP/xamppfiles/htdocs/morepressfiles
+
+/Applications/xampp/xamppfiles/bin/mysql -uroot -p000000 morepress --default_character_set=utf8 < /Applications/XAMPP/xamppfiles/htdocs/morepress/projektManagement/morepress20160518.sql
