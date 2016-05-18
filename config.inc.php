@@ -122,7 +122,7 @@ enable_beacon = on
 driver = mysql
 host = localhost
 username = root
-password = "000000"
+password = ""
 name = morepress
 
 ; Enable persistent connections
@@ -204,7 +204,7 @@ charset_normalization = Off
 ; Complete path to directory to store uploaded files
 ; (This directory should not be directly web-accessible)
 ; Windows users should use forward slashes
-files_dir = /Applications/XAMPP/xamppfiles/htdocs/morepressfiles
+files_dir = E:\xampp\htdocs\morepressfiles
 
 ; Path to the directory to store public uploaded files
 ; (This directory should be web-accessible and the specified path
