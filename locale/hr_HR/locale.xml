@@ -34,7 +34,10 @@
 	<message key="common.searchTerm">Uvjet pretrage</message>
 	<message key="user.login.loginError">Neispravna kombinacija korisničkog imena i lozinke</message>
 	<message key="admin.scheduledTask.clearLogs">Očisti logove</message>
-
+	<message key="reader.fullText">Puni tekst</message>
+	<message key="submission.citations">Citiranje</message>
+	<message key="plugins.generic.referral.referrals">Referali</message>
+	<message key="plugins.generic.referral.all.empty">Prazno</message>
 	
 	
 	

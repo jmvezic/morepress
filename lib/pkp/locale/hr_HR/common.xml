@@ -194,7 +194,7 @@
 	<message key="form.resubmit">Ponovno podnošenje</message>
 	<message key="form.saveToUpload">Koristite "spremi" kako bi poslali datoteku.</message>
 	<message key="form.send">Pošalji</message>
-	<message key="form.submit">Podnošenje</message>
+	<message key="form.submit">Pošalji</message>
 	<message key="help.contents">Sadržaj</message>
 	<message key="help.helpIndex">Indeks uputa</message>
 	<message key="help.matchesFound">{$matches} podudarnosti pronađeno</message>
