@@ -61,7 +61,7 @@
 		<p>ISSN: {$issn}</p>
 	</div>
 </div>
-<script type="text/javascript" src="{$baseUrl}/plugins/themes/mpg/js/menu.js"></script>
+<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/menu.js"></script>
 
 {/strip}
 
