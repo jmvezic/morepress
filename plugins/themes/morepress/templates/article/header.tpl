@@ -29,6 +29,7 @@
 <!-- 	<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/common.css" type="text/css" />
 	<link rel="stylesheet" href="{$baseUrl}/styles/common.css" type="text/css" /> -->
 	<link rel="stylesheet" href="{$baseUrl}/styles/compiled.css" type="text/css" />
+	<link rel="stylesheet" href="{$baseUrl}/plugins/themes/morepress/css/articleView.css" type="text/css" />
 <!-- 	<link rel="stylesheet" href="{$baseUrl}/styles/articleView.css" type="text/css" /> -->
 	{if $journalRt && $journalRt->getEnabled()}
 		<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/rtEmbedded.css" type="text/css" />
@@ -138,4 +139,3 @@
 </div>
 
 <div id="content">
-

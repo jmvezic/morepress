@@ -1,0 +1,16 @@
+h1 strong{
+	font-size: 0.5em;
+}
+
+h2{
+	font-size: 1em !important;
+}
+
+
+h3{
+	font-size: 1em !important;
+}
+
+div#content p{
+	font-size: 0.8em;
+}
