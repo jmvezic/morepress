@@ -120,5 +120,14 @@
 <div class="block">
 {include file="article/comments.tpl"}
 </div>
-
 {include file="article/footer.tpl"}
+
+<div id="openModal" class="modalDialog">
+	<div>
+		<a href="#close" id="close" title="Close" class="close">X</a>
+		<img src="" id="modalImage" />
+	</div>
+</div>
+
+
+

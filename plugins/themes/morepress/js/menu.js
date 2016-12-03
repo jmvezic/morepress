@@ -8,4 +8,16 @@ jQuery(document).ready(function($){
         $("#content").focus()
     });
 
+	 $("img").click(function(){
+	 	$("#openModal").toggleClass("modalDialogOpen");
+	 	$("#modalImage").attr("src",$(this).attr("src"));
+  	 });
+  	 
+  	 $("#close").click(function(){
+	 	$("#openModal").toggleClass("modalDialogOpen");
+    		return false;
+  	 });
+  	 
+  	  
+
 });
