@@ -1,0 +1,274 @@
+h1 strong{
+	font-size: 0.5em;
+}
+
+h2{
+	font-size: 1em !important;
+}
+
+div#content p{
+	font-size: 0.8em;
+}
+
+#articleTitle {
+background: none;
+background-color: transparent;
+	border: 0;
+}
+
+#articleTitle h3{
+	font-family: "Noto Sans";
+	font-size: 1.5em !important;
+	line-height: 1.4em;
+	font-weight: bold;
+	letter-spacing: 1px;
+	margin-top:0;
+}
+
+#articleTitle #authorString {
+	margin:10px 0;
+}
+
+#articleAbstract {
+background: none;
+border: 0;
+}
+
+#articleAbstract h4 {
+margin-top: 0;
+}
+
+#articleAbstract p, #articleCitations p, #articleAbstract div {
+	font-family: Georgia;
+	font-size: 19px !important;
+	text-align: justify;
+	line-height: 28px;
+}
+
+#articleCitations {
+border: 0;
+background: none;
+}
+
+#articleCitations p {
+padding: .4em 0 !important;
+}
+
+#mobileRightSidebar {
+display: none;
+}
+
+/* ARTICLE VIEW PREMA NOVIM PRAVILIMA HTML FORMATIRANJA */
+#content title {
+display: block;
+font-size: 1.8em;
+line-height: 1.2em;
+border-bottom:1px solid #eee;
+padding-bottom: 0.3em;
+margin-bottom: 0.3em;
+}
+
+#content summary, #content main #toc {
+display: block;
+border-radius:10px;
+padding:12px;
+background-color: rgba(0,0,0,0.04);
+margin: 2em 0;
+}
+
+#content main #toc {
+background-color: transparent;
+}
+
+#content main #toc .lvl2 {
+margin-left:1em;
+}
+
+#content main #toc .lvl3 {
+margin-left: 2em;
+}
+
+#content main #toc .lvl4 {
+margin-left: 3em;
+}
+
+#content summary #udc, #content summary #recieved, #content summary #type {
+display:inline-block;
+background-color:rgb(35,100,162);
+color:white;
+border-radius: 3px;
+padding:1px 5px;
+margin: 2px;
+}
+
+#content summary #authors {
+font-weight: bold;
+}
+
+#content summary #abstract {
+margin:1em 0;
+}
+
+#content section h1, #content section h2, #content section h3, #content section h4 {
+font-family: "Open Sans";
+margin:0;
+padding:0;
+line-height: normal;
+color:#2364a2;
+font-weight: normal;
+}
+
+#content section h1 {
+font-size: 1.5em;
+padding-bottom:5px;
+margin-bottom: 0.4em;
+border-bottom:1px solid #CCC;
+cursor: pointer;
+}
+
+#content section h1::before {
+content: "\00bb\00a0";
+}
+
+#content section h1.hidden::before {
+content: "\00ab\00a0";
+}
+
+#content section h2 {
+font-size: 1.3em !important;
+}
+
+#content section h3 {
+font-size: 1.1em;
+font-style: italic;
+}
+
+#content section h4 {
+font-size: 1em;
+}
+
+#content main #toc a {
+display: block;
+}
+
+#content main section {
+margin:0 1em;
+margin-bottom: 1em;
+}
+
+#content main section p, #content main section ol, #content main section ul {
+font-family: "Georgia", serif;
+font-size: 19px;
+text-align: justify;
+margin: 0.5em 0;
+text-indent: 1em;
+-webkit-font-smoothing: antialiased;
+word-wrap: break-word;
+text-rendering:optimizeLegibility;
+}
+
+#content main section ol, #content main section ul {
+margin: 0.5em 4em;
+text-indent: 0;
+list-style-position: outside;
+}
+
+#content main .bibliography ul {
+margin: 0.5em 0;
+}
+
+#content main figure {
+display: block;
+width: 80%;
+margin:2em auto;
+text-align: center;
+}
+
+#content main figure img {
+max-width: 100%;
+}
+
+#content main figure figcaption, figcaption p {
+margin:1em 0 !important;
+font-family: "Open Sans" !important;
+font-size: 1em !important;
+}
+
+@media screen and (max-width:1200px) {
+	#mobileRightSidebar {
+		display: block;
+		width: 100%;
+	}
+}
+
+@media screen and (max-width:500px) {
+.chapter p {
+text-align: left !important;
+}
+
+}
+
+
+
+.modalDialog {
+		position: fixed;
+			z-index: 999;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+		opacity:0;
+		-webkit-transition: opacity 400ms ease-in;
+		-moz-transition: opacity 400ms ease-in;
+		transition: opacity 400ms ease-in;
+		pointer-events: none;
+	}
+
+	.modalDialogOpen {
+		opacity:1;
+		pointer-events: auto;
+	}
+
+	.modalDialog > div {
+		width: 95%;
+		position: relative;
+		margin: 20px auto;
+		padding: 2px;
+		/* border-radius: 10px; */
+		background: #fff;
+	}
+	
+	#modalImage{
+	max-width: 90%;
+	max-height: 80%;
+	margin-top: 2%;
+	cursor: pointer;
+	border:5px solid white;
+	}
+
+	.close {
+		background: #e5dede;
+		color: #FFFFFF;
+		line-height: 25px;
+		position: absolute;
+		right: -12px;
+		text-align: center;
+		top: -10px;
+		width: 24px;
+		text-decoration: none;
+		font-weight: bold;
+		-webkit-border-radius: 12px;
+		-moz-border-radius: 12px;
+		border-radius: 12px;
+		-moz-box-shadow: 1px 1px 3px #000;
+		-webkit-box-shadow: 1px 1px 3px #000;
+		box-shadow: 1px 1px 3px #000;
+	}
+
+	.close:hover { background: #00d9ff; }
+
+
+
+

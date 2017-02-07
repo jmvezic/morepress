@@ -1,0 +1,86 @@
+
+
+.siroko{
+	width: 100%;
+}
+
+#languageSelect{
+	height: 2.5em;
+}
+
+#languageSelectButton{
+	width: 100%;
+	margin-top: 1em;
+	height: 2.5em;
+}
+
+#body ul.journalActions {
+    padding: 1.5em 0em;
+}
+#body ul.journalActions li a{
+    padding: 1em;
+}
+
+ul.journalActions{
+    background:#eee;
+    list-style:none;
+    width:100%;
+    padding:10px 0;
+    margin:0;
+    text-align:center;
+}
+
+ul.journalActions li{
+    display:inline-block;
+    padding:10px;
+    min-height: 4em;
+}
+
+
+#content > p{
+	background-color: transparent;
+	font-family: Georgia;
+	font-size: 19px !important;
+	text-align: justify;
+	line-height: 28px;
+	
+}
+
+#content p img {
+	max-width: 80%;
+	height: auto;
+	margin: 15px auto;
+	display: block;
+	cursor: pointer;
+}
+
+#content h3 {
+	font-size:1.7em;
+	font-weight: normal;
+}
+
+#content h2 {
+	font-size: 17px !important;
+}
+
+#content h1 {
+font-size: 40px;
+line-height: 25px;
+margin: 15px 0;
+padding: 5px 0;
+border-bottom: 1px solid #CCC;
+}
+
+#content .sgc-toc-level-1 a {
+	padding:2px 0;
+	display: block;
+}
+
+#content .sgc-toc-level-1 a:hover {
+	text-decoration: none;
+	color: #3f9ff5;
+}
+
+nav{
+	position: fixed;
+}

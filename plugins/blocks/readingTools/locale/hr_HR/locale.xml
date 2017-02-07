@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/blocks/readingTools/locale/hr_HR/locale.xml
+  *
+  * Copyright (c) 2013-2016 Simon Fraser University Library
+  * Copyright (c) 2003-2016 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Localization strings.
+  -->
+
+
+<locale name="hr_HR" full_name="Hrvatski">
+        <message key="plugins.block.readingTools.displayName">Blok alata za čitanje</message>
+        <message key="plugins.block.readingTools.description">Ovaj dodatak prikazuje blok koji sadrži alate za čitanje.</message>
+        <message key="plugins.block.readingTools.title">Alati za čitanje</message>
+        <message key="plugins.block.readingTools.aboutTheAuthor">O autoru</message>
+        <message key="plugins.block.readingTools.aboutTheAuthors">O autorima</message>
+        <message key="plugins.block.readingTools.articleTools">Alati za članak</message>
+        <message key="plugins.block.readingTools.emailThisArticle">Pošalji članak e-poštom</message>
+        <message key="plugins.block.readingTools.loginRequired">Potrebna prijava</message>
+        <message key="plugins.block.readingTools.printThisArticle">Printanje članka</message>
+        <message key="plugins.block.readingTools.postComment">Napiši komentar</message>
+</locale>
+
