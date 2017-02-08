@@ -48,6 +48,7 @@
 <a href="https://creativecommons.org" target="_blank"><img src="http://mirrors.creativecommons.org/presskit/logos/cc.logo.large.png" /></a>
 <a href="http://www.crossref.org" target="_blank"><img src="https://assets.crossref.org/logo/crossref-logo-landscape-200.png" /></a>
 <a href="https://doaj.org" target="_blank"><img src="https://doaj.org/static/doaj/images/logo_cropped.jpg" /></a>
+<a href="http://hrcak.srce.hr/" target="_blank"><img src="http://hrcak.srce.hr/images/logo/hrcak-logo-potpis_hr.png" /></a>
 </div>
 
 <div id="customFooter">

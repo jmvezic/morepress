@@ -1129,7 +1129,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="common.latestArticles">Najnoviji članci</message>
 	<message key="announcement.announcements">Novosti</message>
 	<message key="common.filterSubmissions">Filtriraj predane članke</message>
-
+	<message key="about.aboutSite">O Morepress-u</message>
 
 	<!-- NOTIFICATIONS -->
 
