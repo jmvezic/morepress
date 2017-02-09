@@ -1,5 +1,5 @@
 <?php return array (
-  'lifetime' => 1486632354,
+  'lifetime' => 1486632659,
   'data' => 
   array (
     'isBrowserTriggerEnabled' => true,
