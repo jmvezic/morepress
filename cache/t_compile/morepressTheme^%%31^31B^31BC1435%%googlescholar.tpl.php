@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-17 20:02:32
+<?php /* Smarty version 2.6.26, created on 2017-02-09 09:23:39
          compiled from article/googlescholar.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'strip_tags', 'article/googlescholar.tpl', 12, false),array('modifier', 'escape', 'article/googlescholar.tpl', 12, false),array('modifier', 'date_format', 'article/googlescholar.tpl', 33, false),array('modifier', 'lower', 'article/googlescholar.tpl', 60, false),array('modifier', 'explode', 'article/googlescholar.tpl', 68, false),array('modifier', 'String_substr', 'article/googlescholar.tpl', 70, false),array('modifier', 'to_array', 'article/googlescholar.tpl', 77, false),array('function', 'url', 'article/googlescholar.tpl', 63, false),)), $this); ?>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-17 20:09:45
+<?php /* Smarty version 2.6.26, created on 2017-02-09 09:11:00
          compiled from file:/home/morepress/www/plugins/importexport/quickSubmit/submitSuccess.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'file:/home/morepress/www/plugins/importexport/quickSubmit/submitSuccess.tpl', 16, false),array('function', 'plugin_url', 'file:/home/morepress/www/plugins/importexport/quickSubmit/submitSuccess.tpl', 16, false),)), $this); ?>

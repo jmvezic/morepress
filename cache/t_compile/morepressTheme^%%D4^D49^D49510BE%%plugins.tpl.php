@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-01 00:58:34
+<?php /* Smarty version 2.6.26, created on 2017-02-09 10:10:31
          compiled from manager/plugins/plugins.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'manager/plugins/plugins.tpl', 16, false),array('function', 'url', 'manager/plugins/plugins.tpl', 22, false),array('modifier', 'escape', 'manager/plugins/plugins.tpl', 22, false),array('modifier', 'to_array', 'manager/plugins/plugins.tpl', 62, false),array('modifier', 'basename', 'manager/plugins/plugins.tpl', 66, false),)), $this); ?>

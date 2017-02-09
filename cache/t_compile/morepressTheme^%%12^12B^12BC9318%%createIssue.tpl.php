@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 15:14:22
+<?php /* Smarty version 2.6.26, created on 2017-02-09 08:45:26
          compiled from editor/issues/createIssue.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'editor/issues/createIssue.tpl', 13, false),array('function', 'translate', 'editor/issues/createIssue.tpl', 20, false),array('function', 'html_options', 'editor/issues/createIssue.tpl', 28, false),array('function', 'fieldLabel', 'editor/issues/createIssue.tpl', 40, false),array('function', 'form_language_chooser', 'editor/issues/createIssue.tpl', 43, false),array('function', 'html_select_date', 'editor/issues/createIssue.tpl', 95, false),array('modifier', 'assign', 'editor/issues/createIssue.tpl', 13, false),array('modifier', 'escape', 'editor/issues/createIssue.tpl', 28, false),)), $this); ?>

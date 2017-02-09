@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 08:12:01
+<?php /* Smarty version 2.6.26, created on 2017-02-09 09:23:39
          compiled from article/morepressRightSidebar.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'article/morepressRightSidebar.tpl', 3, false),array('function', 'url', 'article/morepressRightSidebar.tpl', 16, false),array('modifier', 'escape', 'article/morepressRightSidebar.tpl', 4, false),array('modifier', 'to_array', 'article/morepressRightSidebar.tpl', 16, false),)), $this); ?>

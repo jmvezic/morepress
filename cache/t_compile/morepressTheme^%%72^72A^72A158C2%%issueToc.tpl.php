@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 09:03:14
+<?php /* Smarty version 2.6.26, created on 2017-02-09 08:46:16
          compiled from editor/issues/issueToc.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', 'editor/issues/issueToc.tpl', 12, false),array('modifier', 'truncate', 'editor/issues/issueToc.tpl', 43, false),array('modifier', 'assign', 'editor/issues/issueToc.tpl', 57, false),array('modifier', 'strip_tags', 'editor/issues/issueToc.tpl', 99, false),array('function', 'url', 'editor/issues/issueToc.tpl', 25, false),array('function', 'translate', 'editor/issues/issueToc.tpl', 33, false),array('function', 'html_options', 'editor/issues/issueToc.tpl', 43, false),array('function', 'call_hook', 'editor/issues/issueToc.tpl', 53, false),array('function', 'icon', 'editor/issues/issueToc.tpl', 110, false),)), $this); ?>

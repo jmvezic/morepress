@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 08:15:05
+<?php /* Smarty version 2.6.26, created on 2017-02-09 08:44:58
          compiled from user/register.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'user/register.tpl', 16, false),array('function', 'translate', 'user/register.tpl', 18, false),array('function', 'fieldLabel', 'user/register.tpl', 46, false),array('function', 'form_language_chooser', 'user/register.tpl', 49, false),array('function', 'html_options_translate', 'user/register.tpl', 129, false),array('function', 'html_options', 'user/register.tpl', 187, false),array('modifier', 'assign', 'user/register.tpl', 22, false),array('modifier', 'escape', 'user/register.tpl', 40, false),array('modifier', 'nl2br', 'user/register.tpl', 243, false),)), $this); ?>

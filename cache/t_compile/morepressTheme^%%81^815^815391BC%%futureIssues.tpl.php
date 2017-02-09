@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 15:15:28
+<?php /* Smarty version 2.6.26, created on 2017-02-09 08:46:13
          compiled from editor/issues/futureIssues.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'editor/issues/futureIssues.tpl', 13, false),array('function', 'translate', 'editor/issues/futureIssues.tpl', 18, false),array('function', 'page_info', 'editor/issues/futureIssues.tpl', 57, false),array('function', 'page_links', 'editor/issues/futureIssues.tpl', 58, false),array('modifier', 'assign', 'editor/issues/futureIssues.tpl', 13, false),array('modifier', 'strip_unsafe_html', 'editor/issues/futureIssues.tpl', 40, false),array('modifier', 'nl2br', 'editor/issues/futureIssues.tpl', 40, false),array('modifier', 'escape', 'editor/issues/futureIssues.tpl', 41, false),array('block', 'iterate', 'editor/issues/futureIssues.tpl', 38, false),)), $this); ?>
