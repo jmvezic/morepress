@@ -1,14 +1,9 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 08:00:46
+<?php /* Smarty version 2.6.26, created on 2017-02-10 11:26:08
          compiled from common/morePressRecentArticles.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'common/morePressRecentArticles.tpl', 4, false),)), $this); ?>
 <?php if (( $this->_tpl_vars['currentJournal'] )): ?>
-<?php if (( ! $this->_tpl_vars['issue'] )): ?>
-<div class="block" id="featured">
-<span class="blockTitle"><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "common.latestArticles"), $this);?>
-</span><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "morePress.noRecentArticles"), $this);?>
-
-<?php else: ?>
+<?php if (( $this->_tpl_vars['issue'] )): ?>
 <div class="block" id="featured">
 <span class="blockTitle"><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "common.latestArticles"), $this);?>
 </span>
@@ -54,16 +49,18 @@ while (!$ArticlesMega->EOF) {
 		$ArticleSettings->MoveNext();
 	}
 	
+	if (!empty($ArticleTitle)) {
 	echo '<div class="latestArtBlock">';
 	echo '<a href="'.$ArticleLink.'" class="latestArtTitle">';
 	echo $ArticleTitle."</a>";
 	echo '</div>';
+	}
 	
 	$ArticlesMega->MoveNext();
 }
  ?>
-<?php endif; ?>
 </div>
+<?php endif; ?>
 <?php else: ?>
 <div class="block" id="featured">
 <span class="blockTitle"><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "common.latestArticles"), $this);?>
@@ -101,11 +98,13 @@ while (!$ArticlesMega->EOF) {
 	$JournalSettingsDAO = $DAO->retrieve("SELECT * FROM journal_settings WHERE (journal_id=".$JournalID." AND setting_name='title' AND locale='".$Locale."')");
 	$ArticleJournal = $JournalSettingsDAO->fields["setting_value"];
 	
+	if (!empty($ArticleTitle)) {
 	echo '<div class="latestArtBlock">';
 	echo '<a href="'.$ArticleLink.'" class="latestArtTitle">';
 	echo $ArticleTitle."</a>";
 	echo '<a href="'.$JournalLink.'" class="latestArtJournal">'.$ArticleJournal.'</a>';
 	echo '</div>';
+	}
 	
 	$ArticlesMega->MoveNext();
 }

@@ -1,8 +1,5 @@
 {if ($currentJournal)}
-{if (!$issue)}
-<div class="block" id="featured">
-<span class="blockTitle">{translate key="common.latestArticles"}</span>{translate key="morePress.noRecentArticles"}
-{else}
+{if ($issue)}
 <div class="block" id="featured">
 <span class="blockTitle">{translate key="common.latestArticles"}</span>
 {php}
@@ -47,16 +44,18 @@ while (!$ArticlesMega->EOF) {
 		$ArticleSettings->MoveNext();
 	}
 	
+	if (!empty($ArticleTitle)) {
 	echo '<div class="latestArtBlock">';
 	echo '<a href="'.$ArticleLink.'" class="latestArtTitle">';
 	echo $ArticleTitle."</a>";
 	echo '</div>';
+	}
 	
 	$ArticlesMega->MoveNext();
 }
 {/php}
-{/if}
 </div>
+{/if}
 {else}
 <div class="block" id="featured">
 <span class="blockTitle">{translate key="common.latestArticles"}</span>
@@ -93,11 +92,13 @@ while (!$ArticlesMega->EOF) {
 	$JournalSettingsDAO = $DAO->retrieve("SELECT * FROM journal_settings WHERE (journal_id=".$JournalID." AND setting_name='title' AND locale='".$Locale."')");
 	$ArticleJournal = $JournalSettingsDAO->fields["setting_value"];
 	
+	if (!empty($ArticleTitle)) {
 	echo '<div class="latestArtBlock">';
 	echo '<a href="'.$ArticleLink.'" class="latestArtTitle">';
 	echo $ArticleTitle."</a>";
 	echo '<a href="'.$JournalLink.'" class="latestArtJournal">'.$ArticleJournal.'</a>';
 	echo '</div>';
+	}
 	
 	$ArticlesMega->MoveNext();
 }
