@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 08:00:46
+<?php /* Smarty version 2.6.26, created on 2017-02-10 15:03:54
          compiled from common/breadcrumbs.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'common/breadcrumbs.tpl', 12, false),array('function', 'url', 'common/breadcrumbs.tpl', 14, false),array('modifier', 'escape', 'common/breadcrumbs.tpl', 19, false),)), $this); ?>
@@ -7,10 +7,12 @@ smarty_core_load_plugins(array('plugins' => array(array('function', 'translate',
 ... 
 	<?php if (( $this->_tpl_vars['currentJournal'] == null )): ?>
 	<a href="<?php echo $this->_plugins['function']['url'][0][0]->smartyUrl(array('context' => $this->_tpl_vars['homeContext'],'page' => 'index'), $this);?>
-"><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "navigation.home"), $this);?>
+">Morepress | <?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "common.morepressJournals"), $this);?>
 </a> &gt;
 	<?php else: ?>
 	<a href="<?php echo $this->_plugins['function']['url'][0][0]->smartyUrl(array('context' => $this->_tpl_vars['homeContext'],'page' => 'index'), $this);?>
+">Morepress | <?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "common.morepressJournals"), $this);?>
+</a> &gt; <a href="<?php echo $this->_plugins['function']['url'][0][0]->smartyUrl(array('context' => $this->_tpl_vars['homeContext'],'page' => 'index'), $this);?>
 "><?php echo $this->_tpl_vars['currentJournal']->getLocalizedSetting('title'); ?>
 </a> &gt;
 	<?php endif; ?>

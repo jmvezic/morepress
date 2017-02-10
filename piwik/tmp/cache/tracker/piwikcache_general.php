@@ -1,9 +1,9 @@
 <?php return array (
-  'lifetime' => 1486726733,
+  'lifetime' => 1486735492,
   'data' => 
   array (
     'isBrowserTriggerEnabled' => true,
-    'lastTrackerCronRun' => 1486726433,
+    'lastTrackerCronRun' => 1486735192,
     'allUrlsByHostAndIdSite' => 
     array (
       'morepress.unizd.hr' => 

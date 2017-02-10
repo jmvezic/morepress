@@ -11,9 +11,9 @@
 <div id="breadcrumb">
 	{translate key="morePress.bread"}... 
 	{if ($currentJournal==null)}
-	<a href="{url context=$homeContext page="index"}">{translate key="navigation.home"}</a> &gt;
+	<a href="{url context=$homeContext page="index"}">Morepress | {translate key="common.morepressJournals"}</a> &gt;
 	{else}
-	<a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
+	<a href="{url context=$homeContext page="index"}">Morepress | {translate key="common.morepressJournals"}</a> &gt; <a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
 	{/if}
 	{foreach from=$pageHierarchy item=hierarchyLink}
 		<a href="{$hierarchyLink[0]|escape}" class="hierarchyLink">{if not $hierarchyLink[2]}{translate key=$hierarchyLink[1]}{else}{$hierarchyLink[1]|escape}{/if}</a> &gt;
