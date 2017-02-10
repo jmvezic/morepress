@@ -6,6 +6,7 @@
   array (
     0 => '320',
     1 => '321',
+    2 => '325',
   ),
   'contactEmail' => 'eposta@eposta.hr',
   'contactFax' => '',

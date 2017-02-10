@@ -2960,3 +2960,7 @@ display: block;
 #about ol {
 margin-left:2em;
 }
+
+.externaljour {
+background-color: rgb(181, 85, 16) !important;
+}

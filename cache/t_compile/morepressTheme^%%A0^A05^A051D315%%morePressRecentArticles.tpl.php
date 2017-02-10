@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-10 11:26:08
+<?php /* Smarty version 2.6.26, created on 2017-02-10 11:27:12
          compiled from common/morePressRecentArticles.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'common/morePressRecentArticles.tpl', 4, false),)), $this); ?>

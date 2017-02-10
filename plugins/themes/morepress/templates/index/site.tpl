@@ -59,7 +59,11 @@ while (!$Journals->EOF) {
 	foreach($JourCatInfo as $v) {
 		$ControlVocabSettings = $DAO->retrieve("SELECT * FROM controlled_vocab_entry_settings");
 		while (!$ControlVocabSettings->EOF) {
-			if ($ControlVocabSettings->fields["controlled_vocab_entry_id"]==$v && $ControlVocabSettings->fields["locale"]==$Locale) { echo '<div id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div>'; }
+			if ($ControlVocabSettings->fields["controlled_vocab_entry_id"]==$v && $ControlVocabSettings->fields["locale"]==$Locale) { echo '<div';
+
+if ($v == 325) {echo ' class="externaljour"';}
+
+echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div>'; }
 			$ControlVocabSettings->MoveNext();
 		}
 	}

@@ -5,6 +5,7 @@
   'categories' => 
   array (
     0 => '321',
+    1 => '325',
   ),
   'contactEmail' => 'eposta@eposta.hr',
   'contactFax' => '',

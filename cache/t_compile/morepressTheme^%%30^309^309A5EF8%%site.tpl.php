@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 08:00:46
+<?php /* Smarty version 2.6.26, created on 2017-02-10 12:35:15
          compiled from index/site.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'index/site.tpl', 24, false),array('function', 'translate', 'index/site.tpl', 24, false),array('function', 'page_info', 'index/site.tpl', 78, false),array('function', 'page_links', 'index/site.tpl', 79, false),array('modifier', 'escape', 'index/site.tpl', 24, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'index/site.tpl', 24, false),array('function', 'translate', 'index/site.tpl', 24, false),array('function', 'page_info', 'index/site.tpl', 82, false),array('function', 'page_links', 'index/site.tpl', 83, false),array('modifier', 'escape', 'index/site.tpl', 24, false),)), $this); ?>
 <?php echo ''; ?><?php if ($this->_tpl_vars['siteTitle']): ?><?php echo ''; ?><?php $this->assign('pageTitleTranslated', $this->_tpl_vars['siteTitle']); ?><?php echo ''; ?><?php endif; ?><?php echo ''; ?><?php $this->assign('pageDisplayed', 'site'); ?><?php echo ''; ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "common/header.tpl", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -61,7 +61,11 @@ while (!$Journals->EOF) {
 	foreach($JourCatInfo as $v) {
 		$ControlVocabSettings = $DAO->retrieve("SELECT * FROM controlled_vocab_entry_settings");
 		while (!$ControlVocabSettings->EOF) {
-			if ($ControlVocabSettings->fields["controlled_vocab_entry_id"]==$v && $ControlVocabSettings->fields["locale"]==$Locale) { echo '<div id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div>'; }
+			if ($ControlVocabSettings->fields["controlled_vocab_entry_id"]==$v && $ControlVocabSettings->fields["locale"]==$Locale) { echo '<div';
+
+if ($v == 325) {echo ' class="externaljour"';}
+
+echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div>'; }
 			$ControlVocabSettings->MoveNext();
 		}
 	}
