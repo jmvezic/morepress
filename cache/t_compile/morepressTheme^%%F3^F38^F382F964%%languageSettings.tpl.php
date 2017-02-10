@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-07 14:12:27
+<?php /* Smarty version 2.6.26, created on 2017-02-10 09:17:33
          compiled from manager/languageSettings.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'manager/languageSettings.tpl', 16, false),array('function', 'url', 'manager/languageSettings.tpl', 21, false),array('function', 'fieldLabel', 'manager/languageSettings.tpl', 25, false),array('function', 'html_options', 'manager/languageSettings.tpl', 28, false),array('modifier', 'escape', 'manager/languageSettings.tpl', 48, false),)), $this); ?>

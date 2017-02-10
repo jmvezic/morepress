@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-23 09:43:55
+<?php /* Smarty version 2.6.26, created on 2017-02-10 09:42:54
          compiled from manager/sections/sectionForm.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'manager/sections/sectionForm.tpl', 17, false),array('function', 'translate', 'manager/sections/sectionForm.tpl', 50, false),array('function', 'fieldLabel', 'manager/sections/sectionForm.tpl', 65, false),array('function', 'form_language_chooser', 'manager/sections/sectionForm.tpl', 70, false),array('function', 'html_options', 'manager/sections/sectionForm.tpl', 92, false),array('function', 'call_hook', 'manager/sections/sectionForm.tpl', 96, false),array('modifier', 'escape', 'manager/sections/sectionForm.tpl', 50, false),array('modifier', 'assign', 'manager/sections/sectionForm.tpl', 67, false),array('modifier', 'to_array', 'manager/sections/sectionForm.tpl', 172, false),)), $this); ?>

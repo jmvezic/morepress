@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-17 20:01:51
+<?php /* Smarty version 2.6.26, created on 2017-02-09 11:51:55
          compiled from file:/home/morepress/www/plugins/generic/webFeed/templates/block.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'file:/home/morepress/www/plugins/generic/webFeed/templates/block.tpl', 12, false),array('function', 'url', 'file:/home/morepress/www/plugins/generic/webFeed/templates/block.tpl', 13, false),array('modifier', 'to_array', 'file:/home/morepress/www/plugins/generic/webFeed/templates/block.tpl', 13, false),)), $this); ?>

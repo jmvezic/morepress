@@ -73,7 +73,7 @@ class QuickSubmitForm extends Form {
 		$sections =& $sectionDao->getJournalSections($journal->getId());
 		$sectionTitles = $sectionAbstractsRequired = array();
 		while ($section =& $sections->next()) {
-			$sectionTitles[$section->getId()] = $section->getTitle($journal->getPrimaryLocale());
+			$sectionTitles[$section->getId()] = $section->getLocalizedTitle($journal->getPrimaryLocale());
 			$sectionAbstractsRequired[(int) $section->getId()] = (int) (!$section->getAbstractsNotRequired());
 			unset($section);
 		}

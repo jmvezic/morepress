@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-30 12:57:44
+<?php /* Smarty version 2.6.26, created on 2017-02-10 08:43:30
          compiled from admin/journals.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'admin/journals.tpl', 30, false),array('function', 'url', 'admin/journals.tpl', 40, false),array('function', 'page_info', 'admin/journals.tpl', 58, false),array('function', 'page_links', 'admin/journals.tpl', 59, false),array('block', 'iterate', 'admin/journals.tpl', 38, false),array('modifier', 'escape', 'admin/journals.tpl', 40, false),)), $this); ?>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-17 20:01:51
+<?php /* Smarty version 2.6.26, created on 2017-02-09 11:51:55
          compiled from announcement/list.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'counter', 'announcement/list.tpl', 17, false),array('function', 'translate', 'announcement/list.tpl', 22, false),array('function', 'url', 'announcement/list.tpl', 24, false),array('block', 'iterate', 'announcement/list.tpl', 18, false),array('modifier', 'nl2br', 'announcement/list.tpl', 21, false),)), $this); ?>

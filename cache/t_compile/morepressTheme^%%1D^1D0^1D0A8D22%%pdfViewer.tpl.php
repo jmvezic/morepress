@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 08:01:24
+<?php /* Smarty version 2.6.26, created on 2017-02-09 15:05:18
          compiled from article/pdfViewer.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'article/pdfViewer.tpl', 13, false),array('function', 'translate', 'article/pdfViewer.tpl', 13, false),array('modifier', 'to_array', 'article/pdfViewer.tpl', 13, false),array('modifier', 'assign', 'article/pdfViewer.tpl', 16, false),array('modifier', 'escape', 'article/pdfViewer.tpl', 21, false),)), $this); ?>
