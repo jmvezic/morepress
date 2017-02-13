@@ -70,7 +70,7 @@
 		{assign var=hasAccess value=0}
 	{/if}
 
-	<!-- {if $galleys}
+	{if $galleys}
 		<div id="articleFullText" class="block">
 		<h4>{translate key="reader.fullText"}</h4>
 		{if $hasAccess || ($subscriptionRequired && $showGalleyLinks)}
@@ -95,7 +95,7 @@
 			&nbsp;<a href="{url page="about" op="subscriptions"}" target="_parent">{translate key="reader.subscribersOnly"}</a>
 		{/if}
 		</div>
-	{/if} -->
+	{/if}
 
 	{if $citationFactory->getCount()}
 		<div id="articleCitations" class="block">
@@ -122,8 +122,15 @@
 </div>
 {call_hook name="Templates::Article::MoreInfo"}
 <div class="block">
-<!-- {include file="article/comments.tpl"} -->
+{include file="article/comments.tpl"}
 </div>
+
+{translate key="article.abstract"} - {$article->getViews()}
+{if $galleys}
+        {foreach from=$galleys item=galley name=galleyList}
+                {$galley->getGalleyLabel()} - {$galley->getViews()}
+        {/foreach}
+{/if}
 
 {include file="common/footer.tpl"}
 <script type="text/javascript" src="/plugins/themes/morepress/js/menu.js"></script>

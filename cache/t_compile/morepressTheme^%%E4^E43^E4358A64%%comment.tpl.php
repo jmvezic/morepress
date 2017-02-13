@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 10:31:12
+<?php /* Smarty version 2.6.26, created on 2017-02-13 11:49:23
          compiled from comment/comment.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', 'comment/comment.tpl', 31, false),array('modifier', 'default', 'comment/comment.tpl', 41, false),array('modifier', 'to_array', 'comment/comment.tpl', 43, false),array('function', 'url', 'comment/comment.tpl', 43, false),array('function', 'translate', 'comment/comment.tpl', 46, false),array('function', 'fieldLabel', 'comment/comment.tpl', 76, false),)), $this); ?>

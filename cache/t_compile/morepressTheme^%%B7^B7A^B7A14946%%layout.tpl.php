@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 15:26:44
+<?php /* Smarty version 2.6.26, created on 2017-02-12 17:33:34
          compiled from sectionEditor/submission/layout.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'sectionEditor/submission/layout.tpl', 16, false),array('function', 'url', 'sectionEditor/submission/layout.tpl', 24, false),array('function', 'icon', 'sectionEditor/submission/layout.tpl', 48, false),array('modifier', 'escape', 'sectionEditor/submission/layout.tpl', 23, false),array('modifier', 'assign', 'sectionEditor/submission/layout.tpl', 45, false),array('modifier', 'date_format', 'sectionEditor/submission/layout.tpl', 55, false),array('modifier', 'default', 'sectionEditor/submission/layout.tpl', 55, false),array('modifier', 'to_array', 'sectionEditor/submission/layout.tpl', 92, false),array('modifier', 'truncate', 'sectionEditor/submission/layout.tpl', 111, false),)), $this); ?>

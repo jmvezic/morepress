@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 15:03:23
+<?php /* Smarty version 2.6.26, created on 2017-02-12 17:33:28
          compiled from editor/submissionsInEditing.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'sort_search', 'editor/submissionsInEditing.tpl', 18, false),array('function', 'sort_heading', 'editor/submissionsInEditing.tpl', 19, false),array('function', 'translate', 'editor/submissionsInEditing.tpl', 26, false),array('function', 'url', 'editor/submissionsInEditing.tpl', 46, false),array('function', 'page_info', 'editor/submissionsInEditing.tpl', 68, false),array('function', 'page_links', 'editor/submissionsInEditing.tpl', 69, false),array('block', 'iterate', 'editor/submissionsInEditing.tpl', 32, false),array('modifier', 'escape', 'editor/submissionsInEditing.tpl', 38, false),array('modifier', 'date_format', 'editor/submissionsInEditing.tpl', 43, false),array('modifier', 'truncate', 'editor/submissionsInEditing.tpl', 45, false),array('modifier', 'strip_tags', 'editor/submissionsInEditing.tpl', 46, false),)), $this); ?>

@@ -49,10 +49,6 @@
 <link href="{$baseUrl}/plugins/themes/morepress/css/print.css" media="print" rel="stylesheet" type="text/css" />
 <link href="{$baseUrl}/plugins/themes/morepress/css/style.css" rel="stylesheet" type="text/css" />
 
+
 <script type="text/javascript" src="/plugins/themes/morepress/js/anchor.js"></script>
 
-<!-- Piwik -->
-
-<script type="text/javascript" src="/plugins/themes/morepress/js/piwik.js"></script>
-
-<!-- End Piwik Code -->

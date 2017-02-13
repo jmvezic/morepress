@@ -1,5 +1,5 @@
 <?php return array (
-  'lifetime' => 1486753124,
+  'lifetime' => 1487012553,
   'data' => 
   array (
     'PluginCorePluginsAdminMetadata' => 
@@ -1161,6 +1161,110 @@
       array (
       ),
     ),
+    'PluginBotTrackerMetadata' => 
+    array (
+      'description' => 'Detection of bots & spiders and count their visits without tracking them in the visitor-log.',
+      'homepage' => 'https://github.com/Thomas--F/BotTracker',
+      'authors' => 
+      array (
+        0 => 
+        array (
+          'name' => 'Thomas Fasselt',
+          'email' => 'Thomas.Fasselt@gmx.com',
+          'homepage' => 'https://github.com/Thomas--F/BotTracker',
+        ),
+      ),
+      'license' => 'GPL 3.0 / fair use',
+      'version' => '1.02',
+      'theme' => false,
+      'require' => 
+      array (
+        'piwik' => '>=3.0.0-dev,<4.0.0',
+        'php' => '>=5.5.9',
+      ),
+      'name' => 'BotTracker',
+      'keywords' => 
+      array (
+        0 => 'BotTracker',
+      ),
+      'support' => 
+      array (
+        'issues' => 'https://github.com/Thomas--F/BotTracker/issues',
+        'source' => 'https://github.com/Thomas--F/BotTracker/',
+      ),
+      'license_file' => '/home/morepress/www/piwik/plugins/BotTracker/LICENSE',
+    ),
+    'PluginCounterMetadata' => 
+    array (
+      'description' => 'Display Hits/Visits on image. Display Hits/Visits/from Countries stats as text via ajax requests.',
+      'homepage' => 'http://xn--80aeqbhthr9b.com/en/others/piwik/10-piwik-graphical-counter.html',
+      'authors' => 
+      array (
+        0 => 
+        array (
+          'name' => 'Viper',
+          'homepage' => 'http://киноархив.com/',
+        ),
+      ),
+      'license' => 'GPL v3+',
+      'version' => '2.1.1',
+      'theme' => false,
+      'require' => 
+      array (
+        'piwik' => '>=3.0.0',
+        'php' => '>=5.3.0',
+      ),
+      'name' => 'Counter',
+      'license_homepage' => 'http://www.gnu.org/licenses/gpl-3.0.html',
+      'keywords' => 
+      array (
+        0 => 'piwik',
+        1 => 'counter image',
+        2 => 'image counter',
+        3 => 'piwik visible counter',
+        4 => 'show hits piwik',
+        5 => 'show visits piwik',
+      ),
+    ),
+    'PluginTreemapVisualizationMetadata' => 
+    array (
+      'description' => 'Visualise any report in Piwik as a Treemap. Click on the Treemap icon in each report to load the visualisation. ',
+      'homepage' => 'http://piwik.org',
+      'authors' => 
+      array (
+        0 => 
+        array (
+          'name' => 'Piwik',
+          'email' => 'hello@piwik.org',
+          'homepage' => 'http://piwik.org',
+        ),
+      ),
+      'license' => 'GPL v3+',
+      'version' => '3.0.0',
+      'theme' => false,
+      'require' => 
+      array (
+        'piwik' => '>=3.0.0-b1,<4.0.0-b1',
+      ),
+      'name' => 'TreemapVisualization',
+      'keywords' => 
+      array (
+        0 => 'treemap',
+        1 => 'graph',
+        2 => 'visualization',
+        3 => 'infovis',
+        4 => 'jit',
+      ),
+      'support' => 
+      array (
+        'email' => 'hello@piwik.org',
+        'issues' => 'https://github.com/piwik/plugin-TreemapVisualization/issues',
+        'forum' => 'https://forum.piwik.org',
+        'source' => 'https://github.com/piwik/plugin-TreemapVisualization',
+        'docs' => 'https://piwik.org/docs/',
+        'rss' => 'https://piwik.org/feed/',
+      ),
+    ),
     'PluginCorePluginsAdminColumns\\Piwik\\Plugin\\Dimension\\VisitDimension' => 
     array (
     ),
@@ -1654,6 +1758,30 @@
     'PluginCustomPiwikJsColumns\\Piwik\\Plugin\\Dimension\\ConversionDimension' => 
     array (
     ),
+    'PluginBotTrackerColumns\\Piwik\\Plugin\\Dimension\\VisitDimension' => 
+    array (
+    ),
+    'PluginBotTrackerColumns\\Piwik\\Plugin\\Dimension\\ActionDimension' => 
+    array (
+    ),
+    'PluginCounterColumns\\Piwik\\Plugin\\Dimension\\VisitDimension' => 
+    array (
+    ),
+    'PluginCounterColumns\\Piwik\\Plugin\\Dimension\\ActionDimension' => 
+    array (
+    ),
+    'PluginCounterColumns\\Piwik\\Plugin\\Dimension\\ConversionDimension' => 
+    array (
+    ),
+    'PluginTreemapVisualizationColumns\\Piwik\\Plugin\\Dimension\\VisitDimension' => 
+    array (
+    ),
+    'PluginTreemapVisualizationColumns\\Piwik\\Plugin\\Dimension\\ActionDimension' => 
+    array (
+    ),
+    'PluginTreemapVisualizationColumns\\Piwik\\Plugin\\Dimension\\ConversionDimension' => 
+    array (
+    ),
     'PluginsTracker' => 
     array (
       0 => 'CoreHome',
@@ -1678,6 +1806,7 @@
       19 => 'DevicePlugins',
       20 => 'Heartbeat',
       21 => 'UserId',
+      22 => 'BotTracker',
     ),
     'PluginCoreHomeTrackerPiwik\\Tracker\\RequestProcessor' => 
     array (
@@ -1750,6 +1879,9 @@
       '/home/morepress/www/piwik/plugins/Heartbeat/Tracker/PingRequestProcessor.php' => 'Piwik\\Plugins\\Heartbeat\\Tracker\\PingRequestProcessor',
     ),
     'PluginUserIdTrackerPiwik\\Tracker\\RequestProcessor' => 
+    array (
+    ),
+    'PluginBotTrackerTrackerPiwik\\Tracker\\RequestProcessor' => 
     array (
     ),
     'DeviceDetector-375regexes-bot' => 
@@ -16431,6 +16563,88 @@
         ),
       ),
     ),
+    'DeviceDetector-375regexes-vendorfragments' => 
+    array (
+      'Dell' => 
+      array (
+        0 => 'MDDR(JS)?',
+        1 => 'MDDC(JS)?',
+        2 => 'MDDS(JS)?',
+      ),
+      'Acer' => 
+      array (
+        0 => 'MAAR(JS)?',
+      ),
+      'Sony' => 
+      array (
+        0 => 'MASE(JS)?',
+        1 => 'MASP(JS)?',
+        2 => 'MASA(JS)?',
+      ),
+      'Asus' => 
+      array (
+        0 => 'MAAU',
+        1 => 'NP0[6789]',
+        2 => 'ASJB',
+        3 => 'ASU2(JS)?',
+      ),
+      'Samsung' => 
+      array (
+        0 => 'MASM(JS)?',
+        1 => 'SMJB',
+      ),
+      'Lenovo' => 
+      array (
+        0 => 'MALC(JS)?',
+        1 => 'MALE(JS)?',
+        2 => 'MALN(JS)?',
+        3 => 'LCJB',
+        4 => 'LEN2',
+      ),
+      'Toshiba' => 
+      array (
+        0 => 'MATM(JS)?',
+        1 => 'MATB(JS)?',
+        2 => 'MATP(JS)?',
+        3 => 'TNJB',
+        4 => 'TAJB',
+      ),
+      'Medion' => 
+      array (
+        0 => 'MAMD',
+      ),
+      'MSI' => 
+      array (
+        0 => 'MAMI(JS)?',
+        1 => 'MAM3',
+      ),
+      'Gateway' => 
+      array (
+        0 => 'MAGW(JS)?',
+      ),
+      'Fujitsu' => 
+      array (
+        0 => 'MAFS(JS)?',
+        1 => 'FSJB',
+      ),
+      'Compaq' => 
+      array (
+        0 => 'CPDTDF',
+        1 => 'CPNTDF(JS?)',
+        2 => 'CMNTDF(JS)?',
+        3 => 'CMDTDF(JS)?',
+      ),
+      'HP' => 
+      array (
+        0 => 'HPCMHP',
+        1 => 'HPNTDF(JS)?',
+        2 => 'HPDTDF(JS)?',
+      ),
+      'Hyrican' => 
+      array (
+        0 => 'MANM(JS)?',
+      ),
+    ),
     'ReferrerSpamFilter-referrer_spam_blacklist' => 
     array (
       0 => '0n-line.tv',
@@ -16829,111 +17043,112 @@
       393 => 'sexyali.com',
       394 => 'sexyteens.hol.es',
       395 => 'share-buttons.xyz',
-      396 => 'sharebutton.net',
-      397 => 'sharebutton.to',
-      398 => 'shop.xz618.com',
-      399 => 'sibecoprom.ru',
-      400 => 'simple-share-buttons.com',
-      401 => 'site-auditor.online',
-      402 => 'site5.com',
-      403 => 'siteripz.net',
-      404 => 'sitevaluation.org',
-      405 => 'sledstvie-veli.net',
-      406 => 'slftsdybbg.ru',
-      407 => 'slkrm.ru',
-      408 => 'slow-website.xyz',
-      409 => 'smailik.org',
-      410 => 'smartphonediscount.info',
-      411 => 'snip.to',
-      412 => 'snip.tw',
-      413 => 'soaksoak.ru',
-      414 => 'social-button.xyz',
-      415 => 'social-buttons-ii.xyz',
-      416 => 'social-buttons.com',
-      417 => 'social-traffic-1.xyz',
-      418 => 'social-traffic-2.xyz',
-      419 => 'social-traffic-3.xyz',
-      420 => 'social-traffic-4.xyz',
-      421 => 'social-traffic-5.xyz',
-      422 => 'social-traffic-7.xyz',
-      423 => 'social-widget.xyz',
-      424 => 'socialbuttons.xyz',
-      425 => 'socialseet.ru',
-      426 => 'socialtrade.biz',
-      427 => 'sohoindia.net',
-      428 => 'solitaire-game.ru',
-      429 => 'solnplast.ru',
-      430 => 'sosdepotdebilan.com',
-      431 => 'speedup-my.site',
-      432 => 'spin2016.cf',
-      433 => 'spravka130.ru',
-      434 => 'steame.ru',
-      435 => 'success-seo.com',
-      436 => 'superiends.org',
-      437 => 'supervesti.ru',
-      438 => 'taihouse.ru',
-      439 => 'tattooha.com',
-      440 => 'tedxrj.com',
-      441 => 'theguardlan.com',
-      442 => 'tomck.com',
-      443 => 'top1-seo-service.com',
-      444 => 'top10-way.com',
-      445 => 'topquality.cf',
-      446 => 'topseoservices.co',
-      447 => 'traffic-cash.xyz',
-      448 => 'traffic2cash.org',
-      449 => 'traffic2cash.xyz',
-      450 => 'traffic2money.com',
-      451 => 'trafficgenius.xyz',
-      452 => 'trafficmonetize.org',
-      453 => 'trafficmonetizer.org',
-      454 => 'trion.od.ua',
-      455 => 'uasb.ru',
-      456 => 'unpredictable.ga',
-      457 => 'uptime.com',
-      458 => 'uptimechecker.com',
-      459 => 'uzungil.com',
-      460 => 'varikozdok.ru',
-      461 => 'vesnatehno.com',
-      462 => 'video--production.com',
-      463 => 'video-woman.com',
-      464 => 'videos-for-your-business.com',
-      465 => 'viel.su',
-      466 => 'viktoria-center.ru',
-      467 => 'vodaodessa.com',
-      468 => 'vodkoved.ru',
-      469 => 'w3javascript.com',
-      470 => 'wallpaperdesk.info',
-      471 => 'web-revenue.xyz',
-      472 => 'webmaster-traffic.com',
-      473 => 'webmonetizer.net',
-      474 => 'website-analytics.online',
-      475 => 'website-analyzer.info',
-      476 => 'website-speed-check.site',
-      477 => 'website-speed-checker.site',
-      478 => 'websites-reviews.com',
-      479 => 'websocial.me',
-      480 => 'weburlopener.com',
-      481 => 'wmasterlead.com',
-      482 => 'woman-orgasm.ru',
-      483 => 'wordpress-crew.net',
-      484 => 'wordpresscore.com',
-      485 => 'works.if.ua',
-      486 => 'ykecwqlixx.ru',
-      487 => 'youporn-forum.ga',
-      488 => 'youporn-forum.uni.me',
-      489 => 'youporn-ru.com',
-      490 => 'yourserverisdown.com',
-      491 => 'zastroyka.org',
-      492 => 'zoominfo.com',
-      493 => 'zvetki.ru',
-      494 => 'годом.рф',
-      495 => 'грузоподъемные-машины.рф',
-      496 => 'лечениенаркомании.com',
-      497 => 'непереводимая.рф',
-      498 => 'профмонтаж-врн.рф',
-      499 => 'снятьдомвсевастополе.рф',
-      500 => 'холодныйобзвон.рф',
+      396 => 'sharebutton.io',
+      397 => 'sharebutton.net',
+      398 => 'sharebutton.to',
+      399 => 'shop.xz618.com',
+      400 => 'sibecoprom.ru',
+      401 => 'simple-share-buttons.com',
+      402 => 'site-auditor.online',
+      403 => 'site5.com',
+      404 => 'siteripz.net',
+      405 => 'sitevaluation.org',
+      406 => 'sledstvie-veli.net',
+      407 => 'slftsdybbg.ru',
+      408 => 'slkrm.ru',
+      409 => 'slow-website.xyz',
+      410 => 'smailik.org',
+      411 => 'smartphonediscount.info',
+      412 => 'snip.to',
+      413 => 'snip.tw',
+      414 => 'soaksoak.ru',
+      415 => 'social-button.xyz',
+      416 => 'social-buttons-ii.xyz',
+      417 => 'social-buttons.com',
+      418 => 'social-traffic-1.xyz',
+      419 => 'social-traffic-2.xyz',
+      420 => 'social-traffic-3.xyz',
+      421 => 'social-traffic-4.xyz',
+      422 => 'social-traffic-5.xyz',
+      423 => 'social-traffic-7.xyz',
+      424 => 'social-widget.xyz',
+      425 => 'socialbuttons.xyz',
+      426 => 'socialseet.ru',
+      427 => 'socialtrade.biz',
+      428 => 'sohoindia.net',
+      429 => 'solitaire-game.ru',
+      430 => 'solnplast.ru',
+      431 => 'sosdepotdebilan.com',
+      432 => 'speedup-my.site',
+      433 => 'spin2016.cf',
+      434 => 'spravka130.ru',
+      435 => 'steame.ru',
+      436 => 'success-seo.com',
+      437 => 'superiends.org',
+      438 => 'supervesti.ru',
+      439 => 'taihouse.ru',
+      440 => 'tattooha.com',
+      441 => 'tedxrj.com',
+      442 => 'theguardlan.com',
+      443 => 'tomck.com',
+      444 => 'top1-seo-service.com',
+      445 => 'top10-way.com',
+      446 => 'topquality.cf',
+      447 => 'topseoservices.co',
+      448 => 'traffic-cash.xyz',
+      449 => 'traffic2cash.org',
+      450 => 'traffic2cash.xyz',
+      451 => 'traffic2money.com',
+      452 => 'trafficgenius.xyz',
+      453 => 'trafficmonetize.org',
+      454 => 'trafficmonetizer.org',
+      455 => 'trion.od.ua',
+      456 => 'uasb.ru',
+      457 => 'unpredictable.ga',
+      458 => 'uptime.com',
+      459 => 'uptimechecker.com',
+      460 => 'uzungil.com',
+      461 => 'varikozdok.ru',
+      462 => 'vesnatehno.com',
+      463 => 'video--production.com',
+      464 => 'video-woman.com',
+      465 => 'videos-for-your-business.com',
+      466 => 'viel.su',
+      467 => 'viktoria-center.ru',
+      468 => 'vodaodessa.com',
+      469 => 'vodkoved.ru',
+      470 => 'w3javascript.com',
+      471 => 'wallpaperdesk.info',
+      472 => 'web-revenue.xyz',
+      473 => 'webmaster-traffic.com',
+      474 => 'webmonetizer.net',
+      475 => 'website-analytics.online',
+      476 => 'website-analyzer.info',
+      477 => 'website-speed-check.site',
+      478 => 'website-speed-checker.site',
+      479 => 'websites-reviews.com',
+      480 => 'websocial.me',
+      481 => 'weburlopener.com',
+      482 => 'wmasterlead.com',
+      483 => 'woman-orgasm.ru',
+      484 => 'wordpress-crew.net',
+      485 => 'wordpresscore.com',
+      486 => 'works.if.ua',
+      487 => 'ykecwqlixx.ru',
+      488 => 'youporn-forum.ga',
+      489 => 'youporn-forum.uni.me',
+      490 => 'youporn-ru.com',
+      491 => 'yourserverisdown.com',
+      492 => 'zastroyka.org',
+      493 => 'zoominfo.com',
+      494 => 'zvetki.ru',
+      495 => 'годом.рф',
+      496 => 'грузоподъемные-машины.рф',
+      497 => 'лечениенаркомании.com',
+      498 => 'непереводимая.рф',
+      499 => 'профмонтаж-врн.рф',
+      500 => 'снятьдомвсевастополе.рф',
+      501 => 'холодныйобзвон.рф',
     ),
     'PluginHeartbeatColumns\\Piwik\\Plugin\\Dimension\\VisitDimension' => 
     array (
@@ -17007,6 +17222,9 @@
     array (
     ),
     'PluginUserIdActions\\Piwik\\Tracker\\Action' => 
+    array (
+    ),
+    'PluginBotTrackerActions\\Piwik\\Tracker\\Action' => 
     array (
     ),
     'PluginCoreHomeColumns\\Piwik\\Plugin\\Dimension\\ActionDimension' => 
@@ -17135,87 +17353,8 @@
     'PluginUserIdLocationProviderPiwik\\Plugins\\UserCountry\\LocationProvider' => 
     array (
     ),
-    'DeviceDetector-375regexes-vendorfragments' => 
+    'PluginBotTrackerLocationProviderPiwik\\Plugins\\UserCountry\\LocationProvider' => 
     array (
-      'Dell' => 
-      array (
-        0 => 'MDDR(JS)?',
-        1 => 'MDDC(JS)?',
-        2 => 'MDDS(JS)?',
-      ),
-      'Acer' => 
-      array (
-        0 => 'MAAR(JS)?',
-      ),
-      'Sony' => 
-      array (
-        0 => 'MASE(JS)?',
-        1 => 'MASP(JS)?',
-        2 => 'MASA(JS)?',
-      ),
-      'Asus' => 
-      array (
-        0 => 'MAAU',
-        1 => 'NP0[6789]',
-        2 => 'ASJB',
-        3 => 'ASU2(JS)?',
-      ),
-      'Samsung' => 
-      array (
-        0 => 'MASM(JS)?',
-        1 => 'SMJB',
-      ),
-      'Lenovo' => 
-      array (
-        0 => 'MALC(JS)?',
-        1 => 'MALE(JS)?',
-        2 => 'MALN(JS)?',
-        3 => 'LCJB',
-        4 => 'LEN2',
-      ),
-      'Toshiba' => 
-      array (
-        0 => 'MATM(JS)?',
-        1 => 'MATB(JS)?',
-        2 => 'MATP(JS)?',
-        3 => 'TNJB',
-        4 => 'TAJB',
-      ),
-      'Medion' => 
-      array (
-        0 => 'MAMD',
-      ),
-      'MSI' => 
-      array (
-        0 => 'MAMI(JS)?',
-        1 => 'MAM3',
-      ),
-      'Gateway' => 
-      array (
-        0 => 'MAGW(JS)?',
-      ),
-      'Fujitsu' => 
-      array (
-        0 => 'MAFS(JS)?',
-        1 => 'FSJB',
-      ),
-      'Compaq' => 
-      array (
-        0 => 'CPDTDF',
-        1 => 'CPNTDF(JS?)',
-        2 => 'CMNTDF(JS)?',
-        3 => 'CMDTDF(JS)?',
-      ),
-      'HP' => 
-      array (
-        0 => 'HPCMHP',
-        1 => 'HPNTDF(JS)?',
-        2 => 'HPDTDF(JS)?',
-      ),
-      'Hyrican' => 
-      array (
-        0 => 'MANM(JS)?',
-      ),
     ),
     'SearchEngine-SearchEngineDefinitions' => 
     array (

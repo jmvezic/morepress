@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 09:17:54
+<?php /* Smarty version 2.6.26, created on 2017-02-13 12:31:42
          compiled from file:/home/morepress/www/plugins/generic/openAIRE/projectIDView.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'file:/home/morepress/www/plugins/generic/openAIRE/projectIDView.tpl', 13, false),array('modifier', 'escape', 'file:/home/morepress/www/plugins/generic/openAIRE/projectIDView.tpl', 17, false),array('modifier', 'default', 'file:/home/morepress/www/plugins/generic/openAIRE/projectIDView.tpl', 17, false),)), $this); ?>

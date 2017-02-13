@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 08:00:46
+<?php /* Smarty version 2.6.26, created on 2017-02-13 14:10:31
          compiled from common/head.tpl */ ?>
 <!-- Add View Port -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,10 +46,5 @@
 <link href="<?php echo $this->_tpl_vars['baseUrl']; ?>
 /plugins/themes/morepress/css/style.css" rel="stylesheet" type="text/css" />
 
+
 <script type="text/javascript" src="/plugins/themes/morepress/js/anchor.js"></script>
-
-<!-- Piwik -->
-
-<script type="text/javascript" src="/plugins/themes/morepress/js/piwik.js"></script>
-
-<!-- End Piwik Code -->

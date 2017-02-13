@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 15:26:44
+<?php /* Smarty version 2.6.26, created on 2017-02-12 17:33:34
          compiled from sectionEditor/submission/copyedit.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'sectionEditor/submission/copyedit.tpl', 12, false),array('function', 'url', 'sectionEditor/submission/copyedit.tpl', 15, false),array('function', 'icon', 'sectionEditor/submission/copyedit.tpl', 51, false),array('modifier', 'escape', 'sectionEditor/submission/copyedit.tpl', 22, false),array('modifier', 'assign', 'sectionEditor/submission/copyedit.tpl', 48, false),array('modifier', 'date_format', 'sectionEditor/submission/copyedit.tpl', 63, false),array('modifier', 'default', 'sectionEditor/submission/copyedit.tpl', 63, false),array('modifier', 'to_array', 'sectionEditor/submission/copyedit.tpl', 100, false),)), $this); ?>

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-23 09:16:20
+<?php /* Smarty version 2.6.26, created on 2017-02-13 13:38:19
          compiled from manager/setup/step4.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'manager/setup/step4.tpl', 14, false),array('function', 'fieldLabel', 'manager/setup/step4.tpl', 21, false),array('function', 'form_language_chooser', 'manager/setup/step4.tpl', 24, false),array('function', 'translate', 'manager/setup/step4.tpl', 25, false),array('modifier', 'assign', 'manager/setup/step4.tpl', 23, false),array('modifier', 'escape', 'manager/setup/step4.tpl', 67, false),)), $this); ?>

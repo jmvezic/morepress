@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 10:32:32
+<?php /* Smarty version 2.6.26, created on 2017-02-12 17:32:05
          compiled from search/titleIndex.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'search/titleIndex.tpl', 25, false),array('function', 'url', 'search/titleIndex.tpl', 37, false),array('function', 'page_info', 'search/titleIndex.tpl', 63, false),array('function', 'page_links', 'search/titleIndex.tpl', 64, false),array('block', 'iterate', 'search/titleIndex.tpl', 30, false),array('modifier', 'escape', 'search/titleIndex.tpl', 37, false),array('modifier', 'strip_unsafe_html', 'search/titleIndex.tpl', 38, false),array('modifier', 'nl2br', 'search/titleIndex.tpl', 38, false),array('modifier', 'to_array', 'search/titleIndex.tpl', 44, false),)), $this); ?>

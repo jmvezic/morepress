@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-23 09:40:42
+<?php /* Smarty version 2.6.26, created on 2017-02-13 12:48:21
          compiled from editor/submissionsArchives.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'sort_search', 'editor/submissionsArchives.tpl', 17, false),array('function', 'url', 'editor/submissionsArchives.tpl', 36, false),array('function', 'translate', 'editor/submissionsArchives.tpl', 40, false),array('function', 'print_issue_id', 'editor/submissionsArchives.tpl', 42, false),array('function', 'page_info', 'editor/submissionsArchives.tpl', 61, false),array('function', 'page_links', 'editor/submissionsArchives.tpl', 62, false),array('block', 'iterate', 'editor/submissionsArchives.tpl', 28, false),array('modifier', 'escape', 'editor/submissionsArchives.tpl', 32, false),array('modifier', 'date_format', 'editor/submissionsArchives.tpl', 33, false),array('modifier', 'truncate', 'editor/submissionsArchives.tpl', 35, false),array('modifier', 'strip_tags', 'editor/submissionsArchives.tpl', 36, false),)), $this); ?>

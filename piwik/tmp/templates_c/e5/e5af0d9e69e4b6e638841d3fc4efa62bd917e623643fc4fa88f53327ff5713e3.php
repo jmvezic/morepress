@@ -81,7 +81,7 @@ $context["footerIcon"], "id", array()) == "ecommerceAbandonedCart") && ($this->g
                         echo "\">
                                 ";
                         // line 22
-                        if ((is_string($__internal_6b5bc1657bcc22960663555fd3c720aaf1d249004d52ccb3403ae271d3e2119b = $this->getAttribute($context["footerIcon"], "icon", array())) && is_string($__internal_5d428fb69c4f5aa5a003fb9d6eb0315a9bb38b36be3b5d4bf91fdd36b25e0723 = "icon-") && ('' === $__internal_5d428fb69c4f5aa5a003fb9d6eb0315a9bb38b36be3b5d4bf91fdd36b25e0723 || 0 === strpos($__internal_6b5bc1657bcc22960663555fd3c720aaf1d249004d52ccb3403ae271d3e2119b, $__internal_5d428fb69c4f5aa5a003fb9d6eb0315a9bb38b36be3b5d4bf91fdd36b25e0723)))) {
+                        if ((is_string($__internal_2ac1d6cb53fef399d03f6e044f52ba8db5ca5d8478a62660d8cff7944a8548cd = $this->getAttribute($context["footerIcon"], "icon", array())) && is_string($__internal_107673b6d4cd9696890c3ea3bf24c9f381e39c2db6f05db8ed4771099a402f4f = "icon-") && ('' === $__internal_107673b6d4cd9696890c3ea3bf24c9f381e39c2db6f05db8ed4771099a402f4f || 0 === strpos($__internal_2ac1d6cb53fef399d03f6e044f52ba8db5ca5d8478a62660d8cff7944a8548cd, $__internal_107673b6d4cd9696890c3ea3bf24c9f381e39c2db6f05db8ed4771099a402f4f)))) {
                             // line 23
                             echo "                                    <span title=\"";
                             echo \Piwik\piwik_escape_filter($this->env, $this->getAttribute($context["footerIcon"], "title", array()), "html", null, true);
@@ -139,7 +139,7 @@ $context["footerIcon"], "id", array()) == "ecommerceAbandonedCart") && ($this->g
                 echo "\">
                 ";
                 // line 40
-                if ((is_string($__internal_b1da524c737e19e9cf39321e3a88ac36f5a55c3d4ea40fe42bade6c61a0c1bf8 = (isset($context["activeFooterIcon"]) ? $context["activeFooterIcon"] : $this->getContext($context, "activeFooterIcon"))) && is_string($__internal_a74f1188e0c4a004870810c3abcf44402afca37cfb56d83f68cc2ce6c8f670c5 = "icon-") && ('' === $__internal_a74f1188e0c4a004870810c3abcf44402afca37cfb56d83f68cc2ce6c8f670c5 || 0 === strpos($__internal_b1da524c737e19e9cf39321e3a88ac36f5a55c3d4ea40fe42bade6c61a0c1bf8, $__internal_a74f1188e0c4a004870810c3abcf44402afca37cfb56d83f68cc2ce6c8f670c5)))) {
+                if ((is_string($__internal_5e179ef51424d3dcf0d3c681cd8d3618f3c94fa550d8907926b5c06f1d98c10e = (isset($context["activeFooterIcon"]) ? $context["activeFooterIcon"] : $this->getContext($context, "activeFooterIcon"))) && is_string($__internal_be2bd8e64ebc919c63bd59badedc8de944f411b94fe89976cc5111d7af3a3efc = "icon-") && ('' === $__internal_be2bd8e64ebc919c63bd59badedc8de944f411b94fe89976cc5111d7af3a3efc || 0 === strpos($__internal_5e179ef51424d3dcf0d3c681cd8d3618f3c94fa550d8907926b5c06f1d98c10e, $__internal_be2bd8e64ebc919c63bd59badedc8de944f411b94fe89976cc5111d7af3a3efc)))) {
                     // line 41
                     echo "                    <span title=\"";
                     echo \Piwik\piwik_escape_filter($this->env, call_user_func_array($this->env->getFilter('translate')->getCallable(), array("CoreHome_ChangeVisualization")), "html_attr");

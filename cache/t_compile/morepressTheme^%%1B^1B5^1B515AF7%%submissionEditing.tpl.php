@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 15:26:44
+<?php /* Smarty version 2.6.26, created on 2017-02-12 17:33:34
          compiled from sectionEditor/submissionEditing.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'sectionEditor/submissionEditing.tpl', 12, false),array('function', 'url', 'sectionEditor/submissionEditing.tpl', 18, false),array('modifier', 'assign', 'sectionEditor/submissionEditing.tpl', 12, false),)), $this); ?>

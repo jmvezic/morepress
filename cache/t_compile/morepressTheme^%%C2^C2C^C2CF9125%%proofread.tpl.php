@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 15:26:44
+<?php /* Smarty version 2.6.26, created on 2017-02-12 17:33:34
          compiled from sectionEditor/submission/proofread.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'sectionEditor/submission/proofread.tpl', 15, false),array('function', 'url', 'sectionEditor/submission/proofread.tpl', 22, false),array('function', 'icon', 'sectionEditor/submission/proofread.tpl', 43, false),array('modifier', 'escape', 'sectionEditor/submission/proofread.tpl', 21, false),array('modifier', 'assign', 'sectionEditor/submission/proofread.tpl', 40, false),array('modifier', 'date_format', 'sectionEditor/submission/proofread.tpl', 48, false),array('modifier', 'default', 'sectionEditor/submission/proofread.tpl', 48, false),)), $this); ?>
