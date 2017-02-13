@@ -1,6 +1,6 @@
 <?php return array (
   'apiKey' => '',
-  'depositArticles' => NULL,
+  'depositArticles' => '1',
   'depositUrl' => '',
   'enabled' => false,
 ); ?>

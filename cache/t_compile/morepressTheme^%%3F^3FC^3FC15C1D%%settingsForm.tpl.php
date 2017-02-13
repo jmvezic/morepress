@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 10:11:27
+<?php /* Smarty version 2.6.26, created on 2017-02-13 15:20:56
          compiled from file:/home/morepress/www/plugins/generic/alm/settingsForm.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'file:/home/morepress/www/plugins/generic/alm/settingsForm.tpl', 16, false),array('function', 'plugin_url', 'file:/home/morepress/www/plugins/generic/alm/settingsForm.tpl', 20, false),array('function', 'fbvElement', 'file:/home/morepress/www/plugins/generic/alm/settingsForm.tpl', 26, false),array('block', 'fbvFormArea', 'file:/home/morepress/www/plugins/generic/alm/settingsForm.tpl', 23, false),array('block', 'fbvFormSection', 'file:/home/morepress/www/plugins/generic/alm/settingsForm.tpl', 25, false),)), $this); ?>

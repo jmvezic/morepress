@@ -125,13 +125,6 @@
 {include file="article/comments.tpl"}
 </div>
 
-{translate key="article.abstract"} - {$article->getViews()}
-{if $galleys}
-        {foreach from=$galleys item=galley name=galleyList}
-                {$galley->getGalleyLabel()} - {$galley->getViews()}
-        {/foreach}
-{/if}
-
 {include file="common/footer.tpl"}
 <script type="text/javascript" src="/plugins/themes/morepress/js/menu.js"></script>
 <div id="openModal" class="modalDialog">
