@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-02 19:25:04
+<?php /* Smarty version 2.6.26, created on 2017-02-14 14:58:30
          compiled from notification/settings.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'notification/settings.tpl', 16, false),array('function', 'url', 'notification/settings.tpl', 18, false),array('function', 'fieldLabel', 'notification/settings.tpl', 34, false),array('modifier', 'escape', 'notification/settings.tpl', 33, false),array('modifier', 'in_array', 'notification/settings.tpl', 33, false),)), $this); ?>

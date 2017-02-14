@@ -46,7 +46,7 @@
   'common.complete' => 'Završi',
   'common.completed' => 'Završeno',
   'common.continue' => 'Nastavi',
-  'common.country' => 'Zemlja',
+  'common.country' => 'Država',
   'common.create' => 'Kreiraj',
   'common.dateCompleted' => 'Datum završetka',
   'common.date' => 'Datum',

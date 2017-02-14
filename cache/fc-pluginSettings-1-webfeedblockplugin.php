@@ -1,5 +1,5 @@
 <?php return array (
   'context' => 1,
   'enabled' => true,
-  'seq' => 4,
+  'seq' => 3,
 ); ?>

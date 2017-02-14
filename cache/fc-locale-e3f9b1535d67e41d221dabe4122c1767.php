@@ -915,4 +915,5 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
   'manager.sections.submissionReview' => 'Ne prolaze kroz recenzijski postupak.',
   'manager.section.submissionsToThisSection' => 'Prijave u ovoj rubrici časopisa',
   'manager.sections.unassigned' => 'Dostupni urednici rubrika',
+  'locale.primary' => 'Primarni jezik',
 ); ?>

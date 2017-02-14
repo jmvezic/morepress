@@ -660,7 +660,7 @@
   'manager.plugins.wrongCategory' => 'Postavljen dodatak ne odgovara kategoriji nadograđenog dodatka.',
   'manager.language.ui' => 'UI',
   'manager.language.submissions' => 'Podneseni članci',
-  'manager.languages.languageInstructions' => 'OJS može biti dostupan korisnicima na bilo kojem od mnogo podržanih jezika. OJS, može funkcionirati kao multilingvalni sustav i omogućiti korisnicima lak prelazak između jezika na svakoj strani i da se određeni podaci unesu na nekoliko dodatnih jezika.<br /><br />  Ako nije dole izlistan jezik koji podržava OJS pitajte vašeg administratora sustava OJS da instalira jezik iz sučelja za administraciju. Pogledajte u OJS dokumentima instrukcije kako se dodaje podrška za nove jezike.',
+  'manager.languages.languageInstructions' => 'OJS može biti dostupan korisnicima na bilo kojem od mnogo podržanih jezika. OJS može funkcionirati kao višejezični sustav i omogućiti korisnicima lak prelazak između jezika te unos podataka na više jezika.<br /><br />',
   'manager.payment.giftFees' => 'Plaćanja poklona',
   'manager.payment.giftFeesDescription' => 'Veza za poklonjenu pretplatu će se pojaviti u stranici Pretplate u O časopisu i u bloku u rubnom stupcu.',
   'manager.people.allUsers' => 'Svi upisani korisnici',

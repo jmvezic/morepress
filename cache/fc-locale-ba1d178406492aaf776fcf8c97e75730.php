@@ -99,7 +99,7 @@
   'author.submit.authorSubmitLoginMessage' => 'Za prijavu priloga u časopis potreban vam je korisnički račun. To omogućuje našim urednicima da prate vašu prijavu, kontaktiraju vas sa ishodima recenzijskog i uređivačkog postupka.',
   'author.submit' => 'Novo podnošenje članka',
   'author.submit.submissionLocale' => 'Jezik podnošenja članka',
-  'author.submit.submissionLocaleDescription' => 'Ovaj časopis prihvaća podnošenje članaka na nekoliko jezika. ODaberite prvi jezik podnošenja članka sa padajućeg izbora dole.',
+  'author.submit.submissionLocaleDescription' => 'Ovaj časopis prihvaća podnošenje članaka na nekoliko jezika. Odaberite prvi jezik podnošenja članka sa padajućeg izbora dole.',
   'author.submit.form.localeRequired' => 'ODaberite jezik podnošenja članka.',
   'author.submit.reorder' => 'Promijeni redoslijed autorovog imena',
   'author.submit.howToSubmit' => 'Imate poteškoće? Kontaktirajte <a href="mailto:{$supportEmail}">{$supportName}</a> za asistenciju. ({$supportPhone}).',

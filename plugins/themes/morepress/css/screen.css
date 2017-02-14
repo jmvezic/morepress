@@ -418,7 +418,7 @@ table tr {
 }
 table td {
    padding: .5em .25em; 
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .table-borders tr {
@@ -2850,7 +2850,7 @@ float:left;
 }
 
 .journalDescriptionHeading, .announcementsHeading {
-font-size: 1em;
+font-size: 1.5em;
 }
 
 #journalDescription {
@@ -2862,8 +2862,14 @@ font-size: 0.9em;
 #slides {
 border-top:1px solid #eee;
 border-bottom: 1px solid #eee;
-background-color: #e3f3d8;
+background-color: #2f8245;
+color: white;
 line-height: 1.1em;
+}
+
+#slides a {
+color: #ccc;
+text-decoration: underline;
 }
 
 
@@ -2963,4 +2969,24 @@ margin-left:2em;
 
 .externaljour {
 background-color: rgb(181, 85, 16) !important;
+}
+
+#journalDescription .fa {
+font-size: 2.5em;
+color: #143c62;
+}
+
+#content a.action {
+background-color: transparent !important;
+color: #2364a2 !important;
+margin:0 1px !important;
+}
+
+#content a.action:hover {
+background-color: transparent !important;
+text-decoration: underline;
+}
+
+table .heading a {
+color: white !important;
 }

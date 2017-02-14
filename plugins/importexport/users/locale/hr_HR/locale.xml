@@ -49,9 +49,9 @@ Primjeri:
 	<message key="plugins.importexport.users.import.confirmUsers">Molim potvrdite da su ovo korisnici koje želite unijeti u sustav</message>
 	<message key="plugins.importexport.users.unknownJournal">Navedena je nepoznata putanja "{$journalPath}".</message>
 
-	<message key="plugins.importexport.users.export.exportUsers">Iznesi korisnike</message>
-	<message key="plugins.importexport.users.export.exportByRole">Iznesi po ulozi</message>
-	<message key="plugins.importexport.users.export.exportAllUsers">Iznesi sve</message>
+	<message key="plugins.importexport.users.export.exportUsers">Izvoz korisnika</message>
+	<message key="plugins.importexport.users.export.exportByRole">Izvoz po ulozi</message>
+	<message key="plugins.importexport.users.export.exportAllUsers">Izvezi sve</message>
 	<message key="plugins.importexport.users.export.errorsOccurred">Pogreške koje su se pojavile prilikom iznošenja</message>
 	<message key="plugins.importexport.users.export.couldNotWriteFile">Nije moguće pisati po datoteci "{$fileName}".</message>
 	<message key="plugins.importexport.users.import.warning">Upozorenje</message>
