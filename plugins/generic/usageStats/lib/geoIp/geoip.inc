@@ -20,53 +20,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-define("GEOIP_COUNTRY_BEGIN", 16776960);
-define("GEOIP_STATE_BEGIN_REV0", 16700000);
-define("GEOIP_STATE_BEGIN_REV1", 16000000);
-define("GEOIP_STANDARD", 0);
-define("GEOIP_MEMORY_CACHE", 1);
-define("GEOIP_SHARED_MEMORY", 2);
-define("STRUCTURE_INFO_MAX_SIZE", 20);
-define("DATABASE_INFO_MAX_SIZE", 100);
-define("GEOIP_COUNTRY_EDITION", 106);
-define("GEOIP_PROXY_EDITION", 8);
-define("GEOIP_ASNUM_EDITION", 9);
-define("GEOIP_NETSPEED_EDITION", 10);
-define("GEOIP_REGION_EDITION_REV0", 112);
-define("GEOIP_REGION_EDITION_REV1", 3);
-define("GEOIP_CITY_EDITION_REV0", 111);
-define("GEOIP_CITY_EDITION_REV1", 2);
-define("GEOIP_ORG_EDITION", 110);
-define("GEOIP_ISP_EDITION", 4);
-define("SEGMENT_RECORD_LENGTH", 3);
-define("STANDARD_RECORD_LENGTH", 3);
-define("ORG_RECORD_LENGTH", 4);
-define("MAX_RECORD_LENGTH", 4);
-define("MAX_ORG_RECORD_LENGTH", 300);
-define("GEOIP_SHM_KEY", 0x4f415401);
-define("US_OFFSET", 1);
-define("CANADA_OFFSET", 677);
-define("WORLD_OFFSET", 1353);
-define("FIPS_RANGE", 360);
-define("GEOIP_UNKNOWN_SPEED", 0);
-define("GEOIP_DIALUP_SPEED", 1);
-define("GEOIP_CABLEDSL_SPEED", 2);
-define("GEOIP_CORPORATE_SPEED", 3);
-define("GEOIP_DOMAIN_EDITION", 11);
-define("GEOIP_COUNTRY_EDITION_V6", 12);
-define("GEOIP_LOCATIONA_EDITION", 13);
-define("GEOIP_ACCURACYRADIUS_EDITION", 14);
-define("GEOIP_CITYCOMBINED_EDITION", 15);
-define("GEOIP_CITY_EDITION_REV1_V6", 30);
-define("GEOIP_CITY_EDITION_REV0_V6",31);
-define("GEOIP_NETSPEED_EDITION_REV1",32);
-define("GEOIP_NETSPEED_EDITION_REV1_V6",33);
-define("GEOIP_USERTYPE_EDITION",28);
-define("GEOIP_USERTYPE_EDITION_V6",29);
-define("GEOIP_ASNUM_EDITION_V6",21);
-define("GEOIP_ISP_EDITION_V6",22);
-define("GEOIP_ORG_EDITION_V6",23);
-define("GEOIP_DOMAIN_EDITION_V6",24);
+
 
 define("CITYCOMBINED_FIXED_RECORD", 7 );
 
@@ -429,29 +383,7 @@ function geoip_country_code_by_name_v6($gi, $name) {
   return false;
 }
 
-function geoip_country_code_by_name($gi, $name) {
-  $country_id = geoip_country_id_by_name($gi,$name);
-  if ($country_id !== false) {
-        return $gi->GEOIP_COUNTRY_CODES[$country_id];
-  }
-  return false;
-}
 
-function geoip_country_name_by_name_v6($gi, $name) {
-  $country_id = geoip_country_id_by_name_v6($gi,$name);
-  if ($country_id !== false) {
-        return $gi->GEOIP_COUNTRY_NAMES[$country_id];
-  }
-  return false;
-}
-
-function geoip_country_name_by_name($gi, $name) {
-  $country_id = geoip_country_id_by_name($gi,$name);
-  if ($country_id !== false) {
-        return $gi->GEOIP_COUNTRY_NAMES[$country_id];
-  }
-  return false;
-}
 
 function geoip_country_id_by_addr_v6($gi, $addr) {
   $ipnum = inet_pton($addr);

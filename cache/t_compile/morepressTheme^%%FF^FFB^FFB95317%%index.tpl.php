@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-03 08:12:00
+<?php /* Smarty version 2.6.26, created on 2017-02-13 19:08:16
          compiled from rtadmin/index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'rtadmin/index.tpl', 17, false),array('function', 'url', 'rtadmin/index.tpl', 27, false),array('modifier', 'escape', 'rtadmin/index.tpl', 20, false),)), $this); ?>

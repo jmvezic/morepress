@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-05 14:20:21
+<?php /* Smarty version 2.6.26, created on 2017-02-13 18:35:54
          compiled from editor/notifyUsers.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'escape', 'editor/notifyUsers.tpl', 22, false),array('modifier', 'assign', 'editor/notifyUsers.tpl', 35, false),array('modifier', 'default', 'editor/notifyUsers.tpl', 51, false),array('modifier', 'strip_tags', 'editor/notifyUsers.tpl', 110, false),array('modifier', 'truncate', 'editor/notifyUsers.tpl', 110, false),array('function', 'translate', 'editor/notifyUsers.tpl', 31, false),array('function', 'fieldLabel', 'editor/notifyUsers.tpl', 127, false),array('block', 'iterate', 'editor/notifyUsers.tpl', 109, false),)), $this); ?>

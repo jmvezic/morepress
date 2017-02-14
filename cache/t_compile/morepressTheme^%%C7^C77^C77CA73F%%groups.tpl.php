@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-26 03:34:48
+<?php /* Smarty version 2.6.26, created on 2017-02-13 19:04:28
          compiled from manager/groups/groups.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'manager/groups/groups.tpl', 22, false),array('function', 'translate', 'manager/groups/groups.tpl', 25, false),array('function', 'icon', 'manager/groups/groups.tpl', 59, false),array('function', 'page_info', 'manager/groups/groups.tpl', 85, false),array('function', 'page_links', 'manager/groups/groups.tpl', 86, false),array('modifier', 'assign', 'manager/groups/groups.tpl', 23, false),array('modifier', 'escape', 'manager/groups/groups.tpl', 59, false),array('block', 'iterate', 'manager/groups/groups.tpl', 44, false),)), $this); ?>

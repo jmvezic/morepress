@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 10:32:12
+<?php /* Smarty version 2.6.26, created on 2017-02-13 21:39:07
          compiled from search/authorIndex.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'search/authorIndex.tpl', 16, false),array('function', 'translate', 'search/authorIndex.tpl', 16, false),array('function', 'page_info', 'search/authorIndex.tpl', 53, false),array('function', 'page_links', 'search/authorIndex.tpl', 53, false),array('modifier', 'escape', 'search/authorIndex.tpl', 16, false),array('modifier', 'String_substr', 'search/authorIndex.tpl', 21, false),array('modifier', 'lower', 'search/authorIndex.tpl', 23, false),array('block', 'iterate', 'search/authorIndex.tpl', 19, false),)), $this); ?>

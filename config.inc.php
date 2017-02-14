@@ -47,7 +47,7 @@ session_lifetime = 30
 ; Enable support for running scheduled tasks
 ; Set this to On if you have set up the scheduled tasks script to
 ; execute periodically
-scheduled_tasks = Off
+scheduled_tasks = On
 
 ; Scheduled tasks will send email about processing
 ; only in case of errors. Set to off to receive

@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-01 13:49:45
+<?php /* Smarty version 2.6.26, created on 2017-02-13 18:33:37
          compiled from file:/home/morepress/www/plugins/importexport/native/index.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'file:/home/morepress/www/plugins/importexport/native/index.tpl', 18, false),array('function', 'plugin_url', 'file:/home/morepress/www/plugins/importexport/native/index.tpl', 20, false),)), $this); ?>

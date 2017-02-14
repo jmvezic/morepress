@@ -15,6 +15,17 @@
     ),
     1 => 
     array (
+      'className' => 'plugins.generic.alm.ArticleInfoSender',
+      'frequency' => 
+      array (
+        'hour' => '24',
+      ),
+      'args' => 
+      array (
+      ),
+    ),
+    2 => 
+    array (
       'className' => 'plugins.generic.pln.classes.tasks.Depositor',
       'frequency' => 
       array (
@@ -23,17 +34,6 @@
       'args' => 
       array (
         0 => 'autoStage',
-      ),
-    ),
-    2 => 
-    array (
-      'className' => 'plugins.generic.alm.ArticleInfoSender',
-      'frequency' => 
-      array (
-        'hour' => '24',
-      ),
-      'args' => 
-      array (
       ),
     ),
     3 => 
