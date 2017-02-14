@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 10:29:24
+<?php /* Smarty version 2.6.26, created on 2017-02-14 15:51:44
          compiled from rt/header.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('modifier', 'replace', 'rt/header.tpl', 15, false),array('modifier', 'escape', 'rt/header.tpl', 18, false),array('modifier', 'assign', 'rt/header.tpl', 69, false),array('function', 'translate', 'rt/header.tpl', 17, false),)), $this); ?>
@@ -105,8 +105,8 @@ unset($_smarty_tpl_vars);
 <nav>
 <div id="header">
 <div id="headerTitle">
-<h1><?php if ($this->_tpl_vars['currentJournal'] && $this->_tpl_vars['currentJournal']->getLocalizedInitials()): ?><?php echo $this->_tpl_vars['currentJournal']->getLocalizedInitials(); ?>
-&nbsp;<?php endif; ?><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "rt.readingTools"), $this);?>
+<h1><?php if ($this->_tpl_vars['currentJournal'] && $this->_tpl_vars['currentJournal']->getLocalizedTitle()): ?><?php echo $this->_tpl_vars['currentJournal']->getLocalizedTitle(); ?>
+&nbsp;&#45;&nbsp;<?php endif; ?><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "rt.readingTools"), $this);?>
 </h1>
 </div>
 </div>

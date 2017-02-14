@@ -916,4 +916,5 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
   'manager.section.submissionsToThisSection' => 'Prijave u ovoj rubrici časopisa',
   'manager.sections.unassigned' => 'Dostupni urednici rubrika',
   'locale.primary' => 'Primarni jezik',
+  'rt.readingTools' => 'Alati za članak',
 ); ?>

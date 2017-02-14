@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-18 10:29:39
+<?php /* Smarty version 2.6.26, created on 2017-02-14 15:41:41
          compiled from rt/captureCite.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'rt/captureCite.tpl', 17, false),array('function', 'translate', 'rt/captureCite.tpl', 25, false),array('function', 'call_hook', 'rt/captureCite.tpl', 33, false),array('modifier', 'to_array', 'rt/captureCite.tpl', 17, false),array('modifier', 'assign', 'rt/captureCite.tpl', 17, false),array('modifier', 'strip_unsafe_html', 'rt/captureCite.tpl', 22, false),array('modifier', 'escape', 'rt/captureCite.tpl', 25, false),)), $this); ?>

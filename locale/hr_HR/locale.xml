@@ -1177,5 +1177,6 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="manager.section.submissionsToThisSection">Prijave u ovoj rubrici časopisa</message>
 	<message key="manager.sections.unassigned">Dostupni urednici rubrika</message>
 	<message key="locale.primary">Primarni jezik</message>
+	<message key="rt.readingTools">Alati za članak</message>
 
 </locale>

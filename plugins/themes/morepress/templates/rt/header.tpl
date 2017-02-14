@@ -70,7 +70,7 @@
 <nav>
 <div id="header">
 <div id="headerTitle">
-<h1>{if $currentJournal && $currentJournal->getLocalizedInitials()}{$currentJournal->getLocalizedInitials()}&nbsp;{/if}{translate key="rt.readingTools"}</h1>
+<h1>{if $currentJournal && $currentJournal->getLocalizedTitle()}{$currentJournal->getLocalizedTitle()}&nbsp;&#45;&nbsp;{/if}{translate key="rt.readingTools"}</h1>
 </div>
 </div>
 </nav>

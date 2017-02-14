@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * @file plugins/generic/alm/locale/hr_HR/locale.xml
+  *
+  * Copyright (c) 2013-2015 Simon Fraser University Library
+  * Copyright (c) 2003-2015 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * ALM plugin localization strings
+  -->
+
+<locale name="hr_HR" full_name="Hrvatski">
+
+	<message key="plugins.generic.alm.displayName">ALM dodatak</message>
+	<message key="plugins.generic.alm.description">Dodatak za prikaz metrike na razini članka. Za korištenje ALM usluge, morate imati valjane DOI oznake, u suprotnom se prikazuje statistika s lokalnog poslužitelja.</message>
+	<message key="plugins.generic.alm.title">Metrika članka</message>
+	<message key="plugins.generic.alm.loading">Učitavanje metrike ...</message>
+
+	<message key="plugins.generic.alm.settings">Postavke</message>
+	<message key="plugins.generic.alm.settings.saved">Postavke ALM dodatka spremljene.</message>
+	<message key="plugins.generic.alm.settings.apiKey">API ključ za metriku na razini članka</message>
+	<message key="plugins.generic.alm.settings.apiKey.description"><![CDATA[Za mogućnost pristupa metrici s ALM poslužitelja, potrebno je imati API ključ, koji možete napraviti prijavom na (Mozilla Persona) <a href="http://pkp-alm.lib.sfu.ca/">PKP ALM stranicu</a>.]]></message>
+	<message key="plugins.generic.alm.settings.depositArticles">Automatsko postavljanje informacija o članku? (Ostaviti prazno ukoliko direktno spremate informacije na ALM poslužitelj preko DOI prefiksa)</message>
+	<message key="plugins.generic.alm.settings.depositUrl">URL za postavljanje podataka o članku</message>
+	<message key="plugins.generic.alm.settings.depositUrl.description">URL ponuđen od strane PKP-a za postavljanje članaka.</message>
+	<message key="plugins.generic.alm.settings.ipAddress">Kada kontaktirate PKP za postavljanje ALM usluge, ponudite im sljedeći IP adresu: {$ip}</message>
+
+	<message key="plugins.generic.alm.thisJournal">Ovaj časopis</message>
+	<message key="plugins.generic.alm.categories.html">HTML pogleda</message>
+	<message key="plugins.generic.alm.categories.html.description">Ukupni broj HTML pogleda za ovaj članak. Ovaj broj se sprema u sam sustav. Mjesečni prikaz pogleda također je moguć.</message>
+	<message key="plugins.generic.alm.categories.pdf">PDF pogleda</message>
+	<message key="plugins.generic.alm.categories.pdf.description">Ukupan broj PDF pogleda i preuzimanja za ovaj članak. Ovaj broj se sprema u sam sustav. Mjesečni prikaz pogleda također je moguć.</message>
+	<message key="plugins.generic.alm.categories.shares">Dijeljenja</message>
+	<message key="plugins.generic.alm.categories.shares.description">Broj podijela ili stvaranja oznaka (bookmark) na društvene mreža kao što su Facebook, CiteULike i Mendeley. U većini slučajeva, klik na broj podijela odvest će vas na ispis same mreže.</message>
+	<message key="plugins.generic.alm.categories.likes">Lajkova</message>
+	<message key="plugins.generic.alm.categories.likes.description">Broj lajkova na društvenim mrežama poput Facebooka.</message>
+	<message key="plugins.generic.alm.categories.citations">Citiranost</message>
+	<message key="plugins.generic.alm.categories.citations.description">Broj citiranosti za ovaj članak, povlači se iz CrossRef, PubMed i Wikipedija baza. U većini slučajeva, klik na broj odvest će vas na samu uslugu.</message>
+
+	<message key="plugins.generic.alm.senderTask.warning.noDOIprefix">ALM dodatak je uključen ali valjani DOI prefiks mora biti postavljen u putanji časopisa {$path} kako bi dodatak pravilno funkcionirao.</message>
+	
+	
+	
+	
+	<message key="plugins.generic.alm.senderTask.warning.noApiKey">ALM dodatak je uključen ali nije pružen API ključ za putanju članka {$path}.</message>
+	<message key="plugins.generic.alm.senderTask.warning.noJournal">ALM dodatak nije uključen u nijednom časopisu. Ne šalju se podaci o člancima.</message>
+	<message key="plugins.generic.alm.senderTask.error.noServerResponse">Nije moguće potvrditi da su podaci o članku za časopis {$path} poslani. Poslužuitelj nije odgovorio.</message>
+	<message key="plugins.generic.alm.senderTask.error.noDepositUrl">Nije napisan URL depozita.</message>
+	<message key="plugins.generic.alm.senderTask.error.returnError">Poslužitelj je vratio poruku: {$error}
+	{$articlesNumber} je poslano.
+	{$payload}
+	</message>
+	<message key="plugins.generic.alm.senderTask.name">Slanje ALM podataka o članku</message>
+	
+</locale>
