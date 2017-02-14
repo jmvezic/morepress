@@ -51,8 +51,18 @@ while (!$Journals->EOF) {
 	$JourISSN = $JournalObject->getSetting('printIssn');
 	$JourEISSN = $JournalObject->getSetting('onlineIssn');
 	$JourCatInfo = $JournalObject->getSetting('categories');
-
+	
+	if ($JourPath == "libellarium") {
+		echo '<a href="http://libellarium.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';
+	}
+	elseif ($JourPath == "sic") {
+		echo '<a href="http://www.sic-journal.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';	
+	}
+	else {
 	echo '<a href="'.$JourInitials.'" id="jourBlockLink"><div id="jourBlock">';
+}
+	
+	
 	echo '<div id="jourThumb"><img src="'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
 	echo '<div id="jourTitle">'.$JourTitle.'</div>';
 	echo '<div id="jourInfoBlock">';

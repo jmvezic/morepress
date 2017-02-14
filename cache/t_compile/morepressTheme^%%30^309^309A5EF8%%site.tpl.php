@@ -1,7 +1,7 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-10 12:35:15
+<?php /* Smarty version 2.6.26, created on 2017-02-14 12:12:07
          compiled from index/site.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
-smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'index/site.tpl', 24, false),array('function', 'translate', 'index/site.tpl', 24, false),array('function', 'page_info', 'index/site.tpl', 82, false),array('function', 'page_links', 'index/site.tpl', 83, false),array('modifier', 'escape', 'index/site.tpl', 24, false),)), $this); ?>
+smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'index/site.tpl', 24, false),array('function', 'translate', 'index/site.tpl', 24, false),array('function', 'page_info', 'index/site.tpl', 92, false),array('function', 'page_links', 'index/site.tpl', 93, false),array('modifier', 'escape', 'index/site.tpl', 24, false),)), $this); ?>
 <?php echo ''; ?><?php if ($this->_tpl_vars['siteTitle']): ?><?php echo ''; ?><?php $this->assign('pageTitleTranslated', $this->_tpl_vars['siteTitle']); ?><?php echo ''; ?><?php endif; ?><?php echo ''; ?><?php $this->assign('pageDisplayed', 'site'); ?><?php echo ''; ?><?php $_smarty_tpl_vars = $this->_tpl_vars;
 $this->_smarty_include(array('smarty_include_tpl_file' => "common/header.tpl", 'smarty_include_vars' => array()));
 $this->_tpl_vars = $_smarty_tpl_vars;
@@ -53,8 +53,18 @@ while (!$Journals->EOF) {
 	$JourISSN = $JournalObject->getSetting('printIssn');
 	$JourEISSN = $JournalObject->getSetting('onlineIssn');
 	$JourCatInfo = $JournalObject->getSetting('categories');
-
+	
+	if ($JourPath == "libellarium") {
+		echo '<a href="http://libellarium.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';
+	}
+	elseif ($JourPath == "sic") {
+		echo '<a href="http://www.sic-journal.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';	
+	}
+	else {
 	echo '<a href="'.$JourInitials.'" id="jourBlockLink"><div id="jourBlock">';
+}
+	
+	
 	echo '<div id="jourThumb"><img src="'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
 	echo '<div id="jourTitle">'.$JourTitle.'</div>';
 	echo '<div id="jourInfoBlock">';
