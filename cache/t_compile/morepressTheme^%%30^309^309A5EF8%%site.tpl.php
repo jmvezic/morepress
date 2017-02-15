@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-14 12:12:07
+<?php /* Smarty version 2.6.26, created on 2017-02-15 09:18:30
          compiled from index/site.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'url', 'index/site.tpl', 24, false),array('function', 'translate', 'index/site.tpl', 24, false),array('function', 'page_info', 'index/site.tpl', 92, false),array('function', 'page_links', 'index/site.tpl', 93, false),array('modifier', 'escape', 'index/site.tpl', 24, false),)), $this); ?>
@@ -39,7 +39,7 @@ $AppLocale = new AppLocale();
 $Locale = $AppLocale->getLocale();
 $DAO = new DAO();
 $JournalDAO = new JournalDAO();
-$Journals = $DAO->retrieve("SELECT * FROM journals");
+$Journals = $DAO->retrieve("SELECT * FROM journals ORDER BY RAND()");
 
 while (!$Journals->EOF) {
 	$JourID = $Journals->fields["journal_id"];

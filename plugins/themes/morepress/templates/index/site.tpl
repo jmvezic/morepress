@@ -37,7 +37,7 @@ $AppLocale = new AppLocale();
 $Locale = $AppLocale->getLocale();
 $DAO = new DAO();
 $JournalDAO = new JournalDAO();
-$Journals = $DAO->retrieve("SELECT * FROM journals");
+$Journals = $DAO->retrieve("SELECT * FROM journals ORDER BY RAND()");
 
 while (!$Journals->EOF) {
 	$JourID = $Journals->fields["journal_id"];
