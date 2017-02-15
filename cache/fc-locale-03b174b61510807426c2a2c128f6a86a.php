@@ -10,6 +10,7 @@
   'about.people' => 'People',
   'about.policies' => 'Policies',
   'about.siteMap' => 'Site Map',
+  'about.onlineSubmissions.startNew' => 'Start new submission',
   'announcement.announcements' => 'Announcements',
   'announcement.announcementsHome' => 'Announcements',
   'announcement.moreAnnouncements' => 'More Announcements...',

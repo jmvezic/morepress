@@ -23,6 +23,7 @@
 	<message key="about.people">Osobe</message>
 	<message key="about.policies">Uređivačka politika</message>
 	<message key="about.siteMap">Mapa stranice</message>
+	<message key="about.onlineSubmissions.startNew">Započnite novu prijavu priloga</message>
 	<message key="announcement.announcementsHome">Novosti</message>
 	<message key="announcement.moreAnnouncements">Ostale novosti...</message>
 	<message key="announcement.noneExist">Nema objavljenih novosti.</message>

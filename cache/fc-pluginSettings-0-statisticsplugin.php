@@ -1,3 +1,3 @@
 <?php return array (
-  'enabled' => true,
+  'enabled' => false,
 ); ?>

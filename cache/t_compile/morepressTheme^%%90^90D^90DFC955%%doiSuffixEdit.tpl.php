@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-01-22 12:00:03
+<?php /* Smarty version 2.6.26, created on 2017-02-14 19:23:54
          compiled from file:/home/morepress/www/plugins/pubIds/doi/templates/doiSuffixEdit.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'file:/home/morepress/www/plugins/pubIds/doi/templates/doiSuffixEdit.tpl', 30, false),array('function', 'fieldLabel', 'file:/home/morepress/www/plugins/pubIds/doi/templates/doiSuffixEdit.tpl', 37, false),array('modifier', 'escape', 'file:/home/morepress/www/plugins/pubIds/doi/templates/doiSuffixEdit.tpl', 38, false),array('modifier', 'cat', 'file:/home/morepress/www/plugins/pubIds/doi/templates/doiSuffixEdit.tpl', 48, false),)), $this); ?>

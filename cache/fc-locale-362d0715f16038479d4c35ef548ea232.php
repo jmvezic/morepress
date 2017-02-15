@@ -9,6 +9,7 @@
   'about.people' => 'Osobe',
   'about.policies' => 'Uređivačka politika',
   'about.siteMap' => 'Mapa stranice',
+  'about.onlineSubmissions.startNew' => 'Započnite novu prijavu priloga',
   'announcement.announcementsHome' => 'Novosti',
   'announcement.moreAnnouncements' => 'Ostale novosti...',
   'announcement.noneExist' => 'Nema objavljenih novosti.',

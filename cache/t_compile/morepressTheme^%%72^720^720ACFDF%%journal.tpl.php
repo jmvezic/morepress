@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2017-02-09 08:00:49
+<?php /* Smarty version 2.6.26, created on 2017-02-15 08:50:20
          compiled from index/journal.tpl */ ?>
 <?php require_once(SMARTY_CORE_DIR . 'core.load_plugins.php');
 smarty_core_load_plugins(array('plugins' => array(array('function', 'translate', 'index/journal.tpl', 18, false),array('function', 'url', 'index/journal.tpl', 20, false),array('function', 'call_hook', 'index/journal.tpl', 34, false),array('function', 'icon', 'index/journal.tpl', 152, false),array('function', 'mailto', 'index/journal.tpl', 230, false),array('modifier', 'escape', 'index/journal.tpl', 39, false),array('modifier', 'strip_unsafe_html', 'index/journal.tpl', 54, false),array('modifier', 'nl2br', 'index/journal.tpl', 54, false),array('modifier', 'string_format', 'index/journal.tpl', 424, false),)), $this); ?>
@@ -511,7 +511,8 @@ unset($_smarty_tpl_vars);
 " class="action"><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "about.onlineSubmissions.login"), $this);?>
 </a>
 			<a href="<?php echo $this->_plugins['function']['url'][0][0]->smartyUrl(array('page' => 'author','op' => 'submit'), $this);?>
-" class="action">Start New Submission</a>
+" class="action"><?php echo $this->_plugins['function']['translate'][0][0]->smartyTranslate(array('key' => "about.onlineSubmissions.startNew"), $this);?>
+</a>
 		</div>
 		
 		<div >			
