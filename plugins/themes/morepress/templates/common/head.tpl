@@ -52,3 +52,5 @@
 
 <script type="text/javascript" src="/plugins/themes/morepress/js/anchor.js"></script>
 
+<script type="text/javascript" src="/plugins/themes/morepress/js/piwik.js"></script>
+

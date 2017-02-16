@@ -1,0 +1,1 @@
+<?php return '{"error":"Article not found."}'; ?>

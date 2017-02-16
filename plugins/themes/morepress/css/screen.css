@@ -275,7 +275,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: 400;
   /* margin-top: .5em; */
 }
@@ -2837,7 +2837,7 @@ float:left;
 }
 
 .journalDescriptionHeading {
-width: 70%;
+width: 100%;
 
 display: table-cell;
 float:left;
