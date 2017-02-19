@@ -1,0 +1,9 @@
+Trenutnu verziju pogledati na
+http://localhost/morepress/index.php/index/admin/systemInfo?versionCheck=1
+
+preuzeti novu verziju
+staviti u verzije dir
+raspakirati
+staviti u OJS root file
+patch -p1 --dry-run < ojs-2.4.7-1_to_2.4.8.patch
+patch -p1 < ojs-2.4.7-1_to_2.4.8.patch
