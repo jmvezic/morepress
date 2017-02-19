@@ -1,4 +1,9 @@
 .DS_Store
 cache/*
+piwik/tmp/*
 config.inc.php
-config.inc.php
+
+
+morepress.unizd.hr-access_log
+
+morepress.unizd.hr-error_log
