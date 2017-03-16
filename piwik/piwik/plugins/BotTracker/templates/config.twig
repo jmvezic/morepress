@@ -1,0 +1,139 @@
+{% extends 'admin.twig' %}
+
+{% set title %}{{'BotTracker_Config'|translate}}{% endset %}
+
+{% block content %}
+{% import 'macros.twig' as piwik %}
+{% if isSuperUser %}
+<div piwik-content-block
+     content-title="{{ title|e('html_attr') }}"
+     feature="true"
+     style="width:800px;"
+    >
+	<p>{{'BotTracker_PluginDescription'|translate}}</p>
+
+	<div id="sites">
+    <div id="sites" class="BotTracker">
+        <section class="sites_selector_container">
+            <div piwik-siteselector
+                 show-selected-site="true"
+                 only-sites-with-admin-access="true"
+                 class="sites_autocomplete"
+                 ng-model="sitesList.site"
+                 ng-change="BotTracker.config_reload()"
+                 siteid="{{ idSite }}"
+                 sitename="{{ defaultReportSiteName }}"
+                 id="selectID"
+                 show-all-sites-item="false"
+                 switch-site-on-select="true"></div>
+        </section>
+
+		<div id="button" style="display:inline;" >
+			<form method="post" action="{{ {'action':'config_insert_db', 'token_auth':token_auth} | urlRewriteWithParameters }}" id="dbButton">
+				<input type="hidden" value="{{ idSite }}" name="siteID" />
+				<input type="submit" value="{{'BotTracker_insert_db'|translate}} (35)" name="submit" class="submit" />
+			</form>
+		</div>
+	</div>
+	<br>
+	<br>
+   {% if errorList|length >= 1 %}
+		<div id="messages">
+		   {% for error in errorList %}
+				<font size=+2 color=#ff0000>{{error}}<br></font>
+			{% endfor %}
+		<br>
+		<br>
+		<div>
+   {% endif %}
+   
+   	<font size=+2>{{'BotTracker_NoOfActiveBots'|translate}}: {{botList|length}} <br><br></font>
+	<form method="POST" action="{{ linkTo({'module':'BotTracker','action':'saveConfig'}) }}">
+	
+	<table class="adminTable" style="width: 700px;">
+	<tr><th style="text-align: left; padding: 0px 5px;">BotID</th>
+	    <th style="text-align: left; padding: 0px 5px;">Side ID</th>
+	    <th style="text-align: left; padding: 0px 5px;">{{'BotTracker_BotActive'|translate}}</th>
+	    <th style="text-align: left; padding: 0px 5px;">{{'BotTracker_ExtraStats'|translate}}</th>
+	    <th style="text-align: left; padding: 0px 5px;">{{'BotTracker_BotName'|translate}}</th>
+	    <th style="text-align: left; padding: 0px 5px;">{{'BotTracker_BotKeyword'|translate}}</th>
+	    <th style="text-align: left; padding: 0px 5px;"></th>
+	</tr>    
+	{% for bot in botList %}
+		<tr>
+	       <td>{{bot.botId}}</td>
+	       <td>{{bot.idsite}}</td>
+	       <td><div piwik-field uicontrol="checkbox" name="{{bot.botId}}_botActive"
+                  		ng-model="botActive_{{bot.botId}}.enabled"
+	                    value="{% if bot.botActive == 1%}1{% endif %}"
+		      </div></td>
+            <td><div piwik-field uicontrol="checkbox" name="{{bot.botId}}_extraStats"
+                 		ng-model="botExtraStat_{{bot.botId}}.enabled"
+	                    value="{% if bot.extra_stats == 1%}1{% endif %}"
+		      </div></td>
+		  <td><input type="text" size="30" value="{{bot.botName}}" name="{{bot.botId}}_botName"/></td>
+		  <td><input type="text" size="32" maxlength="32" value="{{bot.botKeyword}}" name="{{bot.botId}}_botKeyword"/></td>
+		  <td><a href='{{ linkTo({'module':'BotTracker','action':'deleteBotEntry', 'idSite':idSite, 'botId':bot.botId}) }}'><span class="icon-delete"></span></a></td>
+		</tr>
+	{% endfor %}	
+	
+		<tr>
+	     <td>new</td>
+	     <td>{{idSite}}</td>
+          <td><div piwik-field uicontrol="checkbox" name="new_botActive"
+                  		ng-model="botActive_new.enabled"
+	                    value=""
+		    </div></td>
+          <td><div piwik-field uicontrol="checkbox" name="new_extraStats"
+                 		ng-model="botExtraStat_new.enabled"
+	                    value=""
+		    </div></td>
+		<td><input type="text" size="30" name="new_botName"/></td>
+		<td><input type="text" size="32" maxlength="32" name="new_botKeyword"/></td>
+		</tr>
+	
+	</table>	
+
+	<input type="hidden" value="{{token_auth}}" name="token_auth" />
+	<input type="hidden" value="{{nonce}}" name="form_nonce" />
+	<input type="hidden" value="{{idSite}}" name="siteID" />
+	
+	<input type="submit" value="{{'BotTracker_save_changes'|translate}}" name="submit" class="submit" />
+	</form>
+
+	<script language="JavaScript" type="text/javascript">
+	<!--
+		function show_text(div) {
+			with(document.getElementById(div).style){
+	   			if(display=="none"){
+     					display="inline";
+   				} else {
+     					display="none";
+   				}
+   			}
+		}
+	//-->
+	</script>
+
+	<form enctype="multipart/form-data" action="{{ linkTo({'module':'BotTracker','action':'config_import'})}}" method="POST">
+ 		<input type="hidden" name="MAX_FILE_SIZE" value="50000" />
+	    {{'BotTracker_Importfile'|translate}}[<a href="#" onClick="show_text('helptext'); return false;">?</a>]: <input name="importfile" type="file" />
+ 		<input type="submit" value="{{'BotTracker_send_file'|translate}}" />
+	</form>
+
+   	<div id="helptext" style="display:none;">
+   	<font size=+2 color=#0000ff><b>{{'BotTracker_Import_help_headline'|translate}}</b><br>
+   	<p style="font-family:monospace;">{{'BotTracker_Import_help_format'|translate}}</p>
+   	<ul>
+   		<li>{{'BotTracker_Import_help_line1'|translate}}</li>
+   		<li>{{'BotTracker_Import_help_line2'|translate}}</li>
+   		<li>{{'BotTracker_Import_help_line3'|translate}}</li>
+   	</ul>
+	</div>
+</div>
+
+
+    
+{% endif %}
+
+{% endblock %}
