@@ -7,6 +7,8 @@ morepress.unizd.hr-error_log
 
 config.inc.php
 
+piwik/*
+
 piwik/tmp/*
 
 piwik/tmp/cache/tracker/eagercache-301-tracker.php
