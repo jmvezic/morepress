@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/generic/browse/locale/hr_HR/locale.xml
+  *
+  * Copyright (c) 2013-2016 Simon Fraser University Library
+  * Copyright (c) 2003-2016 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * Browse plugin localization strings
+  -->
+ 
+<locale name="hr_HR" full_name="Hrvatski">
+	<!-- plugin -->
+	<message key="plugins.generic.browse.displayName">Pregledavanje</message>
+	<message key="plugins.generic.browse.description">Ovaj dodatak omogućava pregledavanje po rubrikama časopisa i/ili po drugim identifikacijskim vrstama</message>
+
+	<!-- URN manager options, setting -->
+	<message key="plugins.generic.browse.manager.settings">Postavke</message>
+	<message key="plugins.generic.browse.manager.settings.description"><![CDATA[Molimo postavite sljedeće dodatne mogućnosti za pregledavanje:]]></message>
+
+	<message key="plugins.generic.browse.manager.settings.browseSettings">Postavke za pregledavanje</message>
+	<message key="plugins.generic.browse.manager.settings.browse">Pregledavanje</message>
+	<message key="plugins.generic.browse.manager.settings.browseByObjects">Odaberite objekte prema kojima će biti moguće pregledavati.</message>
+	<message key="plugins.generic.browse.manager.settings.enableBrowseBySections">Prema rubrikama časopisa</message>
+	<message key="plugins.generic.browse.manager.settings.enableBrowseByIdentifyTypes">Prema IdentifyType</message>
+	<message key="plugins.generic.browse.manager.settings.excludedSections">Isključene rubrike</message>
+	<message key="plugins.generic.browse.manager.settings.excludedSections.description">Odaberite rubrike koje neće biti uzete u obzir.</message>
+	<message key="plugins.generic.browse.manager.settings.excludedIdentifyTypes">Isključene Identify Types</message>
+	<message key="plugins.generic.browse.manager.settings.excludedIdentifyTypes.description">Odaberite identify types koje neće biti uzete u obzir.</message>
+
+	<message key="plugins.generic.browse.search.sections">Prema rubrikama časopisa</message>
+	<message key="plugins.generic.browse.search.sectionIndex">Kazalo rubrika</message>
+	<message key="plugins.generic.browse.search.sectionDetails">Detalji rubrike</message>
+	<message key="plugins.generic.browse.search.identifyTypes">By Identify Types</message>
+	<message key="plugins.generic.browse.search.identifyTypeIndex">Browse Identify Type Index</message>
+	<message key="plugins.generic.browse.search.identifyTypeDetails">Identify Type Details</message>
+	
+<message key="plugins.generic.browse.search.sections">Po rubrikama časopisa</message>
+<message key="plugins.generic.browse.search.sectionIndex">Kazalo rubrika</message>
+	
+
+</locale>

@@ -105,6 +105,29 @@
 			<a href="#"><li>Tweety</li></a>
 		</ul>
 	</div>
+	<div id="footerCol">
+		<h2>{translate key="moreFooter.version"}</h2>
+		<ul>
+		{php}
+function gitVersion()
+{
+    $full = exec('git describe --tags');
+    $parts = explode('-', $full);
+    $structured = 'N/A';
+    if (strlen($parts[0])) {
+        $structured = str_replace('v', '', $parts[0]);
+        if (isset($parts[1])) {
+            $structured .= '.' . $parts[1];
+        } else {
+            $structured .= '.0';
+        }
+    }
+    return $structured;
+}
+{/php}
+			<a href="#"><li><strong>ver. {php} echo gitVersion()."</strong><br>".exec('git rev-parse --short HEAD'); echo "<br>".exec('git log -n1 --pretty=%ci HEAD'); {/php}</span></li></a>
+		</ul>
+	</div>
 </div>
 </div>
 

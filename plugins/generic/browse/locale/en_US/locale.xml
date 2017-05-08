@@ -36,5 +36,9 @@
 	<message key="plugins.generic.browse.search.identifyTypes">By Identify Types</message>
 	<message key="plugins.generic.browse.search.identifyTypeIndex">Browse Identify Type Index</message>
 	<message key="plugins.generic.browse.search.identifyTypeDetails">Identify Type Details</message>
+	
+<message key="plugins.generic.browse.search.sections">Sections</message>
+<message key="plugins.generic.browse.search.sectionIndex">Section index</message>
+	
 
 </locale>
