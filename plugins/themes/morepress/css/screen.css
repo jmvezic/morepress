@@ -1708,7 +1708,8 @@ table.single {
 }
 
 .highlightReviewerNotNotified, .highlightCopyediting {
-  background-color: #266BA8;
+  /* background-color: #266BA8; STARA BOJA */
+  background-color: #d3eaff;
 }
 .highlightReviewerNotNotified:before, .highlightCopyediting:before {
   content: "\00b9";
@@ -1733,7 +1734,8 @@ table.single {
 }
 
 .highlightRevisedCopyUploaded, .highlightLayoutEditing {
-  background-color: #1EB568;
+  /* background-color: #1EB568; STARA BOJA */
+  background-color: #89f7bf;
 }
 .highlightRevisedCopyUploaded:before, .highlightLayoutEditing:before {
   content: "\2666";
@@ -1751,14 +1753,17 @@ table.single {
 
 .highlightCopyediting a,
 .highlightLayoutEditing a,
-.highlightNoDecision a,
-.highlightReviewerCompletionOverdue a,
 .highlightRevisedCopyUploaded a,
 .highlightReviewerConfirmationOverdue a,
 .highlightReviewerNotNotified a,
 .higlightProofreading a {
   background-color: initial;
   border-color: initial;
+}
+
+.highlightNoDecision a,
+.highlightReviewerCompletionOverdue a {
+  color: white !important; 
 }
 
 #notes ul {
@@ -2978,7 +2983,7 @@ color: #143c62;
 
 #content a.action {
 background-color: transparent !important;
-color: #2364a2 !important;
+color: #2364a2;
 margin:0 1px !important;
 }
 
