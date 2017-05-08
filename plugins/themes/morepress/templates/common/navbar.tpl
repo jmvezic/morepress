@@ -167,7 +167,7 @@
 <a href="{$baseUrl}" id="logoNav"><img src="{$baseUrl}/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a>
 </div>
 
-<a href="{$baseUrl}"><div id="MorepressInfo"><span id="logoSep"></span><p>{translate key="common.morepressJournals"}</p></div></a>
+<a href="{$baseUrl}"><div id="MorepressInfo"><span id="logoSep"></span><p>{translate key="common.morepressJournals"} Beta</p></div></a>
 </div>
 </div>
         
