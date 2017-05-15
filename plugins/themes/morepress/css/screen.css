@@ -809,6 +809,10 @@ height:60%;
     max-height:75%;
 }
 
+#customFooter #logoNav {
+display:block;
+}
+
 #langChange {
 display:block;
 float: right;

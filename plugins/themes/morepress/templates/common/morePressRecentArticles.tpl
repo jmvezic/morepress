@@ -16,12 +16,12 @@ $ThisJournalPath = $ThisJournalPath[0];
 $ThisJournal = $JournalDAO->getJournalByPath($ThisJournalPath);
 $ThisJournalID = $ThisJournal->getJournalId();
 
-$ArticlesCount = $DAO->retrieve("SELECT * FROM articles WHERE journal_id=".$ThisJournalID." ORDER BY date_submitted DESC LIMIT ".$lastHowMany);
+$ArticlesCount = $DAO->retrieve("SELECT * FROM articles WHERE journal_id=".$ThisJournalID." AND status=3 ORDER BY date_submitted DESC LIMIT ".$lastHowMany);
 $ArtCount = 0;
 while (!$ArticlesCount->EOF) {$ArtCount+=1;$ArticlesCount->MoveNext();}
 if ($ArtCount > 0) {}
 
-$ArticlesMega = $DAO->retrieve("SELECT * FROM articles WHERE journal_id=".$ThisJournalID." ORDER BY date_submitted DESC LIMIT ".$lastHowMany);
+$ArticlesMega = $DAO->retrieve("SELECT * FROM articles WHERE journal_id=".$ThisJournalID." AND status=3 ORDER BY date_submitted DESC LIMIT ".$lastHowMany);
 while (!$ArticlesMega->EOF) {
 	$ArticleID = $ArticlesMega->fields["article_id"];
 	$JournalID = $ArticlesMega->fields["journal_id"];
@@ -65,7 +65,7 @@ $AppLocale = new AppLocale();
 $Locale = $AppLocale->getLocale();
 $DAO = new DAO();
 
-$ArticlesMega = $DAO->retrieve("SELECT * FROM articles ORDER BY date_submitted DESC LIMIT ".$lastHowMany);
+$ArticlesMega = $DAO->retrieve("SELECT * FROM articles WHERE status=3 ORDER BY date_submitted DESC LIMIT ".$lastHowMany);
 
 while (!$ArticlesMega->EOF) {
 	$ArticleID = $ArticlesMega->fields["article_id"];
