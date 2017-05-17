@@ -1,9 +1,9 @@
  $(document).ready(function(){
     //user nav
      $('.yearChild').show();
-    $('.yearParent').click(function() {
-        $(this).siblings('.yearChild').slideUp();
-        $(this).find('.yearChild').slideToggle();
+    $('#JournalHomeArchiveYearLabel').click(function(e) {
+    	  if ($(this).hasClass('hidden')) {$(this).siblings('.yearChild').slideToggle();$(this).removeClass('hidden');}
+    	  else {$(this).siblings('.yearChild').slideUp();$(this).addClass('hidden');}
+        e.preventDefault();
     });
-    
 });
