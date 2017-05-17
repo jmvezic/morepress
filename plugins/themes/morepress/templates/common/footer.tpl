@@ -98,14 +98,6 @@
 		</ul>
 	</div>
 	<div id="footerCol">
-		<h2>{translate key="moreFooter.tweets"}</h2>
-		<ul>
-			<a href="#"><li>Tweety</li></a>
-			<a href="#"><li>Tweety</li></a>
-			<a href="#"><li>Tweety</li></a>
-		</ul>
-	</div>
-	<div id="footerCol">
 		<h2>{translate key="moreFooter.version"}</h2>
 		<ul>
 		{php}
