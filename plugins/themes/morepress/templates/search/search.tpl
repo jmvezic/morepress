@@ -106,14 +106,7 @@
 	{assign var=numCols value=4}
 {/if}
 
-<div id="results">
-	<table width="100%">
-		<tr class="heading" valign="bottom">
-			{if !$currentJournal}<th width="20%">{translate key="journal.journal"}</th>{/if}
-			<th width="{if !$currentJournal}20%{else}40%{/if}">{translate key="issue.issue"}</th>
-			<th width="60%" colspan="2">{translate key="article.title"}</th>
-		</tr>
-
+<div id="morepressResults">
 		{iterate from=results item=result}
 			{assign var=publishedArticle value=$result.publishedArticle}
 			{assign var=article value=$result.article}
@@ -121,66 +114,50 @@
 			{assign var=issueAvailable value=$result.issueAvailable}
 			{assign var=journal value=$result.journal}
 			{assign var=section value=$result.section}
-			<tr valign="top">
-				{if !$currentJournal}
-					<td><a href="{url journal=$journal->getPath()}">{$journal->getLocalizedTitle()|escape}</a></td>
-				{/if}
-				<td><a href="{url journal=$journal->getPath() page="issue" op="view" path=$issue->getBestIssueId($journal)}">{$issue->getIssueIdentification()|escape}</a></td>
-				<td width="30%">{$article->getLocalizedTitle()|strip_unsafe_html}</td>
-				<td width="30%" align="right">
-					{if $publishedArticle->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN|| $issueAvailable}
-						{assign var=hasAccess value=1}
-					{else}
-						{assign var=hasAccess value=0}
-					{/if}
-					{if $publishedArticle->getLocalizedAbstract() != ""}
-						{assign var=hasAbstract value=1}
-					{else}
-						{assign var=hasAbstract value=0}
-					{/if}
-					{if !$hasAccess || $hasAbstract}
-						<a href="{url journal=$journal->getPath() page="article" op="view" path=$publishedArticle->getBestArticleId($journal)}" class="file">
+			<div class="oneitem">
+<div class="articleTitle">
+{if !$hasAccess || $hasAbstract}
+<a href="{url journal=$journal->getPath() page="article" op="view" path=$publishedArticle->getBestArticleId($journal)}">
 							{if !$hasAbstract}
-								{translate key="article.details"}
+								{$article->getLocalizedTitle()|strip_unsafe_html}
 							{else}
-								{translate key="article.abstract"}
+								{$article->getLocalizedTitle()|strip_unsafe_html}
 							{/if}
-						</a>
-					{/if}
-					{if $hasAccess}
-						{foreach from=$publishedArticle->getLocalizedGalleys() item=galley name=galleyList}
-							&nbsp;<a href="{url journal=$journal->getPath() page="article" op="view" path=$publishedArticle->getBestArticleId($journal)|to_array:$galley->getBestGalleyId($journal)}" class="file">{$galley->getGalleyLabel()|escape}</a>
-						{/foreach}
-					{/if}
-					{call_hook name="Templates::Search::SearchResults::AdditionalArticleLinks" articleId=$publishedArticle->getId()}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="{$numCols|escape}" style="padding-left: 30px;font-style: italic;">
+</a>
+{else}
+{$article->getLocalizedTitle()|strip_unsafe_html}
+{/if}
+</div>
+				{if !$currentJournal}
+					<div class="journalTitle"><a href="{url journal=$journal->getPath()}">{$journal->getLocalizedTitle()|escape}</a></div>
+				{/if}
+				<div><a href="{url journal=$journal->getPath() page="issue" op="view" path=$issue->getBestIssueId($journal)}">{$issue->getIssueIdentification()|escape}</a></div>
+				
+				
+			<div class="authors">
 					{foreach from=$article->getAuthors() item=authorItem name=authorList}
 						{$authorItem->getFullName()|escape}{if !$smarty.foreach.authorList.last},{/if}
 					{/foreach}
-				</td>
-			</tr>
-			{call_hook name="Templates::Search::SearchResults::AdditionalArticleInfo" articleId=$publishedArticle->getId() numCols=$numCols|escape}
+			</div>
+			<div class="additional">{call_hook name="Templates::Search::SearchResults::AdditionalArticleInfo" articleId=$publishedArticle->getId() numCols=$numCols|escape}</div>
+
+</div>
 		{/iterate}
+</div>
+<div class="pages">
 		{if $results->wasEmpty()}
-			<tr>
-				<td colspan="{$numCols|escape}" class="nodata">
+				<divclass="nodata">
 					{if $error}
 						{$error|escape}
 					{else}
 						{translate key="search.noResults"}
 					{/if}
-				</td>
-			</tr>
+				</div>
 		{else}
-			<tr>
-				<td {if !$currentJournal}colspan="2" {/if}align="left">{page_info iterator=$results}</td>
-				<td colspan="2" align="right">{page_links anchor="results" iterator=$results name="search" query=$query searchJournal=$searchJournal authors=$authors title=$title abstract=$abstract galleyFullText=$galleyFullText suppFiles=$suppFiles discipline=$discipline subject=$subject type=$type coverage=$coverage indexTerms=$indexTerms dateFromMonth=$dateFromMonth dateFromDay=$dateFromDay dateFromYear=$dateFromYear dateToMonth=$dateToMonth dateToDay=$dateToDay dateToYear=$dateToYear orderBy=$orderBy orderDir=$orderDir}</td>
-			</tr>
+				<div class="resultsnum">{page_info iterator=$results}</div>
+				<div class="resultspages">{page_links anchor="results" iterator=$results name="search" query=$query searchJournal=$searchJournal authors=$authors title=$title abstract=$abstract galleyFullText=$galleyFullText suppFiles=$suppFiles discipline=$discipline subject=$subject type=$type coverage=$coverage indexTerms=$indexTerms dateFromMonth=$dateFromMonth dateFromDay=$dateFromDay dateFromYear=$dateFromYear dateToMonth=$dateToMonth dateToDay=$dateToDay dateToYear=$dateToYear orderBy=$orderBy orderDir=$orderDir}</div>
 		{/if}
-	</table>
+</div>
 
 	{capture assign="syntaxInstructions"}{call_hook name="Templates::Search::SearchResults::SyntaxInstructions"}{/capture}
 		{if empty($syntaxInstructions)}

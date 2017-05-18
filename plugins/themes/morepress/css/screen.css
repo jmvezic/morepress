@@ -76,17 +76,21 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   border: 1px solid #2364a2;
 }
 
-.button, .action,
 .toggleExtras-inactive,
-.toggleExtras-active, #setup .options {
+.toggleExtras-active {
   padding: 2px 3px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  border: 1px solid #07355E;
-  background-color: #3a749d;
+  /* border: 1px solid #07355E; */
+  /* background-color: #3a749d; */
   font-weight: 300;
   margin-right: 1px;
+  color: #357583 !important;
+}
+
+.toggleExtras-inactive:hover, .toggleExtras-active:hover {
+background-color: white !important;
 }
 
 .button, a.action {
@@ -1462,7 +1466,7 @@ font-size: 12px;
   border-right: none;
 }
 #results table tr:nth-child(odd) {
-  border-bottom: 1px solid #D1D3D5;
+  /border-bottom: 1px solid #D1D3D5; 
 }
 
 /* Issues
@@ -2998,4 +3002,40 @@ text-decoration: underline;
 
 table .heading a {
 color: white !important;
+}
+
+/* LUCENE PRETRAŽIVANJE */
+
+#morepressResults .articleTitle {
+font-size:1.2em;
+}
+
+#morepressResults .oneitem {
+padding:1em;
+border-bottom:1px solid #ccc;
+}
+
+#morepressResults .oneitem .additional {
+margin:0.3em;
+background-color: rgba(0,0,0,0.05);
+}
+
+#morepressResults .oneitem .additional em {
+font-weight: bold;
+}
+
+.pages {
+padding:2em 0;
+}
+
+.resultsnum, .resultspages {
+	text-align: center;
+}
+
+.resultspages a, .resultspages strong {
+	font-size:1.4em;
+}
+
+.extrasContainer ul li a {
+display: inline !important;
 }
