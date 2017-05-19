@@ -59,6 +59,8 @@
 	<script type="text/javascript" src="{$baseUrl}/lib/pkp/js/lib/jquery/plugins/jqueryUi.min.js"></script>
 	{/if}
 
+<script type="text/javascript" src="/plugins/themes/morepress/js/paragraphlinks.js"></script>
+
 	<!-- Compiled scripts -->
 	{if $useMinifiedJavaScript}
 		<script type="text/javascript" src="{$baseUrl}/js/pkp.min.js"></script>

@@ -13,7 +13,7 @@
 
 <script src="https://use.fontawesome.com/d6cd8dee84.js"></script>
 
-<link rel="icon" type="img/ico" href="{$baseUrl}/plugins/themes/morepress/img/favicon.ico?v=2" />
+<link rel="icon" type="img/ico" href="{$baseUrl}/plugins/themes/morepress/img/favicon.ico?v=3" />
 
 <!-- Add fonts style sheet -->
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Sans:400,700,400italic' rel='stylesheet' type='text/css'>

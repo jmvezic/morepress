@@ -3039,3 +3039,10 @@ padding:2em 0;
 .extrasContainer ul li a {
 display: inline !important;
 }
+
+/* PARAGRAPH LINKER */
+.parLink {
+color: #aaa;
+font-size:0.8em;
+margin: 0px 10px 0px -19px;
+}

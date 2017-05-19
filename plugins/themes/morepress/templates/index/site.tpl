@@ -37,7 +37,8 @@ $AppLocale = new AppLocale();
 $Locale = $AppLocale->getLocale();
 $DAO = new DAO();
 $JournalDAO = new JournalDAO();
-$Journals = $DAO->retrieve("SELECT * FROM journals ORDER BY RAND()");
+
+$Journals = $DAO->retrieve("SELECT journals.journal_id, issues.date_published FROM journals LEFT JOIN issues ON journals.journal_id = issues.journal_id GROUP BY journals.journal_id ORDER BY MAX(issues.date_published) DESC");
 
 while (!$Journals->EOF) {
 	$JourID = $Journals->fields["journal_id"];
