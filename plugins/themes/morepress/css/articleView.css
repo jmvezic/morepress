@@ -157,11 +157,11 @@ margin-bottom: 1em;
 }
 
 #content main section p, #content main section ol, #content main section ul {
+position: relative;
 font-family: "Georgia", serif;
 font-size: 19px;
 text-align: justify;
 margin: 0.5em 0;
-text-indent: 1em;
 -webkit-font-smoothing: antialiased;
 word-wrap: break-word;
 text-rendering:optimizeLegibility;

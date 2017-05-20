@@ -3043,6 +3043,8 @@ display: inline !important;
 /* PARAGRAPH LINKER */
 .parLink {
 color: #aaa;
-font-size:0.8em;
-margin: 0px 10px 0px -19px;
+position: absolute;
+font-size: 1em;
+top: 0;
+left: -4em;
 }
