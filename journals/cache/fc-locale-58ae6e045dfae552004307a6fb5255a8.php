@@ -1,0 +1,15 @@
+<?php return array (
+  'plugins.importexport.METSExport.displayName' => 'METS XML Export Plugin',
+  'plugins.importexport.METSExport.description' => 'Export Journals in METS XML',
+  'plugins.importexport.METSExport.settings' => 'Settings',
+  'plugins.importexport.METSExport.export' => 'Export Data',
+  'plugins.importexport.METSExport.export.issues' => 'Export Issues',
+  'plugins.importexport.METSExport.export.selectIssue' => 'Select Issues to export.',
+  'plugins.importexport.METSExport.export.error.IssuesNotFound' => 'No Issue matched the specified Issue ID "{$issueId}".',
+  'plugins.importexport.METSExport.export.error.unknownIssue' => 'Unknown Journal path {$journalPath}',
+  'plugins.importexport.METSExport.settings.FContent' => 'Use base64 encoding for content wrapper',
+  'plugins.importexport.METSExport.settings.FLocat' => 'Use URL of the bitstream for content wrapper',
+  'plugins.importexport.METSExport.settings.organization' => 'METS:agent element organization attribute',
+  'plugins.importexport.METSExport.settings.preservationLevel' => 'PREMIS preservation Level',
+  'plugins.importexport.METSExport.settings.exportSuppFiles' => 'Export supplementary files',
+); ?>

@@ -1,0 +1,15 @@
+<?php return array (
+  'markedness' => 1,
+  'Croatia' => 1,
+  'political correctness' => 1,
+  'Jakobson' => 1,
+  'lexicography' => 1,
+  'commodification' => 1,
+  'memorial sites' => 1,
+  'organization-linked factors' => 1,
+  'models' => 1,
+  'the Internet' => 1,
+  'dark tourism' => 1,
+  'memorial tourism' => 1,
+  'public relations' => 1,
+); ?>
