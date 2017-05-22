@@ -3041,10 +3041,22 @@ display: inline !important;
 }
 
 /* PARAGRAPH LINKER */
+
+@media screen and (min-width: 1200px) {
 .parLink {
 color: #aaa;
 position: absolute;
 font-size: 1em;
 top: 0;
 left: -4em;
+}
+}
+
+@media screen and (max-width:1200px) {
+	.parLink {
+color: #aaa;
+position: relative;
+font-size: 1em;
+margin-right: 5px;
+}
 }
