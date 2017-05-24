@@ -2,25 +2,33 @@
 
 <head>
 <title>Morepress | Sveučilište u Zadru | University of Zadar</title>
+<link rel="icon" href="favicon.ico?v=2" type="image/x-icon"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
 html {
 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAKUlEQVQYV2MUsUn6z4AKzjKiCZ5lYGAwRhYEC4A0wQThAjDBMzAVMKMB1AgMSLm0uqcAAAAASUVORK5CYII=) repeat;
 }
+
+body {
+text-align: center;
+}
+
 img {
-width:1000px;
+width:85%;
 }
 
 #main {
-position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
+position: relative;
+margin:0 auto;
+margin-top: 1em;
+display: inline-block;
   text-align: center;
+  max-width: 1200px;
 }
 
 #main #linksi {
-display: inline-block;
+display: block;
+margin-top: 3em;
 }
 
 #main #elem {
@@ -45,12 +53,12 @@ font-size: 0.9em;
 }
 
 #git {
-	position:absolute;
-	bottom:30px;
-	right:30px;
+	position:relative;
+	display: block;
 color: #ccc;
 font-size: 0.7em;
-text-align: right;
+text-align: center;
+margin-top: 3em;
 }
 
 </style>
