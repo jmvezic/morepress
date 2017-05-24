@@ -8,7 +8,7 @@
  * Navigation Bar
  *
  *}
-<script src="{baseUrl}/plugins/themes/morepress/js/navbar.js" type='text/javascript'></script>
+<script src="{$baseUrl}/plugins/themes/morepress/js/navbar.js" type="text/javascript"></script>
 <script type="text/javascript">
 		<!--
 		function changeLanguageNav(elem) {ldelim}
