@@ -1,4 +1,4 @@
-<script type="text/javascript" src="/plugins/themes/morepress/js/navCollapse.js"></script>
+<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/navCollapse.js"></script>
 <div class="block" id="featured">
 <span class="blockTitle">{translate key="navigation.categories"}</span>
 {php}

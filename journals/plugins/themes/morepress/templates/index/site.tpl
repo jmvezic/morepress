@@ -64,7 +64,7 @@ while (!$Journals->EOF) {
 }
 	
 	
-	echo '<div id="jourThumb"><img src="'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
+	echo '<div id="jourThumb"><img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
 	echo '<div id="jourTitle">'.$JourTitle.'</div>';
 	echo '<div id="jourInfoBlock">';
 	foreach($JourCatInfo as $v) {

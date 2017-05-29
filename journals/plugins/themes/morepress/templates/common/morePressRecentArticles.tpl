@@ -10,7 +10,7 @@ $DAO = new DAO();
 $JournalDAO = new JournalDAO();
 $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 $server_name = $_SERVER['SERVER_NAME'];
-$pieces = explode($server_name.'/index.php/', $url);
+$pieces = explode($server_name.'/journals/', $url);
 $ThisJournalPath = explode('/', $pieces[1]);
 $ThisJournalPath = $ThisJournalPath[0];
 $ThisJournal = $JournalDAO->getJournalByPath($ThisJournalPath);
@@ -30,7 +30,7 @@ while (!$ArticlesMega->EOF) {
 	$JournalDAO = new JournalDAO();
 	$ThisJournal = $JournalDAO->getJournal($JournalID);
 	$JournalPath = $ThisJournal->getPath();
-	$JournalLink = 'http://'.$_SERVER['SERVER_NAME'].'/index.php/'.$JournalPath;
+	$JournalLink = 'http://'.$_SERVER['SERVER_NAME'].'/journals/'.$JournalPath;
 	$ArticleLink = $JournalLink.'/article/view/'.$ArticleID;
 	
 	$ArticleSettings = $DAO->retrieve("SELECT * FROM article_settings WHERE article_id=".$ArticleID);
@@ -77,7 +77,7 @@ while (!$ArticlesMega->EOF) {
 		$JournalPath = $JournalDAO->fields["path"];
 		$JournalDAO->MoveNext();
 	}
-	$JournalLink = 'http://'.$_SERVER['SERVER_NAME'].'/index.php/'.$JournalPath;
+	$JournalLink = 'http://'.$_SERVER['SERVER_NAME'].'/journals/'.$JournalPath;
 	$ArticleLink = $JournalLink.'/article/view/'.$ArticleID;
 	
 	
