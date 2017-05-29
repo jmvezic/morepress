@@ -4,8 +4,11 @@ morepress.unizd.hr-access_log
 
 morepress.unizd.hr-error_log
 
+.htaccess
 
 journals/config.inc.php
+
+journals/public/*
 
 piwik/*
 

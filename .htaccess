@@ -1,7 +1,5 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
 RewriteCond %{REQUEST_URI} ^/casopisi/?$
-RewriteRule ^(.*) http://31.147.204.86/journals [R=301,L]
+RewriteRule ^(.*) http://morepress.unizd.hr/journals [R,L]
 </IfModule>
-
-
