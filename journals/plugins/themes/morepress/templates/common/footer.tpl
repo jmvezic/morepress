@@ -90,7 +90,7 @@
 		</ul>
 		<h2>{translate key="moreFooter.socialNets"}</h2>
 		<ul id="footSocial">
-			<a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i></a><a href="https://twitter.com/unizdmorepress" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+			<a href="https://www.facebook.com/morepressUNIZD" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a><a href="https://twitter.com/unizdmorepress" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
 		</ul>
 		<h2>{translate key="moreFooter.development"}</h2>
 		<ul>
