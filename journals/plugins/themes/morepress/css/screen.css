@@ -93,7 +93,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 background-color: white !important;
 }
 
-.button, a.action {
+.button, a.action, #submitFormButton, .submitFormButton, #cancelFormButotn, .cancelFormButton {
 padding:3px 10px;
 border: 0;
 background-color: #2364a2;
@@ -103,7 +103,7 @@ cursor: pointer;
 display: inline-block;
 }
 
-#content .button, a.action {
+#content .button, a.action, #submitFormButton, .submitFormButton, #cancelFormButotn, .cancelFormButton {
 margin:5px 0;
 margin-left:10px;
 }
@@ -3059,4 +3059,23 @@ position: relative;
 font-size: 1em;
 margin-right: 5px;
 }
+}
+
+/* PROBA POPRAVKA SUBMIT FORM BOTUNA */
+#submitFormButton, .submitFormButton, #cancelFormButotn, .cancelFormButton {
+	all: unset;
+	background: none !important;
+float:left !important;
+padding:3px 10px !important;
+border: 0 !important;
+background-color: #2364a2 !important;
+font-weight: normal !important;
+margin: 5px 0 !important;
+cursor: pointer !important;
+display: inline-block !important;
+color: white !important;
+font-family: inherit !important;
+font-size: 1em !important;
+border-radius: 0 !important;
+clear: both !important;
 }

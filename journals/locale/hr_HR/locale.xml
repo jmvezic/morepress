@@ -1026,8 +1026,8 @@ Autori koji objavljuju u ovom časopisu pristaju na sljedeće uvijete:
 	<message key="user.subscriptions.form.domainIPRangeRequired">Odabrani tip pretplate zahtijeva domen i/ili IP opseg za proverju autentičnosti pristupa za pretplatu.</message>
 	<message key="user.subscriptions.form.ipRangeInstructions"><![CDATA[Ako ste unijeli IP opseg onda domen nije obavezan.<br />Važeče vrijednosti uključuju IP adresu (npr. 142.58.103.1), IP opseg (npr. 142.58.103.1 - 142.58.103.4), IP opseg sa zamjenskim znakom '*' (npr. 142.58.*.*), i IP opseg sa CIDR (npr. 142.58.100.0/24).]]></message>
 	<message key="payment.type.purchaseIssue">Cijena nabavke izdanja</message>
-	<message key="site.upgradeAvailable.admin"><![CDATA[Dostupna je nova verzija OJS! Vi trenutno koristite OJS {$currentVersion}. Najnovija verzija jeOJS {$latestVersion}. Posjetite <a href="http://pkp.sfu.ca/ojs_download" target="_new">ovu stranu</a> za preuzimanje najnovije verzije i uputa za nadogradnju.]]></message>
-	<message key="site.upgradeAvailable.manager"><![CDATA[Dostupna je nova verzija OJS! Vi trenutno koristite OJS {$currentVersion}. Najnovija verzija jeOJS {$latestVersion}. Kontaktirajte administratora sustava ({$siteAdminName}, <a href="mailto:{$siteAdminEmail}">{$siteAdminEmail}</a>) i obavijestite ga o novoj verziji. Više informacija možete naći <a href="http://pkp.sfu.ca/ojs_download" target="_new">ovdje</a>.]]></message>
+	<message key="site.upgradeAvailable.admin"><![CDATA[Dostupna je nova verzija OJS-a. Vi trenutno koristite OJS {$currentVersion}. Najnovija verzija je {$latestVersion}. Posjetite <a href="http://pkp.sfu.ca/ojs_download" target="_new">ovu web stranicu</a> za preuzimanje najnovije verzije i uputa za nadogradnju.]]></message>
+	<message key="site.upgradeAvailable.manager"><![CDATA[Dostupna je nova verzija OJS-a. Vi trenutno koristite OJS {$currentVersion}. Najnovija verzija je {$latestVersion}. Kontaktirajte administratora sustava ({$siteAdminName}, <a href="mailto:{$siteAdminEmail}">{$siteAdminEmail}</a>) i obavijestite ga o novoj verziji.]]></message>
 	<message key="submission.license.cc.by-nc-nd4.footer"><![CDATA[<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Licenca" style="border-width:0" src="//licensebuttons.net/l/by-nc-nd/4.0/88x31.png" /></a><br />Ovaj uradak je licenciran a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Licencom</a>.]]></message>
 	<message key="submission.license.cc.by-nc4.footer"><![CDATA[<a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Licenca" style="border-width:0" src="//licensebuttons.net/l/by-nc/4.0/88x31.png" /></a><br />Ovaj uradak je licenciran <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International Licencom</a>.]]></message>
 	<message key="submission.license.cc.by-nc-sa4.footer"><![CDATA[<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licenca" style="border-width:0" src="//licensebuttons.net/l/by-nc-sa/4.0/88x31.png" /></a><br />Ovaj uradak je licenciran<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Licencom</a>.]]></message>
@@ -1131,6 +1131,11 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="announcement.announcements">Novosti</message>
 	<message key="common.filterSubmissions">Filtriraj predane članke</message>
 	<message key="about.aboutSite">O Morepress-u</message>
+	
+	<message key="manager.groups.editTitle">Uredi funkciju</message>
+	<message key="user.login.loginError">Pogreško korisničko ime ili lozinka</message>
+	<message key="common.ok">U redu</message>
+	<message key="user.other">Drugo</message>
 
 	<!-- NOTIFICATIONS -->
 
