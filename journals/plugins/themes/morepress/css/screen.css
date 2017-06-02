@@ -2773,9 +2773,9 @@ font-size: 1.2em;
 #slides{
   overflow: hidden;
   position: relative;
-  width: 35%;
   height: auto;
-  display: table-cell;
+  display: block;
+  padding: 5px;
 }
 
 #slides ul {
