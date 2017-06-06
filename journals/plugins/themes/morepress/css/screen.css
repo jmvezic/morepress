@@ -1194,6 +1194,7 @@ display:inline-block;
 #jourBlock #jourStatus {
 margin-bottom: 8px;
 text-align: center;
+border-radius:0px 0px 15px 15px;
 }
 
 #indexJournalsList #jourBlockLink {
