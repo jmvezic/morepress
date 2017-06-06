@@ -1200,6 +1200,12 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="debug.notes.helpMappingLoad">Reloaded XML help mapping file {$filename} in search of {$id}.</message>
 
 	<!-- Morepress -->
+	<message key="morepress.status.active">Active</message>
+	<message key="morepress.status.inactive">Inactive</message>
+	<message key="morepress.status.earlyaccess">Early Access</message>
+	<message key="morepress.status.comingsoon">Coming soon</message>
+	<message key="morepress.status.external">External journal</message>	
+	
 	<message key="navigation.aboutSite">About Morepress</message>
 	<message key="moreFooter.notif">Morepress notifications</message>
 	<message key="moreFooter.journals">Journals</message>

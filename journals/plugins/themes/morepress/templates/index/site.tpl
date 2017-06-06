@@ -33,6 +33,20 @@
 
 {php}
 
+/*
+
+Poluautomatski način dodijeljivanja statusa časopisima, svakom časopisu se dodijeljuje broj statusa prema njegovoj kratici.
+
+1 - aktivan
+2 - prestao izlaziti
+3 - rani prikaz
+4 - uskoro
+5- vanjski
+
+*/
+
+$casopisi = array("csi"=>1, "adriatica"=>1, "liburna"=>2, "magistraiadertina"=>1, "actaiadertina"=>1, "arsadriatica"=>1, "mhm"=>1, "oeconomicajadertina"=>1, "geoadria"=>1, "libellarium"=>5, "sic"=>5);
+
 $AppLocale = new AppLocale();
 $Locale = $AppLocale->getLocale();
 $DAO = new DAO();
@@ -52,7 +66,7 @@ while (!$Journals->EOF) {
 	$JourISSN = $JournalObject->getSetting('printIssn');
 	$JourEISSN = $JournalObject->getSetting('onlineIssn');
 	$JourCatInfo = $JournalObject->getSetting('categories');
-	
+
 	if ($JourPath == "libellarium") {
 		echo '<a href="http://libellarium.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';
 	}
@@ -63,8 +77,21 @@ while (!$Journals->EOF) {
 	echo '<a href="'.$JourInitials.'" id="jourBlockLink"><div id="jourBlock">';
 }
 	
-	
-	echo '<div id="jourThumb"><img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
+		echo '<div id="jourStatus" ';
+	if (array_key_exists($JourPath, $casopisi)) {
+		if ($casopisi[$JourPath] == 1) {echo ' style="color:white;background-color:rgba(48,140,228,0.7);">'.$AppLocale->translate("morepress.status.active", null, $Locale);}
+		elseif ($casopisi[$JourPath] == 2) {echo ' style="background-color:rgba(218,0,0,0.7);color:white;">'.$AppLocale->translate("morepress.status.inactive", null, $Locale);}
+		elseif ($casopisi[$JourPath] == 3) {echo ' style="background-color:rgba(58, 170, 10, 0.7);color:white">'.$AppLocale->translate("morepress.status.earlyaccess", null, $Locale);}
+		elseif ($casopisi[$JourPath] == 4) {echo ' style="background-color:rgba(255,255,255,0.7);">'.$AppLocale->translate("morepress.status.comingsoon", null, $Locale);}
+		elseif ($casopisi[$JourPath] == 5) {echo ' style="background-color:rgba(255,171,0,0.7);">'.$AppLocale->translate("morepress.status.external", null, $Locale);}
+	}
+echo '</div>';
+
+
+	echo '<div id="jourThumb">';
+
+
+echo '<img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
 	echo '<div id="jourTitle">'.$JourTitle.'</div>';
 	echo '<div id="jourInfoBlock">';
 	foreach($JourCatInfo as $v) {

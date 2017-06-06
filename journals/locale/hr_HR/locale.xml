@@ -1087,6 +1087,12 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="user.authorization.invalidSectionEditorSubmission">Nevažeće podnošenje članka za urednika rubrike ili nema podnesenog članka za urednika rubrike!</message>
 
 	<!-- MOREPRESS -->
+	
+	<message key="morepress.status.active">Aktivan</message>
+	<message key="morepress.status.inactive">Neaktivan</message>
+	<message key="morepress.status.earlyaccess">Rani pristup</message>
+	<message key="morepress.status.comingsoon">Uskoro</message>
+	<message key="morepress.status.external">Vanjski časopis</message>
 
 	<message key="moreFooter.notif">Morepress obavijesti</message>
 	<message key="moreFooter.journals">Časopisi</message>
