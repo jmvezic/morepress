@@ -32,7 +32,7 @@ while (!$ContrVocabEntries->EOF) {
 						$JournalSettingsNew = $DAO->retrieve("SELECT * FROM journal_settings");
 						while (!$JournalSettingsNew->EOF) {
 							if ($JournalSettingsNew->fields["journal_id"]==$JourID && $JournalSettingsNew->fields["locale"]==$Locale && $JournalSettingsNew->fields["setting_name"]=="title") {
-								echo '<li><a href="/index.php/'.$JourShort.'">'.$JournalSettingsNew->fields["setting_value"].'</a></li>';
+								echo '<li><a href="/journals/'.$JourShort.'">'.$JournalSettingsNew->fields["setting_value"].'</a></li>';
 							}
 							$JournalSettingsNew->MoveNext();
 						}
@@ -135,7 +135,7 @@ while (!$Journals->EOF) {
 	$Journals->MoveNext();
 }
 
-$ArticleURL = "index.php/".$JournalPath."/article/view/".$ArticleID;
+$ArticleURL = "journals/".$JournalPath."/article/view/".$ArticleID;
 
 echo '<a href="'.$ArticleURL.'">';
 echo '<span id="featuredArtTitle">'.$ArticleTitle.'</span></a>';
