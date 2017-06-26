@@ -1089,7 +1089,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<!-- MOREPRESS -->
 	
 	<message key="morepress.status.active">Aktivan</message>
-	<message key="morepress.status.inactive">Neaktivan</message>
+	<message key="morepress.status.inactive">Nije aktivan</message>
 	<message key="morepress.status.earlyaccess">Rani pristup</message>
 	<message key="morepress.status.comingsoon">Uskoro</message>
 	<message key="morepress.status.external">Vanjski časopis</message>
