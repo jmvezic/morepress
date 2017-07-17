@@ -83,7 +83,7 @@ while (!$Journals->EOF) {
 	echo '<a href="'.$JourInitials.'" id="jourBlockLink"><div id="jourBlock">';
 }
 	
-		echo '<div id="jourStatus" ';
+	/*	echo '<div id="jourStatus" ';
 	if (array_key_exists($JourPath, $casopisi)) {
 		if ($casopisi[$JourPath] == 1) {echo ' style="color:white;background-color:rgba(48,140,228,0.7);">'.$AppLocale->translate("morepress.status.active", null, $Locale);}
 		elseif ($casopisi[$JourPath] == 2) {echo ' style="background-color:rgba(218,0,0,0.7);color:white;">'.$AppLocale->translate("morepress.status.inactive", null, $Locale);}
@@ -91,7 +91,7 @@ while (!$Journals->EOF) {
 		elseif ($casopisi[$JourPath] == 4) {echo ' style="background-color:rgba(255,255,255,0.7);">'.$AppLocale->translate("morepress.status.comingsoon", null, $Locale);}
 		elseif ($casopisi[$JourPath] == 5) {echo ' style="background-color:rgba(255,171,0,0.7);">'.$AppLocale->translate("morepress.status.external", null, $Locale);}
 	}
-echo '</div>';
+echo '</div>'; */
 
 
 	echo '<div id="jourThumb">';
