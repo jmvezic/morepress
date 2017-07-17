@@ -54,10 +54,10 @@ function gitVersion()
 		<!-- Footer -->
 			<footer id="footer">
 				<ul class="icons">
-					<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="https://www.facebook.com/morepressUNIZD" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+					<li><a href="https://twitter.com/unizdmorepress" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 				</ul>
-				<p class="copyright">&copy; Sveučilište u Zadru. Verzija <?php echo gitVersion(); ?></p>
+				<p class="copyright">&copy; Sveučilište u Zadru. Verzija <?php echo gitVersion(); ?><br>Dizajn naslovne stranice prilagođen s teme Fractal by <a href="http://html5up.net">HTML5 UP</a>.<br></p>
 			</footer>
 
 		<!-- Scripts -->
