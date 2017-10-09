@@ -42,7 +42,7 @@ function gitVersion()
 					<p>Online publishing platform by<br>University of Zadar</p>
 					<ul class="actions">
 						<li><a href="journals" class="button special icon fa-files-o">Journals online</a><br><small>Open beta</small></li>
-						<li><a href="#" class="button special icon fa-book disabled">Books online*</a><br><small>* Available August 2017</small></li>
+						<li><a href="#" class="button special icon fa-book disabled">Books online*</a><br><small>* Available November 2017</small></li>
 					</ul>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
