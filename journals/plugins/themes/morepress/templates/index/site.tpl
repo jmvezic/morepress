@@ -63,6 +63,7 @@ while (!$Journals->EOF) {
 	$JournalObject = $JournalDAO->getById($JourID);
 	$JourTitle = $JournalObject->getLocalizedTitle();
 	$JourPath = $JournalObject->getPath();
+	$JourInit = $JournalObject->getInitials($Locale);
 	$JourInitials = $JournalObject->getUrl();
 	$JourThumb = $JournalObject->getLocalizedSetting('journalThumbnail');
 	$JourAltText = $JournalObject->getLocalizedSetting('journalThumbnailAltText');
@@ -113,7 +114,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 	}
 	if ($JourISSN) { echo '<div id="jourISSN">ISSN: '.$JourISSN.'</div>'; }
 	if ($JourEISSN) { echo '<div id="jourOnlineISSN">e-ISSN: '.$JourEISSN.'</div>'; }
-	echo '<div id="jourDOI">DOI: 10.15291/'.$JourPath.'</div>';
+	echo '<div id="jourDOI">DOI:<span style="text-transform:lowercase;"> 10.15291/'.$JourInit.'</span></div>';
 	echo '</div></div></a>';
 	}
 	$Journals->MoveNext();
@@ -125,6 +126,7 @@ while (!$InJournals->EOF) {
 	$JourTitle = $JournalObject->getLocalizedTitle();
 	$JourPath = $JournalObject->getPath();
 	$JourInitials = $JournalObject->getUrl();
+	$JourInit = $JournalObject->getInitials($Locale);
 	$JourThumb = $JournalObject->getLocalizedSetting('journalThumbnail');
 	$JourAltText = $JournalObject->getLocalizedSetting('journalThumbnailAltText');
 	$JourThumbPath = "/public/journals/".$JourID."/".$JourThumb["uploadName"];
@@ -174,7 +176,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 	}
 	if ($JourISSN) { echo '<div id="jourISSN">ISSN: '.$JourISSN.'</div>'; }
 	if ($JourEISSN) { echo '<div id="jourOnlineISSN">e-ISSN: '.$JourEISSN.'</div>'; }
-	echo '<div id="jourDOI">DOI: 10.15291/'.$JourPath.'</div>';
+	echo '<div id="jourDOI">DOI: <span style="text-transform:lowercase">10.15291/'.$JourInit.'</span></div>';
 	echo '</div></div></a>';
 	}
 	$InJournals->MoveNext();
