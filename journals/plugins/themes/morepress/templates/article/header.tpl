@@ -135,15 +135,17 @@
 
 <div id="mainShrinked">
 
+<h4 style="text-align:center;font-size:1.6em;margin-bottom:0.3em;"><a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a></h4>
+
 <div id="breadcrumb">
 {translate key="morePress.bread"}... 
 		{if ($currentJournal==null)}
-	<a href="{url context=$homeContext page="index"}">{translate key="navigation.home"}</a> &gt;
+	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt; 
 	{else}
-	<a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
+	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt; <a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
 	{/if}
 	{if $issue}<a href="{url page="issue" op="view" path=$issue->getBestIssueId($currentJournal)}" target="_parent">{$issue->getIssueIdentification(false,true)|escape}</a> &gt;{/if}
-	<a href="{url page="article" op="view" path=$articleId|to_array:$galleyId}" class="current" target="_parent">{$article->getFirstAuthor(true)|escape}</a>
+	<a href="{url page="article" op="view" path=$articleId|to_array:$galleyId}" class="current" target="_parent">{$article->getLocalizedTitle()|substr:0:25|escape}...</a>
 </div>
 
 <div id="content">

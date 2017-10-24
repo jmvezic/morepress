@@ -8,17 +8,20 @@
  * Breadcrumbs
  *
  *}
+
 <div id="breadcrumb">
-	{translate key="morePress.bread"}... 
+	{translate key="morePress.bread"}...
 	{if ($currentJournal==null)}
-	<a href="{url context=$homeContext page="index"}">Morepress | {translate key="common.morepressJournals"}</a> &gt;
+	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt; 
 	{else}
-	<a href="{url context=$homeContext page="index"}">Morepress | {translate key="common.morepressJournals"}</a> &gt; <a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
-	{/if}
+	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt; <a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
+	
 	{foreach from=$pageHierarchy item=hierarchyLink}
 		<a href="{$hierarchyLink[0]|escape}" class="hierarchyLink">{if not $hierarchyLink[2]}{translate key=$hierarchyLink[1]}{else}{$hierarchyLink[1]|escape}{/if}</a> &gt;
 	{/foreach}
+	
 	{* Disable linking to the current page if the request is a post (form) request. Otherwise following the link will lead to a form submission error. *}
 	{if $requiresFormRequest}<span class="current">{else}<a href="{$currentUrl|escape}" class="current">{/if}{$pageCrumbTitleTranslated}{if $requiresFormRequest}</span>{else}</a>{/if}
+	{/if}
 </div>
 

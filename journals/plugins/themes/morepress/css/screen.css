@@ -1540,7 +1540,7 @@ a.file {
 }
 
 .article #content {
-  margin-top: 1.5em;
+  /* margin-top: 1.5em; */
   padding-top: 0em;
   padding-bottom: 0em;
   margin-bottom: 1.5em;
