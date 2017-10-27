@@ -44,11 +44,11 @@
 -->
 
 <div id="preFooter">
-<a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Open_Access.jpg.png" /></a>
-<a href="https://creativecommons.org" target="_blank"><img src="http://mirrors.creativecommons.org/presskit/logos/cc.logo.large.png" /></a>
-<a href="http://www.crossref.org" target="_blank"><img src="https://assets.crossref.org/logo/crossref-logo-landscape-200.png" /></a>
-<a href="https://doaj.org" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/DOAJ_logo.jpg" /></a>
-<a href="http://hrcak.srce.hr/" target="_blank"><img src="http://hrcak.srce.hr/images/logo/hrcak-logo-potpis_hr.png" /></a>
+<a href="#"><img src="{$baseUrl}/plugins/themes/morepress/img/Open_Access.jpg.png" /></a>
+<a href="https://creativecommons.org" target="_blank"><img src="{$baseUrl}/plugins/themes/morepress/img/cc.logo.large.png" /></a>
+<a href="http://www.crossref.org" target="_blank"><img src="{$baseUrl}/plugins/themes/morepress/img/crossref-logo-landscape-200.png" /></a>
+<a href="https://doaj.org" target="_blank"><img src="{$baseUrl}/plugins/themes/morepress/img/DOAJ_logo.jpg" /></a>
+<a href="http://hrcak.srce.hr/" target="_blank"><img src="{$baseUrl}/plugins/themes/morepress/img/hrcak-logo-potpis_hr.png" /></a>
 </div>
 
 <div id="customFooter">

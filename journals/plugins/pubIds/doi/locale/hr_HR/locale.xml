@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE locale SYSTEM "../../../../../lib/pkp/dtd/locale.dtd">
+
+<!--
+  * plugins/pubIds/doi/locale/hr_HR/locale.xml
+  *
+  * Copyright (c) 2013-2017 Simon Fraser University
+  * Copyright (c) 2003-2016 John Willinsky
+  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+  *
+  * DOI plugin localization strings
+  -->
+ 
+<locale name="hr_HR" full_name="Hrvatski">
+	<message key="plugins.pubIds.doi.displayName">DOI</message>
+	<message key="plugins.pubIds.doi.description">Ovaj dodatak omogućuje dodijeljivanje DOI oznaka brojevima, člancima i datotekama i popratnim datotekama u Morepressu.</message>
+
+	<!-- settings form -->
+	<message key="plugins.pubIds.doi.manager.settings.doiSettings">DOI postavke</message>
+	<message key="plugins.pubIds.doi.manager.settings.description">Molimo konfigurirajte DOI dodatak kako bi mogli koristiti DOI oznake u Morepressu.</message>
+	
+	<message key="plugins.pubIds.doi.manager.settings.doiObjects">Sadržaj časopisa</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiObjectsRequired">Molimo daberite objekte kojima će se dodijeliti DOI.</message>
+	<message key="plugins.pubIds.doi.manager.settings.explainDois">Molimo odaberite objekte prema kojima će se dodijeliti DOI:</message>
+	<message key="plugins.pubIds.doi.manager.settings.explainCrossRefDois"><![CDATA[<strong>UPOZORENJE:</strong> Kada koristite <a href="http://www.crossref.org" target="_new">CrossRef</a> DOI, molimo odaberite članke. Članci se smatraju djelom, tj. entitetom intelektualnog ili umjetničkog sadržaja.Stoga su članci izdavački objekt u kontekstu CrossRef DOI izvoza i registracije.]]></message>
+	<message key="plugins.pubIds.doi.manager.settings.enableIssueDoi">Broj</message>
+	<message key="plugins.pubIds.doi.manager.settings.enableArticleDoi">Članci</message>
+	<message key="plugins.pubIds.doi.manager.settings.enableGalleyDoi">Datoteke</message>
+	<message key="plugins.pubIds.doi.manager.settings.enableSuppFileDoi">Popratne datoteke</message>
+	
+	<message key="plugins.pubIds.doi.manager.settings.doiPrefix">DOI prefiks</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiPrefixDescription">DOI prefiks Sveučilišta u Zadru je 10.15291</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiPrefixPattern">DOI prefiks je obvezan.</message>
+
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffix">DOI sufiks</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixDescription">Sufiks može biti bilo kakvog oblika, ali mora biti jedinstven u odnosu na ostale objekte u istom DOI prefiksu.</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixPattern">Koristite sljedeći uzorak za generiranje DOI sufiksa: %j za inicijale časopisa, %v za broj sveska, %i za broj, %Y za godinu, %a za jedinstveni Morepress identifikator, %g za identifikator datoteke, %s za identifikator popratne datoteke, %p za broj stranice i %x za posebni identifikator (mora biti omogućen u postavkama časopisa, korak 4.3).</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixPattern.issues">za sveske</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixPattern.articles">za članke</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixPattern.galleys">za datoteke</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixPattern.suppFiles">za popratne datoteke.</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixPattern.example">Na primjer, vol%viss%ipp%p stvara DOI koji izgleda ovako: 10.1234/vol3iss2pp230</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixDefault">Koristi zadane uzorke.</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixDefault.description"><![CDATA[%j.v%vi%i za sveske<br />%j.v%vi%i.%a za članke<br />%j.v%vi%i.%a.g%g za datoteke <br />%j.v%vi%i.%a.s%s za popratne datoteke.]]></message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuffixCustomIdentifier">Unesite individualni DOI sufiks za svaki objavljeni objekt.Dodatna DOI polja unesa pojavit će se na metapodacima objekta.</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiIssueSuffixPatternRequired">Molimo unesite DOI sufiks uzorak za sveske.</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiArticleSuffixPatternRequired">Molimo unesite DOI sufiks uzorak za članke</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiGalleySuffixPatternRequired">Molimo unesite DOI sufiks uzorak za datoteke</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiSuppFileSuffixPatternRequired">Molimo unesite DOI sufiks uzorak za popratne datoteke</message>
+	
+	<message key="plugins.pubIds.doi.manager.settings.doiReassign">Ponovno dodijeli DOI oznake svim objektima.</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiReassign.description">Ako promjenite DOI konfiguraciju, DOI oznake koje su već dodijeljene neće biti zahvaćene promijenom. Kada sačuvate DOI konfiguraciju, obavite ponovnu dodijelu DOI oznaka kako bi nove postavke zahvatile sve objekte.</message>
+	<message key="plugins.pubIds.doi.manager.settings.doiReassign.confirm">Jeste li sigurni da želite obrisati sve postojeće DOI oznake?</message>	
+
+
+	<!-- metadata form -->
+	<message key="plugins.pubIds.doi.editor.doi">DOI</message>
+	<message key="plugins.pubIds.doi.editor.doi.issueObjects">Dodijeli DOI objektima</message>
+	<message key="plugins.pubIds.doi.editor.doiObjectTypeIssue">svezak</message>
+	<message key="plugins.pubIds.doi.editor.doiObjectTypeArticle">članak</message>
+	<message key="plugins.pubIds.doi.editor.doiObjectTypeGalley">datoteka</message>
+	<message key="plugins.pubIds.doi.editor.doiObjectTypeSuppFile">popratna datoteka</message>
+	<message key="plugins.pubIds.doi.editor.doiNotYetGenerated">Pregledavate pretpregled DOI oznake koja nije dovršena. DOI još nije generiran. Objavljivanje sveska i javno pregledavanje {$pubObjectType} stranice automatski će generirati jedinstveni DOI za ovaj {$pubObjectType}.</message>
+	<message key="plugins.pubIds.doi.editor.doiSuffixCustomIdentifierNotUnique">Ovaj DOI sufiks već se koristi. Molimo unesite jedinstveni DOI sufiks.</message>
+	<message key="plugins.pubIds.doi.editor.excludePubObject">Ne dodijeljuj DOI za ovaj {$pubObjectType}.</message>
+	<message key="plugins.pubIds.doi.editor.doiReassign">Ponovno dodijeli DOI</message>
+	<message key="plugins.pubIds.doi.editor.doiReassign.description">Odaberite kako bi izbrisali postojeći DOI za ovaj {$pubObjectType}.</message>
+	<message key="plugins.pubIds.doi.editor.excludeIssueObjectsDoi">Isključi objekte sveska</message>
+	<message key="plugins.pubIds.doi.editor.excludeIssueObjectsDoi.description">Use this button to exclude the objects (articles, galleys, and supp files) currently scheduled for this issue from assigning them a DOI. Note that the objects that are added/scheduled later will not be affected. You will still have the possibility to use the single object exclusion options.</message>
+	<message key="plugins.pubIds.doi.editor.clearIssueObjectsDoi">Clear Issue Objects DOIs</message>
+	<message key="plugins.pubIds.doi.editor.clearIssueObjectsDoi.description">Use this button to clear DOIs of all objects (articles, galleys, and supp files) currently scheduled for this issue.</message>
+</locale>
