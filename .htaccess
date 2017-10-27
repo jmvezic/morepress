@@ -1,5 +1,7 @@
 <IfModule mod_rewrite.c>
 RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 RewriteCond %{REQUEST_URI} ^/casopisi/?$
-RewriteRule ^(.*) http://morepress.unizd.hr/journals [R,L]
+RewriteRule ^(.*) https://morepress.unizd.hr/journals [R,L]
 </IfModule>
