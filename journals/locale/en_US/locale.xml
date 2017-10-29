@@ -1204,7 +1204,10 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morepress.status.inactive">Inactive</message>
 	<message key="morepress.status.earlyaccess">Early Access</message>
 	<message key="morepress.status.comingsoon">Coming soon</message>
-	<message key="morepress.status.external">External journal</message>	
+	<message key="morepress.status.external">External journal</message>
+
+	<message key="morePress.viewGalley">Read</message>
+	<message key="morePress.downloadGalley">Download</message>	
 	
 	<message key="navigation.aboutSite">About Morepress</message>
 	<message key="moreFooter.notif">Morepress notifications</message>

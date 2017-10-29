@@ -1094,6 +1094,9 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morepress.status.comingsoon">Uskoro</message>
 	<message key="morepress.status.external">Vanjski časopis</message>
 
+	<message key="morePress.viewGalley">Pročitaj</message>
+	<message key="morePress.downloadGalley">Preuzmi</message>
+
 	<message key="moreFooter.notif">Morepress obavijesti</message>
 	<message key="moreFooter.journals">Časopisi</message>
 	<message key="moreFooter.OA">Otvoreni pristup</message>

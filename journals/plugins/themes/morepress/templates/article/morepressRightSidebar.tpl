@@ -13,7 +13,12 @@
 	<span class="blockSubtitle">{translate key="reader.fullText"}</span>
 	<div id="tocLinksContainer">
 	{foreach from=$Galleys item=Galley}
-<a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}>{$Galley->getGalleyLabel()|escape}</a>
+<a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-eye" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a>
+
+	{if $Galley->isPdfGalley()}
+	<a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a> 
+	{/if}
+
 	{/foreach}
 	</div>
 	{/if}
@@ -22,7 +27,7 @@
 	<ul><li><a href="{url page="issue" op="view" path=$issue->getBestIssueId($currentJournal)}" target="_parent">{$issue->getIssueIdentification(false,true)|escape}</a></li></ul>
 
 	<span class="blockSubtitle">{translate key="section.section"}</span>
-	{$article->getSectionTitle()|escape}
+	{$article->getSectionTitle()|escape} 
 
 {foreach from=$pubIdPlugins item=pubIdPlugin}
 	{if $issue->getPublished()}

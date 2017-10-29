@@ -47,12 +47,18 @@
 					<span class="tocItemAuthors">{$author->getFullName()|escape}{if !$smarty.foreach.authorList.last},{/if}</span>
 				{/foreach}
 			{/if}<br>
-			<div id="tocLinksContainer">
-			{if $hasAccess || ($subscriptionRequired && $showGalleyLinks)}
+{if $hasAccess || ($subscriptionRequired && $showGalleyLinks)}
 				{foreach from=$article->getGalleys() item=galley name=galleyList}
-					<a href="{url page="article" op="view" path=$articlePath|to_array:$galley->getBestGalleyId($currentJournal)}" {if $galley->getRemoteURL()}target="_blank" {/if} id="tocItemFullTextLink">{$galley->getGalleyLabel()|escape}</a>
-					{/foreach}{/if}
+			<div id="tocLinksContainer">
+			<a href="{url page="article" op="view" path=$articlePath|to_array:$galley->getBestGalleyId($currentJournal)}"  id="tocItemFullTextLink"> {$galley->getGalleyLabel()|escape} </a>
+					<a href="{url page="article" op="view" path=$articlePath|to_array:$galley->getBestGalleyId($currentJournal)}" {if $galley->getRemoteURL()}target="_blank" {/if} id="tocItemFullTextLink"> <i class="fa fa-eye" aria-hidden="true"></i> {translate key="morePress.viewGalley"} </a>
+{if $galley->isPdfGalley()}
+	<a href="{url page="article" op="download" path=$articlePath|to_array:$galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}> <i class="fa fa-download" aria-hidden="true"></i> {translate key="morePress.downloadGalley"} </a> 
+	{/if}
+
+					
 			</div>
+{/foreach}{/if}
 		</div>
 	</div>
 	
