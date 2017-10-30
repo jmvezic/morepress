@@ -11,7 +11,7 @@
 
 		<meta name="description" content="Mrežna platforma digitalnih publikacija Sveučilišta u Zadru">
 		<meta name="keywords" content="Morepress, platforma, Sveučilište u Zadru, znanosti, znanstveni časopisi, izdavaštvo, knjige, OJS, Open Journal System, OMP, Open Monograph Press">
-		<meta name="author" content="Sveučilište u Zadru">
+		<meta name="author" content="jakov" >
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -46,7 +46,7 @@ function gitVersion()
 					<h1><a href="/"><img style="max-width:600px;width:90%;" src="/journals/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a></h1>
 					<p>Mrežna izdavačka platforma<br>Sveučilišta u Zadru</p>
 					<ul class="actions">
-						<li><a href="journals" class="button special icon fa-files-o">Časopisi online</a><br><small>Otvorena beta</small></li>
+						<li><a href="journals" class="button special icon fa-files-o">Časopisi online</a><br><small>Dostupno</small></li>
 						<li><a href="#" class="button special icon fa-book disabled">Knjige online*</a><br><small>* dostupno od studenog 2017.</small></li>
 					</ul>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>

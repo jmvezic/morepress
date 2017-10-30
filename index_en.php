@@ -9,7 +9,7 @@
 		<title>Morepress | University of Zadar</title>
 		<meta name="description" content="Online web platform for digital publications by University of Zadar">
 		<meta name="keywords" content="Morepress, platform, University of Zadar, science, academic journals, publishing, academic books, OJS, Open Journal System, OMP, Open Monograph Press">
-		<meta name="author" content="University of Zadar">
+		<meta name="author" content="jakov" >
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -44,7 +44,7 @@ function gitVersion()
 					<h1><a href="/"><img style="max-width:600px;width:90%;" src="/journals/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a></h1>
 					<p>Online publishing platform by<br>University of Zadar</p>
 					<ul class="actions">
-						<li><a href="journals" class="button special icon fa-files-o">Journals online</a><br><small>Open beta</small></li>
+						<li><a href="journals" class="button special icon fa-files-o">Journals online</a><br><small>Available now</small></li>
 						<li><a href="#" class="button special icon fa-book disabled">Books online*</a><br><small>* Available November 2017</small></li>
 					</ul>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
