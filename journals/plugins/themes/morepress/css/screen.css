@@ -2665,6 +2665,14 @@ cursor: pointer;
 width: 100%;
 }
 
+#dragTable .data {
+cursor: move;
+}
+
+#dragTable .data:hover {
+background-color: rgba(0,0,0,0.1);
+}
+
 .latestArtBlock, .authorBio {
 margin:5px 0;
 border-bottom:1px solid #CCC;
