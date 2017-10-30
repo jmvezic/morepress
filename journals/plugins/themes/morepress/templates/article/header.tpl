@@ -145,7 +145,10 @@
 	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt; <a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
 	{/if}
 	{if $issue}<a href="{url page="issue" op="view" path=$issue->getBestIssueId($currentJournal)}" target="_parent">{$issue->getIssueIdentification(false,true)|escape}</a> &gt;{/if}
-	<a href="{url page="article" op="view" path=$articleId|to_array:$galleyId}" class="current" target="_parent">{$article->getLocalizedTitle()|substr:0:25|escape}...</a>
+	<a href="{url page="article" op="view" path=$articleId}" class="current" target="_parent">{$article->getLocalizedTitle()|substr:0:25|escape}...</a>
+	{if $galley}&gt; <a href="{url page="article" op="view" path=$articleId|to_array:$galleyId}" class="current" target="_parent">{$galley->getGalleyLabel()|escape}</a>{/if}
+	
+	
 </div>
 
 <div id="content">
