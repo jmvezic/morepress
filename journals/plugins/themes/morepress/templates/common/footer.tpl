@@ -73,20 +73,20 @@
 			{/if}
 			
 		{/if}{* $isUserLoggedIn *}
-			<a href="#"><li>{translate key="moreFooter.notif"}</li></a>
 		</ul>
 		<h2>{translate key="navigation.aboutSite"}</h2>
 		<ul>
 			<a href="{url page="about"}"><li>{translate key="navigation.aboutSite"}</li></a>
-			<a href="#"><li>{translate key="moreFooter.journals"}</li></a>
-			<a href="#"><li>{translate key="moreFooter.OA"}</li></a>
+			<a href="/"><li>{translate key="moreFooter.homepage"}</li></a>
+			<a href="/journals"><li>{translate key="moreFooter.journals"}</li></a>
+			<a href="#/" class="not-active"><li class="not-active">{translate key="moreFooter.books"}</li></a>
 		</ul>
 	</div>
 	<div id="footerCol">
 		<h2>{translate key="moreFooter.helpAndContact"}</h2>
 		<ul>
-			<a href="#"><li>{translate key="moreFooter.FAQ"}</li></a>
-			<a href="#"><li>{translate key="moreFooter.contact"}</li></a>
+			<a href="mailto:morepress@unizd.hr"><li>{translate key="moreFooter.contact"} (E-mail)</li></a>
+			<a href="mailto:izdavastvo@unizd.hr"><li>c/o {translate key="moreFooter.university"}<br>{translate key="moreFooter.publishingdept"}<br>{translate key="moreFooter.zadar"}</li></a>
 		</ul>
 		<h2>{translate key="moreFooter.socialNets"}</h2>
 		<ul id="footSocial">
@@ -94,7 +94,7 @@
 		</ul>
 		<h2>{translate key="moreFooter.development"}</h2>
 		<ul>
-			<a href="#"><li>{translate key="moreFooter.SPC"}</li></a>
+			<a href="#/"><li>{translate key="moreFooter.franjo"}<br>{translate key="moreFooter.jakopec"}<br>{translate key="moreFooter.jakov"}</li></a>
 		</ul>
 	</div>
 	<div id="footerCol">
@@ -117,7 +117,7 @@ function gitVersion()
     return $structured;
 }
 {/php}
-			<a href="#"><li><strong>ver. {php} echo gitVersion()."</strong><br>".exec('git rev-parse --short HEAD'); echo "<br>".exec('git log -n1 --pretty=%ci HEAD'); {/php}</span></li></a>
+			<a href="#/"><li><strong>ver. {php} echo gitVersion()."</strong><br>".exec('git rev-parse --short HEAD'); echo "<br>".exec('git log -n1 --pretty=%ci HEAD'); {/php}</span></li></a>
 		</ul>
 	</div>
 </div>

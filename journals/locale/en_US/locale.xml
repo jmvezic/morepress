@@ -1226,6 +1226,14 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.featuredEditor">Featured editor</message>
 	<message key="morePress.noRecentArticles">This journal has no articles.</message>
 	<message key="morepress.moreOpen">More Open</message>
+	<message key="moreFooter.homepage">Homepage</message>
+	<message key="moreFooter.books">Books (coming November 2017)</message>
+	<message key="moreFooter.university">University of Zadar</message>
+	<message key="moreFooter.publishingdept">Publishing department</message>
+	<message key="moreFooter.zadar">Zadar, Croatia</message>
+	<message key="moreFooter.franjo">Franjo Pehar, Ph.D.</message>
+	<message key="moreFooter.jakopec">dr. sc. Tomislav Jakopec, Ph.D.</message>
+	<message key="moreFooter.jakov">Jakov M. Vežić, mag. bibl.</message>
 	<message key="navbar.about">About</message>
 
 	<message key="morePress.externalJournal">External site</message>
