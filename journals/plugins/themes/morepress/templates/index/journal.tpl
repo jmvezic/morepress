@@ -128,9 +128,6 @@ echo '</div>';
 <div id="sectionPolicies" class="block"><h3>{translate key="about.sectionPolicies"}</h3>
 {foreach from=$sections item=section}{if !$section->getHideAbout()}
 	<h4>{$section->getLocalizedTitle()}</h4>
-	{if strlen($section->getLocalizedPolicy()) > 0}
-		<p>{$section->getLocalizedPolicy()|nl2br}</p>
-	{/if}
 
 	{assign var="hasEditors" value=0}
 	{foreach from=$sectionEditorEntriesBySection item=sectionEditorEntries key=key}

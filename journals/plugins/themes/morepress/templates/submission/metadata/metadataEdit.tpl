@@ -93,7 +93,7 @@ function moveAuthor(dir, authorIndex) {
 		<td class="value"><input type="text" name="authors[{$authorIndex|escape}][lastName]" id="authors-{$authorIndex|escape}-lastName" value="{$author.lastName|escape}" size="20" maxlength="90" class="textField" /></td>
 	</tr>
 	<tr valign="top">
-		<td class="label">{fieldLabel name="authors-$authorIndex-email" required="true" key="user.email"}</td>
+		<td class="label">{fieldLabel name="authors-$authorIndex-email" key="user.email"}</td>
 		<td class="value"><input type="text" name="authors[{$authorIndex|escape}][email]" id="authors-{$authorIndex|escape}-email" value="{$author.email|escape}" size="30" maxlength="90" class="textField" /></td>
 	</tr>
 	<tr valign="top">
@@ -171,7 +171,7 @@ function moveAuthor(dir, authorIndex) {
 		<td class="value"><input type="text" name="authors[0][lastName]" id="authors-0-lastName" size="20" maxlength="90" class="textField" /></td>
 	</tr>
 	<tr valign="top">
-		<td class="label">{fieldLabel name="authors-0-email" required="true" key="user.email"}</td>
+		<td class="label">{fieldLabel name="authors-0-email" key="user.email"}</td>
 		<td class="value"><input type="text" name="authors[0][email]" id="authors-0-email" size="30" maxlength="90" class="textField" /></td>
 	</tr>
 	<tr valign="top">
