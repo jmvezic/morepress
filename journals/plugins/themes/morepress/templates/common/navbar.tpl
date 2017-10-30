@@ -30,8 +30,8 @@
             {/if}
             
         
-        <li><a href="#">{translate key="common.help"}</a></li>
-        <li><a href="#">{translate key="common.contact"}</a></li>
+        <!-- <li><a href="#">{translate key="common.help"}</a></li>
+        <li><a href="#">{translate key="common.contact"}</a></li> -->
 
 		{if $siteCategoriesEnabled}
 <!--	<li id="categories"><a href="{url journal="index" page="search" op="categories"}">{translate key="navigation.categories"}</a></li>-->
@@ -93,8 +93,8 @@
             {/if}
             
         
-        <li><a href="#">{translate key="common.help"}</a></li>
-        <li><a href="#">{translate key="common.contact"}</a></li>
+        <!-- <li><a href="#">{translate key="common.help"}</a></li>
+        <li><a href="#">{translate key="common.contact"}</a></li> -->
 
 		{if $siteCategoriesEnabled}
 <!--	<li id="categories"><a href="{url journal="index" page="search" op="categories"}">{translate key="navigation.categories"}</a></li>-->
