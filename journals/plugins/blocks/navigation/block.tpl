@@ -14,38 +14,6 @@
 
 	{url|assign:"searchFormUrl" op="search" escape=false}
 	{$searchFormUrl|parse_url:$smarty.const.PHP_URL_QUERY|parse_str:$formUrlParameters}
-	<form id="simplesearchForm" action="{$searchFormUrl|strtok:"?"|escape}">
-		{foreach from=$formUrlParameters key=paramKey item=paramValue}
-			<input type="hidden" name="{$paramKey|escape}" value="{$paramValue|escape}"/>
-		{/foreach}
-		<table id="simpleSearchInput">
-			<tr>
-				<td>
-				{capture assign="filterInput"}{call_hook name="Templates::Search::SearchResults::FilterInput" filterName="simpleQuery" filterValue="" size=15}{/capture}
-				{if empty($filterInput)}
-					<label for="simpleQuery">{translate key="navigation.search"} <br />
-					<input type="text" id="simpleQuery" name="simpleQuery" size="15" maxlength="255" value="" class="textField" /></label>
-				{else}
-					{$filterInput}
-				{/if}
-				</td>
-			</tr>
-			<tr>
-				<td><label for="searchField">
-				{translate key="plugins.block.navigation.searchScope"}
-				<br />
-				<select id="searchField" name="searchField" size="1" class="selectMenu">
-					{html_options_translate options=$articleSearchByOptions}
-				</select></label>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="{translate key="common.search"}" class="button" /></td>
-			</tr>
-		</table>
-	</form>
-
-	<br />
 
 	{if $currentJournal}
 	<span class="blockSubtitle">{translate key="navigation.browse"}</span>
