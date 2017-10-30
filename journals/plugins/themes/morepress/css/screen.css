@@ -1472,7 +1472,7 @@ font-size: 12px;
   border-right: none;
 }
 #results table tr:nth-child(odd) {
-  /border-bottom: 1px solid #D1D3D5; 
+  border-bottom: 1px solid #D1D3D5; 
 }
 
 /* Issues
@@ -2638,8 +2638,8 @@ text-decoration: none;
 background-color: rgba(0,0,0,0.1);
 }
 
-#JournalHomeArchiveYearLabel {
-font-size: 1.1em;
+.JournalHomeArchiveYearLabel {
+font-size: 1.1em !important;
 padding:0.3em 0;
 font-weight: bold;
 cursor: pointer;
@@ -2653,9 +2653,9 @@ color: #222;
   -webkit-transition:.2s;
   /* ...and now for the proper property */
   transition:.2s;
-}
+} 
 
-#JournalHomeArchiveYearLabel:hover {
+.JournalHomeArchiveYearLabel:hover {
 color: #2364a2;
 }
 

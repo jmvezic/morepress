@@ -88,7 +88,7 @@ foreach ($Issues as &$value) {
 }
 foreach ($YearIndex as $Year => $Values) {
 	echo '<div class="yearParent">';
-	echo '<div id="JournalHomeArchiveYearLabel">&raquo;&nbsp;'.$Year.'</div>';
+	echo '<div class="JournalHomeArchiveYearLabel">&raquo;&nbsp;'.$Year.'</div>';
 	echo '<div class="yearChild">';
 	foreach ($Values as $Iden) {
 		foreach ($Issues as &$value) {
