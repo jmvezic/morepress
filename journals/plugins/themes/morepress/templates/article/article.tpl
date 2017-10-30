@@ -70,31 +70,19 @@
 		{assign var=hasAccess value=0}
 	{/if}
 
-	{if $galleys}
-		<div id="articleFullText" class="block">
-		<h4>{translate key="reader.fullText"}</h4>
-		{if $hasAccess || ($subscriptionRequired && $showGalleyLinks)}
-			{foreach from=$article->getGalleys() item=galley name=galleyList}
-				<a href="{url page="article" op="view" path=$article->getBestArticleId($currentJournal)|to_array:$galley->getBestGalleyId($currentJournal)}" class="file" {if $galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}>{$galley->getGalleyLabel()|escape}</a>
-				{if $subscriptionRequired && $showGalleyLinks && $restrictOnlyPdf}
-					{if $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || !$galley->isPdfGalley()}
-						<img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_open_medium.gif" alt="{translate key="article.accessLogoOpen.altText"}" />
-					{else}
-						<img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_restricted_medium.gif" alt="{translate key="article.accessLogoRestricted.altText"}" />
-					{/if}
-				{/if}
-			{/foreach}
-			{if $subscriptionRequired && $showGalleyLinks && !$restrictOnlyPdf}
-				{if $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN}
-					<img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_open_medium.gif" alt="{translate key="article.accessLogoOpen.altText"}" />
-				{else}
-					<img class="accessLogo" src="{$baseUrl}/lib/pkp/templates/images/icons/fulltext_restricted_medium.gif" alt="{translate key="article.accessLogoRestricted.altText"}" />
-				{/if}
-			{/if}
-		{else}
-			&nbsp;<a href="{url page="about" op="subscriptions"}" target="_parent">{translate key="reader.subscribersOnly"}</a>
-		{/if}
-		</div>
+{assign var=Galleys value=$article->getGalleys()}
+	{if $Galleys}
+	<span class="blockSubtitle">{translate key="reader.fullText"}</span>
+	<div id="tocLinksContainer">
+	{foreach from=$Galleys item=Galley}
+<a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-eye" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a>
+
+	{if $Galley->isPdfGalley()}
+	<a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a> 
+	{/if}
+
+	{/foreach}
+	</div>
 	{/if}
 
 	{if $citationFactory->getCount()}
