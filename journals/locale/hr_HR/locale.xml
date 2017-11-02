@@ -1096,6 +1096,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 
 	<message key="morePress.viewGalley">Pročitaj</message>
 	<message key="morePress.downloadGalley">Preuzmi</message>
+	<message key="morePress.removeLines">Ukloni nove redove iz sažetka (na Paste ili Ctrl+V)</message>
 
 	<message key="moreFooter.notif">Morepress obavijesti</message>
 	<message key="moreFooter.journals">Časopisi</message>

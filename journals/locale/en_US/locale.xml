@@ -1208,7 +1208,8 @@ Validation may fail on search URLs that require posted form data.]]></message>
 
 	<message key="morePress.viewGalley">Read</message>
 	<message key="morePress.downloadGalley">Download</message>	
-	
+	<message key="morePress.removeLines">Remove new lines in abstract (on paste or Ctrl+V)</message>	
+
 	<message key="navigation.aboutSite">About Morepress</message>
 	<message key="moreFooter.notif">Morepress notifications</message>
 	<message key="moreFooter.journals">Journals</message>

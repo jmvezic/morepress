@@ -369,6 +369,10 @@ function updateAbstractRequired() {
 		</tr>
 
 		<tr valign="top">
+		<td width="100%" colspan="2" style="text-align:right;"><input type="checkbox" id="removeLines" checked>{translate key="morePress.removeLines"}</input></td>
+		</tr>
+
+		<tr valign="top">
 			{if $sectionAbstractsRequired[$sectionId]}
 				{* If a section is already chosen, respect the "required" flag *}
 				{assign var=abstractRequired value="true"}
