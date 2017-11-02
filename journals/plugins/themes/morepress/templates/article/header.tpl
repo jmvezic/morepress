@@ -15,6 +15,8 @@
 	<title>{$article->getLocalizedTitle()|strip_tags|escape} | {$article->getFirstAuthor(true)|strip_tags|escape} | {$currentJournal->getLocalizedTitle()|strip_tags|escape}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset={$defaultCharset|escape}" />
 	<meta name="description" content="{$article->getLocalizedTitle()|strip_tags|escape}" />
+	<meta property="og:image" content="/images/graph.jpg" />	
+
 	{if $article->getLocalizedSubject()}
 		<meta name="keywords" content="{$article->getLocalizedSubject()|escape}" />
 	{/if}

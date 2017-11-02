@@ -30,3 +30,4 @@
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/newlinesremove.js"></script>
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/piwik.js"></script>
 
+<meta property="og:image" content="/images/graph.jpg" /> 
