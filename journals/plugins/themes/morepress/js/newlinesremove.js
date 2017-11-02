@@ -11,7 +11,7 @@ $(document).ready(function () {
 function DisplayPastedData() {
 if ($('#removeLines').is(':checked')) {
     var data = $("#abstract").val();
-    data = data.replace(/(\r\n|\n|\r)/gm,"");
+    data = data.replace(/(\r\n|\n|\r)/gm," ");
     $("#abstract").val(data);
 }
 }
