@@ -26,7 +26,7 @@
 
 {if $journals->wasEmpty()}
 	{translate key="site.noJournals"}
-{/if} 
+{/if}
 
 <div id="indexJournalsList">
 
@@ -54,9 +54,9 @@ $InDAO = new DAO();
 $InJournalDAO = new JournalDAO();
 $JournalDAO = new JournalDAO();
 
-$Journals = $DAO->retrieve("SELECT journals.journal_id, issues.date_published FROM journals LEFT JOIN issues ON journals.journal_id = issues.journal_id GROUP BY journals.journal_id ORDER BY MAX(issues.date_published) DESC");
+$Journals = $DAO->retrieve("SELECT journals.journal_id, MAX(issues.date_published) FROM journals LEFT JOIN issues ON journals.journal_id = issues.journal_id GROUP BY journals.journal_id ORDER BY MAX(issues.date_published) DESC");
 
-$InJournals = $InDAO->retrieve("SELECT journals.journal_id, issues.date_published FROM journals LEFT JOIN issues ON journals.journal_id = issues.journal_id GROUP BY journals.journal_id ORDER BY MAX(issues.date_published) DESC");
+$InJournals = $InDAO->retrieve("SELECT journals.journal_id, MAX(issues.date_published) FROM journals LEFT JOIN issues ON journals.journal_id = issues.journal_id GROUP BY journals.journal_id ORDER BY MAX(issues.date_published) DESC");
 
 while (!$Journals->EOF) {
 	$JourID = $Journals->fields["journal_id"];
@@ -71,6 +71,7 @@ while (!$Journals->EOF) {
 	$JourISSN = $JournalObject->getSetting('printIssn');
 	$JourEISSN = $JournalObject->getSetting('onlineIssn');
 	$JourCatInfo = $JournalObject->getSetting('categories');
+
 	
 	if ($casopisi[$JourPath] != 2) {
 
@@ -99,8 +100,16 @@ echo '</div>'; */
 
 
 echo '<img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
-	echo '<div id="jourTitle">'.$JourTitle.'</div>';
+	echo '<div id="jourTitle">'.$JourTitle; 	
+	echo '</div>';
 	echo '<div id="jourInfoBlock">';
+		$IssuePublished = $Journals->fields["MAX(issues.date_published)"];
+	if(strtotime($IssuePublished) > strtotime('-7 days')) {
+     $proba = $AppLocale->translate("morePress.newIssue");
+     echo '<div id="jourCategory" style="background-color:#10a915;color:white;"><i class="fa fa-star" aria-hidden="true"></i> &nbsp;';
+     echo $proba;
+     echo '</div>';
+ 	}
 	foreach($JourCatInfo as $v) {
 		$ControlVocabSettings = $DAO->retrieve("SELECT * FROM controlled_vocab_entry_settings");
 		while (!$ControlVocabSettings->EOF) {
@@ -129,7 +138,7 @@ while (!$InJournals->EOF) {
 	$JourInit = $JournalObject->getInitials($Locale);
 	$JourThumb = $JournalObject->getLocalizedSetting('journalThumbnail');
 	$JourAltText = $JournalObject->getLocalizedSetting('journalThumbnailAltText');
-	$JourThumbPath = "/public/journals/".$JourID."/".$JourThumb["uploadName"];
+	$JourThumbPath = "/public/journals/".$JourID."/".$JourThumb["uplliburnaoadName"];
 	$JourISSN = $JournalObject->getSetting('printIssn');
 	$JourEISSN = $JournalObject->getSetting('onlineIssn');
 	$JourCatInfo = $JournalObject->getSetting('categories');
@@ -158,6 +167,8 @@ echo '</div>'; */
 
 
 	echo '<div id="jourThumb">';
+				$IssuePublished = $InJournals->fields["date_published"];
+	echo $IssuePublished;
 
 
 echo '<img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
