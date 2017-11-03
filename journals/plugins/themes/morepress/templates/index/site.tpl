@@ -104,7 +104,7 @@ echo '<img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';
 	echo '</div>';
 	echo '<div id="jourInfoBlock">';
 		$IssuePublished = $Journals->fields["MAX(issues.date_published)"];
-	if(strtotime($IssuePublished) > strtotime('-7 days')) {
+	if(strtotime($IssuePublished) > strtotime('-2 days')) {
      $proba = $AppLocale->translate("morePress.newIssue");
      echo '<div id="jourCategory" style="background-color:#10a915;color:white;"><i class="fa fa-star" aria-hidden="true"></i> &nbsp;';
      echo $proba;
@@ -138,7 +138,7 @@ while (!$InJournals->EOF) {
 	$JourInit = $JournalObject->getInitials($Locale);
 	$JourThumb = $JournalObject->getLocalizedSetting('journalThumbnail');
 	$JourAltText = $JournalObject->getLocalizedSetting('journalThumbnailAltText');
-	$JourThumbPath = "/public/journals/".$JourID."/".$JourThumb["uplliburnaoadName"];
+	$JourThumbPath = "/public/journals/".$JourID."/".$JourThumb["uploadName"];
 	$JourISSN = $JournalObject->getSetting('printIssn');
 	$JourEISSN = $JournalObject->getSetting('onlineIssn');
 	$JourCatInfo = $JournalObject->getSetting('categories');
@@ -167,8 +167,6 @@ echo '</div>'; */
 
 
 	echo '<div id="jourThumb">';
-				$IssuePublished = $InJournals->fields["date_published"];
-	echo $IssuePublished;
 
 
 echo '<img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
