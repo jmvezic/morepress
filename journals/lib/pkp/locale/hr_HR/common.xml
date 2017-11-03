@@ -266,7 +266,7 @@
 	<message key="common.contact">Kontakt</message>
 	<message key="common.help">Pomoć</message>
 	<message key="common.logout">Odjava</message>
-	<message key="common.searchTerm">Unesite pojam / frazu / DOI / ISSN / autore / ključnu riječ / i sl...</message>
+	<message key="common.searchTerm">Unesite pojam / frazu / autore / ključnu riječ / i sl...</message>
 	<message key="common.advancedSearch">Napredno</message>
 	<message key="common.morepressJournals">Časopisi</message>
 	<message key="notification.notificationsNew">({$numNew} novih)</message>

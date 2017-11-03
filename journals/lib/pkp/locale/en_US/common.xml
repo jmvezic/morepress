@@ -399,7 +399,7 @@
 	<message key="common.help">Help</message>
 	<message key="common.contact">Contact</message>
 	<message key="common.logout">Log out</message>
-	<message key="common.searchTerm">Enter word / phrase / DOI / ISSN / authors / keywords / etc...</message>
+	<message key="common.searchTerm">Enter a word / phrase / authors / keywords / etc...</message>
 	<message key="common.advancedSearch">Advanced</message>
 	<message key="common.morepressJournals">Journals</message>
 	<message key="common.userPages">User pages</message>
