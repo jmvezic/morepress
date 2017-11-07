@@ -32,7 +32,18 @@ while (!$ContrVocabEntries->EOF) {
 						$JournalSettingsNew = $DAO->retrieve("SELECT * FROM journal_settings");
 						while (!$JournalSettingsNew->EOF) {
 							if ($JournalSettingsNew->fields["journal_id"]==$JourID && $JournalSettingsNew->fields["locale"]==$Locale && $JournalSettingsNew->fields["setting_name"]=="title") {
-								echo '<li><a href="/journals/'.$JourShort.'">'.$JournalSettingsNew->fields["setting_value"].'</a></li>';
+								if ($JournalSettingsNew->fields["journal_id"] == 8)
+								{
+									echo '<li><a href="http://www.libellarium.org" target="_blank">'.$JournalSettingsNew->fields["setting_value"].'</a></li>';							
+								}
+								else if ($JournalSettingsNew->fields["journal_id"] == 9)
+								{
+									echo '<li><a href="https://www.sic-journal.org" target="_blank">'.$JournalSettingsNew->fields["setting_value"].'</a></li>';							
+								}
+								else
+								{
+									echo '<li><a href="/journals/'.$JourShort.'">'.$JournalSettingsNew->fields["setting_value"].'</a></li>';
+								}
 							}
 							$JournalSettingsNew->MoveNext();
 						}

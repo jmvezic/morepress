@@ -118,6 +118,8 @@ class SearchHandler extends Handler {
 		if ($searchFilters['siteSearch']) {
 			$journalDao =& DAORegistry::getDAO('JournalDAO');
 			$journals =& $journalDao->getJournalTitles(true);
+			unset($journals[8]); // micanje libellariuma iz odabira za pretraživanje			
+			unset($journals[9]); // micanje sica iz odabira za pretraživanje
 			$templateMgr->assign('journalOptions', array('' => AppLocale::Translate('search.allJournals')) + $journals);
 		}
 	}
