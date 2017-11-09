@@ -1177,7 +1177,7 @@ width:-webkit-calc(50% - 10px);
 width:-moz-calc(50% - 10px);
 width:calc(50% - 10px);
 max-height: 500px;
-height:210px;
+height:240px;
 float:left;
 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAJElEQVQYV2NkwASSjGhikgwMDM+RBcECIEUwQbgATBBFACQIAKWBBB+kE5zTAAAAAElFTkSuQmCC) repeat;
 border:1px solid rgba(0,0,0,0.1);
@@ -1209,7 +1209,7 @@ color:white;
 }
 
 #jourBlock #jourThumb {
-	width:35%;
+	width:33%;
 	text-align: center;
 	height: 95%;
 	display: inline-block;
