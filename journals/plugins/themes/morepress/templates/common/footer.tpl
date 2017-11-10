@@ -54,8 +54,8 @@
 <div id="customFooter">
 <div id="colsCont">
 	<div id="footerCol">
-	<a href="http://www.unizd.hr/" id="logoNav"><img src="{$baseUrl}/plugins/themes/morepress/img/unizd-znak-bijeli_200p.png" style="margin-bottom:15px;"/></a>
-	<a href="{$baseUrl}" id="logoNav"><img src="{$baseUrl}/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a>
+	<a href="http://www.unizd.hr/" id="logoNav" target="_blank"><img src="{$baseUrl}/plugins/themes/morepress/img/unizd-znak-bijeli_200p.png" style="margin-bottom:15px;"/></a>
+	<a href="/" id="logoNav"><img src="{$baseUrl}/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a>
 	</div>
 	<div id="footerCol">
 		<h2>{translate key="navigation.userHome"}</h2>
