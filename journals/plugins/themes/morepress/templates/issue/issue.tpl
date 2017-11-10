@@ -41,7 +41,7 @@
 	
 	<div id="tocSectionContainer">
 		<div id="tocItemContainer">
-			{if !$hasAccess || $hasAbstract}<a class="tocItemTitle" href="{url page="article" op="view" path=$articlePath}">{$article->getLocalizedTitle()|strip_unsafe_html}</a><br>{/if}
+			<a class="tocItemTitle" href="{url page="article" op="view" path=$articlePath}">{$article->getLocalizedTitle()|strip_unsafe_html}</a><br>
 			{if (!$section.hideAuthor && $article->getHideAuthor() == $smarty.const.AUTHOR_TOC_DEFAULT) || $article->getHideAuthor() == $smarty.const.AUTHOR_TOC_SHOW}
 				{foreach from=$article->getAuthors() item=author name=authorList}
 					<span class="tocItemAuthors">{$author->getFullName()|escape}{if !$smarty.foreach.authorList.last},{/if}</span>
