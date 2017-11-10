@@ -1209,7 +1209,7 @@ color:white;
 }
 
 #jourBlock #jourThumb {
-	width:33%;
+	width:36%;
 	text-align: center;
 	height: 95%;
 	display: inline-block;
@@ -1226,7 +1226,7 @@ color:white;
 }
 
 #jourBlock #jourTitle, #jourBlock #jourTitleNoThumb {
-	width:65%;
+	width:63%;
 	padding:5px 0;
 	float:right;
 	font-size:20px;
@@ -1234,7 +1234,7 @@ color:white;
 }
 
 #jourBlock #jourInfoBlock {
-width:65%;
+width:63%;
 float: right;
 }
 
@@ -1276,7 +1276,7 @@ font-size: 12px;
 
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 780px) {
 	#jourBlock {
 		width:100%;
 		margin:5px 0;
