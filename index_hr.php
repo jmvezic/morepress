@@ -52,7 +52,7 @@ function gitVersion()
 					<p>Mrežna izdavačka platforma<br>Sveučilišta u Zadru</p>
 					<ul class="actions">
 						<li><a href="journals" class="button special icon fa-files-o">Časopisi online</a><br><small>Dostupno</small></li>
-						<li><a href="#" class="button special icon fa-book disabled">Knjige online*</a><br><small>* dostupno od studenog 2017.</small></li>
+						<li><a href="#" class="button special icon fa-book disabled">Knjige online*</a><br><small>* dostupno od 4. prosinca</small></li>
 					</ul>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
