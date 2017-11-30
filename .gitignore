@@ -16,4 +16,8 @@ piwik/tmp/*
 
 piwik/tmp/cache/tracker/eagercache-301-tracker.php
 
-books/*
+books/config.inc.php
+
+books/public/*
+
+books/cache/*
