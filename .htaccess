@@ -4,4 +4,10 @@ RewriteCond %{HTTPS} off
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 RewriteCond %{REQUEST_URI} ^/casopisi/?$
 RewriteRule ^(.*) https://morepress.unizd.hr/journals [R,L]
+
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteCond %{REQUEST_URI} ^/knjige/?$
+RewriteRule ^(.*) https://morepress.unizd.hr/books [R,L]
+
 </IfModule>
