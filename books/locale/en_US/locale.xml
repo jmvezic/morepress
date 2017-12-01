@@ -576,4 +576,35 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="user.profile.form.showOtherContexts">Register with other presses</message>
 	<message key="user.profile.form.hideOtherContexts">Hide other presses</message>
 	<message key="grid.category.categories">Categories</message>
+	
+	<!-- MOREPRESS -->
+	<message key="navigation.aboutSite">About Morepress</message>
+	<message key="moreFooter.notif">Morepress notifications</message>
+	<message key="moreFooter.journals">Journals</message>
+	<message key="moreFooter.OA">Open Access</message>
+	<message key="moreFooter.helpAndContact">Help and Contact</message>
+	<message key="moreFooter.FAQ">Frequently Asked Questions</message>
+	<message key="moreFooter.contact">Contact us</message>
+	<message key="moreFooter.socialNets">Social Networks</message>
+	<message key="moreFooter.development">Design and Development</message>
+	<message key="moreFooter.SPC">SPCialists</message>
+	<message key="moreFooter.tweets">Recent Tweets</message>
+	<message key="moreFooter.version">Version</message>
+	<message key="morePress.bread">You are here</message>
+	<message key="morePress.featuredArticle">Featured article</message>
+	<message key="morePress.featuredEditor">Featured editor</message>
+	<message key="morePress.noRecentArticles">This journal has no articles.</message>
+	<message key="morepress.moreOpen">More Open</message>
+	<message key="moreFooter.homepage">Homepage</message>
+	<message key="moreFooter.books">Books</message>
+	<message key="moreFooter.university">University of Zadar</message>
+	<message key="moreFooter.publishingdept">Publishing department</message>
+	<message key="moreFooter.zadar">Zadar, Croatia</message>
+	<message key="moreFooter.franjo">Franjo Pehar, Ph.D.</message>
+	<message key="moreFooter.jakopec">dr. sc. Tomislav Jakopec, Ph.D.</message>
+	<message key="moreFooter.jakov">Jakov M. Vežić, mag. bibl.</message>
+	<message key="navbar.about">About</message>
+	<message key="common.logout">Logout</message>
+
+	
 </locale>

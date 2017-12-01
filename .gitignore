@@ -21,3 +21,5 @@ books/config.inc.php
 books/public/*
 
 books/cache/*
+
+books/docs/*
