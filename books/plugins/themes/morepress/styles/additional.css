@@ -203,3 +203,8 @@ background-color: rgba(0,0,0,0.1);
 box-shadow: none !important;
 background: white !important;
 }
+
+.cmp_download_link:hover {
+background-color: #143c62 !important;
+color: white !important;
+}
