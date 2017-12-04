@@ -16,7 +16,20 @@
 {include file="common/header.tpl"}
 {/strip}
 
-
+<script type="application/ld+json">
+{ 
+  "@context": "http://schema.org", 
+  "@type": "WebSite", 
+  "url": "https://morepress.unizd.hr/journals", 
+  "name": "Morepress - University of Zadar | Journals",
+  "description": "Open Access academic journals published by University of Zadar",
+  "publisher": "University of Zadar",
+  "potentialAction": { 
+    "@type": "SearchAction", 
+    "target": "https://morepress.unizd.hr/journals/index/search/search?query={search_term}", 
+    "query-input": "required name=search_term" } 
+}
+</script>
 
 <a name="journals"></a>
 
