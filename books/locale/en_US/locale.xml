@@ -601,7 +601,7 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="moreFooter.publishingdept">Publishing department</message>
 	<message key="moreFooter.zadar">Zadar, Croatia</message>
 	<message key="moreFooter.franjo">Franjo Pehar, Ph.D.</message>
-	<message key="moreFooter.jakopec">dr. sc. Tomislav Jakopec, Ph.D.</message>
+	<message key="moreFooter.jakopec">Tomislav Jakopec, Ph.D.</message>
 	<message key="moreFooter.jakov">Jakov M. Vežić, mag. bibl.</message>
 	<message key="navbar.about">About</message>
 	<message key="common.logout">Logout</message>
