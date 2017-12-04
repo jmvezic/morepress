@@ -208,3 +208,11 @@ background: white !important;
 background-color: #143c62 !important;
 color: white !important;
 }
+
+.pkp_structure_sidebar.left {
+text-align:center !important;
+}
+
+.obj_monograph_summary .cover img {
+display: inline !important;
+}
