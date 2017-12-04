@@ -79,7 +79,7 @@
 			<a href="{url page="about"}"><li>{translate key="navigation.aboutSite"}</li></a>
 			<a href="/"><li>{translate key="moreFooter.homepage"}</li></a>
 			<a href="/journals"><li>{translate key="moreFooter.journals"}</li></a>
-			<a href="#/" class="not-active"><li class="not-active">{translate key="moreFooter.books"}</li></a>
+			<a href="/books"><li>{translate key="moreFooter.books"}</li></a>
 		</ul>
 	</div>
 	<div id="footerCol">

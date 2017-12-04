@@ -1229,7 +1229,7 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.noRecentArticles">This journal has no articles.</message>
 	<message key="morepress.moreOpen">More Open</message>
 	<message key="moreFooter.homepage">Homepage</message>
-	<message key="moreFooter.books">Books (coming November 2017)</message>
+	<message key="moreFooter.books">Books</message>
 	<message key="moreFooter.university">University of Zadar</message>
 	<message key="moreFooter.publishingdept">Publishing department</message>
 	<message key="moreFooter.zadar">Zadar, Croatia</message>
