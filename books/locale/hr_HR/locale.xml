@@ -230,7 +230,7 @@
 	<message key="grid.reviewAttachments.availableFiles">Available Files</message>
 
 	<!-- series/categories/series -->
-	<message key="series.series">Series</message>
+	<message key="series.series">Niz</message>
 	<message key="series.featured.description">This series will appear on the main navigation</message>
 	<message key="series.path">Path</message>
 
@@ -310,8 +310,8 @@
 	<message key="common.prefix">Prefix</message>
 	<message key="common.preview">Preview</message>
 	<message key="common.feature">Feature</message>
-	<message key="common.searchCatalog">Search Catalog</message>
-	<message key="common.moreInfo">More Information</message>
+	<message key="common.searchCatalog">Pretraživanje kataloga</message>
+	<message key="common.moreInfo">Više informacija</message>
 
 
 	<message key="common.listbuilder.completeForm">Please fill out the form completely.</message>
@@ -324,19 +324,19 @@
 	<message key="common.homePageHeader.altText">Homepage Header</message>
 
 	<!-- Navigation -->
-	<message key="navigation.catalog">Catalog</message>
+	<message key="navigation.catalog">Katalog</message>
 	<message key="navigation.competingInterestPolicy">Competing Interest Policy</message>
 	<message key="navigation.catalog.manage">Manage</message>
 	<message key="navigation.catalog.administration.short">Administration</message>
 	<message key="navigation.catalog.administration">Catalog Administration</message>
-	<message key="navigation.catalog.administration.categories">Categories</message>
-	<message key="navigation.catalog.administration.series">Series</message>
+	<message key="navigation.catalog.administration.categories">Kategorije</message>
+	<message key="navigation.catalog.administration.series">Nizovi</message>
 	<message key="navigation.infoForAuthors">For Authors</message>
 	<message key="navigation.infoForLibrarians">For Librarians</message>
 	<message key="navigation.infoForAuthors.long">Information For Authors</message>
 	<message key="navigation.infoForLibrarians.long">Information For Librarians</message>
-	<message key="navigation.newReleases">New Releases</message>
-	<message key="navigation.published">Published</message>
+	<message key="navigation.newReleases">Nove knjige</message>
+	<message key="navigation.published">Izdano</message>
 	<message key="navigation.wizard">Wizard</message>
 	<message key="navigation.linksAndMedia">Links and Social Media</message>
 
@@ -393,12 +393,12 @@
 
 	<!-- About The Press -->
 	<message key="about.pressContact">Press Contact</message>
-	<message key="about.aboutContext">About the Press</message>
-	<message key="about.editorialTeam">Editorial Team</message>
+	<message key="about.aboutContext">O Morepress-u</message>
+	<message key="about.editorialTeam">Impresum</message>
 	<message key="about.editorialPolicies">Editorial Policies</message>
 	<message key="about.focusAndScope">Focus and Scope</message>
 	<message key="about.seriesPolicies">Series and Category Policies</message>
-	<message key="about.submissions">Submissions</message>
+	<message key="about.submissions">Prijave rukopisa</message>
 	<message key="about.onlineSubmissions">Online Submissions</message>
 	<message key="about.onlineSubmissions.login">Login</message>
 	<message key="about.onlineSubmissions.register">Register</message>
@@ -584,7 +584,7 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="moreFooter.OA">Open Access</message>
 	<message key="moreFooter.helpAndContact">Pomoć i kontakt</message>
 	<message key="moreFooter.FAQ">Frequently Asked Questions</message>
-	<message key="moreFooter.contact">Kontaktirajte nas (E-mail)</message>
+	<message key="moreFooter.contact">Kontaktirajte nas</message>
 	<message key="moreFooter.socialNets">Društvene mreže</message>
 	<message key="moreFooter.development">Razvoj i implementacija</message>
 	<message key="moreFooter.SPC">SPCialists</message>
@@ -605,10 +605,10 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="moreFooter.jakov">Jakov M. Vežić, mag. bibl.</message>
 	<message key="navbar.about">About</message>
 	<message key="common.logout">Odjava</message>
+	<message key="morepress.Books">Knjige</message>
 
 	<message key="common.homepageNavigationLabel">Morepress Knjige</message>
 	<message key="navigation.breadcrumbSeparator">&gt;</message>
-
 
 	
 </locale>

@@ -235,7 +235,7 @@
 	<message key="navigation.register">Registracija</message>
 	<message key="navigation.search">Pretraživanje</message>
 	<message key="navigation.stepNumber">{$step}. korak</message>
-	<message key="navigation.userHome">Korisnička</message>
+	<message key="navigation.userHome">Moj račun</message>
 	<message key="navigation.user">Korisnik</message>
 	<message key="search.abstract">Sažetak</message>
 	<message key="search.author">Autori</message>

@@ -160,4 +160,7 @@
 	<message key="log.review.reviewerAssigned">{$reviewerName} je dodijeljen(a) kao recenzent priloga {$submissionId} u {$round}. krugu recenzije.</message>
 	<message key="submission.reviewForm">Recenzijski obrazac</message>
 	<message key="submission.reviewFormResponse">Odgovor na recenziju</message>
+	<message key="submission.copyrightStatement">Autorsko pravo (c) {$copyrightYear} {$copyrightHolder}</message>
+	<message key="submission.license.cc.by-nc-nd4.footer"><![CDATA[<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="//i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><p>Ova knjiga je licencirana pod <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.</p>]]></message>
+	<message key="submission.authorWithAffiliation">{$name}, {$affiliation}</message>
 </locale>

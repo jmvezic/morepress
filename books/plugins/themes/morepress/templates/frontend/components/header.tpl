@@ -50,7 +50,7 @@
 						{/if}
 											<a href="{$homeUrl}" id="moreHeader"><img src="/books/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a>
 											<span id="logoSep"></span>
-											<a href="{$homeUrl}" id="moreBooksNav"><span id="booksText">Books</span></a>
+											<a href="{$homeUrl}" id="moreBooksNav"><span id="booksText">{translate key="moreFooter.books"}</span></a>
 						
 					{if $requestedOp == 'index'}
 						</h1>

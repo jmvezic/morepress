@@ -21152,7 +21152,7 @@
 			</xs:enumeration>
 			<xs:enumeration value="11">
 				<xs:annotation>
-					<xs:documentation>Date of first publication</xs:documentation>
+					<xs:documentation>Datum prvog izdavanja</xs:documentation>
 					<xs:documentation>Date when the work incorporated in a product was first published.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
