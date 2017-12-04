@@ -609,6 +609,6 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 
 	<message key="common.homepageNavigationLabel">Morepress Knjige</message>
 	<message key="navigation.breadcrumbSeparator">&gt;</message>
-
+	<message key="search.searchAgain">Ponovno pretraživanje</message>
 	
 </locale>
