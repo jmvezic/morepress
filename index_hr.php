@@ -51,8 +51,8 @@ function gitVersion()
 					<h1><a href="/"><img style="max-width:600px;width:90%;" src="/journals/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a></h1>
 					<p>Mrežna izdavačka platforma<br>Sveučilišta u Zadru</p>
 					<ul class="actions">
-						<li><a href="journals" class="button special icon fa-files-o">Časopisi online</a><br><small>Dostupno</small></li>
-						<li><a href="#" class="button special icon fa-book disabled">Knjige online*</a><br><small>* dostupno od 4. prosinca</small></li>
+						<li><a href="journals" class="button special icon fa-files-o">Časopisi online</a><br><small>OJS 2.4.8.2</small></li>
+						<li><a href="books" class="button special icon fa-book">Knjige online</a><br><small>OMP 3.1.0</small></li>
 					</ul>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
