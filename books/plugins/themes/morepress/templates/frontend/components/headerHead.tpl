@@ -20,6 +20,7 @@
 	<link href="/books/plugins/themes/morepress/styles/additional.css" rel="stylesheet" type="text/css">
 	<script src="/journals/plugins/themes/morepress/js/fontawesome.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Cardo|Crimson+Text|Fira+Sans|Lato|Libre+Baskerville|Lora|Noto+Sans|Open+Sans|PT+Sans|PT+Serif+Caption|Quicksand|Roboto|Roboto+Slab|Taviraj" rel="stylesheet">
+	<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/piwik.js"></script>	
 
 	{load_header context="frontend"}
 	{load_stylesheet context="frontend"}

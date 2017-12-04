@@ -75,6 +75,8 @@
 
 				<nav class="pkp_navigation_user_wrapper navDropdownMenu" id="navigationUserWrapper" aria-label="{translate|escape key="common.navigation.user"}">
 					<ul id="navigationUser" class="pkp_navigation_user pkp_nav_list">
+						<li style="float:left;"><a href="/">{translate key="moreFooter.homepage"}</a></li>
+						<li style="float:left;"><a href="/journals">{translate key="moreFooter.journals"}</a></li>
 						{if $isUserLoggedIn}
 							<li class="profile {if $unreadNotificationCount} has_tasks{/if}" aria-haspopup="true" aria-expanded="false">
 								<a href="{url router=$smarty.const.ROUTE_PAGE page="submissions"}">
