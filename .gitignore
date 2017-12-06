@@ -6,10 +6,6 @@ morepress.unizd.hr-error_log
 
 .htaccess
 
-journals/.htaccess
-
-books/.htaccess
-
 journals/config.inc.php
 
 journals/public/*
