@@ -1276,4 +1276,9 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="manager.sections.wordCount">Word Count</message>
 	<message key="manager.sections.wordCountInstructions">Limit abstract word counts for this section (0 for no limit): </message>
 
+        <message key="morePress.homepage">Homepage</message>
+        <message key="morePress.journals">Journals</message>
+        <message key="morePress.books">Books</message>
+
+
 </locale>

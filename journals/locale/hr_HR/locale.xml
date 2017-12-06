@@ -1204,5 +1204,9 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="manager.sections.unassigned">Dostupni urednici rubrika</message>
 	<message key="locale.primary">Primarni jezik</message>
 	<message key="rt.readingTools">Alati za članak</message>
+	
+	<message key="morePress.homepage">Početna</message>
+	<message key="morePress.journals">Časopisi</message>
+	<message key="morePress.books">Knjige</message>
 
 </locale>
