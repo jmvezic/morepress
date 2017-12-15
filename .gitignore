@@ -6,6 +6,10 @@ morepress.unizd.hr-error_log
 
 .htaccess
 
+journals/.htaccess
+
+books/.htaccess
+
 journals/config.inc.php
 
 journals/public/*
@@ -15,6 +19,12 @@ piwik/*
 piwik/tmp/*
 
 piwik/tmp/cache/tracker/eagercache-301-tracker.php
+
+piwik.js
+
+journals/plugins/themes/morepress/js/piwik.js
+
+books/plugins/themes/morepress/js/piwik.js
 
 books/config.inc.php
 
