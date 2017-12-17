@@ -605,6 +605,6 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="moreFooter.jakov">Jakov M. Vežić, mag. bibl.</message>
 	<message key="navbar.about">About</message>
 	<message key="common.logout">Logout</message>
-
-	
+	<message key="morePress.moreBooks">Browse all</message>
+		
 </locale>
