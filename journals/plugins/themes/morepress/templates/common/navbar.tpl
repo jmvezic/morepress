@@ -29,7 +29,6 @@
 			<li id="about"><a href="{url page="about"}">{translate key="navigation.about"}</a></li>
             {/if}
            <li><a href="/">{translate key="morePress.homepage"}</a></li>
-	<li><a href="/journals">{translate key="morePress.journals"}</a></li>
 	<li><a href="/books">{translate key="morePress.books"}</a></li> 
         
         <!-- <li><a href="#">{translate key="common.help"}</a></li>
@@ -88,12 +87,16 @@
 <div id="navbar" role="navigation" class="body">
 	<ul class="navMenu menu">
         <div id="leftblock">
-            {if ($currentJournal==null)}
+            
+<li><a href="/">{translate key="morePress.homepage"}</a></li>
+          <li><a href="/books">{translate key="morePress.books"}</a></li>
+
+<!-- {if ($currentJournal==null)}
 			<li id="about"><a href="{url page="about"}">{translate key="navigation.aboutSite"}</a></li>
 			{else}
 			<li id="about"><a href="{url page="about"}">{translate key="navigation.about"}</a></li>
             {/if}
-            
+     -->       
         
         <!-- <li><a href="#">{translate key="common.help"}</a></li>
         <li><a href="#">{translate key="common.contact"}</a></li> -->
@@ -166,7 +169,7 @@
 </div>
 
 <div id="LogoMorepress">
-<a href="/" id="logoNav"><img src="{$baseUrl}/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a>
+<a href="/journals" id="logoNav"><img src="{$baseUrl}/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a>
 </div>
 
 <a href="/journals"><div id="MorepressInfo"><span id="logoSep"></span><p>{translate key="common.morepressJournals"}</p></div></a>

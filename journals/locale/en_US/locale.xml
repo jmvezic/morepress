@@ -1227,7 +1227,7 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.featuredArticle">Featured article</message>
 	<message key="morePress.featuredEditor">Featured editor</message>
 	<message key="morePress.noRecentArticles">This journal has no articles.</message>
-	<message key="morepress.moreOpen">More Open</message>
+	<message key="morepress.moreOpen">About Morepress</message>
 	<message key="moreFooter.homepage">Homepage</message>
 	<message key="moreFooter.books">Books</message>
 	<message key="moreFooter.university">University of Zadar</message>
