@@ -31,6 +31,27 @@
 	<link rel="stylesheet" href="{$baseUrl}/styles/common.css" type="text/css" />-->
 	<link rel="stylesheet" href="{$baseUrl}/styles/compiled.css" type="text/css" /> 
 
+
+{if ($currentJournal==null)}
+{literal}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url": "https://morepress.unizd.hr/journals",
+  "name": "Morepress - University of Zadar | Journals",
+  "description": "Open Access academic journals published by University of Zadar",
+  "publisher": "University of Zadar",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://morepress.unizd.hr/journals/index/search/search?query={search_term}",
+    "query-input": "required name=search_term" }
+}
+{/literal}
+</script>
+{/if}
+
+
 	<!-- Base Jquery -->
 	{if $allowCDN}<script type="text/javascript" src="//www.google.com/jsapi"></script>
 		<script type="text/javascript">{literal}
