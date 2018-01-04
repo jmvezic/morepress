@@ -534,6 +534,8 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 
 
 	<!-- Search -->
+	<message key="search.activeFilters">Aktivni filteri</message>
+	<message key="search.deleteFilter">Ukloni filter</message>
 	<message key="search.browseAuthorIndex">Kazalo autora</message>
 	<message key="search.searchFor">Pretražite članke za</message>
 	<message key="search.author">Autori</message>

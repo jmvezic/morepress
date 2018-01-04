@@ -51,8 +51,8 @@ function gitVersion()
 					<h1><a href="/"><img style="max-width:600px;width:90%;" src="/journals/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a></h1>
 					<p>Mrežna izdavačka platforma<br>Sveučilišta u Zadru</p>
 					<ul class="actions">
-						<li><a href="journals" class="button special icon fa-files-o">Časopisi online</a></li>
-						<li><a href="books" class="button special icon fa-book">Knjige online</a></li>
+						<li><a href="journals" class="button special icon fa-files-o">Časopisi na mreži</a></li>
+						<li><a href="books" class="button special icon fa-book">Knjige na mreži</a></li>
 					</ul>
 					<small><a href="wallpaper.png">Pozadinska slika s kalendarom za 2018.g.</a><br /><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
