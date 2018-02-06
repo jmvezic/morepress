@@ -1,16 +1,33 @@
 <?php
-$browserlang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-$lang = $browserlang[0] . $browserlang[1] . $browserlang[2] . $browserlang[3] . $browserlang[4];
 
+$ip = $_SERVER['REMOTE_ADDR']; // This will contain the ip of the request
 
-if (($lang=="en_US") OR ($lang=="en_EN")) {
-    header("Location: index_en.php");
-}
-else if ($lang=="hr_HR")  {
-    header("Location: index_hr.php");
+// You can use a more sophisticated method to retrieve the content of a webpage with php using a library or something
+// We will retrieve quickly with the file_get_contents
+$dataArray = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?ip=".$ip), true);
+
+// outputs something like (obviously with the data of your IP) :
+
+// geoplugin_countryCode => "DE",
+// geoplugin_countryName => "Germany"
+// geoplugin_continentCode => "EU"
+
+if (!isset($_COOKIE["country"])){
+setcookie("country",$dataArray["geoplugin_countryCode"],time()+31556926 ,'/');// where 31556926 is total seconds for a year.
+if ($dataArray["geoplugin_countryCode"]=="HR"){
+	header("Location: index_hr.php");
 }
 else {
-    header("Location: index_en.php");
+	header("Location: index_en.php");
+}
+}
+else{
+if ($_COOKIE["country"]=="HR"){
+	header("Location: index_hr.php");
+}
+else {
+	header("Location: index_en.php");
+}
 }
 
 ?>

@@ -4,6 +4,10 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+<?php
+setcookie("country","US",time()+31556926 ,'/');// where 31556926 is total seconds for a year.
+?>
+
 <html>
 	<head>
 		<title>Morepress | University of Zadar</title>
