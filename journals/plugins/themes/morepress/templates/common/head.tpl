@@ -15,7 +15,7 @@
 
 <!-- Add fonts style sheet -->
 
-<script src="{$baseUrl}/plugins/themes/morepress/js/fontawesome.js"></script>
+<script async src="{$baseUrl}/plugins/themes/morepress/js/fontawesome.js"></script>
 <!-- <link rel="stylesheet" href="{$baseUrl}/plugins/themes/morepress/css/awesome.min.css" /> -->
 
 <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Cardo|Crimson+Text|Fira+Sans|Lato|Libre+Baskerville|Lora|Noto+Sans|Open+Sans|PT+Sans|PT+Serif+Caption|Quicksand|Roboto|Roboto+Slab|Taviraj" rel="stylesheet">
@@ -26,8 +26,8 @@
 <link href="{$baseUrl}/plugins/themes/morepress/css/style.css" rel="stylesheet" type="text/css" />
 
 
-<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/anchor.js"></script>
-<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/newlinesremove.js"></script>
-<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/piwik.js"></script>
+<script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/anchor.js"></script>
+<script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/newlinesremove.js"></script>
+<script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/piwik.js"></script>
 
 <meta property="og:image" content="/images/graph.jpg" /> 

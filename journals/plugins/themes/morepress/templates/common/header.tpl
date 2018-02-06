@@ -65,7 +65,7 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 
 {if ($currentJournal==null)}
 {literal}
-<script type="application/ld+json">
+<script async type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "WebSite",
@@ -84,7 +84,7 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 
 
 	<!-- Base Jquery -->
-	{if $allowCDN}<script type="text/javascript" src="//www.google.com/jsapi"></script>
+	{if $allowCDN}<script async type="text/javascript" src="//www.google.com/jsapi"></script>
 		<script type="text/javascript">{literal}
 			<!--
 			// Provide a local fallback if the CDN cannot be reached
