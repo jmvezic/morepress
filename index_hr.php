@@ -57,7 +57,7 @@ function gitVersion()
 						<li><a href="journals" class="button special icon fa-files-o">Časopisi na mreži</a></li>
 						<li><a href="books" class="button special icon fa-book">Knjige na mreži</a></li>
 					</ul>
-					<small><a href="wallpaper.png">Pozadinska slika s kalendarom za 2018.g.</a><br /><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
+					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
 				<div class="image phone"><div class="inner"><img src="images/screen_more.png" alt="" /></div></div>
 			</header>
