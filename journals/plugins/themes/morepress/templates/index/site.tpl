@@ -98,7 +98,7 @@ echo '</div>'; */
 	echo '<div id="jourThumb">';
 
 
-echo '<img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
+echo '<img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';	
 	echo '<div id="jourTitle">'.$JourTitle; 	
 	echo '</div>';
 	echo '<div id="jourInfoBlock">';
