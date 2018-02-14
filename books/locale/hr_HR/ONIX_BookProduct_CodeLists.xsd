@@ -21176,7 +21176,7 @@
 			</xs:enumeration>
 			<xs:enumeration value="19">
 				<xs:annotation>
-					<xs:documentation>Publication date of print counterpart</xs:documentation>
+					<xs:documentation>Datum izdavanja tiskane inačice</xs:documentation>
 					<xs:documentation>Date of publication of a printed book which is the print counterpart to a digital edition.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
