@@ -4,7 +4,7 @@ $ip = $_SERVER['REMOTE_ADDR']; // This will contain the ip of the request
 
 // You can use a more sophisticated method to retrieve the content of a webpage with php using a library or something
 // We will retrieve quickly with the file_get_contents
-$dataArray = json_decode(file_get_contents("http://ipinfo.io/".$ip), true);
+$dataArray = json_decode(file_get_contents("http://freegeoip.net/json/".$ip), true);
 
 // outputs something like (obviously with the data of your IP) :
 
@@ -13,8 +13,8 @@ $dataArray = json_decode(file_get_contents("http://ipinfo.io/".$ip), true);
 // geoplugin_continentCode => "EU"
 
 if (!isset($_COOKIE["country"])){
-setcookie("country",$dataArray["country"],time()+31556926 ,'/');// where 31556926 is total seconds for a year.
-if ($dataArray["country"]=="HR"){
+setcookie("country",$dataArray["country_code"],time()+31556926 ,'/');// where 31556926 is total seconds for a year.
+if ($dataArray["country_code"]=="HR"){
 	header("Location: index_hr.php");
 }
 else {
