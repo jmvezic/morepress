@@ -1,4 +1,35 @@
+#changeLocale {
+position: relative;
+top: 0;
+width:100%;
+height: 100px;
+background-color: white;
+z-index: 3;
+}
 
+#changeLocale.fixed {
+position: fixed;
+border-bottom:2px solid #AAA;
+left: 0;
+z-index: 99;
+text-align: center;
+}
+
+#changeLocale.fixed table {
+width: 50%;
+margin: 0 auto;
+}
+
+@media screen and (max-width: 1200px) {
+	#changeLocale.fixed table {
+width: 90%;
+margin: 0 auto;
+}
+}
+
+#changeLocale .selectMenu {
+margin: 5px 5px 0 0;
+}
 
 .siroko{
 	width: 100%;

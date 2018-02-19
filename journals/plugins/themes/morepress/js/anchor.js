@@ -15,5 +15,19 @@
         
         
     });
+
+var header = $("#changeLocale");
+  $(window).scroll(function() {    
+    var scroll = $(window).scrollTop();
+       if (scroll >= window.innerHeight) {
+          header.addClass("fixed");
+		  $("#changeLocale").attr("id", "changeLocale").appendTo("#submit");
+        } else {
+          header.removeClass("fixed");
+		  $("#changeLocale").attr("id", "changeLocale").prependTo("#submit");
+        }
+});
+
+
     
 });
