@@ -1203,11 +1203,6 @@ border-radius:0px 0px 15px 15px;
 #indexJournalsList #jourBlockLink:nth-of-type(4n) {
 }
 
-#jourBlock:hover {
-background-color: rgba(20,60,98,0.5);
-color:white;
-}
-
 #jourBlock #jourThumb {
 	width:36%;
 	text-align: center;

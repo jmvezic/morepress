@@ -81,7 +81,7 @@ while (!$Journals->EOF) {
 		echo '<a href="http://www.sic-journal.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';	
 	}
 	else {
-	echo '<a href="'.$JourInitials.'" id="jourBlockLink"><div id="jourBlock">';
+	echo '<div id="jourBlock">';
 }
 	
 	/*	echo '<div id="jourStatus" ';
@@ -98,9 +98,9 @@ echo '</div>'; */
 	echo '<div id="jourThumb">';
 
 
-echo '<img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';	
+echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';	
 	echo '<div id="jourTitle">'.$JourTitle; 	
-	echo '</div>';
+	echo '</div></a>';
 	echo '<div id="jourInfoBlock">';
 		$IssuePublished = $Journals->fields["MAX(issues.date_published)"];
 	if(strtotime($IssuePublished) > strtotime('-2 days')) {
@@ -123,7 +123,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 	if ($JourISSN) { echo '<div id="jourISSN">ISSN: '.$JourISSN.'</div>'; }
 	if ($JourEISSN) { echo '<div id="jourOnlineISSN">e-ISSN: '.$JourEISSN.'</div>'; }
 	echo '<div id="jourDOI">DOI:<span style="text-transform:lowercase;"> 10.15291/'.$JourInit.'</span></div>';
-	echo '</div></div></a>';
+	echo '</div></div>';
 	}
 	$Journals->MoveNext();
 }
@@ -151,7 +151,7 @@ while (!$InJournals->EOF) {
 		echo '<a href="http://www.sic-journal.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';	
 	}
 	else {
-	echo '<a href="'.$JourInitials.'" id="jourBlockLink"><div id="jourBlock">';
+	echo '<div id="jourBlock">';
 }
 	
 		/* echo '<div id="jourStatus" ';
@@ -168,8 +168,8 @@ echo '</div>'; */
 	echo '<div id="jourThumb">';
 
 
-echo '<img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
-	echo '<div id="jourTitle">'.$JourTitle.'</div>';
+echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
+	echo '<div id="jourTitle">'.$JourTitle.'</div></a>';
 	echo '<div id="jourInfoBlock">';
 	foreach($JourCatInfo as $v) {
 		$ControlVocabSettings = $DAO->retrieve("SELECT * FROM controlled_vocab_entry_settings");
@@ -185,7 +185,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 	if ($JourISSN) { echo '<div id="jourISSN">ISSN: '.$JourISSN.'</div>'; }
 	if ($JourEISSN) { echo '<div id="jourOnlineISSN">e-ISSN: '.$JourEISSN.'</div>'; }
 	echo '<div id="jourDOI">DOI: <span style="text-transform:lowercase">10.15291/'.$JourInit.'</span></div>';
-	echo '</div></div></a>';
+	echo '</div></div>';
 	}
 	$InJournals->MoveNext();
 }
