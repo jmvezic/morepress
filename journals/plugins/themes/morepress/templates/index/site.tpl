@@ -71,7 +71,7 @@ while (!$Journals->EOF) {
 	$JourEISSN = $JournalObject->getSetting('onlineIssn');
 	$JourCatInfo = $JournalObject->getSetting('categories');
 
-	
+	$IssuePublished = $Journals->fields["MAX(issues.date_published)"];
 	if ($casopisi[$JourPath] != 2) {
 
 	if ($JourPath == "libellarium") {
@@ -81,7 +81,10 @@ while (!$Journals->EOF) {
 		echo '<a href="http://www.sic-journal.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';	
 	}
 	else {
-	echo '<div id="jourBlock">';
+	
+	echo '<div id="jourBlock"';
+	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' style="width:calc(100% - 10px);overflow:hidden;" '; }
+	echo '>';
 }
 	
 	/*	echo '<div id="jourStatus" ';
@@ -95,14 +98,16 @@ while (!$Journals->EOF) {
 echo '</div>'; */
 
 
-	echo '<div id="jourThumb">';
+	echo '<div id="jourThumb"';
+	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' style="height:auto;" '; }
+	echo '>';
 
 
 echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';	
 	echo '<div id="jourTitle">'.$JourTitle; 	
 	echo '</div></a>';
 	echo '<div id="jourInfoBlock">';
-		$IssuePublished = $Journals->fields["MAX(issues.date_published)"];
+		
 	if(strtotime($IssuePublished) > strtotime('-2 days')) {
      $proba = $AppLocale->translate("morePress.newIssue");
      echo '<div id="jourCategory" style="background-color:#10a915;color:white;"><i class="fa fa-star" aria-hidden="true"></i> &nbsp;';
