@@ -1210,5 +1210,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.homepage">Početna</message>
 	<message key="morePress.journals">Časopisi</message>
 	<message key="morePress.books">Knjige</message>
+	
+	<message key="user.confirmEmail">Potvrdite adresu e-pošte</message>
 
 </locale>
