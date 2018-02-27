@@ -69,6 +69,7 @@ function gitVersion()
 				<ul class="icons">
 					<li><a href="https://www.facebook.com/morepressUNIZD" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 					<li><a href="https://twitter.com/unizdmorepress" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="https://github.com/jmvezic/morepress" class="icon fa-github"><span class="label">GitHub</span></a></li>
 				</ul>
 				<p class="copyright">&copy; University of Zadar. Version <?php echo gitVersion(); ?><br>Homepage design adapted from Fractal theme by <a href="http://html5up.net">HTML5 UP</a>.</p>
 			</footer>
