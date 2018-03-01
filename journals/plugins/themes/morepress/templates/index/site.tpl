@@ -102,8 +102,18 @@ echo '</div>'; */
 	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' style="height:auto;" '; }
 	echo '>';
 
-
-echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';	
+	
+	if ($JourPath == "libellarium") {
+		echo '<a href="http://libellarium.org/" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';
+	}
+	elseif ($JourPath == "sic") {
+		echo '<a href="http://www.sic-journal.org/" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';
+	}
+	else
+	{
+		echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';	
+	}
+	
 	echo '<div id="jourTitle">'.$JourTitle; 	
 	echo '</div></a>';
 	echo '<div id="jourInfoBlock">';
@@ -173,7 +183,18 @@ echo '</div>'; */
 	echo '<div id="jourThumb">';
 
 
-echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'" alt="'.$JourAltText.'" /></div>';	
+	if ($JourPath == "libellarium") {
+		echo '<a href="http://libellarium.org/" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';
+	}
+	elseif ($JourPath == "sic") {
+		echo '<a href="http://www.sic-journal.org/" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';
+	}
+	else
+	{
+		echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';	
+	}
+
+
 	echo '<div id="jourTitle">'.$JourTitle.'</div></a>';
 	echo '<div id="jourInfoBlock">';
 	foreach($JourCatInfo as $v) {
