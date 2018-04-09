@@ -14,7 +14,9 @@
 <head>
 	<title>{$article->getLocalizedTitle()|strip_tags|escape} | {$article->getFirstAuthor(true)|strip_tags|escape} | {$currentJournal->getLocalizedTitle()|strip_tags|escape}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset={$defaultCharset|escape}" />
-	<meta name="description" content="{$article->getLocalizedTitle()|strip_tags|escape}" />
+	<meta name="description" content="{$article->getLocalizedAbstract()|strip_tags|escape}" />
+	<meta name="author" content="{$article->getAuthorString(false,', ')|strip_tags|escape}" />
+	<meta name="keywords" content="{$article->getLocalizedSubject()|strip_tags|escape|replace:';':','}" />
 	<meta property="og:image" content="/images/graph.jpg" />	
 
 	{if $article->getLocalizedSubject()}
