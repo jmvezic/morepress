@@ -13,7 +13,6 @@ setcookie("country","US",time()+31556926 ,'/');// where 31556926 is total second
 		<title>Morepress | University of Zadar</title>
 		<meta name="description" content="Online web platform for digital publications by University of Zadar">
 		<meta name="keywords" content="Morepress, platform, University of Zadar, science, academic journals, publishing, academic books, OJS, Open Journal System, OMP, Open Monograph Press">
-		<meta name="author" content="jakov" >
 
 		<meta property="og:title" content="Morepress | University of Zadar" />
 		<meta property="og:url" content="https://morepress.unizd.hr/index_hr.php" />

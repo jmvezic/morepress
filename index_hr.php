@@ -14,7 +14,6 @@ setcookie("country","HR",time()+31556926 ,'/');// where 31556926 is total second
 
 		<meta name="description" content="Mrežna platforma digitalnih publikacija Sveučilišta u Zadru">
 		<meta name="keywords" content="Morepress, platforma, Sveučilište u Zadru, znanosti, znanstveni časopisi, izdavaštvo, knjige, OJS, Open Journal System, OMP, Open Monograph Press">
-		<meta name="author" content="jakov" >
 		<meta property="og:title" content="Morepress | Sveučilište u Zadru" />
 		<meta property="og:url" content="https://morepress.unizd.hr/index_hr.php" />
 		<meta property="og:image" content="images/graph.jpg" />
