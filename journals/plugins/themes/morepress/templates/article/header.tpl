@@ -16,7 +16,7 @@ header('Location: '."$_SERVER[REQUEST_URI]?lang=$Locale");die();
 }
 else {
 if($_GET["lang"]!=$Locale){
-header('Location: '.strtok($_SERVER["REQUEST_URI"],'?')."?lang=$Locale");die();
+header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/".$_GET["lang"]."?source=".strtok($_SERVER["REQUEST_URI"],'?'));
 }
 }
 {/php} 

@@ -9,6 +9,29 @@
  *
  *}
 <script src="{$baseUrl}/plugins/themes/morepress/js/navbar.js" type="text/javascript"></script>
+
+{literal}
+<script type="text/javascript">
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("%3F")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("%3F") !== -1) ? sourceURL.split("%3F")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("%3D")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "%3F" + params_arr.join("&");
+    }
+    return rtn;
+}
+</script>
+{/literal}
+
 <script type="text/javascript">
 		<!--
 		function changeLanguageNav(elem) {ldelim}
@@ -30,9 +53,15 @@
 			var redirect_url = '{url|escape:"javascript" page="user" op="setLocale" path="NEW_LOCALE" source=$smarty.server.REQUEST_URI escape=false}';
 			redirect_url = redirect_url.replace("NEW_LOCALE", new_locale);
 			
+			var modified_url = removeParam("lang", redirect_url);
+			
 			document.cookie="country="+country_ready+"; "+expires+"; path=/";
+			
+			if (modified_url.slice(-3)=="%3F") {ldelim}
+				modified_url = modified_url.slice(0, -3);
+			{rdelim}
 
-			window.location.href = redirect_url;
+			window.location.href = modified_url;
 		{rdelim}
 		//-->
 	</script>
