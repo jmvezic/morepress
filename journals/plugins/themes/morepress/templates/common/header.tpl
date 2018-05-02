@@ -8,40 +8,6 @@
  * Common site header.
  *}
  
-{php}
-$ip = $_SERVER['REMOTE_ADDR']; // This will contain the ip of the request
-
-// You can use a more sophisticated method to retrieve the content of a webpage with php using a library or something
-// We will retrieve quickly with the file_get_contents
-if (!isset($_COOKIE["ip"])){
-	setcookie("ip", $ip);
-	if (!isset($_COOKIE["country"])){
-		$dataArray = json_decode(file_get_contents("http://freegeoip.net/json/".$ip), true);
-	}
-}
-
-// outputs something like (obviously with the data of your IP) :
-
-// geoplugin_countryCode => "DE",
-// geoplugin_countryName => "Germany"
-// geoplugin_continentCode => "EU"
-
-$AppLocale = new AppLocale();
-$Locale = $AppLocale->getLocale();
-
-if (!isset($_COOKIE["country"])) {
-setcookie("country",$dataArray["country_code"],time()+31556926 ,'/');// where 31556926 is total seconds for a year.
-if ($dataArray["country_code"]=="HR"){header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
-else {header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
-}
-else {
-if (($_COOKIE["country"]=="HR" && $Locale=="hr_HR") || ($_COOKIE["country"]!="HR" && $Locale!="hr_HR")) {} else {
-if ($_COOKIE["country"]=="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
-if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
-}
-}
-
-{/php}   
  
 {strip}
 {if !$pageTitleTranslated}{translate|assign:"pageTitleTranslated" key=$pageTitle}{/if}
@@ -59,7 +25,6 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 	<title>{$pageTitleTranslated}</title>
 	<meta name="description" content="{$metaSearchDescription|escape}" />
 	<meta name="keywords" content="{$metaSearchKeywords|escape}" />
-	<meta name="generator" content="Bluefish 2.2.6" />
 	{$metaCustomHeaders}
 	{if $displayFavicon}<link rel="icon" href="{$faviconDir}/{$displayFavicon.uploadName|escape:"url"}" type="{$displayFavicon.mimeType|escape}" />{/if}
 	<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/pkp.css" type="text/css" />
