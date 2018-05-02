@@ -137,7 +137,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 	}
 	if ($JourISSN) { echo '<div id="jourISSN">ISSN: '.$JourISSN.'</div>'; }
 	if ($JourEISSN) { echo '<div id="jourOnlineISSN">e-ISSN: '.$JourEISSN.'</div>'; }
-	echo '<div id="jourDOI">DOI:<span style="text-transform:lowercase;"> 10.15291/'.$JourInit.'</span></div>';
+	echo '<div id="jourDOI">DOI: <a href="https://doi.org/10.15291/'.strtolower($JourInit).'" style="text-transform:lowercase;">10.15291/'.$JourInit.'</a></div>';
 	echo '</div></div>';
 	}
 	$Journals->MoveNext();
