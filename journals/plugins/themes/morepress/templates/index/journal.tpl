@@ -10,7 +10,7 @@
  *}
 {strip}
 {assign var="pageTitleTranslated" value=$siteTitle}
-{include file="common/header.tpl"}
+{include file="common/journalHeader.tpl"}
 {/strip}
 
 {if $enableAnnouncementsHomepage}
