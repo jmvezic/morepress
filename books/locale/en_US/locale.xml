@@ -590,6 +590,7 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="moreFooter.SPC">SPCialists</message>
 	<message key="moreFooter.tweets">Recent Tweets</message>
 	<message key="moreFooter.version">Version</message>
+	<message key="moreFooter.privacy">Privacy statement</message>
 	<message key="morePress.bread">You are here</message>
 	<message key="morePress.featuredArticle">Featured article</message>
 	<message key="morePress.featuredEditor">Featured editor</message>

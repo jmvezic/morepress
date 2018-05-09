@@ -72,7 +72,7 @@ function gitVersion()
 					<li><a href="https://twitter.com/unizdmorepress" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 					<li><a href="https://github.com/jmvezic/morepress" class="icon fa-github"><span class="label">GitHub</span></a></li>
 				</ul>
-				<p class="copyright">&copy; Sveučilište u Zadru. Verzija <?php echo gitVersion(); ?><br>Dizajn naslovne stranice prilagođen s teme Fractal by <a href="http://html5up.net">HTML5 UP</a>.<br></p>
+				<p class="copyright">&copy; Sveučilište u Zadru. Verzija <?php echo gitVersion(); ?><br><a href="/privacy/hr/">Izjava o zaštiti privatnosti</a><br>Dizajn naslovne stranice prilagođen s teme Fractal by <a href="http://html5up.net">HTML5 UP</a>.<br></p>
 			</footer>
 
 		<!-- Scripts -->

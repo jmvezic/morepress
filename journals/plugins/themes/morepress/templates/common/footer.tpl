@@ -77,6 +77,7 @@
 		<h2>{translate key="navigation.aboutSite"}</h2>
 		<ul>
 			<a href="{url page="about"}"><li>{translate key="navigation.aboutSite"}</li></a>
+			<a href="/privacy/{$currentLocale|substr:0:2}/"><li>{translate key="moreFooter.privacy"}</li></a>
 			<a href="/"><li>{translate key="moreFooter.homepage"}</li></a>
 			<a href="/journals"><li>{translate key="moreFooter.journals"}</li></a>
 			<a href="/books"><li>{translate key="moreFooter.books"}</li></a>
