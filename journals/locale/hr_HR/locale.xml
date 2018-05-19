@@ -999,7 +999,7 @@ Autori koji objavljuju u ovom časopisu pristaju na sljedeće uvijete:
 	<message key="gifts.localeRequired">Odaberite jezik vaše personalizirane poruke.</message>
 	<message key="gifts.myGifts">Moji pokloni</message>
 	<message key="gifts.manageMyGifts">Upravljaj mojim poklonima</message>
-	<message key="user.register.reviewerInterests">Navedite interese za pregled članaka (suštinske oblasti i istraživački metodi)</message>
+	<message key="user.register.reviewerInterests">Navedite interese za pregled članaka (tematska područja i istraživačke metode)</message>
 	<message key="gifts.thankYouMessage">Vaša nabavka poklona je završena.  Dobit ćete kopiju poklon e-poruke poslate primatelju čim se obradi vaše plaćanje.</message>
 	<message key="gifts.subscriptionFormIntroduction">Ispunite obrazac niže. Upisane kontakt informacije sa vašom poklon izjavom će biti upotrebljene u poruci primatelju sa informacijom o poklonjenoj pretplati ( vi ćete dobiti kopiju te poruke).</message>
 	<message key="gifts.detailsDescription">Odaberite poklon dole i uključite vašu osobnu poruku koja će biti poslata e-porukom primatelju (vi ćete dobiti kopiju poruke).</message>
@@ -1100,6 +1100,11 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.downloadGalley">Preuzmi</message>
 	<message key="morePress.removeLines">Ukloni nove redove iz sažetka (na Paste ili Ctrl+V)</message>
 	<message key="morePress.newIssue">novi broj dostupan</message>
+	
+	<message key="morepress.registration.privacy">Izjava o zaštiti privatnosti</message>
+	<message key="form.errorsOccurred">Došlo je do pogreške</message>
+	<message key="user.profile.form.privacyInvalid">Prihvaćanje Izjave o zaštiti privatnosti je obavezno.</message>
+	<message key="morepress.registration.Privacydescription"><![CDATA[Izjavljujem da sam pročitao/la, shvaćam i prihvaćam <a href="/privacy/hr" target="_blank" style="text-decoration:underline;">Izjavu o zaštiti privatnosti</a>. Svojevoljno dajem svoje gore napisane osobne podatke na korištenje u skladu s Izjavom, ovisno o specifičnim odabranim ulogama (čitatelj, autor, recenzent) navedenim u Izjavi.]]></message>
 	
 
 	<message key="moreFooter.notif">Morepress obavijesti</message>
