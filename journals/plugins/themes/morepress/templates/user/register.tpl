@@ -230,7 +230,7 @@
 {/if}
 
 	<tr valign="top">
-		<td class="label" style="font-weight:bold !important;">{fieldLabel name="privacyLabel" required="true" key="morepress.registration.privacy"}</td>
+		<td class="label" style="font-weight:bold !important;">{fieldLabel name="privacy" required="true" key="morepress.registration.privacy"}</td>
 		<td class="value"><input type="checkbox" name="privacy" id="privacy" size="20" class="textField" /> <label for="privacy">{translate key="morepress.registration.Privacydescription"}</label></td>
 	</tr>
 
