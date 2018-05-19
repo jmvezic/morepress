@@ -3094,3 +3094,12 @@ font-size: 1em !important;
 border-radius: 0 !important;
 clear: both !important;
 }
+
+/* REGISTER FORM */
+#registerForm .label {
+	vertical-align: top !important;
+}
+
+#registerForm tr:hover {
+	background-color:rgba(0,0,0,0.05);
+}

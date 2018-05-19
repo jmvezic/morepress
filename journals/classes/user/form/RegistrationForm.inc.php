@@ -78,6 +78,7 @@ class RegistrationForm extends Form {
 				$this->addCheck(new FormValidatorORCID($this, 'orcid', 'optional', 'user.profile.form.orcidInvalid'));
 				$this->addCheck(new FormValidatorCustom($this, 'email', 'required', 'user.register.form.emailsDoNotMatch', create_function('$email,$form', 'return $email == $form->getData(\'confirmEmail\');'), array(&$this)));
 				$this->addCheck(new FormValidatorCustom($this, 'email', 'required', 'user.register.form.emailExists', array(DAORegistry::getDAO('UserDAO'), 'userExistsByEmail'), array(), true));
+				$this->addCheck(new FormValidator($this, 'privacy', 'required', 'user.profile.form.privacyInvalid'));
 				if ($this->captchaEnabled) {
 					if ($this->reCaptchaEnabled) {
 						if (Config::getVar('captcha', 'recaptcha_enforce_hostname')) {
@@ -181,7 +182,7 @@ class RegistrationForm extends Form {
 			'username', 'password', 'password2',
 			'salutation', 'firstName', 'middleName', 'lastName',
 			'gender', 'initials', 'country',
-			'affiliation', 'email', 'confirmEmail', 'orcid', 'userUrl', 'phone', 'fax', 'signature',
+			'affiliation', 'email', 'confirmEmail', 'orcid', 'privacy', 'userUrl', 'phone', 'fax', 'signature',
 			'mailingAddress', 'biography', 'interestsTextOnly', 'keywords', 'userLocales',
 			'registerAsReader', 'openAccessNotification', 'registerAsAuthor',
 			'registerAsReviewer', 'existingUser', 'sendPassword'
