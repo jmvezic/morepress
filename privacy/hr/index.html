@@ -13,6 +13,13 @@
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+				<style type="text/css">
+		@media screen and (max-width: 400px) {
+  iframe {
+    height:280px !important;
+  }
+}
+		</style>
 	</head>
 	<body>
 
@@ -84,7 +91,7 @@
 	
 	<p>Za prikupljanje podataka o posjetiteljima koristimo <a target="_blank" href="https://matomo.org/">Matomo</a>, softver otvorenog kôda, čiji je kôd dostupan na <a target="_blank" href="https://github.com/matomo-org/matomo">GitHub-u</a>.</p>
 <iframe
-        style="border: 0; height: 200px; width: 600px;display:block;margin:0 auto;"
+        style="border: 0; height: 200px; max-width: 600px; width:90%;display:block;margin:0 auto;"
         src="https://morepress.unizd.hr/piwik/index.php?module=CoreAdminHome&action=optOut&language=hr&backgroundColor=312450&fontColor=ffffff&fontSize=&fontFamily="
         ></iframe>
 

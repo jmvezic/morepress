@@ -13,7 +13,14 @@
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	</head>
+		<style type="text/css">
+		@media screen and (max-width: 400px) {
+  iframe {
+    height:250px !important;
+  }
+}
+		</style>
+		</head>
 	<body>
 
 		<!-- Sidebar -->
@@ -82,9 +89,8 @@
 	
 	<p>To gather the visitor's data, we use <a target="_blank" href="https://matomo.org/">Matomo</a>, an open source software, whose codebase is available on <a target="_blank" href="https://github.com/matomo-org/matomo">Github</a>.</p>
 
-<iframe
-        style="border: 0; height: 200px; width: 600px;display:block;margin:0 auto;"
-        src="https://morepress.unizd.hr/piwik/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=312450&fontColor=ffffff&fontSize=&fontFamily="
+<iframe 
+        style="border: 0; height: 200px; max-width: 600px; width:90%;display:block;margin:0 auto;" src="https://morepress.unizd.hr/piwik/index.php?module=CoreAdminHome&action=optOut&language=en&backgroundColor=312450&fontColor=ffffff&fontSize=&fontFamily="
         ></iframe>
 
 <br />
