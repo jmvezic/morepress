@@ -3631,7 +3631,7 @@ font-size: 0.8em;
 /* Header */
 
 	#header {
-		background-color: rgb(20,60,98);
+		/* background-color: rgb(20,60,98); */
 		color: #d0e4f8;
 		padding: 4.5em 0 2.5em 0 ;
 		-moz-align-items: center;
