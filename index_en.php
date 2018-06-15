@@ -21,7 +21,7 @@ setcookie("country","US",time()+31556926 ,'/');// where 31556926 is total second
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/main.css?v=2" />
 		<link rel="alternate" href="https://morepress.unizd.hr/index_en.php" hreflang="en-us" />
 		<link rel="alternate" href="https://morepress.unizd.hr/index_hr.php" hreflang="hr-hr" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
