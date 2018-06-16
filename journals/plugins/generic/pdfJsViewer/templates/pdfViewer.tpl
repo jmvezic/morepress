@@ -36,5 +36,5 @@
 <script type="text/javascript" src="{$pluginUrl}/pdf.js/web/viewer.js"></script> *}
 
 <div id="pdfCanvasContainer">
-	<iframe src="{$pluginUrl}/pdf.js/web/viewer.html?file={$pdfUrl|escape:"url"}" width="100%" height="100%" style="min-height: 500px;" allowfullscreen webkitallowfullscreen></iframe>
+	<iframe onload = "sendparams();" src="{$pluginUrl}/pdf.js/web/viewer.html?file={$pdfUrl|escape:"url"}" width="100%" height="100%" style="min-height: 500px;" allowfullscreen webkitallowfullscreen></iframe>
 </div>

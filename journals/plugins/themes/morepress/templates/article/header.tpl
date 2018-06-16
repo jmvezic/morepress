@@ -43,6 +43,12 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 	{include file="article/googlescholar.tpl"}
 	{call_hook name="Templates::Article::Header::Metadata"}
 
+	<script type="text/javascript">{literal}
+ function sendparams() {
+ document.body.style.overflow = "hidden";
+ }
+</script>{/literal}
+	
 	<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/pkp.css" type="text/css" />
 <!-- 	<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/common.css" type="text/css" />
 	<link rel="stylesheet" href="{$baseUrl}/styles/common.css" type="text/css" /> -->
