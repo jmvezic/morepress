@@ -2183,7 +2183,12 @@ td form {
 	}
 
   #pdfObject, #pdfCanvasContainer iframe {
-    min-height: 400px !important;
+      width: 100%;
+  /*min-height: 700px !important; */
+  position: absolute;
+  top: 30px;
+  left: 0;
+  z-index: 1000;
   }
 
   #standardFooter a img {

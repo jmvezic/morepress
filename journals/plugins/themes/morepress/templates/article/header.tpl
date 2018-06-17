@@ -107,6 +107,14 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 	{/foreach}
 
 	{$additionalHeadData}
+	<style>
+	{literal}
+	  #body, #leftSidebar, #main, #mainShrinked, #rightSidebar {
+  	-webkit-transform: none !important;
+  	transform: none !important;
+  	}
+	{/literal}
+	</style>
 </head>
 <body id="pkp-{$pageTitle|replace:'.':'-'}" class="article">
 
@@ -140,22 +148,6 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 </div> -->
 
 <div id="body">
-
-{if $leftSidebarCode || $rightSidebarCode}
-	<div id="sidebar">
-		
-			<div id="rightSidebar">
-				{include file="article/morepressRightSidebar.tpl"}
-				{if $leftSidebarCode}{$leftSidebarCode}{/if}
-			</div>
-		
-		
-			<div id="leftSidebar">
-				{if $rightSidebarCode}{$rightSidebarCode}{/if}
-			</div>
-		
-	</div>
-{/if}
 
 <div id="mainShrinked">
 

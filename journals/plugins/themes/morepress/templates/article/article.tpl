@@ -113,6 +113,22 @@
 {include file="article/comments.tpl"}
 </div>
 
+{if $leftSidebarCode || $rightSidebarCode}
+	<div id="sidebar">
+		
+			<div id="rightSidebar">
+				{include file="article/morepressRightSidebar.tpl"}
+				{if $leftSidebarCode}{$leftSidebarCode}{/if}
+			</div>
+		
+		
+			<div id="leftSidebar">
+				{if $rightSidebarCode}{$rightSidebarCode}{/if}
+			</div>
+		
+	</div>
+{/if}
+
 {include file="common/footer.tpl"}
 <script type="text/javascript" src="/plugins/themes/morepress/js/menu.js"></script>
 <div id="openModal" class="modalDialog">
