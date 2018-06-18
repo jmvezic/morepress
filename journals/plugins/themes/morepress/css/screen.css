@@ -1895,6 +1895,15 @@ td form {
   background-color: #D1D3D5;
 }
 
+embed #plugin {
+  width: 100%;
+/*min-height: 700px !important; */
+position: absolute;
+top: 45px;
+left: 0;
+z-index: 1000;
+}
+
 
 /* Plugin Management */
 #plugins a.action {
