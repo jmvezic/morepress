@@ -13,16 +13,20 @@
 {else}
 	{assign var=pubObject value=$article}
 {/if}
-{include file="article/header.tpl"}
+
 {/strip}
 
 {if $galley}
 	{if $galley->isHTMLGalley()}
+	{include file="article/header.tpl"}
 		{$galley->getHTMLContents()}
+		
 	{elseif $galley->isPdfGalley()}
+	{include file="article/pdfHeader.tpl"}
 		{include file="article/pdfViewer.tpl"}
 	{/if}
 {else}
+{include file="article/header.tpl"}
 	<div id="topBar">
 		{if is_a($article, 'PublishedArticle')}{assign var=galleys value=$article->getGalleys()}{/if}
 		{if $galleys && $subscriptionRequired && $showGalleyLinks}
@@ -112,22 +116,6 @@
 <div class="block">
 {include file="article/comments.tpl"}
 </div>
-
-{if $leftSidebarCode || $rightSidebarCode}
-	<div id="sidebar">
-		
-			<div id="rightSidebar">
-				{include file="article/morepressRightSidebar.tpl"}
-				{if $leftSidebarCode}{$leftSidebarCode}{/if}
-			</div>
-		
-		
-			<div id="leftSidebar">
-				{if $rightSidebarCode}{$rightSidebarCode}{/if}
-			</div>
-		
-	</div>
-{/if}
 
 {include file="common/footer.tpl"}
 <script type="text/javascript" src="/plugins/themes/morepress/js/menu.js"></script>
