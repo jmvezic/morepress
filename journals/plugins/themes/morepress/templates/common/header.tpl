@@ -7,47 +7,10 @@
  *
  * Common site header.
  *}
- 
-{php}
-if (!$PKPRequest->isBot){
-
-$ip = $_SERVER['REMOTE_ADDR']; // This will contain the ip of the request
- 
-// You can use a more sophisticated method to retrieve the content of a webpage with php using a library or something
-// We will retrieve quickly with the file_get_contents
-if (!isset($_COOKIE["ip"])){
-	setcookie("ip", $ip);
-	if (!isset($_COOKIE["country"])){
-		$dataArray = json_decode(file_get_contents("http://freegeoip.net/json/".$ip), true);
-	}
-}
- 
-// outputs something like (obviously with the data of your IP) :
- 
-// geoplugin_countryCode => "DE",
-// geoplugin_countryName => "Germany"
-// geoplugin_continentCode => "EU"
- 
-$AppLocale = new AppLocale();
-$Locale = $AppLocale->getLocale();
- 
-if (!isset($_COOKIE["country"])) {
-setcookie("country",$dataArray["country_code"],time()+31556926 ,'/');// where 31556926 is total seconds for a year.
-if ($dataArray["country_code"]=="HR"){header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
-else {header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
-}
-else {
-if (($_COOKIE["country"]=="HR" && $Locale=="hr_HR") || ($_COOKIE["country"]!="HR" && $Locale!="hr_HR")) {} else {
-if ($_COOKIE["country"]=="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
-if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
-}
-}
 
 
-}
-{/php}
- 
- 
+
+
 {strip}
 {if !$pageTitleTranslated}{translate|assign:"pageTitleTranslated" key=$pageTitle}{/if}
 {if $pageCrumbTitle}
@@ -69,7 +32,7 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 	<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/pkp.css" type="text/css" />
 	<!-- <link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/common.css" type="text/css" />
 	<link rel="stylesheet" href="{$baseUrl}/styles/common.css" type="text/css" />-->
-	<link rel="stylesheet" href="{$baseUrl}/styles/compiled.css" type="text/css" /> 
+	<link rel="stylesheet" href="{$baseUrl}/styles/compiled.css" type="text/css" />
 
 
 {if ($currentJournal==null)}
@@ -190,7 +153,7 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 	{/foreach}
 
 	{$additionalHeadData}
-	
+
 </head>
 <body id="pkp-{$pageTitle|replace:'.':'-'}">
 <a id="skip-to-content" href="#main">Skip to Main Content</a>
@@ -207,8 +170,8 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 <div id="sidebar">
 			<div id="leftSidebar" class="slide" role="complementary">
 			</div>
-		
-			
+
+
 	</div>
 <div id="main" role="main" tabindex="-1">
 	<div id="headerTitle">
@@ -240,7 +203,7 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 						{include file="common/morePressRecentArticles.tpl"}
 						{$rightSidebarCode}
 				{/if}
-				
+
 			</div>
 		{/if}
 	</div>
@@ -267,4 +230,3 @@ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOS
 {/if}
 
 <div id="content" >
-
