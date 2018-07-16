@@ -12,7 +12,28 @@
  *       sidebars have been configured for thesite.
  *}
 
+ {php}
+ if (!$PKPRequest->isBot){
 
+
+ $AppLocale = new AppLocale();
+ $Locale = $AppLocale->getLocale();
+
+ if (!isset($_COOKIE["country"])) {
+ setcookie("country","US",time()+31556926 ,'/'); // where 31556926 is total seconds for a year.
+ header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");
+ die();
+ }
+ else {
+ if (($_COOKIE["country"]=="HR" && $Locale=="hr_HR") || ($_COOKIE["country"]!="HR" && $Locale!="hr_HR")) {} else {
+ if ($_COOKIE["country"]=="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
+ if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
+ }
+ }
+
+
+ }
+ {/php}
 
 {strip}
 	{* Determine whether a logo or title string is being displayed *}
