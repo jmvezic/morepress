@@ -75,7 +75,7 @@ ul.journalActions li{
 	text-align: justify;
 	line-height: 28px;
 	font-weight: 100;
-	
+
 }
 
 #content p img {
@@ -115,4 +115,17 @@ border-bottom: 1px solid #CCC;
 
 nav{
 	position: fixed;
+}
+
+#indexJournalsList .indexTitle {
+	font-size: 1.6em;
+	 line-height: normal;
+	 margin:  15px 5px;
+	 padding: 0;
+	 color: #2364a2;
+	 border-bottom: 1px solid #ddd;
+}
+
+#indexCasopisi, #indexRadovi {
+	display: inline-block;
 }

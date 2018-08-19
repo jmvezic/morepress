@@ -1205,15 +1205,18 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morepress.status.earlyaccess">Early Access</message>
 	<message key="morepress.status.comingsoon">Coming soon</message>
 	<message key="morepress.status.external">External journal</message>
-	
+
 	<message key="morepress.registration.privacy">Privacy statement</message>
 	<message key="user.profile.form.privacyInvalid">Accepting the Privacy statement is required.</message>
 	<message key="morepress.registration.Privacydescription"><![CDATA[	I declare that I have read and that I understand and accept the <a href="/privacy/en" target="_blank" style="text-decoration:underline;">Privacy statement</a>. I willingly give the personal data left in the form above for use in accordance with the Statement, depending on specifically selected roles (reader, author, reviewer) written in the Statement.]]></message>
 
 	<message key="morePress.viewGalley">Read</message>
-	<message key="morePress.downloadGalley">Download</message>	
+	<message key="morePress.downloadGalley">Download</message>
 	<message key="morePress.removeLines">Remove new lines in abstract (on paste or Ctrl+V)</message>
-	<message key="morePress.newIssue">new issue available</message>	
+	<message key="morePress.newIssue">new issue available</message>
+
+	<message key="morePress.casopisiUNIZD">University of Zadar journals</message>
+	<message key="morePress.radoviUNIZD">Works of Faculty of Philosophy in Zadar</message>
 
 	<message key="navigation.aboutSite">About Morepress</message>
 	<message key="moreFooter.notif">Morepress notifications</message>
@@ -1249,7 +1252,7 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="issue.noArticles">This issue has no content.</message>
 	<message key="common.latestArticles">Latest articles</message>
 	<message key="common.filterSubmissions">Filter submissions</message>
-	
+
 	<message key="manager.sections.abstractsNotRequired">Do not require abstracts</message>
 	<message key="manager.sections.assigned">This Section's Editors</message>
 	<message key="manager.sections.confirmDelete">Are you sure you want to permanently delete this section?</message>

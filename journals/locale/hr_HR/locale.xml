@@ -27,7 +27,7 @@
 	 *  DEFAULT - Default settings for configuration items.
 	-->
 
-	<!-- 
+	<!--
 	 *
 	 * COMMON - This section contains the most frequently-used words
 	 *
@@ -42,17 +42,17 @@
 	<!-- Common Error Messages -->
 	<!-- Navigation -->
 	<message key="navigation.journalHelp">Pomoć</message>
-	
+
 
 	<message key="navigation.archives">Arhiva</message>
 	<message key="navigation.current">Trenutni broj</message>
 	<message key="navigation.otherJournals">Ostali časopisi</message>
 	<message key="navigation.aboutSite">O Morepress-u</message>
-	
-	
+
+
 	<message key="navigation.browseByIssue">Po broju časopisa</message>
 	<message key="navigation.browseByAuthor">Po autoru</message>
-	
+
 	<message key="navigation.infoForAuthors">Za autore</message>
 	<message key="navigation.infoForLibrarians">Za knjižničare</message>
 	<message key="navigation.infoForAuthors.long">Informacije za autore</message>
@@ -156,7 +156,7 @@
 	<message key="submissions.proofreadingComplete">Korigirano</message>
 
 	<!-- Submission Notes -->
-	
+
 	<!-- Common Journal Terms -->
 	<message key="journal.currentIssue">Trenutni broj</message>
 	<message key="journal.journals">Časopisi</message>
@@ -169,7 +169,7 @@
 	<message key="user.registerForOtherJournals">Registracija za ostale časopise</message>
 	<message key="user.myJournals">Moji časopisi</message>
 
-	<!-- Roles -->	
+	<!-- Roles -->
 	<message key="user.role.manager">Glavni urednik</message>
 	<message key="user.role.editor">Urednik</message>
 	<message key="user.role.sectionEditor">Urednik rubrike</message>
@@ -199,7 +199,7 @@
 	<message key="issue.toc">Kazalo sadržaja</message>
 	<message key="issue.abstract">Sažetak</message>
 
-	<!-- 
+	<!--
 	 *
 	 * LOG - This section contains entries related to log entries.
 	 *
@@ -275,7 +275,7 @@ Aktivirani OAI protokol može biti isključen na razini čitave stranice promjen
 
 	<!-- Subscription Management -->
 	<message key="subscriptionManager.subscriptionManagement">Upravljanje pretplatama</message>
-	
+
 	<!-- Journal Management -->
 
 	<!-- Statistics & Reports -->
@@ -295,7 +295,7 @@ Aktivirani OAI protokol može biti isključen na razini čitave stranice promjen
 	<message key="manager.setup.lockssDescription"><![CDATA[Open Journal Systems podržava <a href="http://www.lockss.org/" target="_blank">LOCKSS</a> (mnogo kopija čuva stvari sigurnima) sustav da bi osigurao sigurnu i trajnu arhivu za časopise. LOCKSS je program otvorenog koda razvijen pri sveučilišnoj knjižnici u Stanfordu koji omogućuje knjižnicama da čuvaju odabrane mrežne časopise tako što periodički provjeravaju sadržaj mrežnih stranica časopisa registriranih u sustav, te arhiviraju sve novoobjavljene sadržaje. Sadržaj svakog arhiva se konstantno uspoređuje sa drugim knjižnicama koje su uključene u sustav, te ako je bilo koji sadržaj neispravan ili izgubljen, sadržaj se obnavlja podacima iz drugih arhiva u mreži ili iz izvornog časopisa.
 <br /><br />
 Postavljanje LOCKSS podrške za Open Journal Systems nije potrebno dok izdavanje elektroničke verzije časopisa nije doista pokrenuto, odnosno prvi broj objavljen ili pri izdavanju. Da bi se to učinilo, potrebno je slijediti ova dva koraka:]]></message>
-	
+
 	<!-- Setup Step 3 -->
 	<message key="manager.setup.subjectClassificationDescription"><![CDATA[Časopis će koristiti predmetnu klasifikaciju sustava dostupnu na mreži.<br />
 Naslov klasifikacijskog sustava]]></message>
@@ -357,7 +357,7 @@ Aktivnih prikazuje na koliko je recenzija recenzent trenutno angažiran.]]></mes
 
 
 
-	
+
 	<!-- Section Editor --><message key="sectionEditor.activeEditorialAssignments">Aktivna urednička zaduženja</message>
 	<message key="sectionEditor.completedEditorialAssignments">Dovršena urednička zaduženja</message>
 	<message key="sectionEditor.noneAssigned">Nema dodijeljenih prijava.</message>
@@ -385,13 +385,13 @@ Aktivnih prikazuje na koliko je recenzija recenzent trenutno angažiran.]]></mes
 	<message key="layoutEditor.galley.uploadGalleyFormat">Postavite format prijeloma</message>
 	<message key="layoutEditor.galley.replaceGalley">Zamijeni datoteku</message>
 	<message key="layoutEditor.galley.uploadSuppFile">Postavite dopunsku datoteku</message>
-	
-	
+
+
 	<!-- Reviewer -->
 	<message key="reviewer.pendingReviews">Članci čija je recenzija u toku</message>
 	<message key="reviewer.completedReviews">Završeno</message>
 	<message key="reviewer.averageQuality">Ocjena</message>
-	
+
 	<!-- Used in submission review -->
 	<message key="reviewer.article.fileToBeReviewed">Datoteka za recenziju</message>
 	<message key="reviewer.article.notifyTheEditor">Obavijestite urednika</message>
@@ -407,7 +407,7 @@ Aktivnih prikazuje na koliko je recenzija recenzent trenutno angažiran.]]></mes
 	<message key="reviewer.article.recommendation">Preporuka</message>
 	<message key="reviewer.article.submitReview">Predajte recenziju uredniku</message>
 	<message key="reviewer.article.reviewerComments">Komentari</message>
-	<message key="reviewer.article.uploadedFile">Poslane datoteke</message>	
+	<message key="reviewer.article.uploadedFile">Poslane datoteke</message>
 	<message key="reviewer.article.reviewersAnnotatedVersion">Verziju je postavio recenzent</message>
 	<message key="reviewer.article.reviewersAnnotatedVersionDescription">(Ako želite obilježiti datoteku za urednika, spremite ju na vaš tvrdi disk i koristite Pregled/Slanje.)</message>
 	<message key="reviewer.article.schedule.request">Urednikov zahtjev</message>
@@ -480,14 +480,14 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 	<message key="submission.copyedit.useFile">Koristite datoteku</message>
 	<message key="submission.copyedit.copyeditComments">Komentari lekture</message>
 	<message key="submission.copyedit.instructions">Upute za lekturu</message>
-	
+
 	<!-- Submission Tracking - Layout Specific -->
 	<message key="submission.layout.assignLayoutEditor">Dodijeli grafičkom uredniku</message>
 	<message key="submission.layout.replaceLayoutEditor">Zamijenite grafičkog urednika</message>
 	<message key="submission.layout.layoutComments">Komentari prijeloma</message>
 	<message key="submission.layout.instructions">Upute za prijelom</message>
-	
-	
+
+
 	<!-- Submission Tracking - Proofread Specific --><message key="submission.proofreadingComments">Korekturno čitanje komentara</message>
 	<message key="submission.proofread.corrections">Popis korekcija</message>
 	<message key="submission.proofread.instructions">Upute za korekturu</message>
@@ -499,7 +499,7 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 	<message key="submission.logType.copyedit">Lektura</message>
 	<message key="submission.logType.layout">Prijelom</message>
 	<message key="submission.logType.proofread">Korektura</message>
-	
+
 	<!-- Submission Event Log -->	<!-- Submission Email Log -->	<!-- Submission Comments -->	<message key="submission.comments.editorAuthorCorrespondence">Urednikova/autorova korespondencija</message>
 	<message key="submission.comments.copyeditComments">Komentari lekture</message>
 	<message key="submission.comments.viewableDescription"><![CDATA[Ove komentare će vidjeti autor.<br />
@@ -511,12 +511,12 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 	<message key="submission.comments.forEditor">Za urednika</message>
 	<message key="submission.comments.saveAndEmailAuthor">Spremi i pošalji e-poštu autoru</message>
 	<message key="submission.comments.saveAndEmailEditor">Spremi i pošalji e-poštu uredniku</message>
-	
+
 	<!-- Login -->	<message key="user.login.registerNewAccount">Niste korisnik? Registrirajte se u ovaj sustav!</message>
 	<message key="user.login.resetPasswordInstructions"><![CDATA[Unesite u priloženo polje vašu adresu e-pošte kako bi Vam bila izdana nova lozinka.<br /><br/>Potvrda će biti poslana na tu adresu e-pošte.]]></message>
-	
-	
-	<!-- Profile -->	
+
+
+	<!-- Profile -->
 	<!-- Registration -->	<message key="user.register.selectJournal">Odaberite časopis na koji se želite registrirati</message>
 	<message key="user.register.noJournals">Ne postoje časopisi na koje se možete registrirati na ovoj stranici.</message>
 	<message key="user.register.privacyStatement">Izjava o privatnosti</message>
@@ -554,15 +554,15 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 </ul>]]></message>
 
 	<!-- Interstitial page for PDFs --><message key="article.pdf.title">Prijenosni format dokumenta (PDF)</message>
-	
+
 	<!-- Interstitial page for non-PDF non-HTML galleys --><message key="article.nonpdf.title">Preuzimanje članka</message>
 	<message key="article.nonpdf.note"><![CDATA[Datoteka koju ste odabrali trebala bi se započeti automatski preuzimati. Ako se to ne dogodi, kliknite na poveznicu ispod. Ova datoteka možda zahtijeva posebni program ili dodatak za prikaz.<br /><br />Ako se datoteka ne skida automatski, <a href="{$url}">kliknite ovdje</a>.]]></message>
-	
+
 	<!-- Site index --><message key="site.journalsHosted">Časopisi udomaćeni na ovoj stranici</message>
 	<message key="site.journalView">Pregled časopisa</message>
 	<message key="site.journalRegister">Registracija</message>
 	<message key="site.journalCurrent">Trenutni broj časopisa</message>
-	
+
 
 	<!-- Current index --><message key="current.current">Trenutni</message>
 	<message key="current.noCurrentIssue">Trenutno nema broja časopisa</message>
@@ -571,7 +571,7 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 	<!-- Archive index --><message key="archive.archives">Arhiva izdanja</message>
 	<message key="archive.browse">Pregledajte pomoću starijih brojeva časopisa</message>
 	<message key="archive.issueUnavailable">Broj časopisa je nedostupan</message>
-	
+
 	<!-- About The Journal -->	<message key="about.statistics">Statistike</message>
 	<message key="about.journalContact">Kontakt časopisa</message>
 	<message key="about.aboutTheJournal">O časopisu</message>
@@ -609,10 +609,10 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 	<message key="about.aboutThisPublishingSystem">O OJS-u</message>
 	<message key="about.aboutOJSJournal"><![CDATA[Ovaj časopis koristi Open Journal Systems {$ojsVersion}, otvoreni softver namijenjen uređivanju i izdavanju časopisa, razvijan,  podržan i besplatno distribuiran od <a href="http://pkp.sfu.ca/">Public Knowledge Project</a>-a pod GNU General Public License.]]></message>
 	<message key="about.aboutOJSSite"><![CDATA[Ova stranica koristi Open Journal Systems {$ojsVersion}, koji je otvoreni izvor upravljanja časopisom i program za izdavanje, podržan i besplatno distribuiran od <a href="http://pkp.sfu.ca/">Public Knowledge Project</a>-a pod GNU General Public License.]]></message>
-	
+
 	<!-- Announcement -->	<!-- Help -->	<message key="help.ojsHelp">Pomoć za korištenje OJS-a</message>
-	<message key="help.ojsHelpAbbrev">OJS pomoć</message>	
-	
+	<message key="help.ojsHelpAbbrev">OJS pomoć</message>
+
 	<!-- Installer --><message key="installer.ojsInstallation">OJS instalacija</message>
 	<message key="installer.ojsUpgrade">OJS nadogradnja</message>
 	<message key="installer.installationInstructions"><![CDATA[<h4>OJS verzija {$version}</h4>
@@ -658,12 +658,12 @@ Sadržaj priložene datoteke možete provjeriti ukoliko kliknete na njezino ime.
 
 <p>Izaberite <strong>Ručnu instalaciju</strong> da bi prikazali SQL izjave potrebne za kreiranje OJS sheme baze podataka i inicijalnih podataka, tako da instalacija baze podataka može biti izvršena ručno. Ta opcija je korisna kada otkrivate pogreške kod instalacijskih problema, djelomično na nepodržanim platformama. Obavijest: ta metoda instalacije neće poduzeti ništa kako bi kreirala bazu podataka ili bilo koje tablice, iako će konfiguracijska datoteka svejedno biti zapisana s isporučenim postavkama baze podataka.</p>]]></message>
 	<message key="installer.upgradeInstructions"><![CDATA[<h4>OJS verzija {$version}</h4>
-	
+
 <p>Hvala Vam za preuzimanje Public Knowledge Projecta, <strong>Open Journal Systems</strong>. Prije postupka, molimo pročitajte <a href="{$baseUrl}/docs/README">README</a> i <a href="{$baseUrl}/docs/UPGRADE">UPGRADE</a> datoteke uključene s ovim softverom. Za više informacija o Public Knowledge Project-u i njegovim softverskim projektima, molimo posjetite <a href="http://pkp.sfu.ca/" target="_blank">PKP mrežnu stranicu</a>. Ako imate prijavu o grešci ili tražite tehničku podršku za OJS, pogledajte <a href="http://forum.pkp.sfu.ca">forum podrške</a> ili posjetite PKP-ov online <a href="https://github.com/pkp/pkp-lib#issues" target="_blank">sustav prijave pogrešaka</a>. Iako je forum podrške preferirana metoda kontakta, također možete timu poslati e-poštu na <a href="mailto:pkp.contact@gmail.com">pkp.contact@gmail.com</a>.</p>
 
 <p><strong>Vrlo je preporučljivo</strong> da napravite sigurnosnu kopiju vaše baze podataka, direktorija s datotekama i OJS instalacijskog direktorija prije nastavka.</p>
 <p>Ako imate pokrenut <a href="http://www.php.net/features.safe-mode" target="_blank">PHP sigurnosni mod</a>, molimo osigurajte da je max_execution_time direktiva u vašoj php.ini konfiguracijskoj datoteci postavljena na visok limit. Ako je taj ili bilo koji drugi vremenski limit (npr. Apachejeva "timeout" direktiva) dosegnut i postupak nadogradnje prekinut, bit će potrebna ručna intervencija.</p>]]></message>
-	<message key="installer.localeSettingsInstructions"><![CDATA[Za kompletnu Unicode (UTF-8) podršku, odaberite UTF-8 za postavku skupa svih znakova. Uzmite u obzir da ova podrška trenutno zahtijeva MySQL >= 4.1.1 ili PostgreSQL >= 7.1 poslužitelj baze podataka. Također, uzmite u obzir da potpuna Unicode podrška zahtijeva PHP >= 4.3.0 izrađen s podrškom za <a href="http://www.php.net/mbstring" target="_blank">mbstring</a> biblioteku (uobičajeno omogućeno u većini aktualnih PHP instalacija). Možete imati problema ukoliko koristite proširene skupove znakova ako vaš poslužitelj ne podržava ove zahtjeve. 
+	<message key="installer.localeSettingsInstructions"><![CDATA[Za kompletnu Unicode (UTF-8) podršku, odaberite UTF-8 za postavku skupa svih znakova. Uzmite u obzir da ova podrška trenutno zahtijeva MySQL >= 4.1.1 ili PostgreSQL >= 7.1 poslužitelj baze podataka. Također, uzmite u obzir da potpuna Unicode podrška zahtijeva PHP >= 4.3.0 izrađen s podrškom za <a href="http://www.php.net/mbstring" target="_blank">mbstring</a> biblioteku (uobičajeno omogućeno u većini aktualnih PHP instalacija). Možete imati problema ukoliko koristite proširene skupove znakova ako vaš poslužitelj ne podržava ove zahtjeve.
 <br /><br />
 Vaš poslužitelj trenutno podržava mbstring: <strong>{$supportsMBString}</strong>]]></message>
 	<message key="installer.localeInstructions">Primarni jezik za korištenju u ovom sustavu. Molimo pogledajte OJS dokumentaciju ako ste zainteresirani za podršku za jezike koji nisu izlistani ovdje.</message>
@@ -735,7 +735,7 @@ Vaš poslužitelj trenutno podržava mbstring: <strong>{$supportsMBString}</stro
 
 	<message key="rt.admin.relatedItems">Alati za pretraživanje srodnih sadržaja</message>
 
-	
+
 	<message key="rt.admin.settings.addComment">Dodaj komentar (omogućuje čitateljima da ostavljaju komentare objavljenih priloga. Glavni urednik ima mogućnost brisanja komentara).</message>
 
 	<!-- RT Versions -->	<!-- RT Contexts -->	<!-- RT Searches -->	<!-- RT Entities -->	<message key="rt.metadata.dublinCore.primaryAuthor">Tvorac</message>
@@ -744,29 +744,29 @@ Vaš poslužitelj trenutno podržava mbstring: <strong>{$supportsMBString}</stro
 	<message key="rt.metadata.pkp.peerReviewed">Stručno recenziran članak</message>
 
 
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	<message key="rt.beNotifiedWhen">Bit ćete obaviješteni kada...</message>
 
 	<message key="rt.thisJournal">Pretraži časopis</message>
-	
+
 
 	<message key="rt.context.authorTermsDescription">Za stavke koje imaju više od jednog autora, ostavite sva imena provjerena zbog traženja sličnih ko-autorskih radova, ili pretražujte jednog po jednog provjeravajući samo pojedinačno ime. Da biste naučili više o pretraživanom izvoru, kliknite na O ČASOPISU. Ovi izvori su odabrani zbog svoje relevantnosti i otvorenog (besplatnog) pristupa njegovom cijelom ili djelomičnom sadržaju.</message>
 
 
-	<!-- 
+	<!--
 	 *
 	 * MISC - Entries that do not belong in the other sections.
 	 *
 	 -->
-	 <!-- Icons: Default "alt" text -->	
+	 <!-- Icons: Default "alt" text -->
 	 <!-- Debug messages -->
-	 
+
 	<message key="common.confirmComplete">Jeste li sigurni da želite označiti ovaj zadatak kao završen? Po donošenju ove odluke nećete moći unositi daljnje izmjene.</message>
 	<message key="common.payment">Plaćanje</message>
 	<message key="common.payments">Plaćanja</message>
@@ -1089,7 +1089,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="user.authorization.invalidSectionEditorSubmission">Nevažeće podnošenje članka za urednika rubrike ili nema podnesenog članka za urednika rubrike!</message>
 
 	<!-- MOREPRESS -->
-	
+
 	<message key="morepress.status.active">Aktivan</message>
 	<message key="morepress.status.inactive">Nije aktivan</message>
 	<message key="morepress.status.earlyaccess">Rani pristup</message>
@@ -1100,12 +1100,14 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.downloadGalley">Preuzmi</message>
 	<message key="morePress.removeLines">Ukloni nove redove iz sažetka (na Paste ili Ctrl+V)</message>
 	<message key="morePress.newIssue">novi broj dostupan</message>
-	
+
 	<message key="morepress.registration.privacy">Izjava o zaštiti privatnosti</message>
 	<message key="form.errorsOccurred">Došlo je do pogreške</message>
 	<message key="user.profile.form.privacyInvalid">Prihvaćanje Izjave o zaštiti privatnosti je obavezno.</message>
 	<message key="morepress.registration.Privacydescription"><![CDATA[Izjavljujem da sam pročitao/la, shvaćam i prihvaćam <a href="/privacy/hr" target="_blank" style="text-decoration:underline;">Izjavu o zaštiti privatnosti</a>. Svojevoljno dajem svoje gore napisane osobne podatke na korištenje u skladu s Izjavom, ovisno o specifičnim odabranim ulogama (čitatelj, autor, recenzent) navedenim u Izjavi.]]></message>
-	
+
+	<message key="morePress.casopisiUNIZD">Časopisi Sveučilišta u Zadru</message>
+	<message key="morePress.radoviUNIZD">Radovi Filozofskog fakulteta u Zadru</message>
 
 	<message key="moreFooter.notif">Morepress obavijesti</message>
 	<message key="moreFooter.journals">Časopisi</message>
@@ -1159,7 +1161,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="announcement.announcements">Novosti</message>
 	<message key="common.filterSubmissions">Filtriraj predane članke</message>
 	<message key="about.aboutSite">O Morepress-u</message>
-	
+
 	<message key="manager.groups.editTitle">Uredi funkciju</message>
 	<message key="user.login.loginError">Pogreško korisničko ime ili lozinka</message>
 	<message key="common.ok">U redu</message>
@@ -1184,7 +1186,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="plugins.importexport.pubIds.displayName">Dodatak za XML javne identifikatore</message>
 	<message key="plugins.importexport.pubIds.description">Uvoz/izvoz javnih identifikatora</message>
 	<message key="author.submit.submissionCitations">Formatirani popis literature za djela citirana u radu. Odvojiti svaki zapis novim redom.</message>
-	
+
 	<message key="manager.sections.abstractsNotRequired">Ne trebaju sadržavati sažetke</message>
 	<message key="manager.sections.assigned">Urednici ove rubrike</message>
 	<message key="manager.sections.create">Kreiraj rubriku</message>
@@ -1212,11 +1214,11 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="manager.sections.unassigned">Dostupni urednici rubrika</message>
 	<message key="locale.primary">Primarni jezik</message>
 	<message key="rt.readingTools">Alati za članak</message>
-	
+
 	<message key="morePress.homepage">Početna</message>
 	<message key="morePress.journals">Časopisi</message>
 	<message key="morePress.books">Knjige</message>
-	
+
 	<message key="user.confirmEmail">Potvrdite adresu e-pošte</message>
 
 </locale>
