@@ -1,7 +1,26 @@
 <div class="block">
 <span class="blockTitle">Meta</span>
 	<span class="blockSubtitle">{translate key="article.subject"}</span>
-	{$article->getLocalizedSubject()|escape}			
+	<!-- {$article->getLocalizedSubject()|escape} -->
+
+	{php}
+	$AppLocale = new AppLocale();
+	$Locale = $AppLocale->getLocale();
+	$DAO = new DAO();
+	$ArticleDAO = new ArticleDAO();
+	$articlePHP = $this->get_template_vars('article');
+	$keywordsall = $articlePHP->getLocalizedSubject();
+	$keywordsArray = explode("; ", $keywordsall);
+	echo '<div id="keywords">';
+	foreach ($keywordsArray as $keyword) {
+		echo '<a href="/journals/index/search?subject=%22';
+		echo $keyword;
+		echo '%22"><div class="singlekeyword">';
+		echo $keyword;
+		echo '</div></a>';
+	}
+	echo '</div>';
+	{/php}
 
 {if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
 		{assign var=hasAccess value=1}
@@ -16,18 +35,18 @@
 <a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-eye" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a>
 
 	{if $Galley->isPdfGalley()}
-	<a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a> 
+	<a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a>
 	{/if}
 
 	{/foreach}
 	</div>
 	{/if}
-	
+
 	<span class="blockSubtitle">{translate key="issue.issue"}</span>
 	<ul><li><a href="{url page="issue" op="view" path=$issue->getBestIssueId($currentJournal)}" target="_parent">{$issue->getIssueIdentification(false,true)|escape}</a></li></ul>
 
 	<span class="blockSubtitle">{translate key="section.section"}</span>
-	{$article->getSectionTitle()|escape} 
+	{$article->getSectionTitle()|escape}
 
 {foreach from=$pubIdPlugins item=pubIdPlugin}
 	{if $issue->getPublished()}

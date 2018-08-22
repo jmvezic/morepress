@@ -1216,7 +1216,7 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.newIssue">new issue available</message>
 
 	<message key="morePress.casopisiUNIZD">University of Zadar journals</message>
-	<message key="morePress.radoviUNIZD">Works of Faculty of Philosophy in Zadar</message>
+	<message key="morePress.radoviUNIZD">Papers from Faculty of Philosophy in Zadar</message>
 
 	<message key="navigation.aboutSite">About Morepress</message>
 	<message key="moreFooter.notif">Morepress notifications</message>

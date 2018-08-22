@@ -21,9 +21,9 @@
 <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Cardo|Crimson+Text|Fira+Sans|Lato|Libre+Baskerville|Lora|Noto+Sans|Open+Sans|PT+Sans|PT+Serif+Caption|Quicksand|Roboto|Roboto+Slab|Taviraj" rel="stylesheet">
 
 <!-- Add theme style sheet -->
-<link rel="stylesheet" href="{$baseUrl}/plugins/themes/morepress/css/screen.css?v=12" type="text/css" />
+<link rel="stylesheet" href="{$baseUrl}/plugins/themes/morepress/css/screen.css?v=13" type="text/css" />
 <link href="{$baseUrl}/plugins/themes/morepress/css/print.css" media="print" rel="stylesheet" type="text/css" />
-<link href="{$baseUrl}/plugins/themes/morepress/css/style.css?v=2" rel="stylesheet" type="text/css" />
+<link href="{$baseUrl}/plugins/themes/morepress/css/style.css?v=3" rel="stylesheet" type="text/css" />
 
 
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/anchor.js?v=2"></script>
