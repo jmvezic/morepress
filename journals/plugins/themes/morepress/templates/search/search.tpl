@@ -19,7 +19,7 @@
 			$('#searchForm').pkpHandler('$.pkp.pages.search.SearchFormHandler');
 		{rdelim});
 	</script>
-	<form method="post" id="searchForm" action="{url op="search"}">
+	<form method="get" id="searchForm" action="{url op="search"}">
 		<table class="data">
 			<tr valign="top">
 				<td class="label"><label for="query">{translate key="search.searchAllCategories"}</label></td>
@@ -132,8 +132,8 @@
 					<div class="journalTitle"><a href="{url journal=$journal->getPath()}">{$journal->getLocalizedTitle()|escape}</a></div>
 				{/if}
 				<div><a href="{url journal=$journal->getPath() page="issue" op="view" path=$issue->getBestIssueId($journal)}">{$issue->getIssueIdentification()|escape}</a></div>
-				
-				
+
+
 			<div class="authors">
 					{foreach from=$article->getAuthors() item=authorItem name=authorList}
 						{$authorItem->getFullName()|escape}{if !$smarty.foreach.authorList.last},{/if}
@@ -169,4 +169,3 @@
 </div>
 
 {include file="common/footer.tpl"}
-

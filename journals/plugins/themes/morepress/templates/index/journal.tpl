@@ -18,7 +18,7 @@
 	<div id="mobileAnnounHeading"><h4>{translate key="announcement.announcementsHome"}</h4></div>
 	<div id="announcementsHome">
 		<!-- <h3><a href="{url page="announcement"}">{translate key="announcement.announcementsHome"}</a></h3> -->
-		{include file="announcement/list.tpl"}	
+		{include file="announcement/list.tpl"}
 		<!-- <table class="announcementsMore">
 			<tr>
 				<td><a href="{url page="announcement"}">{translate key="announcement.moreAnnouncements"}</a></td>
@@ -45,8 +45,10 @@
 {/if}
 
 </div>
-
+{if $currentJournal->getJournalId() < 12}
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/journalTabSwitch.js"></script>
+
+
 <div id="JournalHomeTabs">
 <div id="JournalHomeTabControl">
 	<div id="ShowArchive" class="JournalTab">{translate key="common.archive"}</div>
@@ -57,7 +59,9 @@
 	<div id="ShowEditorial" class="JournalTab">{translate key="about.editorialTeam"}</div>
 	<div id="ShowSubmit" class="JournalTab">{translate key="submission.submitArticle"}</div>
 </div>
+{/if}
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/JournalArchiveCollapser.js"></script>
+
 {php}
 $AppLocale = new AppLocale();
 $Locale = $AppLocale->getLocale();
@@ -96,7 +100,7 @@ foreach ($YearIndex as $Year => $Values) {
     			if ($IssueID == $Iden) {
     				$IssueIdent = $value->getIssueIdentification();
     				$IssueURL = '/journals/'.$ThisJournalPath.'/issue/view/'.$IssueID;
-    				echo '<a class="JournalHomeArchiveLink" href="'.$IssueURL.'">'.$IssueIdent.'</a>';   			
+    				echo '<a class="JournalHomeArchiveLink" href="'.$IssueURL.'">'.$IssueIdent.'</a>';
     			}
     		}
 	}
@@ -111,6 +115,7 @@ else {
 echo '</div>';
 {/php}
 
+{if $currentJournal->getJournalId() < 12}
 <div id="JournalAboutTab">
 {$currentJournal->getLocalizedSetting('history')}
 
@@ -171,7 +176,7 @@ echo '</div>';
 </div>
 {/if}
 
-{if $currentJournal->getSetting('publishingMode') == $smarty.const.PUBLISHING_MODE_OPEN && $currentJournal->getLocalizedSetting('openAccessPolicy') != ''} 
+{if $currentJournal->getSetting('publishingMode') == $smarty.const.PUBLISHING_MODE_OPEN && $currentJournal->getLocalizedSetting('openAccessPolicy') != ''}
 <div id="openAccessPolicy" class="block"><h3>{translate key="about.openAccessPolicy"}</h3>
 <p>{$currentJournal->getLocalizedSetting('openAccessPolicy')|nl2br}</p>
 
@@ -179,8 +184,8 @@ echo '</div>';
 </div>
 {/if}
 
-{if $currentJournal->getSetting('publishingMode') == $smarty.const.PUBLISHING_MODE_SUBSCRIPTION && $currentJournal->getSetting('enableAuthorSelfArchive')} 
-<div id="authorSelfArchivePolicy" class="block"><h3>{translate key="about.authorSelfArchive"}</h3> 
+{if $currentJournal->getSetting('publishingMode') == $smarty.const.PUBLISHING_MODE_SUBSCRIPTION && $currentJournal->getSetting('enableAuthorSelfArchive')}
+<div id="authorSelfArchivePolicy" class="block"><h3>{translate key="about.authorSelfArchive"}</h3>
 <p>{$currentJournal->getLocalizedSetting('authorSelfArchivePolicy')|nl2br}</p>
 
 <div class="separator">&nbsp;</div>
@@ -188,7 +193,7 @@ echo '</div>';
 {/if}
 
 {if $currentJournal->getSetting('publishingMode') == $smarty.const.PUBLISHING_MODE_SUBSCRIPTION && $currentJournal->getSetting('enableDelayedOpenAccess')}
-<div id="delayedOpenAccessPolicy" class="block"><h3>{translate key="about.delayedOpenAccess"}</h3> 
+<div id="delayedOpenAccessPolicy" class="block"><h3>{translate key="about.delayedOpenAccess"}</h3>
 <p>{translate key="about.delayedOpenAccessDescription1"} {$currentJournal->getSetting('delayedOpenAccessDuration')} {translate key="about.delayedOpenAccessDescription2"}</p>
 {if $currentJournal->getLocalizedSetting('delayedOpenAccessPolicy') != ''}
 	<p>{$currentJournal->getLocalizedSetting('delayedOpenAccessPolicy')|nl2br}</p>
@@ -352,7 +357,7 @@ echo '</div>';
 </div>
 
 <div id="JournalHomeSubmitTab">
-{if $currentJournal->getSetting('journalPaymentsEnabled') && 
+{if $currentJournal->getSetting('journalPaymentsEnabled') &&
 		($currentJournal->getSetting('submissionFeeEnabled') || $currentJournal->getSetting('fastTrackFeeEnabled') || $currentJournal->getSetting('publicationFeeEnabled')) }
 	{assign var="authorFees" value=1}
 {/if}
@@ -366,12 +371,12 @@ echo '</div>';
 			<a href="{url page="login"}" class="action">{translate key="about.onlineSubmissions.login"}</a>
 			<a href="{url page="author" op="submit"}" class="action">{translate key="about.onlineSubmissions.startNew"}</a>
 		</div>
-		
-		<div >			
+
+		<div >
 			<p>{translate key="about.onlineSubmissions.needAccount"}</p>
 			<a href="{url page="user" op="register"}" class="action">{translate key="about.onlineSubmissions.registration"}</a>
 		</div>
-		
+
 
 	</div>
 {/if}
@@ -435,8 +440,7 @@ echo '</div>';
 </div>
 {/if}
 </div>
-
+{/if}
 </div>
 
 {include file="common/footer.tpl"}
-

@@ -36,27 +36,27 @@ function removeParam(key, sourceURL) {
 		<!--
 		function changeLanguageNav(elem) {ldelim}
 			var new_locale = elem.id;
-			
+
 			country_ready = "";
-			
+
 			if (new_locale=="hr_HR") {ldelim}
 				country_ready = "HR";
 			{rdelim}
 			else {ldelim}
 				country_ready = "US";
 			{rdelim}
-			
+
 			var d = new Date();
 			d.setTime(d.getTime() + (365*24*60*60*1000));
 			var expires = "expires="+d.toUTCString();
 
 			var redirect_url = '{url|escape:"javascript" page="user" op="setLocale" path="NEW_LOCALE" source=$smarty.server.REQUEST_URI escape=false}';
 			redirect_url = redirect_url.replace("NEW_LOCALE", new_locale);
-			
+
 			var modified_url = removeParam("lang", redirect_url);
-			
+
 			document.cookie="country="+country_ready+"; "+expires+"; path=/";
-			
+
 			if (modified_url.slice(-3)=="%3F") {ldelim}
 				modified_url = modified_url.slice(0, -3);
 			{rdelim}
@@ -73,8 +73,8 @@ function removeParam(key, sourceURL) {
 			<li id="about"><a href="{url page="about"}">{translate key="navigation.about"}</a></li>
             {/if}
            <li><a href="/">{translate key="morePress.homepage"}</a></li>
-	<li><a href="/books">{translate key="morePress.books"}</a></li> 
-        
+	<li><a href="/books">{translate key="morePress.books"}</a></li>
+
         <!-- <li><a href="#">{translate key="common.help"}</a></li>
         <li><a href="#">{translate key="common.contact"}</a></li> -->
 
@@ -87,7 +87,7 @@ function removeParam(key, sourceURL) {
 		{/if}
 
 		{if $currentJournal && $currentJournal->getSetting('publishingMode') != $smarty.const.PUBLISHING_MODE_NONE}
-			
+
 			<li id="archives"><a href="{url page="issue" op="archive"}">{translate key="common.archive"}</a></li>
 		{/if}
 
@@ -102,23 +102,23 @@ function removeParam(key, sourceURL) {
 				<li class="navItem" id="navItem-{$navItemKey|escape}"><a href="{if $navItem.isAbsolute}{$navItem.url|escape}{else}{$baseUrl}{$navItem.url|escape}{/if}">{if $navItem.isLiteral}{$navItem.name|escape}{else}{translate key=$navItem.name}{/if}</a></li>
 			{/if}
 		{/foreach}
-		
+
 		{if $isUserLoggedIn}
 			<li id="userHome"><a href="{url page="user"}">{translate key="navigation.userHome"}</a></li>
 			<li><a href="{$baseUrl}/index.php/index/login/signOut">{translate key="common.logout"}</a></li>
-			
+
 		{else}
 			<li id="login"><a href="{url page="login"}">{translate key="navigation.login"}</a></li>
-			
+
 			{if !$hideRegisterLink}
 				<li id="register"><a href="{url page="user" op="register"}">{translate key="navigation.register"}</a></li>
-				
+
 			{/if}
-			
+
 		{/if}{* $isUserLoggedIn *}
-		
+
         <li><a href="#" id="hr_HR" onclick="changeLanguageNav(this)"><img class="langSmall" src="{$baseUrl}/plugins/themes/morepress/img/flags/png/256/HR.png" /></a><a href="#" id="en_US" onclick="changeLanguageNav(this)"><img class="langSmall" onclick="changeLanguageNav(this)" src="{$baseUrl}/plugins/themes/morepress/img/flags/png/256/GB.png" /></a></li>
-		
+
   <li class="icon">
     <a href="javascript:void(0);" style="font-size:15px;" onclick="expandNav()">☰</a>
   </li>
@@ -131,7 +131,7 @@ function removeParam(key, sourceURL) {
 <div id="navbar" role="navigation" class="body">
 	<ul class="navMenu menu">
         <div id="leftblock">
-            
+
 <li><a href="/">{translate key="morePress.homepage"}</a></li>
           <li><a href="/books">{translate key="morePress.books"}</a></li>
 
@@ -140,8 +140,8 @@ function removeParam(key, sourceURL) {
 			{else}
 			<li id="about"><a href="{url page="about"}">{translate key="navigation.about"}</a></li>
             {/if}
-     -->       
-        
+     -->
+
         <!-- <li><a href="#">{translate key="common.help"}</a></li>
         <li><a href="#">{translate key="common.contact"}</a></li> -->
 
@@ -154,7 +154,7 @@ function removeParam(key, sourceURL) {
 		{/if}
 
 		{if $currentJournal && $currentJournal->getSetting('publishingMode') != $smarty.const.PUBLISHING_MODE_NONE}
-			
+
 			<li id="archives"><a href="{url page="issue" op="archive"}">{translate key="common.archive"}</a></li>
 		{/if}
 
@@ -169,37 +169,37 @@ function removeParam(key, sourceURL) {
 				<li class="navItem" id="navItem-{$navItemKey|escape}"><a href="{if $navItem.isAbsolute}{$navItem.url|escape}{else}{$baseUrl}{$navItem.url|escape}{/if}">{if $navItem.isLiteral}{$navItem.name|escape}{else}{translate key=$navItem.name}{/if}</a></li>
 			{/if}
 		{/foreach}
-            
+
         </div>
-        
+
         <div id="langChange">
         <li><a href="#" id="hr_HR" onclick="changeLanguageNav(this)"><img src="{$baseUrl}/plugins/themes/morepress/img/flags/png/256/HR.png" /></a></li>
         <li><a href="#" id="en_US" onclick="changeLanguageNav(this)"><img src="{$baseUrl}/plugins/themes/morepress/img/flags/png/256/GB.png" /></a></li>
-        </div>        
-        
+        </div>
+
         <div id="rightblock">
-        
+
                {if $isUserLoggedIn}
 			<li id="userHome"><a href="{url page="user"}">{$loggedInUsername|escape}</a></li>
 			<li><a href="{$baseUrl}/index.php/index/login/signOut">{translate key="common.logout"}</a></li>
-			
+
 		{else}
 			<li id="login"><a href="{url page="login"}">{translate key="navigation.login"}</a></li>
-			
+
 			{if !$hideRegisterLink}
 				<li id="register"><a href="{url page="user" op="register"}">{translate key="navigation.register"}</a></li>
-				
-			{/if}
-			
-		{/if}{* $isUserLoggedIn *}
-		
-        </div>
-        
-        
-	</ul>
-</div> 
 
-    
+			{/if}
+
+		{/if}{* $isUserLoggedIn *}
+
+        </div>
+
+
+	</ul>
+</div>
+
+
 </div><!-- End Full Nav -->
 
 
@@ -219,7 +219,7 @@ function removeParam(key, sourceURL) {
 <a href="/journals"><div id="MorepressInfo"><span id="logoSep"></span><p>{translate key="common.morepressJournals"}</p></div></a>
 </div>
 </div>
-        
+
 <div id="fullSearchNav">
     <div id="contSearchNav">
         <!-- <a href="{$baseUrl}" id="logoNav">
@@ -231,8 +231,8 @@ function removeParam(key, sourceURL) {
         </div>
     </div>
 </div>
-    
-    
+
+
 
 
 </div>
