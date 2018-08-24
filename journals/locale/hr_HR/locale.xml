@@ -1223,6 +1223,8 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.searchJournal">Pretražite članke u časopisu</message>
 	<message key="morePress.searchAfter">prema naslovu, ključnim riječima, sažetku i cjelovitom tekstu...</message>
 	<message key="morePress.searchSite">Pretražite članke na Morepress-u</message>
+	<message key="morePress.thisJournal">Trenutni časopis</message>
+	<message key="morePress.allJournals">Svi časopisi</message>
 
 	<message key="user.confirmEmail">Potvrdite adresu e-pošte</message>
 

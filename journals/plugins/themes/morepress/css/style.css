@@ -147,3 +147,38 @@ nav{
 	display:inline-block;
 	padding-top:5px;
 }
+
+#simpleSearchForm {
+display:inline-flex;
+}
+
+#journalSearchOption, #journalSearchOptionMini {
+display:flex;
+min-width:120px !important;
+/* width:calc(21% - 20px);
+width:-moz-calc(21% - 20px);
+width:-webkit-calc(21% - 20px); */
+font-size:13px;
+color: #767676;
+-moz-appearance:menuarrow;
+-webkit-appearance:menuarrow;
+appearance:menuarrow;
+}
+
+#journalSearchOption:hover, #journalSearchOptionMini:hover {
+cursor:pointer;
+color:black;
+}
+
+@media screen and (max-width: 900px) {
+    /* Add a pseudo element with the
+       text from attribute 'data-abbr' */
+    #journalSearchOption {
+			min-width:120px !important;
+			border:0;
+    }
+
+		#contSearchNav #advancedSearchNav {
+			display:none;
+		}
+}
