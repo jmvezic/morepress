@@ -161,7 +161,8 @@ width:-webkit-calc(21% - 20px); */
 font-size:13px;
 color: #767676;
 border: 0;
-border-right:1px solid #ddd;
+background-color: transparent;
+margin-right: 8px;
 -moz-appearance:menuarrow;
 -webkit-appearance:menulist;
 appearance:menuarrow;
