@@ -45,7 +45,7 @@
 {/if}
 
 </div>
-{if $currentJournal->getJournalId() < 12}
+{if $currentJournal->getJournalId() < 12 || $currentJournal->getJournalId() > 17}
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/journalTabSwitch.js"></script>
 
 
@@ -115,7 +115,7 @@ else {
 echo '</div>';
 {/php}
 
-{if $currentJournal->getJournalId() < 12}
+{if $currentJournal->getJournalId() < 12 || $currentJournal->getJournalId() > 17}
 <div id="JournalAboutTab">
 {$currentJournal->getLocalizedSetting('history')}
 

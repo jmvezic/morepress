@@ -283,17 +283,10 @@ while (!$Journals->EOF) {
 
 	$IssuePublished = $Journals->fields["MAX(issues.date_published)"];
 
-  if ($JourID > 11){
+  if ($JourID > 11 && $JourID < 18){
 
 	if ($casopisi[$JourPath] != 2) {
 
-	if ($JourPath == "libellarium") {
-		echo '<a href="http://libellarium.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';
-	}
-	elseif ($JourPath == "sic") {
-		echo '<a href="http://www.sic-journal.org/" target="_blank" id="jourBlockLink"><div id="jourBlock">';
-	}
-	else {
 
 
 
@@ -301,34 +294,14 @@ while (!$Journals->EOF) {
 	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' style="width:calc(100% - 10px);overflow:hidden;" '; }
 	echo '>';
 
-}
-
-	/*	echo '<div id="jourStatus" ';
-	if (array_key_exists($JourPath, $casopisi)) {
-		if ($casopisi[$JourPath] == 1) {echo ' style="color:white;background-color:rgba(48,140,228,0.7);">'.$AppLocale->translate("morepress.status.active", null, $Locale);}
-		elseif ($casopisi[$JourPath] == 2) {echo ' style="background-color:rgba(218,0,0,0.7);color:white;">'.$AppLocale->translate("morepress.status.inactive", null, $Locale);}
-		elseif ($casopisi[$JourPath] == 3) {echo ' style="background-color:rgba(58, 170, 10, 0.7);color:white">'.$AppLocale->translate("morepress.status.earlyaccess", null, $Locale);}
-		elseif ($casopisi[$JourPath] == 4) {echo ' style="background-color:rgba(255,255,255,0.7);">'.$AppLocale->translate("morepress.status.comingsoon", null, $Locale);}
-		elseif ($casopisi[$JourPath] == 5) {echo ' style="background-color:rgba(255,171,0,0.7);">'.$AppLocale->translate("morepress.status.external", null, $Locale);}
-	}
-echo '</div>'; */
-
 
 	echo '<div id="jourThumb"';
 	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' style="height:auto;" '; }
 	echo '>';
 
 
-	if ($JourPath == "libellarium") {
-		echo '<a href="http://libellarium.org/" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';
-	}
-	elseif ($JourPath == "sic") {
-		echo '<a href="http://www.sic-journal.org/" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';
-	}
-	else
-	{
 		echo '<a href="'.$JourInitials.'" id="jourBlockLink"><img src="/journals/'.$JourThumbPath.'?v='.Date("Y.m.d.G").'" alt="'.$JourAltText.'" /></div>';
-	}
+
 
 	echo '<div id="jourTitle">'.$JourTitle;
 	echo '</div></a>';
