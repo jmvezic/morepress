@@ -28,8 +28,8 @@ setcookie("country","HR",time()+31556926 ,'/');// where 31556926 is total second
 		<script type="text/javascript" src="piwik.js"></script>
 
 	</head>
-	
-	<?php 
+
+	<?php
 function gitVersion()
 {
     $full = exec('git describe --tags');
@@ -58,12 +58,18 @@ function gitVersion()
 						<li><a href="/journals" class="button special icon fa-files-o">Časopisi na mreži</a></li>
 						<li><a href="/books" class="button special icon fa-book">Knjige na mreži</a></li>
 					</ul>
+					<?php
+					  $filename = 'announce_hr.html';
+						if (filesize($filename) != 0){
+					 		include 'announce_hr.html';
+						}
+					?>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
 				<!-- <div class="image phone"><div class="inner"><img src="images/screen_more.png" alt="" /></div></div> -->
 			</header>
 
-	
+
 
 		<!-- Footer -->
 			<footer id="footer">

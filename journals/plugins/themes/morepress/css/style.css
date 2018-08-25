@@ -173,6 +173,10 @@ cursor:pointer;
 color:black;
 }
 
+#journalSearchOption:focus {
+	outline: 0;
+}
+
 @media screen and (max-width: 900px) {
     /* Add a pseudo element with the
        text from attribute 'data-abbr' */

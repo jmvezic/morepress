@@ -26,10 +26,10 @@ setcookie("country","US",time()+31556926 ,'/');// where 31556926 is total second
 		<link rel="alternate" href="https://morepress.unizd.hr/index_hr.php" hreflang="hr-hr" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<script type="text/javascript" src="piwik.js"></script> 
+		<script type="text/javascript" src="piwik.js"></script>
 	</head>
-	
-	<?php 
+
+	<?php
 function gitVersion()
 {
     $full = exec('git describe --tags');
@@ -58,12 +58,18 @@ function gitVersion()
 						<li><a href="/journals" class="button special icon fa-files-o">Journals online</a></li>
 						<li><a href="/books" class="button special icon fa-book">Books online</a></li>
 					</ul>
+					<?php
+					  $filename = 'announce_en.html';
+						if (filesize($filename) != 0){
+					 		include 'announce_en.html';
+						}
+					?>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
 				<!-- <div class="image phone"><div class="inner"><img src="images/screen_more.png" alt="" /></div></div> -->
 			</header>
 
-	
+
 
 		<!-- Footer -->
 			<footer id="footer">

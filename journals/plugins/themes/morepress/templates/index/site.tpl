@@ -17,14 +17,30 @@
 {/strip}
 
 
-<a name="journals"></a>
-
 <!-- {if $useAlphalist}
 	<p>{foreach from=$alphaList item=letter}<a href="{url searchInitial=$letter sort="title"}">{if $letter == $searchInitial}<strong>{$letter|escape}</strong>{else}{$letter|escape}{/if}</a> {/foreach}<a href="{url}">{if $searchInitial==''}<strong>{translate key="common.all"}</strong>{else}{translate key="common.all"}{/if}</a></p>
 {/if} -->
 
 {if $journals->wasEmpty()}
 	{translate key="site.noJournals"}
+{/if}
+{if $currentLocale == "hr_HR"}
+{php}
+$filename = $_SERVER['DOCUMENT_ROOT'];
+$filename .= '/announce_hr.html';
+if (filesize($filename) != 0){
+echo '<a href="#radoviffzd"><img src="/images/promo_hr.png" style="min-width:100% !important;" /></a>';
+}
+{/php}
+{else}
+{php}
+$filename = $_SERVER['DOCUMENT_ROOT'];
+$filename .= '/announce_en.html';
+if (filesize($filename) != 0){
+echo '<a href="#radoviffzd"><img src="/images/promo_en.png" style="min-width:100% !important;" /></a>';
+}
+{/php}
+
 {/if}
 
 <div id="indexJournalsList">
@@ -233,7 +249,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 
 </div>
 
-<div class="indexTitle" style="clear:both;">{translate key="morePress.radoviUNIZD"}</div>
+<div class="indexTitle" id="radoviffzd" style="clear:both;">{translate key="morePress.radoviUNIZD"}</div>
 <div id="indexRadovi">
 
 
