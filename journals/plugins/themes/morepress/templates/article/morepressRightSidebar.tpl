@@ -10,9 +10,10 @@
 	$ArticleDAO = new ArticleDAO();
 	$articlePHP = $this->get_template_vars('article');
 	$keywordsall = $articlePHP->getLocalizedSubject();
-	$keywordsArray = explode("; ", $keywordsall);
+	$keywordsArray = explode(";", $keywordsall);
 	echo '<div id="keywords">';
 	foreach ($keywordsArray as $keyword) {
+		$keyword = trim($keyword);
 		echo '<a href="/journals/index/search?subject=%22';
 		echo $keyword;
 		echo '%22"><div class="singlekeyword">';

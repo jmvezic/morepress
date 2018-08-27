@@ -79,6 +79,7 @@ $(document).ready(function() {
 		{if $enablePageNumber}<td width="7%">{translate key="editor.issues.pages"}</td>{/if}
 		<td width="5%">{translate key="common.remove"}</td>
 		<td width="5%">{translate key="editor.issues.proofed"}</td>
+    <td>DOI</td>
 	</tr>
 	<tr>
 		<td colspan="{$numCols|escape}" class="headseparator">&nbsp;</td>
@@ -112,6 +113,7 @@ $(document).ready(function() {
 				{icon name="unchecked"}
 			{/if}
 		</td>
+    <td>10.15291/{$currentJournal->getInitials($currentLocale)|lower}.{$article->getId()}</td>
 	</tr>
 	{/foreach}
 </table>
@@ -135,4 +137,3 @@ $(document).ready(function() {
 {/if}
 
 {include file="common/footer.tpl"}
-
