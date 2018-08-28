@@ -1,6 +1,9 @@
 <div class="block">
 <span class="blockTitle">Meta</span>
-	<span class="blockSubtitle">{translate key="article.subject"}</span>
+
+{if $article->getLocalizedSubject()}
+<span class="blockSubtitle">{translate key="article.subject"}</span>
+{/if}
 	<!-- {$article->getLocalizedSubject()|escape} -->
 
 	{php}
@@ -11,6 +14,7 @@
 	$articlePHP = $this->get_template_vars('article');
 	$keywordsall = $articlePHP->getLocalizedSubject();
 	$keywordsArray = explode(";", $keywordsall);
+	if ($keywordsall) {
 	echo '<div id="keywords">';
 	foreach ($keywordsArray as $keyword) {
 		$keyword = trim($keyword);
@@ -21,6 +25,7 @@
 		echo '</div></a>';
 	}
 	echo '</div>';
+}
 	{/php}
 
 {if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
