@@ -20,7 +20,7 @@
 	{if $galley->isHTMLGalley()}
 	{include file="article/header.tpl"}
 		{$galley->getHTMLContents()}
-		
+
 	{elseif $galley->isPdfGalley()}
 	{include file="article/pdfHeader.tpl"}
 		{include file="article/pdfViewer.tpl"}
@@ -49,11 +49,16 @@
 	{call_hook name="Templates::Article::Article::ArticleCoverImage"}
 	<div id="articleTitle" class="block">
 	<h3>{$article->getLocalizedTitle()|strip_unsafe_html}</h3>
-	<div id="authorString"><em>{$article->getAuthorString()|escape}</em></div>
+	<div id="authorString">
+  {assign var="allAuthors" value=$article->getAuthors()}
+  {foreach name=authloop from=$allAuthors item=author}
+    <a href="{$baseUrl}/index/search?authors=%2B{$author->getFirstName()|escape}{if $author->getMiddleName()|escape} %2B{$author->getMiddleName()|escape}{/if} %2B{$author->getLastName()|escape}">{$author->getFullName()|escape}</a>{if $author->getData('orcid')} <a href="{$author->getData('orcid')|escape}" target="_blank" class="orcid"><img src="{$baseUrl}/plugins/blocks/authorBios/orcid.png" alt="orcid" /></a>{/if}{if !$smarty.foreach.authloop.last}, {/if}
+{/foreach}
 	</div>
-	
+  </div>
+
 	<div id="mobileRightSidebar">{include file="article/morepressRightSidebar.tpl"}</div>
-	
+
 	{if $article->getLocalizedAbstract()}
 		<div id="articleAbstract" class="block">
 		<h4>{translate key="article.abstract"}</h4>
@@ -82,7 +87,7 @@
 <a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-eye" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a>
 
 	{if $Galley->isPdfGalley()}
-	<a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a> 
+	<a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a>
 	{/if}
 
 	{/foreach}

@@ -17,7 +17,7 @@ background-color: transparent;
 }
 
 #articleTitle h3{
-	font-family: "Noto Sans";
+	font-family: Helvetica;
 	font-size: 1.5em !important;
 	line-height: 1.4em;
 	font-weight: bold;
@@ -240,7 +240,7 @@ text-align: left !important;
 		/* border-radius: 10px; */
 		background: #fff;
 	}
-	
+
 	#modalImage{
 	max-width: 90%;
 	max-height: 80%;
@@ -269,7 +269,3 @@ text-align: left !important;
 	}
 
 	.close:hover { background: #00d9ff; }
-
-
-
-

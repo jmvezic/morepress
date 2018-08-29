@@ -16,13 +16,18 @@
 	$keywordsArray = explode(";", $keywordsall);
 	if ($keywordsall) {
 	echo '<div id="keywords">';
+	$keywdno = count($keywordsArray);
+	$i = 0;
 	foreach ($keywordsArray as $keyword) {
 		$keyword = trim($keyword);
 		echo '<a href="/journals/index/search?subject=%22';
 		echo $keyword;
-		echo '%22"><div class="singlekeyword">';
+		echo '%22">';
 		echo $keyword;
-		echo '</div></a>';
+		echo '</a>';
+		if(++$i !== $keywdno) {
+    echo ", ";
+  }
 	}
 	echo '</div>';
 }

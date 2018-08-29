@@ -21,7 +21,7 @@
 	<div class="authorBio">
 	<p>
 		<em><a href="{$baseUrl}/index/search?authors=%2B{$author->getFirstName()|escape}{if $author->getMiddleName()|escape} %2B{$author->getMiddleName()|escape}{/if} %2B{$author->getLastName()|escape}">{$author->getFullName()|escape}</a></em>
-		{if $author->getData('orcid')}<a href="{$author->getData('orcid')|escape}" target="_blank" class="orcid"><img src="{$baseUrl}/plugins/blocks/authorBios/orcid.png" alt="orcid" /></a>{/if}
+		{if $author->getData('orcid')} <a href="{$author->getData('orcid')|escape}" target="_blank" class="orcid"><img src="{$baseUrl}/plugins/blocks/authorBios/orcid.png" alt="orcid" /></a>{/if}
 		{if $author->getUrl()}<br /><a href="{$author->getUrl()|escape:"quotes"}">{$author->getUrl()|escape}</a><br />{/if}
 		{assign var=authorAffiliation value=$author->getLocalizedAffiliation()}
 		{if $authorAffiliation}<br />{$authorAffiliation|escape}{/if}

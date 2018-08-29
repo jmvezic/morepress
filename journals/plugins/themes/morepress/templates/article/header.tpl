@@ -7,7 +7,7 @@
  *
  * Article View -- Header component.
  *}
- 
+
 {php}
 $AppLocale = new AppLocale();
 $Locale = $AppLocale->getLocale();
@@ -19,8 +19,8 @@ if($_GET["lang"]!=$Locale){
 header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale/".$_GET["lang"]."?source=".strtok($_SERVER["REQUEST_URI"],'?'));
 }
 }
-{/php} 
- 
+{/php}
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -31,7 +31,7 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 	<meta name="description" content="{$article->getLocalizedAbstract()|strip_tags|escape}" />
 	<meta name="author" content="{$article->getAuthorString(false,', ')|strip_tags|escape}" />
 	<meta name="keywords" content="{$article->getLocalizedSubject()|strip_tags|escape|replace:';':','}" />
-	<meta property="og:image" content="/images/graph.jpg" />	
+	<meta property="og:image" content="/images/graph.jpg" />
 
 	{if $article->getLocalizedSubject()}
 		<meta name="keywords" content="{$article->getLocalizedSubject()|escape}" />
@@ -48,12 +48,12 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
  document.body.style.overflow = "hidden";
  }
 </script>{/literal}
-	
+
 	<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/pkp.css" type="text/css" />
 <!-- 	<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/common.css" type="text/css" />
 	<link rel="stylesheet" href="{$baseUrl}/styles/common.css" type="text/css" /> -->
 	<link rel="stylesheet" href="{$baseUrl}/styles/compiled.css" type="text/css" />
-	<link rel="stylesheet" href="{$baseUrl}/plugins/themes/morepress/css/articleView.css" type="text/css" />
+	<link rel="stylesheet" href="{$baseUrl}/plugins/themes/morepress/css/articleView.css?v=2" type="text/css" />
 <!-- 	<link rel="stylesheet" href="{$baseUrl}/styles/articleView.css" type="text/css" /> -->
 	{if $journalRt && $journalRt->getEnabled()}
 		<link rel="stylesheet" href="{$baseUrl}/lib/pkp/styles/rtEmbedded.css" type="text/css" />
@@ -121,11 +121,11 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 </figure>
 {/if}
 <h1>
-	
+
 {if $displayPageHeaderTitle && is_array($displayPageHeaderTitle)}
 	<figure>
 		<img src="{$publicFilesDir}/{$displayPageHeaderTitle.uploadName|escape:"url"}" width="{$displayPageHeaderTitle.width|escape}" height="{$displayPageHeaderTitle.height|escape}" {if $displayPageHeaderTitleAltText != ''}alt="{$displayPageHeaderTitleAltText|escape}"{else}alt="{translate key="common.pageHeader.altText"}"{/if} />
-	</figure>	
+	</figure>
 {elseif $displayPageHeaderTitle}
 	{$displayPageHeaderTitle}
 {elseif $alternatePageHeader}
@@ -143,17 +143,17 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 <div id="body">
 {if $leftSidebarCode || $rightSidebarCode}
 	<div id="sidebar">
-		
+
 			<div id="rightSidebar">
 				{include file="article/morepressRightSidebar.tpl"}
 				{if $leftSidebarCode}{$leftSidebarCode}{/if}
 			</div>
-		
-		
+
+
 			<div id="leftSidebar">
 				{if $rightSidebarCode}{$rightSidebarCode}{/if}
 			</div>
-		
+
 	</div>
 {/if}
 <div id="mainShrinked">
@@ -162,17 +162,17 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 <h4 style="text-align:center;font-size:1.6em;margin-bottom:0.3em;"><a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a></h4>
 
 <div id="breadcrumb">
-{translate key="morePress.bread"}... 
+{translate key="morePress.bread"}...
 		{if ($currentJournal==null)}
-	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt; 
+	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt;
 	{else}
 	<a href="/">Morepress</a> &gt; <a href="/journals">{translate key="common.morepressJournals"}</a> &gt; <a href="{url context=$homeContext page="index"}">{$currentJournal->getLocalizedSetting('title')}</a> &gt;
 	{/if}
 	{if $issue}<a href="{url page="issue" op="view" path=$issue->getBestIssueId($currentJournal)}" target="_parent">{$issue->getIssueIdentification(false,true)|escape}</a> &gt;{/if}
 	<a href="{url page="article" op="view" path=$articleId}" class="current" target="_parent">{$article->getLocalizedTitle()|substr:0:25|escape}...</a>
 	{if $galley}&gt; <a href="{url page="article" op="view" path=$articleId|to_array:$galleyId}" class="current" target="_parent">{$galley->getGalleyLabel()|escape}</a>{/if}
-	
-	
+
+
 </div>
 
 <div id="content">
