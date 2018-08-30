@@ -13,8 +13,134 @@
 {else}
 	{assign var=pubObject value=$article}
 {/if}
-
 {/strip}
+{if $smarty.get.export == "bibtex"}
+{literal}
+@article{{/literal}{$journal->getLocalizedInitials()|escape}{$articleId|escape}{literal},
+	author = {{/literal}{assign var=authors value=$article->getAuthors()}{foreach from=$authors item=author name=authors key=i}{assign var=firstName value=$author->getFirstName()}{assign var=authorCount value=$authors|@count}{$firstName|escape} {$author->getLastName()|escape}{if $i<$authorCount-1} {translate key="common.and"} {/if}{/foreach}{literal}},
+	title = {{/literal}{$article->getLocalizedTitle()|strip_tags|escape}{literal}},
+	journal = {{/literal}{$journal->getLocalizedTitle()|escape}{literal}},
+{/literal}{if $issue}{literal}	volume = {{/literal}{$issue->getVolume()|escape}{literal}},
+	number = {{/literal}{$issue->getNumber()|escape}{literal}},{/literal}{/if}{literal}
+	year = {{/literal}{if $article->getDatePublished()}{$article->getDatePublished()|date_format:'%Y'}{elseif $issue->getDatePublished()}{$issue->getDatePublished()|date_format:'%Y'}{else}{$issue->getYear()|escape}{/if}{literal}},
+	keywords = {{/literal}{$article->getLocalizedSubject()|escape}{literal}},
+	abstract = {{/literal}{$article->getLocalizedAbstract()|strip_tags:false|escape}{literal}},
+{/literal}{assign var=onlineIssn value=$journal->getSetting('onlineIssn')}
+{assign var=issn value=$journal->getSetting('issn')}{if $issn}{literal}	issn = {{/literal}{$issn|escape}{literal}},{/literal}
+{elseif $onlineIssn}{literal}	issn = {{/literal}{$onlineIssn|escape}{literal}},{/literal}{/if}
+{if $article->getPages()}{if $article->getStartingPage()}	pages = {literal}{{/literal}{$article->getStartingPage()}{if $article->getEndingPage()}--{$article->getEndingPage()}{/if}{literal}}{/literal},{/if}{/if}
+{if $article->getPubId('doi')}	doi = {ldelim}{$article->getPubId('doi')|escape}{rdelim},
+{/if}
+	url = {ldelim}{url|escape page="article" op="view" path=$article->getBestArticleId()}{rdelim}
+{rdelim}
+{/literal}
+{if $smarty.get.download == "yes"}
+{php}
+header('Content-Disposition: attachment; filename=bibtex_'.$_GET["articleid"].'.bib');
+header("Content-Type: application/x-bibtex; ");
+exit();
+{/php}
+{else}
+{php}
+exit();
+{/php}
+{/if}
+{elseif $smarty.get.export == "endnote"}
+{**
+ * plugins/citationFormats/endNote/citation.tpl
+ *
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * EndNote citation format generator
+ *
+ *}
+{if $galleyId}
+	{url|assign:"articleUrl" page="article" op="view" path=$articleId|to_array:$galleyId}
+{else}
+	{url|assign:"articleUrl" page="article" op="view" path=$articleId}
+{/if}
+{foreach from=$article->getAuthors() item=author}
+%A {$author->getFullName(true)|escape}
+{/foreach}
+{if $article->getDatePublished()}
+%D {$article->getDatePublished()|date_format:"%Y"}
+{elseif $issue->getDatePublished()}
+%D {$issue->getDatePublished()|date_format:"%Y"}
+{else}
+%D {$issue->getYear()|escape}
+{/if}
+%T {$article->getLocalizedTitle()|strip_tags}
+%B {$article->getDatePublished()|date_format:"%Y"}
+%9 {$article->getLocalizedSubject()|escape}
+%! {$article->getLocalizedTitle()|strip_tags}
+%K {$article->getLocalizedSubject()|escape}
+%X {$article->getLocalizedAbstract()|strip_tags|replace:"\n":" "|replace:"\r":" "}
+%U {$articleUrl}
+%0 Journal Article
+{if $article->getPubId('doi')}%R {$article->getPubId('doi')|escape}
+{/if}
+{if $article->getPages()}
+{if $article->getStartingPage()}%& {$article->getStartingPage()|escape}{/if}
+{if $article->getEndingPage()}
+{math equation="end - start + 1" end=$article->getEndingPage() start=$article->getStartingPage() assign=pages}
+%P {$pages}
+{else}
+%P 1
+{/if}
+{/if}
+%J {$currentJournal->getLocalizedTitle()|escape}
+{if $issue->getShowVolume()}%V {$issue->getVolume()|escape}
+{/if}
+{if $issue->getShowNumber()}%N {$issue->getNumber()|escape}
+{/if}
+{if $currentJournal->getSetting('onlineIssn')}%@ {$currentJournal->getSetting('onlineIssn')|escape}
+{elseif $currentJournal->getSetting('printIssn')}%@ {$currentJournal->getSetting('printIssn')|escape}
+{/if}
+{if $article->getDatePublished()}
+%8 {$article->getDatePublished()|date_format:"%Y-%m-%d"}
+{/if}
+{if $issue->getDatePublished()}
+%7 {$issue->getDatePublished()|date_format:"%Y-%m-%d"}
+{/if}
+{php}
+header('Content-Disposition: attachment; filename=endnote_'.$_GET["articleid"].'.enw');
+header("Content-Type: application/x-endnote-refer; ");
+exit();
+{/php}
+{elseif $smarty.get.export == "ris"}
+{if $galleyId}
+	{url|assign:"articleUrl" page="article" op="view" path=$articleId|to_array:$galleyId}
+{else}
+	{url|assign:"articleUrl" page="article" op="view" path=$articleId}
+{/if}
+TY  - JOUR
+{foreach from=$article->getAuthors() item=author}
+AU  - {$author->getFullName(true)|escape}
+{/foreach}
+{if $article->getDatePublished()}
+PY  - {$article->getDatePublished()|date_format:"%Y"}
+{elseif $issue->getDatePublished()}
+PY  - {$issue->getDatePublished()|date_format:"%Y"}
+{else}
+PY  - {$issue->getYear()|escape}
+{/if}
+TI  - {$article->getLocalizedTitle()|strip_tags}
+JF  - {$journal->getLocalizedTitle()}{if $issue}; {$issue->getIssueIdentification()|strip_tags}{/if}
+
+{if $article->getPubId('doi')}DO  - {$article->getPubId('doi')|escape}
+{/if}
+KW  - {$article->getLocalizedSubject()|escape}
+N2  - {$article->getLocalizedAbstract()|strip_tags|replace:"\n":" "|replace:"\r":" "}
+UR  - {$articleUrl}
+{php}
+header('Content-Disposition: attachment; filename=ris_'.$_GET["articleid"].'.ris');
+header("Content-Type: application/x-research-info-systems; ");
+exit();
+{/php}
+{/if}
+
 
 {if $galley}
 	{if $galley->isHTMLGalley()}
@@ -93,6 +219,25 @@
 	{/foreach}
 	</div>
 	{/if}
+
+  <span class="blockSubtitle">{translate key="morePress.share"}</span>
+  <div id="tocLinksContainer">
+    <a href="http://www.facebook.com/sharer.php?u=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+    <a href="http://twitter.com/share?url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}&text={$article->getLocalizedTitle()}&via=UNIZDmorepress" id="tocItemFullTextLink" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+    <a href="https://plus.google.com/share?url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}&title={$article->getLocalizedTitle()}&summary=blabla&source=morepress.unizd.hr" id="tocItemFullTextLink" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+    <a href="http://www.mendeley.com/import/?doi=10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-share-alt-square" aria-hidden="true"></i> Mendeley</a>
+    <a href="http://www.citeulike.org/posturl?url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-share-alt-square" aria-hidden="true"></i> CiteUlike</a>
+    <a href="mailto:?subject={$article->getLocalizedTitle()} - Morepress &body=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-envelope-square" aria-hidden="true"></i> E-mail</a>
+  </div>
+
+  <span class="blockSubtitle">{translate key="morePress.exportCit"}</span>
+  <div id="tocLinksContainer">
+  <a href="{$article->getId()}?lang={$currentLocale}&export=bibtex&download=no&articleid={$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> BibTeX</a>
+  <a href="{$article->getId()}?lang={$currentLocale}&export=bibtex&download=yes&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-download" aria-hidden="true"></i> BibTeX</a>
+  <a href="{$article->getId()}?lang={$currentLocale}&export=ris&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-download" aria-hidden="true"></i> RIS</a>
+  <a href="{$article->getId()}?lang={$currentLocale}&export=endnote&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-download" aria-hidden="true"></i> EndNote</a>
+  </div>
 
 	{if $citationFactory->getCount()}
 		<div id="articleCitations" class="block">

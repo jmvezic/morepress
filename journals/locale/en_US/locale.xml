@@ -1289,6 +1289,8 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.searchSite">Search for articles on Morepress</message>
 	<message key="morePress.thisJournal">Current journal</message>
 	<message key="morePress.allJournals">All journals</message>
+	<message key="morePress.share">Share this article</message>
+	<message key="morePress.exportCit">Export citation metadata</message>
 
         <message key="morePress.homepage">Homepage</message>
         <message key="morePress.journals">Journals</message>
