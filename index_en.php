@@ -52,8 +52,8 @@ function gitVersion()
 		<!-- Header -->
 			<header id="header">
 				<div class="content">
-					<h1><a href="/"><img style="max-width:800px;width:100%;" src="/journals/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a></h1>
-					<p style="color:white;">Online publishing platform by<br>University of Zadar</p>
+					<h1><a href="/"><img style="max-width:600px;width:90%;" src="/journals/plugins/themes/morepress/img/morepress_bijeli_veci.png" /></a></h1>
+					<p>Online publishing platform by<br>University of Zadar</p>
 					<ul class="actions">
 						<li><a href="/journals" class="button special icon fa-files-o">Journals online</a></li>
 						<li><a href="/books" class="button special icon fa-book">Books online</a></li>
@@ -66,7 +66,7 @@ function gitVersion()
 					?>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
-				<!-- <div class="image phone"><div class="inner"><img src="images/screen_more.png" alt="" /></div></div> -->
+				<div class="image phone"><div class="inner"><img src="images/screen_more.png" alt="" /></div></div>
 			</header>
 
 
