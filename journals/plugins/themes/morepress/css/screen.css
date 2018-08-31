@@ -1366,11 +1366,19 @@ font-size: 12px;
 
 /* Main
 ============================ */
+#main {
+  width: 70%; /* one or no sidebars */
+}
+
+#mainShrinked {
+  width: 60%; /* both sidebars */
+}
+
 #main, #mainShrinked {
-  width: 60%; /* original 74 */
   float: left;
   margin: 0 1%;
 }
+
 #main img {
   max-width: 600px;
   height: auto;
