@@ -16,7 +16,7 @@
 {/strip}
 {if $smarty.get.export == "bibtex"}
 {literal}
-@article{{/literal}{$journal->getLocalizedInitials()|escape}{$articleId|escape}{literal},
+@article{{/literal}{$journal->getLocalizedInitials()|lower()|escape}{$articleId|escape}{literal},
 	author = {{/literal}{assign var=authors value=$article->getAuthors()}{foreach from=$authors item=author name=authors key=i}{assign var=firstName value=$author->getFirstName()}{assign var=authorCount value=$authors|@count}{$firstName|escape} {$author->getLastName()|escape}{if $i<$authorCount-1} {translate key="common.and"} {/if}{/foreach}{literal}},
 	title = {{/literal}{$article->getLocalizedTitle()|strip_tags|escape}{literal}},
 	journal = {{/literal}{$journal->getLocalizedTitle()|escape}{literal}},
@@ -222,13 +222,16 @@ exit();
 
   <span class="blockSubtitle">{translate key="morePress.share"}</span>
   <div id="tocLinksContainer">
-    <a href="http://www.facebook.com/sharer.php?u=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
-    <a href="http://twitter.com/share?url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}&text={$article->getLocalizedTitle()}&via=UNIZDmorepress" id="tocItemFullTextLink" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
-    <a href="https://plus.google.com/share?url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}&title={$article->getLocalizedTitle()}&summary=blabla&source=morepress.unizd.hr" id="tocItemFullTextLink" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
-    <a href="http://www.mendeley.com/import/?doi=10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-share-alt-square" aria-hidden="true"></i> Mendeley</a>
-    <a href="http://www.citeulike.org/posturl?url=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-share-alt-square" aria-hidden="true"></i> CiteUlike</a>
-    <a href="mailto:?subject={$article->getLocalizedTitle()} - Morepress &body=https://doi.org/10.15291/{$currentJournal->getPath()}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-envelope-square" aria-hidden="true"></i> E-mail</a>
+    <a href="http://www.facebook.com/sharer.php?u=https://doi.org/10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+    <a href="http://twitter.com/share?url=https://doi.org/10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}&text={$article->getLocalizedTitle()}&via=UNIZDmorepress" id="tocItemFullTextLink" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i> Twitter</a>
+    <a href="https://www.reddit.com/submit?url=https://doi.org/10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}&title={$article->getLocalizedTitle()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-reddit-square"></i> Reddit</a>
+    <a href="https://plus.google.com/share?url=https://doi.org/10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-google-plus-square" aria-hidden="true"></i> Google+</a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=https://doi.org/10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}&title={$article->getLocalizedTitle()}&summary=blabla&source=morepress.unizd.hr" id="tocItemFullTextLink" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+  </div>
+  <div id="tocLinksContainer">
+    <a href="http://www.mendeley.com/import/?doi=10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-share-alt-square" aria-hidden="true"></i> Mendeley</a>
+    <a href="http://www.citeulike.org/posturl?url=https://doi.org/10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-share-alt-square" aria-hidden="true"></i> CiteUlike</a>
+    <a href="mailto:?subject={$article->getLocalizedTitle()} - Morepress &body=https://doi.org/10.15291/{$currentJournal->getLocalizedInitials()|lower}.{$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-envelope-square" aria-hidden="true"></i> E-mail</a>
   </div>
 
   <span class="blockSubtitle">{translate key="morePress.exportCit"}</span>

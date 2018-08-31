@@ -2619,7 +2619,6 @@ border-top-right-radius: 5px;
 	#tocItemFullTextLink, .JournalTab {
 		width: auto;
 		border:1px solid #CCC;
-		border-bottom: 0;
 	}
 	.JournalTab:first-child {
 		border-top-left-radius: 0;
@@ -2647,6 +2646,7 @@ border-top-right-radius: 5px;
 @media screen and (max-width:500px) {
 	#tocItemFullTextLink, .JournalTab {
 		width: 100%;
+    border-bottom: 0;
 	}
 }
 
