@@ -22,7 +22,7 @@
 	journal = {{/literal}{$journal->getLocalizedTitle()|escape}{literal}},
 {/literal}{if $issue}{literal}	volume = {{/literal}{$issue->getVolume()|escape}{literal}},
 	number = {{/literal}{$issue->getNumber()|escape}{literal}},{/literal}{/if}{literal}
-	year = {{/literal}{if $article->getDatePublished()}{$article->getDatePublished()|date_format:'%Y'}{elseif $issue->getDatePublished()}{$issue->getDatePublished()|date_format:'%Y'}{else}{$issue->getYear()|escape}{/if}{literal}},
+	year = {{/literal}{if $issue->getDatePublished()}{$issue->getYear()}{/if}{literal}},
 	keywords = {{/literal}{$article->getLocalizedSubject()|escape}{literal}},
 	abstract = {{/literal}{$article->getLocalizedAbstract()|strip_tags:false|escape}{literal}},
 {/literal}{assign var=onlineIssn value=$journal->getSetting('onlineIssn')}
@@ -64,12 +64,8 @@ exit();
 {foreach from=$article->getAuthors() item=author}
 %A {$author->getFullName(true)|escape}
 {/foreach}
-{if $article->getDatePublished()}
-%D {$article->getDatePublished()|date_format:"%Y"}
-{elseif $issue->getDatePublished()}
-%D {$issue->getDatePublished()|date_format:"%Y"}
-{else}
-%D {$issue->getYear()|escape}
+{if $issue->getDatePublished()}
+%D {$issue->getYear()}
 {/if}
 %T {$article->getLocalizedTitle()|strip_tags}
 %B {$article->getDatePublished()|date_format:"%Y"}
@@ -119,12 +115,8 @@ TY  - JOUR
 {foreach from=$article->getAuthors() item=author}
 AU  - {$author->getFullName(true)|escape}
 {/foreach}
-{if $article->getDatePublished()}
-PY  - {$article->getDatePublished()|date_format:"%Y"}
-{elseif $issue->getDatePublished()}
-PY  - {$issue->getDatePublished()|date_format:"%Y"}
-{else}
-PY  - {$issue->getYear()|escape}
+{if $issue->getDatePublished()}
+PY  - {$issue->getYear()}
 {/if}
 TI  - {$article->getLocalizedTitle()|strip_tags}
 JF  - {$journal->getLocalizedTitle()}{if $issue}; {$issue->getIssueIdentification()|strip_tags}{/if}
