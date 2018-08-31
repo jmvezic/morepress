@@ -16,7 +16,7 @@
 {/strip}
 {if $smarty.get.export == "bibtex"}
 {literal}
-@article{{/literal}{$journal->getLocalizedInitials()|lower()|escape}{$articleId|escape}{literal},
+@article{{/literal}{$journal->getLocalizedInitials()|escape}{$articleId|escape}{literal},
 	author = {{/literal}{assign var=authors value=$article->getAuthors()}{foreach from=$authors item=author name=authors key=i}{assign var=firstName value=$author->getFirstName()}{assign var=authorCount value=$authors|@count}{$firstName|escape} {$author->getLastName()|escape}{if $i<$authorCount-1} {translate key="common.and"} {/if}{/foreach}{literal}},
 	title = {{/literal}{$article->getLocalizedTitle()|strip_tags|escape}{literal}},
 	journal = {{/literal}{$journal->getLocalizedTitle()|escape}{literal}},
