@@ -249,7 +249,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 
 </div>
 
-<div class="indexTitle" id="radoviffzd" style="clear:both;">{translate key="morePress.radoviUNIZD"}</div>
+<div class="indexTitle shareparent" id="radoviffzd" style="clear:both;">{translate key="morePress.radoviUNIZD"} <a href="#!" class="sharelink" data-clipboard-text="{$baseUrl}#radoviffzd"><i class="fa fa-link" aria-hidden="true"></i> <span class="shareoriginal">{translate|lower key="morePress.copyLink"}</span><span class="sharesuccess">{translate|lower key="morePress.copySuccess"}</span></a></div>
 <div id="indexRadovi">
 
 

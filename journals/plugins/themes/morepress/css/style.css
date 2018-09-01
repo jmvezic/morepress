@@ -189,3 +189,41 @@ color:black;
 			display:none;
 		}
 }
+
+.sharelink {
+		font-size: 0.6em;
+		display: none;
+}
+
+.sharelink.larger {
+	font-size: 0.8em;
+}
+
+.sharelink:active {
+	color: green;
+}
+
+.shareparent:hover > .sharelink { display: inline-block;opacity: 1;}
+
+.sharehidden {
+	display: none;
+}
+
+.sharesuccess {
+	display: none;
+}
+
+.sharesuccess.sharehighlight {
+display: inline-block;
+opacity: 1;
+}
+
+.sharelink:hover {
+	text-decoration: none;
+}
+
+
+.sharelink.toc, .sharehidden.toc, .sharesuccess.toc {
+	display: inline;
+	opacity: 0;
+}

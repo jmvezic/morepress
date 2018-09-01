@@ -23,7 +23,7 @@
 {if $displayCreativeCommons}
 	{translate key="common.ccLicense"}
 {/if}
-<!-- 
+<!--
 <div id="pageFooter">
 {if $pageFooter}
 	{$pageFooter}
@@ -31,7 +31,7 @@
 {call_hook name="Templates::Common::Footer::PageFooter"}
 
 	<div id="standardFooter">
-	
+
 		<a href="http://unizd.hr">
 			<img src="{$baseUrl}/plugins/themes/morepress/img/unizd-logo.svg" alt="UNIZD"/>
 		</a>
@@ -63,15 +63,15 @@
 		{if $isUserLoggedIn}
 			<a href="{url page="user"}"><li>{$loggedInUsername|escape}</li></a>
 			<a href="{$baseUrl}/index.php/index/login/signOut"><li>{translate key="common.logout"}</li></a>
-			
+
 		{else}
 			<a href="{url page="login"}"><li>{translate key="navigation.login"}</li></a>
-			
+
 			{if !$hideRegisterLink}
 				<a href="{url page="user" op="register"}"><li>{translate key="navigation.register"}</li></a>
-				
+
 			{/if}
-			
+
 		{/if}{* $isUserLoggedIn *}
 		</ul>
 		<h2>{translate key="navigation.aboutSite"}</h2>
@@ -127,6 +127,7 @@ function gitVersion()
 {get_debug_info}
 {if $enableDebugStats}{include file=$pqpTemplate}{/if}
 
-
+<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/clipboard/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/clipboardinit.js"></script>
 </body>
 </html>
