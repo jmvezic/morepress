@@ -28,17 +28,7 @@
 
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/anchor.js?v=2"></script>
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/newlinesremove.js"></script>
-<script>
-$(document).ready(function(){ldelim}
-$( ".sharelink" ).click(function() {ldelim}
-  $(this).find( ".sharesuccess" ).toggleClass( "sharehighlight" );
-  $(this).find( ".shareoriginal" ).toggleClass( "sharehidden" );
-  var that = this;
-  setTimeout(function() {ldelim}$(that).find( ".sharesuccess" ).toggleClass( "sharehighlight" );{rdelim}, 900)
-  setTimeout(function() {ldelim}$(that).find( ".shareoriginal" ).toggleClass( "sharehidden" );{rdelim}, 1000)
-{rdelim});
-{rdelim});
-</script>
+<script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/sharetoggle.js"></script>
 
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/piwik.js"></script>
 
