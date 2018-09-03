@@ -267,6 +267,19 @@ $Journals = $DAO->retrieve("SELECT journals.journal_id, MAX(issues.date_publishe
 
 $InJournals = $InDAO->retrieve("SELECT journals.journal_id, MAX(issues.date_published) FROM journals LEFT JOIN issues ON journals.journal_id = issues.journal_id GROUP BY journals.journal_id ORDER BY MAX(issues.date_published) DESC");
 
+$ids_for_check = array();
+
+while (!$InJournals->EOF) {
+  array_push($ids_for_check, $InJournals->fields["journal_id"]);
+  $InJournals->MoveNext();
+}
+
+$max_jour_id = max($ids_for_check);
+
+if ($max_jour_id < 12) {
+  echo $AppLocale->translate("morePress.comingSoon");
+}
+
 while (!$Journals->EOF) {
 	$JourID = $Journals->fields["journal_id"];
 	$JournalObject = $JournalDAO->getById($JourID);
