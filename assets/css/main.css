@@ -3775,15 +3775,16 @@ font-size: 0.8em;
 			}
 
 				#header .image.phone .inner, #header .image.phone:before, #header .image.phone:after {
-					border-color: rgba(255, 255, 255, 0.25);
+					border-color: #aaa;
+					background-color: white;
 				}
 
 				#header .image.phone .inner:before {
-					background: rgba(255, 255, 255, 0.25);
+					background: #aaa;
 				}
 
 				#header .image.phone .inner:after {
-					border-color: rgba(255, 255, 255, 0.25);
+					border-color: #aaa;
 				}
 
 		#header ul.alt > li {

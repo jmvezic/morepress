@@ -66,7 +66,7 @@ function gitVersion()
 					?>
 					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
-				<div class="image phone"><div class="inner"><img src="images/screen_more.png" alt="" /></div></div>
+				<div class="image phone"><div class="inner"><img src="images/mp_mobile_hr.png" alt="" /></div></div>
 			</header>
 
 
