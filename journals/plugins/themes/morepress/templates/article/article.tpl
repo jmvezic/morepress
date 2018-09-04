@@ -206,11 +206,23 @@ exit();
 
 	{if $Galley->isPdfGalley()}
 	<a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {$Galley->getGalleyLabel()|escape}</a>
-	{/if}
+  {/if}
 
 	{/foreach}
 	</div>
 	{/if}
+
+
+{assign var=Supplementaries value=$article->getSuppFiles()}
+{if $Supplementaries}
+  <span class="blockSubtitle">{translate key="article.suppFile"}</span>
+  <div id="tocLinksContainer">
+  {foreach from=$Supplementaries item=Suppl}
+    <a href="{url op="downloadSuppFile" path=$articleId|to_array:$Suppl->getSuppFileId()}" id="tocItemFullTextLink" {if $Suppl->getRemoteURL()}target="_blank"{else}target="_parent"{/if} download><i class="fa fa-download" aria-hidden="true"></i> {$Suppl->getTitle($currentLocale)|escape}</a>
+  {/foreach}
+</div>
+{/if}
+
 
   <span class="blockSubtitle">{translate key="morePress.share"}</span>
   <div id="tocLinksContainer">
