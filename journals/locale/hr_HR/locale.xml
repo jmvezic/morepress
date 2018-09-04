@@ -1230,6 +1230,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.copyLink">Kopiraj poveznicu</message>
 	<message key="morePress.copySuccess">Poveznica kopirana</message>
 	<message key="morePress.comingSoon">Dolazi uskoro</message>
+	<message key="morePress.containsSuppFiles">Sadrži dopunske dodatke</message>
 
 	<message key="common.copied">Kopirano</message>
 

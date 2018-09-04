@@ -111,6 +111,12 @@
 {get_debug_info}
 {if $enableDebugStats}{include file=$pqpTemplate}{/if}
 </div> <!-- container -->
+
+<script>
+{literal}
+  tippy('a')
+{/literal}
+</script>
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/clipboard/dist/clipboard.min.js"></script>
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/clipboardinit.js"></script>
 </body>

@@ -29,6 +29,7 @@
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/anchor.js?v=2"></script>
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/newlinesremove.js"></script>
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/sharetoggle.js"></script>
+<script src="{$baseUrl}/plugins/themes/morepress/js/tippy.all.min.js"></script>
 
 <script async type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/piwik.js"></script>
 

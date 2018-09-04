@@ -1295,6 +1295,7 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.copySuccess">Link copied</message>
 	<message key="common.copied">Copied</message>
 	<message key="morePress.comingSoon">Coming soon</message>
+	<message key="morePress.containsSuppFiles">Contains supplementary files</message>
 
         <message key="morePress.homepage">Homepage</message>
         <message key="morePress.journals">Journals</message>
