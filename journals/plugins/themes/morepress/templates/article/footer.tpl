@@ -91,12 +91,12 @@
 		document.captureEvents(Event.DBLCLICK);
 	}
 
-	// Make sure to only open the reading tools when double clicking within the galley	
+	// Make sure to only open the reading tools when double clicking within the galley
 	if (document.getElementById('inlinePdfResizer')) {
-		context = document.getElementById('inlinePdfResizer');	
+		context = document.getElementById('inlinePdfResizer');
 	}
 	else if (document.getElementById('content')) {
-		context = document.getElementById('content');	
+		context = document.getElementById('content');
 	}
 	else {
 		context = document;
@@ -111,5 +111,7 @@
 {get_debug_info}
 {if $enableDebugStats}{include file=$pqpTemplate}{/if}
 </div> <!-- container -->
+<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/clipboard/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/clipboardinit.js"></script>
 </body>
 </html>

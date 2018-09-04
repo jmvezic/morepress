@@ -3776,7 +3776,7 @@ font-size: 0.8em;
 
 				#header .image.phone .inner, #header .image.phone:before, #header .image.phone:after {
 					border-color: #aaa;
-					background-color: white;
+					background-color: #eee;
 				}
 
 				#header .image.phone .inner:before {

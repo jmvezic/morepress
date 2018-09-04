@@ -245,7 +245,7 @@ exit();
 		</div>
 	{/if}
 {/if}
-<div class="block">
+<div class="block shareparent">
 {foreach from=$pubIdPlugins item=pubIdPlugin}
 	{if $issue->getPublished()}
 		{assign var=pubId value=$pubIdPlugin->getPubId($pubObject)}
@@ -253,7 +253,7 @@ exit();
 		{assign var=pubId value=$pubIdPlugin->getPubId($pubObject, true)}{* Preview rather than assign a pubId *}
 	{/if}
 	{if $pubId}
-		{$pubIdPlugin->getPubIdDisplayType()|escape}: {if $pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}<a id="pub-id::{$pubIdPlugin->getPubIdType()|escape}" href="{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}">{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}</a>{else}{$pubId|escape}{/if}
+		{$pubIdPlugin->getPubIdDisplayType()|escape}: {if $pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}<a id="pub-id::{$pubIdPlugin->getPubIdType()|escape}" href="{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}">{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}</a> <a href="#!" class="sharelink larger" data-clipboard-text="{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}"><i class="fa fa-clipboard" aria-hidden="true"></i> <span class="shareoriginal">{translate|lower key="morePress.copyLink"}</span><span class="sharesuccess">{translate|lower key="morePress.copySuccess"}</span></a>{else}{$pubId|escape}{/if}
 	{/if}
 {/foreach}
 </div>
