@@ -49,6 +49,8 @@ function gitVersion()
 
 	<body id="top">
 
+		<div id="language"><small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small></div>
+
 		<!-- Header -->
 			<header id="header">
 				<div class="content">
@@ -64,7 +66,6 @@ function gitVersion()
 					 		include 'announce_hr.html';
 						}
 					?>
-					<small><a href="index_hr.php">Hrvatski</a> | <a href="index_en.php">English</a></small>
 				</div>
 				<div class="image phone"><div class="inner"><img src="images/mp_mobile_hr.png" alt="" /></div></div>
 			</header>
