@@ -67,7 +67,7 @@
 	{/if}
 
 		<span class="blockSubtitle">{$pubIdPlugin->getPubIdDisplayType()|escape}</span>
-		{if $pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}<a id="pub-id::{$pubIdPlugin->getPubIdType()|escape}" href="{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}">{$pubIdPlugin->getPubId($article)|escape}</a> <a href="#!" class="sharelink larger" data-clipboard-text="{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}"><i class="fa fa-clipboard" aria-hidden="true"></i> <span class="shareoriginal">{translate|lower key="morePress.copyLink"}</span><span class="sharesuccess">{translate|lower key="morePress.copySuccess"}</span></a>{else}{$pubId|escape}{/if}
+		{if $pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}<a id="pub-id::{$pubIdPlugin->getPubIdType()|escape}" href="{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}">{$pubIdPlugin->getPubId($article)|escape}</a> <a href="#!" class="sharelink larger" data-clipboard-text="{$pubIdPlugin->getResolvingURL($currentJournal->getId(), $pubId)|escape}"><i class="fa fa-clipboard" aria-hidden="true"></i> <span class="shareoriginal">{translate|lower key="common.copy"}</span><span class="sharesuccess">{translate|lower key="common.copied"}</span></a>{else}{$pubId|escape}{/if}
 
 
 
