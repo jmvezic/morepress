@@ -54,7 +54,7 @@
 	{/if}
 
 	<span class="blockSubtitle">{translate key="issue.issue"}</span>
-	<ul><li><a href="{url page="issue" op="view" path=$issue->getBestIssueId($currentJournal)}" target="_parent">{$issue->getIssueIdentification(false,true)|escape}</a></li></ul>
+<a href="{url page="issue" op="view" path=$issue->getBestIssueId($currentJournal)}" target="_parent">{$issue->getIssueIdentification(false,true)|escape}</a>
 
 	<span class="blockSubtitle">{translate key="section.section"}</span>
 	{$article->getSectionTitle()|escape}

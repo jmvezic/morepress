@@ -14,6 +14,7 @@ div#content p{
 background: none;
 background-color: transparent;
 	border: 0;
+	margin-bottom:0 !important;
 }
 
 #articleTitle h3{

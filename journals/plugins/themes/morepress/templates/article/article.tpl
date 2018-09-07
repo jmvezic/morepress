@@ -175,7 +175,37 @@ exit();
 	</div>
   </div>
 
-	<div id="mobileRightSidebar">{include file="article/morepressRightSidebar.tpl"}</div>
+  <div id="tocLinksContainer">
+    <span id="tocItemFullTextLink" class="disabledLink" href="#" title="{translate key="morePress.openAccessDesc"}"><i class="fa fa-unlock-alt"></i> {translate key="morePress.openAccess"}</span>
+</div>
+
+{if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
+  {assign var=hasAccess value=1}
+{else}
+  {assign var=hasAccess value=0}
+{/if}
+
+{assign var=Galleys value=$article->getGalleys()}
+{if $Galleys}{foreach from=$Galleys item=Galley}
+<div id="tocLinksContainer">
+{if $Galley->getLocale() == $currentLocale}
+{if $Galley->isHTMLGalley()}
+<a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-eye" aria-hidden="true"></i> {translate key="morePress.read"} (HTML)</a>
+{elseif $Galley->isPdfGalley()}
+  <a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-eye" aria-hidden="true"></i> {translate key="morePress.read"} (PDF)</a>
+{else}
+<a href="{url path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-eye" aria-hidden="true"></i> {translate key="morePress.read"}</a>
+{/if}
+{/if}
+{if $Galley->isPdfGalley()}
+{if $Galley->getLocale() == $currentLocale}
+  <a href="{url op="download" path=$article->getBestArticleId($currentJournal)|to_array:$Galley->getBestGalleyId($currentJournal)}" id="tocItemFullTextLink" {if $Galley->getRemoteURL()}target="_blank"{else}target="_parent"{/if}><i class="fa fa-download" aria-hidden="true"></i> {translate key="morePress.download"} ({$Galley->getGalleyLabel()|escape})</a>
+{/if}
+
+{/if}
+</div>
+{/foreach}
+{/if}
 
 	{if $article->getLocalizedAbstract()}
 		<div id="articleAbstract" class="block">
@@ -184,6 +214,8 @@ exit();
 		</div>
 	{/if}
 
+  	<div id="mobileRightSidebar">{include file="article/morepressRightSidebar.tpl"}</div>
+
 	<!-- {if $article->getLocalizedSubject()}
 		<div id="articleSubject" class="block">
 		<h4>{translate key="article.subject"}</h4>
@@ -191,14 +223,8 @@ exit();
 		</div>
 	{/if} -->
 
-	{if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
-		{assign var=hasAccess value=1}
-	{else}
-		{assign var=hasAccess value=0}
-	{/if}
 
-{assign var=Galleys value=$article->getGalleys()}
-	{if $Galleys}
+	<!-- {if $Galleys}
 	<span class="blockSubtitle">{translate key="reader.fullText"}</span>
 	<div id="tocLinksContainer">
 	{foreach from=$Galleys item=Galley}
@@ -210,7 +236,7 @@ exit();
 
 	{/foreach}
 	</div>
-	{/if}
+	{/if} -->
 
 
 {assign var=Supplementaries value=$article->getSuppFiles()}

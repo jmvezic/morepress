@@ -227,3 +227,13 @@ opacity: 1;
 	display: inline;
 	opacity: 0;
 }
+
+.disabledLink {
+	background-color: #23a249;
+	color: white !important;
+	border: 1px solid #23a249 !important;
+}
+
+.disabledLink:hover {
+	background-color: #23a249 !important;
+}

@@ -1231,6 +1231,10 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.copySuccess">Poveznica kopirana</message>
 	<message key="morePress.comingSoon">Dolazi uskoro</message>
 	<message key="morePress.containsSuppFiles">Sadrži dopunske dodatke</message>
+	<message key="morePress.read">Pročitaj</message>
+	<message key="morePress.download">Preuzmi</message>
+	<message key="morePress.openAccess">Otvoreni pristup</message>
+	<message key="morePress.openAccessDesc">Ovaj članak dostupan je u otvorenom pristupu. Možete ga besplatno pregledavati i preuzimati.</message>
 
 	<message key="common.copied">Kopirano</message>
 

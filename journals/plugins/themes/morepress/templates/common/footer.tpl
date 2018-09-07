@@ -129,7 +129,7 @@ function gitVersion()
 
 <script>
 {literal}
-  tippy('a', {touchHold: false})
+  tippy('a, span', {touchHold: false})
 {/literal}
 </script>
 <script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/clipboard/dist/clipboard.min.js"></script>
