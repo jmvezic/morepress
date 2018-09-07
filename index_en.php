@@ -62,7 +62,7 @@ function gitVersion()
 					</ul>
 					<?php
 					  $filename = 'announce_en.html';
-						if (filesize($filename) != 0){
+						if (filesize($filename) != 0 && new DateTime() > new DateTime("2018-09-10 05:00:00")) {
 					 		include 'announce_en.html';
 						}
 					?>

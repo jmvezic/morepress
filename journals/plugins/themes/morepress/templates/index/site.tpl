@@ -26,17 +26,22 @@
 {/if}
 {if $currentLocale == "hr_HR"}
 {php}
+$isLogged = $this->get_template_vars('isUserLoggedIn');
+$checkName = $this->get_template_vars('loggedInUsername');
 $filename = $_SERVER['DOCUMENT_ROOT'];
 $filename .= '/announce_hr.html';
-if (filesize($filename) != 0){
+$date_now = new DateTime();
+if (filesize($filename) != 0 && (new DateTime() > new DateTime("2018-09-10 05:00:00") || (isset($isLogged) && ($checkName=="morepress" || $checkName=="test") )) ) {
 echo '<a href="#radoviffzd"><img src="/images/promo_hr.png" style="min-width:100% !important;" /></a>';
 }
 {/php}
 {else}
 {php}
+$isLogged = $this->get_template_vars('isUserLoggedIn');
+$checkName = $this->get_template_vars('loggedInUsername');
 $filename = $_SERVER['DOCUMENT_ROOT'];
 $filename .= '/announce_en.html';
-if (filesize($filename) != 0){
+if (filesize($filename) != 0 && (new DateTime() > new DateTime("2018-09-10 05:00:00") || (isset($isLogged) && ($checkName=="morepress" || $checkName=="test") )) ) {
 echo '<a href="#radoviffzd"><img src="/images/promo_en.png" style="min-width:100% !important;" /></a>';
 }
 {/php}
@@ -275,10 +280,13 @@ while (!$InJournals->EOF) {
 }
 
 $max_jour_id = max($ids_for_check);
-
-if ($max_jour_id < 12) {
+$isLogged = $this->get_template_vars('isUserLoggedIn');
+$checkName = $this->get_template_vars('loggedInUsername');
+  $date_now = new DateTime();
+if (new DateTime() < new DateTime("2018-09-10 05:00:00") && (isset($isLogged) && ($checkName!="morepress" && $checkName!="test") )) {
   echo $AppLocale->translate("morePress.comingSoon");
 }
+else {
 
 while (!$Journals->EOF) {
 	$JourID = $Journals->fields["journal_id"];
@@ -345,6 +353,7 @@ echo ' id="jourCategory">'.$ControlVocabSettings->fields["setting_value"].'</div
 }
 	$Journals->MoveNext();
 
+}
 }
 {/php}
 </div>

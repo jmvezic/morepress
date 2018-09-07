@@ -8,6 +8,19 @@
  * Journal index page.
  *
  *}
+
+{php}
+$isLogged = $this->get_template_vars('isUserLoggedIn');
+$checkName = $this->get_template_vars('loggedInUsername');
+if (new DateTime() > new DateTime("2018-09-10 05:00:00") || (isset($isLogged) && ($checkName=="morepress" || $checkName=="test") )){
+
+}
+else {
+  header("Location: /journals");
+  die();
+}
+{/php}
+
 {strip}
 {assign var="pageTitleTranslated" value=$siteTitle}
 {include file="common/journalHeader.tpl"}
