@@ -8,7 +8,7 @@
  * Journal index page.
  *
  *}
-
+{if $currentJournal->getJournalId() > 11}
 {php}
 $isLogged = $this->get_template_vars('isUserLoggedIn');
 $checkName = $this->get_template_vars('loggedInUsername');
@@ -20,6 +20,7 @@ else {
   die();
 }
 {/php}
+{/if}
 
 {strip}
 {assign var="pageTitleTranslated" value=$siteTitle}
