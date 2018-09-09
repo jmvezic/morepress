@@ -1358,6 +1358,7 @@ font-size: 12px;
 #sidebarRTAuthorBios .authorBio {
   /* padding: 0.6em 0; */
   /* border-bottom: 1px solid #D1D3D5; */
+  word-wrap: break-all;
 }
 
 .authorBio p {
