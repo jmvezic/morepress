@@ -99,7 +99,7 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
   "articleSection": "{$article->getSectionTitle()|escape}",
     "name": "{$article->getLocalizedTitle()|strip_tags|escape}",
     "headline": "{$article->getLocalizedTitle()|strip_tags|escape}",
-    {if $article->getLocalizedAbstract()|strip_tags:false|escape}"description": "{$article->getLocalizedAbstract()|strip_tags:false|escape}",{/if}
+    {if $article->getLocalizedAbstract()|strip_tags:false|escape}"description": "{$article->getLocalizedAbstract()|strip_tags:false|strip|escape}",{/if}
     {if $article->getPubId('doi')}"sameAs": "https://doi.org/{$article->getPubId('doi')|escape}",{/if}
   "author": [{assign var="alllAuthors" value=$article->getAuthors()}{foreach name="authorsloop" from=$alllAuthors item=author}{ldelim}
 	"@type": "Person",
