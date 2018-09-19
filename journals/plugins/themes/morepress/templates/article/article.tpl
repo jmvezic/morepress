@@ -359,7 +359,7 @@ exit();
 
   <span class="blockSubtitle">{translate key="morePress.linkedData"}</span>
   <div id="tocLinksContainer">
-  <a href="{$article->getId()}?lang={$currentLocale}&export=jsonld&download=yes&articleid={$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-code-fork" aria-hidden="true"></i> JSON-LD</a>
+  <a href="{$article->getId()}?lang={$currentLocale}&export=jsonld&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-code-fork" aria-hidden="true"></i> JSON-LD</a>
   </div>
 
 	{if $citationFactory->getCount()}
