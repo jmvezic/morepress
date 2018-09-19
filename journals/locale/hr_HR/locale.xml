@@ -1236,6 +1236,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.openAccess">Otvoreni pristup</message>
 	<message key="morePress.openAccessDesc">Ovaj članak dostupan je u otvorenom pristupu. Možete ga besplatno pregledavati i preuzimati.</message>
 	<message key="morePress.ocrDesc">U ovom članku možda naiđete na tipfelere zbog korištenja tehnologije optičkog prepoznavanja znakova.</message>
+	<message key="morePress.linkedData">Povezani podaci</message>
 
 	<message key="common.copied">Kopirano</message>
 

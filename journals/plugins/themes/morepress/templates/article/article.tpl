@@ -131,6 +131,87 @@ header('Content-Disposition: attachment; filename=ris_'.$_GET["articleid"].'.ris
 header("Content-Type: application/x-research-info-systems; ");
 exit();
 {/php}
+{elseif $smarty.get.export == "jsonld"}
+{ldelim}
+  "@context": "http://schema.org/",
+  "@graph": [
+    {ldelim}
+        "@id": "#issue",
+        "@type": "PublicationIssue",
+
+        {if $issue}{literal}"issueNumber": "{/literal}{$issue->getNumber()|escape}"{literal},{/literal}{/if}
+
+        {if $issue}{if $issue->getDatePublished()}{literal}"datePublished": "{/literal}{$issue->getYear()}"{literal},{/literal}{/if}{/if}
+
+        "isPartOf": {ldelim}
+            "@id": "#periodical",
+            "@type": [
+                "PublicationVolume",
+                "Periodical"
+            ],
+            "name": "{$journal->getLocalizedTitle()|escape}",
+            {assign var=onlineIssn value=$journal->getSetting('onlineIssn')}
+            {assign var=issn value=$journal->getSetting('printIssn')}"issn": [
+                {if $issn}{literal}"{/literal}{$issn|escape}{literal}"{/literal}{/if}{if $issn && $onlineIssn},{/if}
+                {if $onlineIssn}{literal}"{/literal}{$onlineIssn|escape}{literal}"{/literal}{/if}
+            ],
+            {if $issue}{literal}"volumeNumber": "{/literal}{$issue->getVolume()|escape}"{literal},{/literal}{/if}
+            "publisher": {ldelim}
+        "@type": "CollegeOrUniversity",
+        "@id": "#unizd",
+        "name": "{translate key="moreFooter.university"}",
+        "foundingDate": "2002-07-04",
+        "publishingPrinciples": "http://www.unizd.hr/Portals/41/Propisi%20i%20dokumenti/Pravilnik_izdavacka_djelatnost.pdf?ver=2013-06-05-110030-833",
+        "brand": {ldelim}
+          "@type": "Brand",
+          "name": "Morepress",
+          "url": "https://morepress.unizd.hr/"
+        {rdelim},
+        "url": "http://www.unizd.hr/"
+          {rdelim}
+
+    {rdelim}{rdelim},
+  {ldelim}
+    {if $article->getPubId('doi')}"@id": "https://doi.org/{$article->getPubId('doi')|escape}",{/if}
+  "@type": "ScholarlyArticle",
+  "isPartOf": {ldelim}
+"@id": "#issue"
+{rdelim},
+  "articleSection": "{$article->getSectionTitle()|escape}",
+    "name": "{$article->getLocalizedTitle()|strip_tags|escape}",
+    "headline": "{$article->getLocalizedTitle()|strip_tags|escape}",
+    {if $article->getLocalizedAbstract()|strip_tags:false|escape}"description": "{$article->getLocalizedAbstract()|strip_tags:false|strip|escape}",{/if}
+    {if $article->getPubId('doi')}"sameAs": "https://doi.org/{$article->getPubId('doi')|escape}",{/if}
+  "author": [{assign var="alllAuthors" value=$article->getAuthors()}{foreach name="authorsloop" from=$alllAuthors item=author}{ldelim}
+	"@type": "Person",
+  {if $author->getData('orcid')}"@id": "{$author->getData('orcid')|escape}",{/if}
+	{if $author->getLastName()|escape}"familyName": "{$author->getLastName(true)|escape}",{/if}
+	{if $author->getFirstName()|escape}"givenName": "{$author->getFirstName(true)|escape}",{/if}
+	{if $author->getMiddleName()|escape}"additionalName": "{$author->getMiddleName(true)|escape}",{/if}
+  {if $author->getLocalizedAffiliation()|escape}"affiliation": "{$author->getLocalizedAffiliation()|escape}",{/if}
+	{if $author->getFullName()|escape}"name": "{$author->getFullName(false)|escape}"{/if}
+          {rdelim}{if !$smarty.foreach.authorsloop.last}, {/if}{/foreach}
+        ],
+  {if $article->getPages()}{if $article->getStartingPage()}"pagination": "{$article->getStartingPage()}{if $article->getEndingPage()}-{$article->getEndingPage()}{/if}",{/if}{/if}
+  "accessMode": "textual",
+  "copyrightHolder": {ldelim}
+"@id": "#unizd"
+{rdelim},
+  {if $issue}{if $issue->getDatePublished()}{literal}"copyrightYear": "{/literal}{$issue->getYear()}"{literal},{/literal}{/if}{/if}
+  {if $issue->getDatePublished()}"datePublished": "{$issue->getDatePublished()|date_format:"%Y-%m-%d"}",{/if}
+  "inLanguage": "{$currentLocale}",
+  "isAccessibleForFree": true,
+  "keywords": "{$article->getLocalizedSubject()|strip|escape}",
+  "publisher": {ldelim}
+"@id": "#unizd"
+{rdelim}
+{rdelim}]
+{rdelim}
+{php}
+header('Content-Disposition: attachment; filename=jsonld_'.$_GET["articleid"].'.json');
+header("Content-Type: application/ld+json; ");
+exit();
+{/php}
 {/if}
 
 
@@ -274,6 +355,11 @@ exit();
   <a href="{$article->getId()}?lang={$currentLocale}&export=bibtex&download=yes&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-download" aria-hidden="true"></i> BibTeX</a>
   <a href="{$article->getId()}?lang={$currentLocale}&export=ris&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-download" aria-hidden="true"></i> RIS</a>
   <a href="{$article->getId()}?lang={$currentLocale}&export=endnote&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-download" aria-hidden="true"></i> EndNote</a>
+  </div>
+
+  <span class="blockSubtitle">{translate key="morePress.linkedData"}</span>
+  <div id="tocLinksContainer">
+  <a href="{$article->getId()}?lang={$currentLocale}&export=jsonld&download=yes&articleid={$article->getId()}" id="tocItemFullTextLink" target="_blank"><i class="fa fa-code-fork" aria-hidden="true"></i> JSON-LD</a>
   </div>
 
 	{if $citationFactory->getCount()}

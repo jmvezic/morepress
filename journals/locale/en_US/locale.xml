@@ -1301,6 +1301,7 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.openAccess">Open Access</message>
 	<message key="morePress.openAccessDesc">This article is available in Open Access. You can read and download it for free.</message>
 	<message key="morePress.ocrDesc">You might encounter typos in this article resulting from use of Optical Character Recognition.</message>
+	<message key="morePress.linkedData">Linked data</message>
 
         <message key="morePress.homepage">Homepage</message>
         <message key="morePress.journals">Journals</message>
