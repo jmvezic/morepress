@@ -103,6 +103,7 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
 	{if $author->getLastName()|escape}"familyName": "{$author->getLastName(true)|escape}",{/if}
 	{if $author->getFirstName()|escape}"givenName": "{$author->getFirstName(true)|escape}",{/if}
 	{if $author->getMiddleName()|escape}"additionalName": "{$author->getMiddleName(true)|escape}",{/if}
+  {if $author->getLocalizedAffiliation()|escape}"affiliation": "{$author->getLocalizedAffiliation()|escape}",{/if}
 	{if $author->getFullName()|escape}"name": "{$author->getFullName(false)|escape}"{/if}
           {rdelim}{if !$smarty.foreach.authorsloop.last}, {/if}{/foreach}
         ],
