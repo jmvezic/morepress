@@ -77,6 +77,7 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
             {if $issue}{literal}"volumeNumber": "{/literal}{$issue->getVolume()|escape}"{literal},{/literal}{/if}
             "publisher": {ldelim}
         "@type": "CollegeOrUniversity",
+        "@id": "#unizd",
         "name": "{translate key="moreFooter.university"}",
         "foundingDate": "2002-07-04",
         "publishingPrinciples": "http://www.unizd.hr/Portals/41/Propisi%20i%20dokumenti/Pravilnik_izdavacka_djelatnost.pdf?ver=2013-06-05-110030-833",
@@ -92,7 +93,9 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
   {ldelim}
     {if $article->getPubId('doi')}"@id": "https://doi.org/{$article->getPubId('doi')|escape}",{/if}
   "@type": "ScholarlyArticle",
-  "isPartOf": "#issue",
+  "isPartOf": {ldelim}
+"@id": "#issue"
+{rdelim},
   "articleSection": "{$article->getSectionTitle()|escape}",
     "name": "{$article->getLocalizedTitle()|strip_tags|escape}",
     "headline": "{$article->getLocalizedTitle()|strip_tags|escape}",
@@ -111,26 +114,15 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
   {if $article->getPages()}{if $article->getStartingPage()}"pagination": "{$article->getStartingPage()}{if $article->getEndingPage()}-{$article->getEndingPage()}{/if}",{/if}{/if}
   "accessMode": "textual",
   "copyrightHolder": {ldelim}
-        "@type": "Organization",
-        "name": "University of Zadar",
-        "url": "http://www.unizd.hr/"
-          {rdelim},
+"@id": "#unizd"
+{rdelim},
   {if $issue}{if $issue->getDatePublished()}{literal}"copyrightYear": "{/literal}{$issue->getYear()}"{literal},{/literal}{/if}{/if}
   {if $issue->getDatePublished()}"datePublished": "{$issue->getDatePublished()|date_format:"%Y-%m-%d"}",{/if}
   "inLanguage": "{$currentLocale}",
   "isAccessibleForFree": true,
   "keywords": "{$article->getLocalizedSubject()|strip|escape}",
   "publisher": {ldelim}
-"@type": "CollegeOrUniversity",
-"name": "{translate key="moreFooter.university"}",
-"foundingDate": "2002-07-04",
-"publishingPrinciples": "http://www.unizd.hr/Portals/41/Propisi%20i%20dokumenti/Pravilnik_izdavacka_djelatnost.pdf?ver=2013-06-05-110030-833",
-"brand": {ldelim}
-"@type": "Brand",
-"name": "Morepress",
-"url": "https://morepress.unizd.hr/"
-{rdelim},
-"url": "http://www.unizd.hr/"
+"@id": "#unizd"
 {rdelim}
 {rdelim}]
 {rdelim}
