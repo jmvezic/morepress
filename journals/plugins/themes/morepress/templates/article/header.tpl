@@ -77,13 +77,17 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
             {if $issue}{literal}"volumeNumber": "{/literal}{$issue->getVolume()|escape}"{literal},{/literal}{/if}
             "publisher": {ldelim}
         "@type": "Organization",
-        "name": "University of Zadar",
+        "name": "{translate key="moreFooter.university"}",
         "url": "http://www.unizd.hr/"
           {rdelim},
           "provider": {ldelim}
     "@type": "Organization",
     "name": "Morepress",
-    "description": "Online publishing platform by University of Zadar",
+    "isPartOf": {ldelim}
+"@type": "Organization",
+"name": "{translate key="moreFooter.university"}",
+"url": "http://www.unizd.hr/"
+  {rdelim},
     "url": "https://morepress.unizd.hr/"
   {rdelim}
         {rdelim}
@@ -127,7 +131,11 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
   "provider": {ldelim}
     "@type": "Organization",
     "name": "Morepress",
-    "description": "Online publishing platform by University of Zadar",
+    "isPartOf": {ldelim}
+"@type": "Organization",
+"name": "{translate key="moreFooter.university"}",
+"url": "http://www.unizd.hr/"
+  {rdelim},
     "url": "https://morepress.unizd.hr/"
   {rdelim}
 {rdelim}]
