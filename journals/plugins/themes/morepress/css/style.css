@@ -237,3 +237,13 @@ opacity: 1;
 .disabledLink:hover {
 	background-color: #23a249 !important;
 }
+
+.tocItemWarning {
+	background-color: #c9cc1f !important;
+	color: #454609 !important;
+	border: 1px solid #c9cc1f !important;
+}
+
+.tocItemWarning:hover {
+	background-color: #c9cc1f !important;
+}

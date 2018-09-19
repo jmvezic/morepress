@@ -178,6 +178,11 @@ exit();
   <div id="tocLinksContainer">
     <span id="tocItemFullTextLink" class="disabledLink" href="#" title="{translate key="morePress.openAccessDesc"}"><i class="fa fa-unlock-alt"></i> {translate key="morePress.openAccess"}</span>
 </div>
+{if $currentJournal->getJournalId() > 11}
+<div id="tocLinksContainer">
+  <span id="tocItemFullTextLink" class="disabledLink tocItemWarning" href="#" title="{translate key="morePress.ocrDesc"}"><i class="fa fa-warning"></i> OCR</span>
+</div>
+{/if}
 
 {if (!$subscriptionRequired || $article->getAccessStatus() == $smarty.const.ARTICLE_ACCESS_OPEN || $subscribedUser || $subscribedDomain)}
   {assign var=hasAccess value=1}
