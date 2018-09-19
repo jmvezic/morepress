@@ -76,22 +76,19 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
             ],
             {if $issue}{literal}"volumeNumber": "{/literal}{$issue->getVolume()|escape}"{literal},{/literal}{/if}
             "publisher": {ldelim}
-        "@type": "Organization",
+        "@type": "CollegeOrUniversity",
         "name": "{translate key="moreFooter.university"}",
+        "foundingDate": "2002-07-04",
+        "publishingPrinciples": "http://www.unizd.hr/Portals/41/Propisi%20i%20dokumenti/Pravilnik_izdavacka_djelatnost.pdf?ver=2013-06-05-110030-833",
+        "brand": {ldelim}
+          "@type": "Brand",
+          "name": "Morepress",
+          "url": "https://morepress.unizd.hr/"
+        {rdelim},
         "url": "http://www.unizd.hr/"
-          {rdelim},
-          "provider": {ldelim}
-    "@type": "Organization",
-    "name": "Morepress",
-    "isPartOf": {ldelim}
-"@type": "Organization",
-"name": "{translate key="moreFooter.university"}",
-"url": "http://www.unizd.hr/"
-  {rdelim},
-    "url": "https://morepress.unizd.hr/"
-  {rdelim}
-        {rdelim}
-    {rdelim},
+          {rdelim}
+
+    {rdelim}{rdelim},
   {ldelim}
     {if $article->getPubId('doi')}"@id": "https://doi.org/{$article->getPubId('doi')|escape}",{/if}
   "@type": "ScholarlyArticle",
@@ -123,21 +120,18 @@ header('Location: '."http://"."$_SERVER[HTTP_HOST]/journals/index/user/setLocale
   "inLanguage": "{$currentLocale}",
   "isAccessibleForFree": true,
   "keywords": "{$article->getLocalizedSubject()|strip|escape}",
-    "publisher": {ldelim}
-        "@type": "Organization",
-        "name": "University of Zadar",
-        "url": "http://www.unizd.hr/"
-          {rdelim},
-  "provider": {ldelim}
-    "@type": "Organization",
-    "name": "Morepress",
-    "isPartOf": {ldelim}
-"@type": "Organization",
+  "publisher": {ldelim}
+"@type": "CollegeOrUniversity",
 "name": "{translate key="moreFooter.university"}",
+"foundingDate": "2002-07-04",
+"publishingPrinciples": "http://www.unizd.hr/Portals/41/Propisi%20i%20dokumenti/Pravilnik_izdavacka_djelatnost.pdf?ver=2013-06-05-110030-833",
+"brand": {ldelim}
+"@type": "Brand",
+"name": "Morepress",
+"url": "https://morepress.unizd.hr/"
+{rdelim},
 "url": "http://www.unizd.hr/"
-  {rdelim},
-    "url": "https://morepress.unizd.hr/"
-  {rdelim}
+{rdelim}
 {rdelim}]
 {rdelim}
 </script>
