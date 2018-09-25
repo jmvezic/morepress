@@ -371,10 +371,6 @@ exit();
   </div>
 
 
-  <div id="tocLinksContainer">
-  </div>
-
-
 	{if $citationFactory->getCount()}
 		<div id="articleCitations" class="block">
 		<h4>{translate key="submission.citations"}</h4>
