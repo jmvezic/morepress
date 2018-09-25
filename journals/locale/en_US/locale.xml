@@ -1294,6 +1294,10 @@ Validation may fail on search URLs that require posted form data.]]></message>
 	<message key="morePress.copyLink">Copy link</message>
 	<message key="morePress.copySuccess">Link copied</message>
 	<message key="common.copied">Copied</message>
+	<message key="common.license">License</message>
+	<message key="common.ccby">This article is covered by the CC-BY license. Click for more information.</message>
+	<message key="common.ccDetails">This article is covered by a CC license. Click for more information.</message>
+	<message key="common.licenseDetails">Click for more information about the license.</message>
 	<message key="morePress.comingSoon">Coming soon</message>
 	<message key="morePress.containsSuppFiles">Contains supplementary files</message>
 	<message key="morePress.read">Read</message>

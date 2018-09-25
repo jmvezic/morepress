@@ -258,6 +258,14 @@ exit();
 
   <div id="tocLinksContainer">
     <span id="tocItemFullTextLink" class="disabledLink" href="#" title="{translate key="morePress.openAccessDesc"}"><i class="fa fa-unlock-alt"></i> {translate key="morePress.openAccess"}</span>
+    {if $article->getLicenseURL()}
+    {if $article->isCCLicense()}
+    <a href="{$article->getLicenseURL()}" id="tocItemFullTextLink" title="{if $article->getLicenseURL()|strstr:"licenses/by"}{translate key="common.ccby"}{else}{translate key="common.ccDetails"}{/if}"><i class="fa fa-creative-commons" aria-hidden="true"></i> {if $article->getLicenseURL()|strstr:"licenses/by"}CC-BY{else}CC{/if}</a>
+    {else}
+    <a href="{$article->getLicenseURL()}" id="tocItemFullTextLink" title="{translate key="common.licenseDetails"}"><i class="fa fa-copyright" aria-hidden="true"></i> {translate key="common.license"}</a>
+    {/if}
+    {/if}
+
 </div>
 {if $currentJournal->getJournalId() > 11}
 <div id="tocLinksContainer">
@@ -361,6 +369,11 @@ exit();
   <div id="tocLinksContainer">
   <a href="{$article->getId()}?lang={$currentLocale}&export=jsonld&articleid={$article->getId()}" id="tocItemFullTextLink" download><i class="fa fa-code-fork" aria-hidden="true"></i> JSON-LD</a>
   </div>
+
+
+  <div id="tocLinksContainer">
+  </div>
+
 
 	{if $citationFactory->getCount()}
 		<div id="articleCitations" class="block">

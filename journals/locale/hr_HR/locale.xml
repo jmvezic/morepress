@@ -1127,7 +1127,7 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.noRecentArticles">Ovaj časopis još nema članaka.</message>
 	<message key="morepress.moreOpen">O Morepress-u</message>
 	<message key="moreFooter.version">Verzija</message>
-	<message key="moreFooter.homepage">Naslova stranica</message>
+	<message key="moreFooter.homepage">Naslovna stranica</message>
 	<message key="moreFooter.books">Knjige</message>
 	<message key="moreFooter.university">Sveučilište u Zadru</message>
 	<message key="moreFooter.publishingdept">Ured za izdavačku djelatnost</message>
@@ -1239,6 +1239,10 @@ Recenzenti zahtijevaju pregled podnesenog članka u privitku ove poruke.  Recenz
 	<message key="morePress.linkedData">Povezani podaci</message>
 
 	<message key="common.copied">Kopirano</message>
+	<message key="common.license">Licenca</message>
+	<message key="common.ccby">Ovaj članak pokriven je CC-BY licencom. Kliknite za više informacija.</message>
+	<message key="common.ccDetails">Ovaj članak pokriven je CC licencom. Kliknite za više informacija.</message>
+	<message key="common.licenseDetails">Kliknite za više informacija o licenci.</message>
 
 	<message key="user.confirmEmail">Potvrdite adresu e-pošte</message>
 
