@@ -260,9 +260,9 @@ exit();
     <span id="tocItemFullTextLink" class="disabledLink" href="#" title="{translate key="morePress.openAccessDesc"}"><i class="fa fa-unlock-alt"></i> {translate key="morePress.openAccess"}</span>
     {if $article->getLicenseURL()}
     {if $article->isCCLicense()}
-    <a href="{$article->getLicenseURL()}" id="tocItemFullTextLink" title="{if $article->getLicenseURL()|strstr:"licenses/by"}{translate key="common.ccby"}{else}{translate key="common.ccDetails"}{/if}"><i class="fa fa-creative-commons" aria-hidden="true"></i> {if $article->getLicenseURL()|strstr:"licenses/by"}CC-BY{else}CC{/if}</a>
+    <a href="{$article->getLicenseURL()}" id="tocItemFullTextLink" title="{if $article->getLicenseURL()|strstr:"licenses/by"}{translate key="common.ccby"}{else}{translate key="common.ccDetails"}{/if}" target="_blank"><i class="fa fa-creative-commons" aria-hidden="true"></i> {if $article->getLicenseURL()|strstr:"licenses/by"}CC-BY{else}CC{/if}</a>
     {else}
-    <a href="{$article->getLicenseURL()}" id="tocItemFullTextLink" title="{translate key="common.licenseDetails"}"><i class="fa fa-copyright" aria-hidden="true"></i> {translate key="common.license"}</a>
+    <a href="{$article->getLicenseURL()}" id="tocItemFullTextLink" title="{translate key="common.licenseDetails"}" target="_blank"><i class="fa fa-copyright" aria-hidden="true"></i> {translate key="common.license"}</a>
     {/if}
     {/if}
 
