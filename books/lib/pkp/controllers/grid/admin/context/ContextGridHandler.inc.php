@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/admin/context/ContextGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ContextGridHandler
@@ -24,7 +24,7 @@ class ContextGridHandler extends GridHandler {
 		parent::__construct();
 		$this->addRoleAssignment(array(
 			ROLE_ID_SITE_ADMIN),
-			array('fetchGrid', 'fetchRow', 'createContext', 'editContext', 'updateContext',
+			array('fetchGrid', 'fetchRow', 'createContext', 'editContext', 'updateContext', 'users',
 				'deleteContext', 'saveSequence')
 		);
 	}
@@ -50,15 +50,17 @@ class ContextGridHandler extends GridHandler {
 	}
 
 	/**
-	 * @copydoc PKPHandler::initialize()
+	 * @copydoc GridHandler::initialize()
 	 */
-	function initialize($request) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 
 		// Load user-related translations.
 		AppLocale::requireComponents(
 			LOCALE_COMPONENT_PKP_USER,
 			LOCALE_COMPONENT_APP_MANAGER,
+			LOCALE_COMPONENT_PKP_MANAGER,
+			LOCALE_COMPONENT_PKP_ADMIN,
 			LOCALE_COMPONENT_APP_ADMIN
 		);
 
@@ -137,10 +139,10 @@ class ContextGridHandler extends GridHandler {
 	/**
 	 * @copydoc GridHandler::setDataElementSequence()
 	 */
-	function setDataElementSequence($request, $rowId, $context, $newSequence) {
+	function setDataElementSequence($request, $rowId, $gridDataElement, $newSequence) {
 		$contextDao = Application::getContextDAO();
-		$context->setSequence($newSequence);
-		$contextDao->updateObject($context);
+		$gridDataElement->setSequence($newSequence);
+		$contextDao->updateObject($gridDataElement);
 	}
 
 	/**
@@ -181,6 +183,18 @@ class ContextGridHandler extends GridHandler {
 		return $this->editContext($args, $request);
 	}
 
+	/**
+	 * Display users management grid for the given context.
+	 * @param $args array
+	 * @param $request PKPRequest
+	 * @return JSONMessage JSON object
+	 */
+	function users($args, $request) {
+		$templateMgr = TemplateManager::getManager($request);
+		$templateMgr->assign('oldUserId', (int) $request->getUserVar('oldUserId')); // for merging users.
+		parent::setupTemplate($request);
+		return $templateMgr->fetchJson('core:controllers/tab/settings/users.tpl');
+	}
 
 	//
 	// Protected helper methods.

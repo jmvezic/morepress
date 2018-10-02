@@ -2,8 +2,8 @@
 /**
  * @file classes/filter/Filter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Filter
@@ -447,6 +447,8 @@ class Filter extends DataObject {
 
 		// Process the filter
 		$preliminaryOutput =& $this->process($input);
+
+		HookRegistry::call(strtolower_codesafe(get_class($this) . '::execute'), array(&$preliminaryOutput));
 
 		// Validate the filter output
 		if ((!is_null($preliminaryOutput) && $this->supports($input, $preliminaryOutput)) || $returnErrors) {

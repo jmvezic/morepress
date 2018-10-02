@@ -1,8 +1,8 @@
 /**
  * @file js/controllers/MenuHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MenuHandler
@@ -52,15 +52,6 @@
 		this.getHtmlElement().on('blur mouseleave', '[aria-haspopup="true"]',
 				function(e) {
 					$(e.currentTarget).attr('aria-expanded', 'false');
-				});
-
-		// Prevent first touch on top-level menu items from following the link
-		this.getHtmlElement().find('[aria-haspopup="true"] > a').on(
-				'touchstart', function(e) {
-					if ($(this).parent().attr('aria-expanded') != false) {
-						$(this).focus();
-						e.preventDefault();
-					}
 				});
 	};
 	$.pkp.classes.Helper.inherits(

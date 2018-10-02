@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/usageStats/UsageStatsLoader.php
  *
- * Copyright (c) 2013-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UsageStatsLoader
@@ -65,7 +65,9 @@ class UsageStatsLoader extends PKPUsageStatsLoader {
 
 					if (!isset($args[2])) break;
 					$fileIdAndRevision = $args[2];
-					list($fileId, $revision) = array_map(create_function('$a', 'return (int) $a;'), preg_split('/-/', $fileIdAndRevision));
+					list($fileId, $revision) = array_map(function($a) {
+						return (int) $a;
+					}, preg_split('/-/', $fileIdAndRevision));
 
 					$monographFileDao = DAORegistry::getDAO('SubmissionFileDAO'); /* @var $monographFileDao SubmissionFileDAO */
 					$monographFile = $monographFileDao->getRevision($fileId, $revision);

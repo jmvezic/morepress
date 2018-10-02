@@ -1,8 +1,8 @@
 {**
  * templates/frontend/components/registrationFormContexts.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @brief Display role selection for all of the journals/presses on this site
@@ -44,15 +44,6 @@
 										{assign var="userGroupId" value=$userGroup->getId()}
 										<label>
 											<input type="checkbox" name="readerGroup[{$userGroupId}]"{if in_array($userGroupId, $userGroupIds)} checked="checked"{/if}>
-											{$userGroup->getLocalizedName()}
-										</label>
-									{/if}
-								{/foreach}
-								{foreach from=$authorUserGroups[$contextId] item=userGroup}
-									{if $userGroup->getPermitSelfRegistration()}
-										{assign var="userGroupId" value=$userGroup->getId()}
-										<label>
-											<input type="checkbox" name="authorGroup[{$userGroupId}]"{if in_array($userGroupId, $userGroupIds)} checked="checked"{/if}>
 											{$userGroup->getLocalizedName()}
 										</label>
 									{/if}

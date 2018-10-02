@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/reviewAssignment/ReviewAssignment.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewAssignment
@@ -31,18 +31,22 @@ define('SUBMISSION_REVIEW_METHOD_BLIND', 1);
 define('SUBMISSION_REVIEW_METHOD_DOUBLEBLIND', 2);
 define('SUBMISSION_REVIEW_METHOD_OPEN', 3);
 
-define('REVIEW_ASSIGNMENT_NOT_UNCONSIDERED', 0);
-define('REVIEW_ASSIGNMENT_UNCONSIDERED', 1);
-define('REVIEW_ASSIGNMENT_UNCONSIDERED_READ', 2);
+// A review is "unconsidered" when it is confirmed by an editor and then that
+// confirmation is later revoked.
+define('REVIEW_ASSIGNMENT_NOT_UNCONSIDERED', 0); // Has never been unconsidered
+define('REVIEW_ASSIGNMENT_UNCONSIDERED', 1); // Has been unconsindered and is awaiting re-confirmation by an editor
+define('REVIEW_ASSIGNMENT_UNCONSIDERED_READ', 2); // Has been reconfirmed by an editor
+
+define('REVIEW_ASSIGNMENT_STATUS_AWAITING_RESPONSE', 0); // request has been sent but reviewer has not responded
+define('REVIEW_ASSIGNMENT_STATUS_DECLINED', 1); // reviewer declind review request
+define('REVIEW_ASSIGNMENT_STATUS_RESPONSE_OVERDUE', 4); // review not responded within due date
+define('REVIEW_ASSIGNMENT_STATUS_ACCEPTED', 5); // reviewer has agreed to the review
+define('REVIEW_ASSIGNMENT_STATUS_REVIEW_OVERDUE', 6); // review not submitted within due date
+define('REVIEW_ASSIGNMENT_STATUS_RECEIVED', 7); // review has been submitted
+define('REVIEW_ASSIGNMENT_STATUS_COMPLETE', 8); // review has been confirmed by an editor
+define('REVIEW_ASSIGNMENT_STATUS_THANKED', 9); // reviewer has been thanked
 
 class ReviewAssignment extends DataObject {
-
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	//
 	// Get/set methods
@@ -392,22 +396,6 @@ class ReviewAssignment extends DataObject {
 	}
 
 	/**
-	 * Get the replaced value.
-	 * @return boolean
-	 */
-	function getReplaced() {
-		return $this->getData('replaced');
-	}
-
-	/**
-	 * Set the reviewer's replaced value.
-	 * @param $replaced boolean
-	 */
-	function setReplaced($replaced) {
-		$this->setData('replaced', $replaced);
-	}
-
-	/**
 	 * Get a boolean indicating whether or not the last reminder was automatic.
 	 * @return boolean
 	 */
@@ -421,22 +409,6 @@ class ReviewAssignment extends DataObject {
 	 */
 	function setReminderWasAutomatic($wasAutomatic) {
 		$this->setData('reminderWasAutomatic', $wasAutomatic);
-	}
-
-	/**
-	 * Get the cancelled value.
-	 * @return boolean
-	 */
-	function getCancelled() {
-		return $this->getData('cancelled');
-	}
-
-	/**
-	 * Set the reviewer's cancelled value.
-	 * @param $cancelled boolean
-	 */
-	function setCancelled($cancelled) {
-		$this->setData('cancelled', $cancelled);
 	}
 
 	/**
@@ -485,6 +457,165 @@ class ReviewAssignment extends DataObject {
 	 */
 	function setReviewFormId($reviewFormId) {
 		$this->setData('reviewFormId', $reviewFormId);
+	}
+
+	/**
+	 * Get the current status of this review assignment
+	 *
+	 * @return int
+	 */
+	function getStatus() {
+
+		if ($this->getDeclined()) {
+			return REVIEW_ASSIGNMENT_STATUS_DECLINED;
+		} elseif (!$this->getDateCompleted()) {
+			$dueTimes = array_map(function($dateTime) {
+					// If no due time, set it to the end of the day
+					if (substr($dateTime, 11) === '00:00:00') {
+						$dateTime = substr($dateTime, 0, 11) . '23:59:59';
+					}
+					return strtotime($dateTime);
+				}, array($this->getDateResponseDue(), $this->getDateDue()));
+			$responseDueTime = $dueTimes[0];
+			$reviewDueTime = $dueTimes[1];
+			if (!$this->getDateConfirmed()){ // no response
+				if($responseDueTime < time()) { // response overdue
+					return REVIEW_ASSIGNMENT_STATUS_RESPONSE_OVERDUE;
+				} elseif ($reviewDueTime < time()) { // review overdue but not response
+					return REVIEW_ASSIGNMENT_STATUS_REVIEW_OVERDUE;
+				} else { // response not due yet
+					return REVIEW_ASSIGNMENT_STATUS_AWAITING_RESPONSE;
+				}
+			} else { // response given
+				if ($reviewDueTime < time()) { // review due
+					return REVIEW_ASSIGNMENT_STATUS_REVIEW_OVERDUE;
+				} else {
+					return REVIEW_ASSIGNMENT_STATUS_ACCEPTED;
+				}
+			}
+		} elseif ($this->getDateAcknowledged()) { // reviewer thanked...
+			if ($this->getUnconsidered() == REVIEW_ASSIGNMENT_UNCONSIDERED) { // ...but review later unconsidered
+				return REVIEW_ASSIGNMENT_STATUS_RECEIVED;
+			}
+			return REVIEW_ASSIGNMENT_STATUS_THANKED;
+		} elseif ($this->getDateCompleted()) { // review submitted...
+			if ($this->getUnconsidered() != REVIEW_ASSIGNMENT_UNCONSIDERED && $this->isRead()) { // ...and confirmed by an editor
+				return REVIEW_ASSIGNMENT_STATUS_COMPLETE;
+			}
+			return REVIEW_ASSIGNMENT_STATUS_RECEIVED;
+		}
+
+		return REVIEW_ASSIGNMENT_STATUS_AWAITING_RESPONSE;
+	}
+
+	/**
+	 * Determine whether an editorial user has read this review
+	 *
+	 * @return bool
+	 */
+	function isRead() {
+		$submissionDao = Application::getSubmissionDAO();
+		$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+		$userStageAssignmentDao = DAORegistry::getDAO('UserStageAssignmentDAO');
+		$viewsDao = DAORegistry::getDAO('ViewsDAO');
+
+		$submission = $submissionDao->getById($this->getSubmissionId());
+
+		// Get the user groups for this stage
+		$userGroups = $userGroupDao->getUserGroupsByStage(
+			$submission->getContextId(),
+			$this->getStageId()
+		);
+		while ($userGroup = $userGroups->next()) {
+			$roleId = $userGroup->getRoleId();
+			if ($roleId != ROLE_ID_MANAGER && $roleId != ROLE_ID_SUB_EDITOR) {
+				continue;
+			}
+
+			// Get the users assigned to this stage and user group
+			$stageUsers = $userStageAssignmentDao->getUsersBySubmissionAndStageId(
+				$this->getSubmissionId(),
+				$this->getStageId(),
+				$userGroup->getId()
+			);
+
+			// Check if any of these users have viewed it
+			while ($user = $stageUsers->next()) {
+				if ($viewsDao->getLastViewDate(
+					ASSOC_TYPE_REVIEW_RESPONSE,
+					$this->getId(),
+					$user->getId()
+				)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get the translation key for the current status
+	 *
+	 * @param int $status Optionally pass a status to retrieve a specific key.
+	 *  Default will return the key for the current status.
+	 * @return string
+	 */
+	public function getStatusKey($status = null) {
+
+		if (is_null($status)) {
+			$status = $this->getStatus();
+		}
+
+		switch ($status) {
+			case REVIEW_ASSIGNMENT_STATUS_AWAITING_RESPONSE:
+				return 'submission.review.status.awaitingResponse';
+			case REVIEW_ASSIGNMENT_STATUS_DECLINED:
+				return 'submission.review.status.declined';
+			case REVIEW_ASSIGNMENT_STATUS_RESPONSE_OVERDUE:
+				return 'submission.review.status.responseOverdue';
+			case REVIEW_ASSIGNMENT_STATUS_REVIEW_OVERDUE:
+				return 'submission.review.status.reviewOverdue';
+			case REVIEW_ASSIGNMENT_STATUS_ACCEPTED:
+				return 'submission.review.status.accepted';
+			case REVIEW_ASSIGNMENT_STATUS_RECEIVED:
+				return 'submission.review.status.received';
+			case REVIEW_ASSIGNMENT_STATUS_COMPLETE:
+				return 'submission.review.status.complete';
+			case REVIEW_ASSIGNMENT_STATUS_THANKED:
+				return 'submission.review.status.thanked';
+		}
+
+		assert(false, 'No status key could be found for ' . get_class($this) . ' on ' . __LINE__);
+
+		return '';
+	}
+
+	/**
+	 * Get the translation key for the review method
+	 *
+	 * @param $method int|null Optionally pass a method to retrieve a specific key.
+	 *  Default will return the key for the current review method
+	 * @return string
+	 */
+	public function getReviewMethodKey($method = null) {
+
+		if (is_null($method)) {
+			$method = $this->getReviewMethod();
+		}
+
+		switch ($method) {
+			case SUBMISSION_REVIEW_METHOD_OPEN:
+				return 'editor.submissionReview.open';
+			case SUBMISSION_REVIEW_METHOD_BLIND:
+				return 'editor.submissionReview.blind';
+			case SUBMISSION_REVIEW_METHOD_DOUBLEBLIND:
+				return 'editor.submissionReview.doubleBlind';
+		}
+
+		assert(false, 'No review method key could be found for ' . get_class($this) . ' on ' . __LINE__);
+
+		return '';
 	}
 
 	//

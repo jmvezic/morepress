@@ -3,8 +3,8 @@
 /**
  * @file classes/security/RoleDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class RoleDAO
@@ -110,14 +110,15 @@ class RoleDAO extends DAO {
 	 * Validation check to see if a user belongs to any group that has a given role
 	 * @param $contextId int
 	 * @param $userId int
-	 * @param $roleId int ROLE_ID_...
+	 * @param $roleId int|array ROLE_ID_...
 	 * @return bool True iff at least one such role exists
 	 */
 	function userHasRole($contextId, $userId, $roleId) {
+		$roleId = is_array($roleId) ? join(',', array_map('intval', $roleId)) : (int) $roleId;
 		$result = $this->retrieve(
 			'SELECT count(*) FROM user_groups ug JOIN user_user_groups uug ON ug.user_group_id = uug.user_group_id
-			WHERE ug.context_id = ? AND uug.user_id = ? AND ug.role_id = ?',
-			array((int) $contextId, (int) $userId, (int) $roleId)
+			WHERE ug.context_id = ? AND uug.user_id = ? AND ug.role_id IN (' . $roleId . ')',
+			array((int) $contextId, (int) $userId)
 		);
 
 		// > 0 because user could belong to more than one user group with this role
@@ -199,6 +200,10 @@ class RoleDAO extends DAO {
 	 */
 	function getForbiddenStages($roleId = null) {
 		$forbiddenStages = array(
+			ROLE_ID_MANAGER => array(
+				// Journal managers should always have all stage selections locked by default.
+				WORKFLOW_STAGE_ID_SUBMISSION, WORKFLOW_STAGE_ID_INTERNAL_REVIEW, WORKFLOW_STAGE_ID_EXTERNAL_REVIEW, WORKFLOW_STAGE_ID_EDITING, WORKFLOW_STAGE_ID_PRODUCTION,
+			),
 			ROLE_ID_REVIEWER => array(
 				// Reviewer user groups should only have review stage assignments.
 				WORKFLOW_STAGE_ID_SUBMISSION, WORKFLOW_STAGE_ID_EDITING, WORKFLOW_STAGE_ID_PRODUCTION,
@@ -220,37 +225,13 @@ class RoleDAO extends DAO {
 		}
 	}
 
-
-	//
-	// Static methods.
-	//
 	/**
-	 * Get a mapping of role keys and i18n key names.
-	 * @param boolean $contextOnly If false, also returns site-level roles (Site admin)
-	 * @param array|null $roleIds Only return role names of these IDs
-	 * @return array
+	 *  All stages are always active for these permission levels.
+	 * @return array array(ROLE_ID_MANAGER...);
 	 */
-	static function getRoleNames($contextOnly = false, $roleIds = null) {
-		$siteRoleNames = array(ROLE_ID_SITE_ADMIN => 'user.role.siteAdmin');
-		$appRoleNames = array(
-			ROLE_ID_MANAGER => 'user.role.manager',
-			ROLE_ID_SUB_EDITOR => 'user.role.subEditor',
-			ROLE_ID_ASSISTANT => 'user.role.assistant',
-			ROLE_ID_AUTHOR => 'user.role.author',
-			ROLE_ID_REVIEWER => 'user.role.reviewer',
-			ROLE_ID_READER => 'user.role.reader',
-		);
-		$roleNames = $contextOnly ? $appRoleNames : $siteRoleNames + $appRoleNames;
-
-		if(!empty($roleIds)) {
-			$returner = array();
-			foreach($roleIds as $roleId) {
-				if(isset($roleNames[$roleId])) $returner[$roleId] = $roleNames[$roleId];
-			}
-			return $returner;
-		}
-
-		return $roleNames;
+	function getAlwaysActiveStages() {
+		$alwaysActiveStages = array(ROLE_ID_MANAGER);
+		return $alwaysActiveStages;
 	}
 }
 

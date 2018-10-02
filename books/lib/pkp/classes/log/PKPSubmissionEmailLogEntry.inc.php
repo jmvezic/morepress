@@ -3,8 +3,8 @@
 /**
  * @file classes/log/PKPSubmissionEmailLogEntry.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPSubmissionEmailLogEntry
@@ -24,6 +24,7 @@ import('lib.pkp.classes.log.EmailLogEntry');
 define('SUBMISSION_EMAIL_EDITOR_NOTIFY_AUTHOR',			0x30000001);
 define('SUBMISSION_EMAIL_EDITOR_ASSIGN',				0x30000002);
 define('SUBMISSION_EMAIL_EDITOR_NOTIFY_AUTHOR_UNSUITABLE',	0x30000003);
+define('SUBMISSION_EMAIL_EDITOR_RECOMMEND_NOTIFY',	0x30000004);
 
 // Reviewer events						0x40000000
 define('SUBMISSION_EMAIL_REVIEW_NOTIFY_REVIEWER',		0x40000001);
@@ -63,20 +64,20 @@ define('SUBMISSION_EMAIL_LAYOUT_NOTIFY_COMPLETE',		0x70000003);
 
 class PKPSubmissionEmailLogEntry extends EmailLogEntry {
 	/**
-	 * Constructor.
+	 * Set the submission ID for the log entry.
+	 * @param $submissionId int
 	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 	function setSubmissionId($submissionId) {
 		return $this->setAssocId($submissionId);
 	}
 
+	/**
+	 * Get the submission ID for the log entry.
+	 * @return int
+	 */
 	function getSubmissionId() {
 		return $this->getAssocId();
 	}
-
 }
 
 ?>

@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/usageStats/UsageStatsPlugin.inc.php
  *
- * Copyright (c) 2013-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UsageStatsPlugin
@@ -59,23 +59,31 @@ class UsageStatsPlugin extends PKPUsageStatsPlugin {
 		$smarty =& $params[1];
 		$output =& $params[2];
 
-		$pubObject =& $smarty->get_template_vars('publishedMonograph');
-		assert(is_a($pubObject, 'PublishedMonograph'));
-		$pubObjectId = $pubObject->getID();
-		$pubObjectType = 'PublishedMonograph';
+		$context = $smarty->get_template_vars('currentContext');
+		$pluginSettingsDao = DAORegistry::getDAO('PluginSettingsDAO');
+		$contextDisplaySettingExists = $pluginSettingsDao->settingExists($context->getId(), $this->getName(), 'displayStatistics');
+		$contextDisplaySetting = $this->getSetting($context->getId(), 'displayStatistics');
+		$siteDisplaySetting = $this->getSetting(CONTEXT_ID_NONE, 'displayStatistics');
+		if (($contextDisplaySettingExists && $contextDisplaySetting) ||
+			(!$contextDisplaySettingExists && $siteDisplaySetting)) {
 
-		$output .= $this->getTemplate(
-			array(
-				'pubObjectType' => $pubObjectType,
-				'pubObjectId'   => $pubObjectId,
-			),
-			'outputFrontend.tpl',
-			$smarty
-		);
+			$pubObject =& $smarty->get_template_vars('publishedMonograph');
+			assert(is_a($pubObject, 'PublishedMonograph'));
+			$pubObjectId = $pubObject->getID();
+			$pubObjectType = 'PublishedMonograph';
 
-		$this->addJavascriptData($this->getAllDownloadsStats($pubObjectId), $pubObjectType, $pubObjectId, 'frontend-catalog-book');
-		$this->loadJavascript('frontend-catalog-book' );
+			$output .= $this->getTemplate(
+				array(
+					'pubObjectType' => $pubObjectType,
+					'pubObjectId'   => $pubObjectId,
+				),
+				'outputFrontend.tpl',
+				$smarty
+			);
 
+			$this->addJavascriptData($this->getAllDownloadsStats($pubObjectId), $pubObjectType, $pubObjectId, 'frontend-catalog-book');
+			$this->loadJavascript('frontend-catalog-book' );
+		}
 		return false;
 	}
 }

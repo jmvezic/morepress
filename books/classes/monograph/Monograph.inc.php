@@ -7,8 +7,8 @@
 /**
  * @file classes/monograph/Monograph.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Monograph
@@ -96,22 +96,6 @@ class Monograph extends Submission {
 	 */
 	function setSeriesTitle($title) {
 		$this->setData('seriesTitle', $title);
-	}
-
-	/**
-	 * Get the series's abbreviated identifier.
-	 * @return string
-	 */
-	function getSeriesAbbrev() {
-		return $this->getData('seriesAbbrev');
-	}
-
-	/**
-	 * Set the series's abbreviated identifier.
-	 * @param $abbrev string
-	 */
-	function setSeriesAbbrev($abbrev) {
-		$this->setData('seriesAbbrev', $abbrev);
 	}
 
 	/**

@@ -8,8 +8,8 @@
 /**
  * @file classes/linkAction/LinkAction.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class LinkAction
@@ -45,10 +45,10 @@ class LinkAction {
 	 * @param $toolTip string (optional) A localized tool tip to display when hovering over
 	 *  the link action.
 	 */
-	function __construct($id, &$actionRequest, $title = null, $image = null, $toolTip = null) {
+	function __construct($id, $actionRequest, $title = null, $image = null, $toolTip = null) {
 		$this->_id = $id;
 		assert(is_a($actionRequest, 'LinkActionRequest'));
-		$this->_actionRequest =& $actionRequest;
+		$this->_actionRequest = $actionRequest;
 		$this->_title = $title;
 		$this->_image = $image;
 		$this->_toolTip = $toolTip;

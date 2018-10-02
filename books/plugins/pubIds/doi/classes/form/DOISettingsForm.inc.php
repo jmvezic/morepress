@@ -3,8 +3,8 @@
 /**
  * @file plugins/pubIds/doi/classes/form/DOISettingsForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class DOISettingsForm
@@ -58,11 +58,27 @@ class DOISettingsForm extends Form {
 
 		parent::__construct($plugin->getTemplatePath() . 'settingsForm.tpl');
 
-		$this->addCheck(new FormValidatorCustom($this, 'doiObjects', 'required', 'plugins.pubIds.doi.manager.settings.doiObjectsRequired', create_function('$enableSubmissionDoi,$form', 'return $form->getData(\'enableSubmissionDoi\') || $form->getData(\'enableRepresentationDoi\') || $form->getData(\'enableSubmissionFileDoi\');'), array($this)));
+		$form = $this;
+		$this->addCheck(new FormValidatorCustom($this, 'doiObjects', 'required', 'plugins.pubIds.doi.manager.settings.doiObjectsRequired', function($enableSubmissionDoi) use ($form) {
+			return $form->getData('enableSubmissionDoi') || $form->getData('enableRepresentationDoi') || $form->getData('enableSubmissionFileDoi');
+		}));
 		$this->addCheck(new FormValidatorRegExp($this, 'doiPrefix', 'required', 'plugins.pubIds.doi.manager.settings.doiPrefixPattern', '/^10\.[0-9]{4,7}$/'));
-		$this->addCheck(new FormValidatorCustom($this, 'doiSubmissionSuffixPattern', 'required', 'plugins.pubIds.doi.manager.settings.doiSubmissionSuffixPatternRequired', create_function('$doiSubmissionSuffixPattern,$form', 'if ($form->getData(\'doiSuffix\') == \'pattern\' && $form->getData(\'enableSubmissionDoi\')) return $doiSubmissionSuffixPattern != \'\';return true;'), array($this)));
-		$this->addCheck(new FormValidatorCustom($this, 'doiRepresentationSuffixPattern', 'required', 'plugins.pubIds.doi.manager.settings.doiRepresentationSuffixPatternRequired', create_function('$doiRepresentationSuffixPattern,$form', 'if ($form->getData(\'doiSuffix\') == \'pattern\' && $form->getData(\'enableRepresentationDoi\')) return $doiRepresentationSuffixPattern != \'\';return true;'), array($this)));
-		$this->addCheck(new FormValidatorCustom($this, 'doiSubmissionFileSuffixPattern', 'required', 'plugins.pubIds.doi.manager.settings.doiSubmissionFileSuffixPatternRequired', create_function('$doiSubmissionFileSuffixPattern,$form', 'if ($form->getData(\'doiSuffix\') == \'pattern\' && $form->getData(\'enableSubmissionFileDoi\')) return $doiSubmissionFileSuffixPattern != \'\';return true;'), array($this)));
+		$this->addCheck(new FormValidatorCustom($this, 'doiSubmissionSuffixPattern', 'required', 'plugins.pubIds.doi.manager.settings.doiSubmissionSuffixPatternRequired', function($doiSubmissionSuffixPattern) use ($form) {
+			if ($form->getData('doiSuffix') == 'pattern' && $form->getData('enableSubmissionDoi')) return $doiSubmissionSuffixPattern != '';
+			return true;
+		}));
+		$this->addCheck(new FormValidatorCustom($this, 'doiChapterSuffixPattern', 'required', 'plugins.pubIds.doi.manager.settings.doiChapterSuffixPatternRequired', function($doiChapterSuffixPattern) use ($form) {
+			if ($form->getData('doiSuffix') == 'pattern' && $form->getData('enableChapterDoi')) return $doiChapterSuffixPattern != '';
+			return true;
+		}));
+		$this->addCheck(new FormValidatorCustom($this, 'doiRepresentationSuffixPattern', 'required', 'plugins.pubIds.doi.manager.settings.doiRepresentationSuffixPatternRequired', function($doiRepresentationSuffixPattern) use ($form) {
+			if ($form->getData('doiSuffix') == 'pattern' && $form->getData('enableRepresentationDoi')) return $doiRepresentationSuffixPattern != '';
+			return true;
+		}));
+		$this->addCheck(new FormValidatorCustom($this, 'doiSubmissionFileSuffixPattern', 'required', 'plugins.pubIds.doi.manager.settings.doiSubmissionFileSuffixPatternRequired', function($doiSubmissionFileSuffixPattern) use ($form) {
+			if ($form->getData('doiSuffix') == 'pattern' && $form->getData('enableSubmissionFileDoi')) return $doiSubmissionFileSuffixPattern != '';
+			return true;
+		}));
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));
 
@@ -125,11 +141,13 @@ class DOISettingsForm extends Form {
 	function _getFormFields() {
 		return array(
 			'enableSubmissionDoi' => 'bool',
+			'enableChapterDoi' => 'bool',
 			'enableRepresentationDoi' => 'bool',
 			'enableSubmissionFileDoi' => 'bool',
 			'doiPrefix' => 'string',
 			'doiSuffix' => 'string',
 			'doiSubmissionSuffixPattern' => 'string',
+			'doiChapterSuffixPattern' => 'string',
 			'doiRepresentationSuffixPattern' => 'string',
 			'doiSubmissionFileSuffixPattern' => 'string',
 		);

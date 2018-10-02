@@ -1,15 +1,15 @@
 {**
  * templates/workflow/editorial.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Editorial workflow stage
  *}
 <div id="editorial">
 
-	{include file="controllers/notification/inPlaceNotification.tpl" notificationId="editingNotification_"|concat:$submission->getId() requestOptions=$editingNotificationRequestOptions}
+	{include file="controllers/notification/inPlaceNotification.tpl" notificationId="editingNotification_"|concat:$submission->getId() requestOptions=$editingNotificationRequestOptions refreshOn="stageStatusUpdated"}
 
 	{* Help Link *}
 	{help file="editorial-workflow/copyediting.md" class="pkp_help_tab"}

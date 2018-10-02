@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/grid/users/stageParticipant/form/AddParticipantFormHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class AddParticipantFormHandler
@@ -33,6 +33,12 @@
 		$('select[name^=\'filterUserGroupId\']', $form).change(
 				this.callbackWrapper(this.addUserGroupId));
 
+		$('input[name=\'userId\']').click(function() {
+			var filterUserIdVal =
+					/** @type {string} */ $('input[name=\'userId\']:checked').val();
+			$('input[name=\'userIdSelected\']').val(filterUserIdVal).trigger('change');
+		});
+
 		// initially populate the input field.
 		this.addUserGroupId();
 
@@ -56,7 +62,7 @@
 				$filterUserGroupId = $form.find('select[name^=\'filterUserGroupId\']'),
 				filterUserGroupIdVal = /** @type {string} */ $filterUserGroupId.val();
 
-		$('input[name=\'userGroupId\']').val(filterUserGroupIdVal);
+		$('input[name=\'userGroupId\']').val(filterUserGroupIdVal).trigger('change');
 	};
 
 

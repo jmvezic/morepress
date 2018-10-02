@@ -4,8 +4,8 @@
 <!--
   * locale/es_ES/common.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   * Credits: https://pkp.sfu.ca/wiki/index.php?title=OMP:_Spanish_(es_ES)
   * Localization strings.
@@ -26,13 +26,13 @@
 	<message key="about.people">Personas</message>
 	<message key="about.policies">Políticas</message>
 	<message key="about.siteMap">Mapa del sitio</message>
-	<message key="announcement.announcements">Anuncios</message>
-	<message key="announcement.announcementsHome">Anuncios</message>
-	<message key="announcement.moreAnnouncements">Mas Anuncios...</message>
-	<message key="announcement.noneExist">Ningún anuncio ha sido publicado.</message>
+	<message key="announcement.announcements">Avisos</message>
+	<message key="announcement.announcementsHome">Avisos</message>
+	<message key="announcement.moreAnnouncements">Mas avisos...</message>
+	<message key="announcement.noneExist">Ningún aviso ha sido publicado.</message>
 	<message key="announcement.posted">Enviado</message>
 	<message key="announcement.postedOn">Publicado el {$postDate}</message>
-	<message key="announcement.view">Ver Anuncio</message>
+	<message key="announcement.view">Ver Aviso</message>
 	<message key="common.tasks">Tareas</message>
 	<message key="common.list">Lista</message>
 	<message key="common.grid">Cuadrícula</message>
@@ -78,6 +78,7 @@
 	]]></message>
 	<message key="common.changesSaved">Tus cambios se han guardado.</message>
 	<message key="common.chooseOne">Seleccione uno</message>
+	<message key="common.clearSearch">Limpiar frase de búsqueda</message>
 	<message key="common.close">Cerrar</message>
 	<message key="common.closeWindow">Cerrar ventana</message>
 	<message key="common.complete">Completado</message>
@@ -128,6 +129,8 @@
 	<message key="common.fileSize">Tamaño del fichero</message>
 	<message key="common.fileType">Tipo de fichero</message>
 	<message key="common.fileUploaderError">El cargador de archivos del sistema está cargando. Si no aparece, es probable que ninguno de los tiempos de ejecución sea compatible con este navegador. Contacte con la administración para obtener ayuda.</message>
+	<message key="common.filter">Filtros</message>
+	<message key="common.filterRemove">Limpiar filtros: {$filterTitle}</message>
 	<message key="common.go">Ir</message>
 	<message key="common.height">Altura</message>
 	<message key="common.homePageHeaderLogo.altText">Logo del Título (Página de Inicio)</message>
@@ -165,7 +168,7 @@
 	<message key="common.ok">Aceptar</message>
 	<message key="common.options">Opciones</message>
 	<message key="common.order">Orden</message>
-	<message key="common.originalFileName">Nombre del fichero original</message>
+	<message key="common.originalFileName">Nombre del archivo original</message>
 	<message key="common.or">o</message>
 	<message key="common.other">Otro</message>
 	<message key="common.overdue">Vencido</message>
@@ -189,7 +192,7 @@
 	<message key="common.remove">Eliminar</message>
 	<message key="common.removeSelection">Eliminar selección</message>
 	<message key="common.replaced">Sustituido</message>
-	<message key="common.replaceFile">Reemplazar fichero</message>
+	<message key="common.replaceFile">Reemplazar archivo</message>
 	<message key="common.requiredField">* Campos obligatorios</message>
 	<message key="common.required">Obligatorio</message>
 	<message key="common.reset">Restaurar</message>
@@ -331,8 +334,8 @@
 	<message key="stageParticipants.notify.message">Mensaje</message>
 	<message key="stageParticipants.notify.warning">Asegúrese de que ha rellenado el campo del mensaje y seleccione al menos un destinatario/a.</message>
 
-	<message key="locale.primary">Locale primario</message>
-	<message key="locale.supported">Locales soportados</message>
+	<message key="locale.primary">Idioma primario</message>
+	<message key="locale.supported">Idiomas soportados</message>
 	<message key="navigation.access"><![CDATA[Usuarios/as y roles]]></message>
 	<message key="navigation.about">Acerca de</message>
 	<message key="navigation.admin">Administración</message>
@@ -355,11 +358,11 @@
 	<message key="navigation.publicMenu">Menú público</message>
 	<message key="navigation.register">Registrarse</message>
 	<message key="navigation.search">Buscar</message>
-	<message key="navigation.settings">Preferéncias</message>
+	<message key="navigation.settings">Preferencias</message>
 	<message key="navigation.setup">Configuración</message>
 	<message key="navigation.sitemap">Mapa del sitio</message>
 	<message key="navigation.stepNumber">Paso {$step}</message>
-	<message key="navigation.submissions">Propuestas</message>
+	<message key="navigation.submissions">Envíos</message>
 	<message key="navigation.system">Sistema</message>
 	<message key="navigation.userHome">Inicio</message>
 	<message key="navigation.user">Usuario/a</message>
@@ -379,34 +382,18 @@
 	<message key="notification.editedAuthor">Autor/a editado.</message>
 	<message key="notification.confirmError">Ha habido un error confirmándo tu suscripción.</message>
 	<message key="notification.confirmSuccess">Ha sido correctamente suscrito.</message>
-	<message key="notification.email">Enviarme un email para ese tipo de notificaciones.</message>
-	<message key="notification.location">Ir a la web</message>
-	<message key="notification.mailList">Lista de correo de notificaciones</message>
-	<message key="notification.mailList.emailInvalid">Introduce una dirección de correo válida.</message>
-	<message key="notification.mailList.privacyProtection">Política de protección de privacidad</message>
-	<message key="notification.mailList.protectedContent"><![CDATA[<a href="{$subscribeUrl}">Suscribirse</a> a contenido protegido.]]></message>
-	<message key="notification.mailList.submit"><![CDATA[<a href="{$submitUrl}">Enviar</a> un artículo]]></message>
-	<message key="notification.mailList.register">Te puedes registrar con este sitio para...</message>
-	<message key="notification.mailList.review"><![CDATA[Participar en el proceso de <a href="{$reviewUrl}">revisión por pares</a>]]></message>
+	<message key="notification.email">No enviarme un email para ese tipo de notificaciones.</message>
 	<message key="notification.noneExist">No tiene notificaciones en este momento.</message>
 	<message key="notification.addedNote">Nota publicada.</message>
 	<message key="notification.removedNote">Nota eliminada.</message>
 	<message key="notification.removedFile">Archivo eliminado.</message>
 	<message key="notification.notification">Notificación</message>
 	<message key="notification.notifications">Notificaciones</message>
-	<message key="notification.notificationsNew">({$numNew} nuevo)</message>
-	<message key="notification.notificationsDescription">Tiene {$unreadCount} notificaciones sin leer y {$readCount} notificaciones leídas.<![CDATA[<a href="{$settingsUrl}">Haga clic aquí</a> para cambiar la configuración de las notificaciones.]]></message>
 	<message key="notification.sentNotification">Notificación enviada.</message>
 	<message key="notification.settings">Configuración de notificaciones</message>
 	<message key="notification.settingsDescription">Seleccione los eventos del sistema para los que desea recibir notificaciones. Al desmarcar un elemento, las notificaciones del evento no aparecerán en el sistema ni se le enviarán por correo electrónico. Los eventos marcados aparecerán en el sistema y, además, puede elegir si desea recibir o no la misma notificación por correo electrónico.</message>
-	<message key="notification.subscribe">Suscribirse</message>
-	<message key="notification.subscribeError">Tu dirección de correo electrónico ya está suscrita a las notificaciones.</message>
-	<message key="notification.subscribeSuccess">Se envió un correo electrónico a la dirección que especificó.  Haga clic en el enlace de confirmación que aparece en el correo electrónico para suscribirse a la lista de distribución de correo.</message>
 	<message key="notification.reminderError">Ha habido un error enviando tu contraseña, por favor comprueba que has puesto bien tu dirección de correo electrónico.</message>
 	<message key="notification.reminderSent">Tu nueva contraseña ha sido enviada a la dirección de correo electrónico proporcionada.</message>
-	<message key="notification.unsubscribe">Des-suscribirse</message>
-	<message key="notification.unsubscribeError">Se produjo un error al darse de baja.  Asegúrese de que está utilizando la URL correcta que viene en el correo electrónico de notificación.</message>
-	<message key="notification.unsubscribeSuccess">Ha sido correctamente des-suscrito.</message>
 	<message key="notification.savedSubmissionMetadata">Metadatos de envíos guardados.</message>
 	<message key="search.abstract">Resumen</message>
 	<message key="search.author">Autores/as</message>
@@ -462,7 +449,7 @@
 	<message key="submission.task.responseDueDate">Fecha límite de la contestación</message>
 	<message key="navigation.goBack">Volver</message>
 
-	<message key="notification.addedReviewer">Revisor/a añadido.</message>
+	<message key="notification.addedReviewer">Se ha asignado a {$reviewerName} para revisar este envío y se le ha enviado un correo electrónico de notificación.</message>
 	<message key="notification.removedReviewer">Revisor/a eliminado.</message>
 	<message key="notification.addedStageParticipant">Usuario/a añadido como participante de la fase.</message>
 	<message key="notification.type.reviewAssignment">Tiene una revisión pendiente.</message>
@@ -510,12 +497,11 @@
 	<message key="grid.action.markRead">Marcar leído</message>
 	<message key="common.tasks.titleAndTask">{$acronym}: "{$title}": {$task}</message>
 	<message key="dashboard.myQueue">Mi lista</message>
-	<message key="notification.type.newAnnouncement">Nuevo anuncio.</message>
+	<message key="notification.type.newAnnouncement">Nuevo aviso.</message>
 	<message key="notification.type.metadataModified">Los metadatos de "{$title}" han sido modificados.</message>
 	<message key="notification.type.reviewerComment">Un revisor ha hecho comentarios acerca de "{$title}".</message>
 	<message key="user.authorization.invalidRepresentation">Representación inválida.</message>
 	<message key="notification.type.queryActivity">Actividad de la conversación.</message>
-	<message key=""><![CDATA[]]></message>
 	<message key="common.navigation.sidebar">Barra lateral</message>
 	<message key="common.navigation.site">Navegación del sitio</message>
 	<message key="common.navigation.user">Navegación del usuario</message>
@@ -527,10 +513,26 @@
 	<message key="notification.type.queryAdded">Conversación añadida.</message>
 	<message key="common.navigation.siteContext">Navegación contextual del sitio</message>
 	<message key="common.allDownloads">Todas las descargas</message>
-	<message key="common.file.namingPattern">{$username}, {$userGroup}, {$originalFilename}</message>
-	<message key="common.file.anonymousNamingPattern">{$userGroup}, {$originalFilename}</message>
+	<message key="common.file.namingPattern">{$username}, {$originalFilename}</message>
+	<message key="common.file.anonymousNamingPattern">{$genre}, {$originalFilename}</message>
 	<message key="common.reminded.date">Recordado: {$dateReminded}</message>
 	<message key="common.component">Componente</message>
 	<message key="navigation.dashboard">Panel de control</message>
 	<message key="search.SearchFor">Buscar</message>
+	<message key="common.captcha.error.missing-input-secret">La validación de captcha para este sitio web no está configurada correctamente. Falta la clave secreta.</message>
+	<message key="common.captcha.error.invalid-input-secret">La validación de captcha para este sitio web no está configurada correctamente. La clave secreta no es válida.</message>
+	<message key="common.captcha.error.missing-input-response">Debe completar la comprobación de validación utilizada para evitar envíos de spam.</message>
+	<message key="common.captcha.error.invalid-input-response">No superó la comprobación de validación utilizada para evitar envíos de spam.</message>
+	<message key="common.downloadPdf">Descargar PDF</message>
+	<message key="form.csrfInvalid">El formulario no se envió correctamente.</message>
+	<message key="informationCenter.addNote">Añadir nota</message>
+	<message key="navigation.skip.main">Ir al contenido principal</message>
+	<message key="navigation.skip.nav">Ir al menú de navegación principal</message>
+	<message key="navigation.skip.footer">Ir al pie de página del sitio</message>
+	<message key="notification.removedSubmission">Envío eliminado.</message>
+	<message key="notification.type.assignCopyeditors">Asigne un corrector/a mediante la opción Añadir del panel de participantes.</message>
+	<message key="notification.type.awaitingCopyedits">Esperando correcciones.</message>
+	<message key="notification.addedReviewerNoEmail">Se ha asignado a {$reviewerName} para revisar este envío y no se le ha enviado un correo electrónico de notificación.</message>
+
+	<message key="semicolon">{$label}:</message>
 </locale>

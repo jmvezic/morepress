@@ -7,8 +7,8 @@
 /**
  * @file classes/user/PKPUser.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPUser
@@ -21,12 +21,8 @@
 import('lib.pkp.classes.identity.Identity');
 
 class PKPUser extends Identity {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
+	/** @var array Roles assigned to this user grouped by context */
+	protected $_roles = array();
 
 	//
 	// Get/set methods
@@ -106,22 +102,6 @@ class PKPUser extends Identity {
 	}
 
 	/**
-	 * Get user gender.
-	 * @return string
-	 */
-	function getGender() {
-		return $this->getData('gender');
-	}
-
-	/**
-	 * Set user gender.
-	 * @param $gender string
-	 */
-	function setGender($gender) {
-		$this->setData('gender', $gender);
-	}
-
-	/**
 	 * Get phone number.
 	 * @return string
 	 */
@@ -170,17 +150,6 @@ class PKPUser extends Identity {
 	}
 
 	/**
-	 * Get the user's reviewing interests as an array. DEPRECATED in favour of direct interaction with the InterestManager.
-	 * @return array
-	 */
-	function getUserInterests() {
-		if (Config::getVar('debug', 'deprecation_warnings')) trigger_error('Deprecated function.');
-		import('lib.pkp.classes.user.InterestManager');
-		$interestManager = new InterestManager();
-		return $interestManager->getInterestsForUser($this);
-	}
-
-	/**
 	 * Get the user's interests displayed as a comma-separated string
 	 * @return string
 	 */
@@ -191,28 +160,19 @@ class PKPUser extends Identity {
 	}
 
 	/**
-	 * Get localized user gossip.
-	 */
-	function getLocalizedGossip() {
-		return $this->getLocalizedData('gossip');
-	}
-
-	/**
 	 * Get user gossip.
-	 * @param $locale string
 	 * @return string
 	 */
-	function getGossip($locale) {
-		return $this->getData('gossip', $locale);
+	function getGossip() {
+		return $this->getData('gossip');
 	}
 
 	/**
 	 * Set user gossip.
 	 * @param $gossip string
-	 * @param $locale string
 	 */
-	function setGossip($gossip, $locale) {
-		$this->setData('gossip', $gossip, $locale);
+	function setGossip($gossip) {
+		$this->setData('gossip', $gossip);
 	}
 
 	/**
@@ -383,6 +343,62 @@ class PKPUser extends Identity {
 		if ($p = $this->getPhone()) $signature .= '<br/>' . __('user.phone') . ' ' . htmlspecialchars($p);
 		$signature .= '<br/>' . htmlspecialchars($this->getEmail());
 		return $signature;
+	}
+
+	/**
+	 * Check if this user has a role in a context
+	 *
+	 * @param int|array $roles Role(s) to check for
+	 * @param int $contextId The context to check for roles in.
+	 * @return bool
+	 */
+	public function hasRole($roles, $contextId) {
+
+		$contextRoles = $this->getRoles($contextId);
+
+		if (empty($contextRoles)) {
+			return false;
+		}
+
+		if (!is_array($roles)) {
+			$roles = array($roles);
+		}
+
+		foreach($contextRoles as $contextRole) {
+			if (in_array((int) $contextRole->getId(), $roles)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Get this user's roles in a context
+	 *
+	 * @param int $contextId The context to retrieve roles in.
+	 * @param bool $noCache Force the roles to be retrieved from the database
+	 * @return array
+	 */
+	public function getRoles($contextId, $noCache = false) {
+
+		if ($noCache || empty($this->_roles[$contextId])) {
+			import('lib.pkp.classes.security.RoleDAO');
+			$userRolesDao = DAORegistry::getDAO('RoleDAO');
+			$this->setRoles($userRolesDao->getByUserId($this->getId(), $contextId), $contextId);
+		}
+
+		return isset($this->_roles[$contextId]) ? $this->_roles[$contextId] : array();
+	}
+
+	/**
+	 * Set this user's roles in a context
+	 *
+	 * @param array $roles The roles to assign this user
+	 * @param int $contextId The context to assign these roles
+	 */
+	public function setRoles($roles, $contextId) {
+		$this->_roles[$contextId] = $roles;
 	}
 }
 

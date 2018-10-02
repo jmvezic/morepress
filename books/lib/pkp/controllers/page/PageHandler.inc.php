@@ -3,8 +3,8 @@
 /**
  * @file lib/pkp/controllers/page/PageHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PageHandler
@@ -17,13 +17,6 @@
 import('classes.handler.Handler');
 
 class PageHandler extends Handler {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Implement template methods from PKPHandler
@@ -39,7 +32,9 @@ class PageHandler extends Handler {
 			SITE_ACCESS_ALL_ROLES
 		));
 		if (!Config::getVar('general', 'installed')) define('SESSION_DISABLE_INIT', true);
-		return parent::authorize($request, $args, $roleAssignments, false);
+
+		$this->setEnforceRestrictedSite(false);
+		return parent::authorize($request, $args, $roleAssignments);
 	}
 
 

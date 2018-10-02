@@ -3,8 +3,8 @@
 /**
  * @file classes/controllers/listbuilder/ListbuilderHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ListbuilderHandler
@@ -42,22 +42,14 @@ class ListbuilderHandler extends GridHandler {
 	/** @var string Field for LISTBUILDER_SAVE_TYPE_EXTERNAL naming the field used to send the saved contents of the LB */
 	var $_saveFieldName = null;
 
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
-	 * @see GridHandler::initialize
-	 * @param $request PKPRequest
-	 * @param $addItemLink boolean optional True/default to present an "add item" link action
+	 * @copydoc GridHandler::initialize
 	 */
-	function initialize($request, $addItemLink = true) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 
-		if ($addItemLink) {
+		if ($this->canAddItems()) {
 			import('lib.pkp.classes.linkAction.request.NullAction');
 			$this->addAction($this->getAddItemLinkAction(new NullAction()));
 		}
@@ -223,7 +215,7 @@ class ListbuilderHandler extends GridHandler {
 				$optionsCount--;
 				$optionsCount = count($firstColumnOptions, COUNT_RECURSIVE) - $optionsCount;
 			}
-		
+
 			$listElements = $this->getGridDataElements($request);
 			if (count($listElements) < $optionsCount) {
 				$availableOptions = true;
@@ -231,7 +223,7 @@ class ListbuilderHandler extends GridHandler {
 		}
 
 		$templateMgr->assign('availableOptions', $availableOptions);
-	
+
 		return $this->fetchGrid($args, $request);
 	}
 
@@ -270,7 +262,7 @@ class ListbuilderHandler extends GridHandler {
 			$changes = array();
 			foreach ($entry as $key => $value) {
 				// Match the column name and localization data, if any.
-				if (!preg_match('/^newRowId\[([a-zA-Z]+)\](\[([a-z][a-z]_[A-Z][A-Z])\])?$/', $key, $matches)) assert(false);
+				if (!preg_match('/^newRowId\[([a-zA-Z]+)\](\[([a-z][a-z]_[A-Z][A-Z](@([A-Za-z0-9]{5,8}|\d[A-Za-z0-9]{3}))?)\])?$/', $key, $matches)) assert(false);
 
 				// Get the column name
 				$column = $matches[1];
@@ -323,6 +315,16 @@ class ListbuilderHandler extends GridHandler {
 	function fetchOptions($args, $request) {
 		$options = $this->getOptions($request);
 		return new JSONMessage(true, $options);
+	}
+
+
+	/**
+	 * Can items be added to this list builder?
+	 *
+	 * @return boolean
+	 */
+	public function canAddItems() {
+		return true;
 	}
 
 	//

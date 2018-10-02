@@ -3,8 +3,8 @@
 /**
  * @file controllers/tab/settings/paymentMethod/form/PaymentMethodForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PaymentMethodForm
@@ -19,18 +19,35 @@ class PaymentMethodForm extends ContextSettingsForm {
 	/** @var array */
 	var $paymentPlugins;
 
+	/** @var Form Payment plugin settings form */
+	var $settingsForm;
+
 	/**
 	 * Constructor.
 	 * @param $wizardMode boolean Whether to open the form in wizard mode
 	 */
 	function __construct($wizardMode = false) {
 		$settings = array(
+			'paymentsEnabled' => 'bool',
 			'paymentPluginName' => 'string',
 			'currency' => 'string',
 		);
 
 		parent::__construct($settings, 'controllers/tab/settings/paymentMethod/form/paymentMethodForm.tpl', $wizardMode);
 		$this->paymentPlugins = PluginRegistry::loadCategory('paymethod');
+	}
+
+	/**
+	 * @copydoc Form::initData()
+	 * @param $request Request
+	 */
+	function initData($request) {
+		parent::initData($request);
+		$paymentPluginName = $this->getData('paymentPluginName');
+		if (!isset($this->paymentPlugins[$paymentPluginName])) return;
+		$plugin = $this->paymentPlugins[$paymentPluginName];
+		$this->settingsForm = $plugin->getSettingsForm($request->getContext());
+		$this->settingsForm->initData();
 	}
 
 	/**
@@ -56,8 +73,8 @@ class PaymentMethodForm extends ContextSettingsForm {
 		$paymentPluginName = $this->getData('paymentPluginName');
 		if (!isset($this->paymentPlugins[$paymentPluginName])) return false;
 		$plugin = $this->paymentPlugins[$paymentPluginName];
-
-		$this->readUserVars($plugin->getSettingsFormFieldNames());
+		$this->settingsForm = $plugin->getSettingsForm($request->getContext());
+		$this->settingsForm->readInputData();
 	}
 
 	/**
@@ -70,11 +87,7 @@ class PaymentMethodForm extends ContextSettingsForm {
 		$paymentPluginName = $this->getData('paymentPluginName');
 		if (isset($this->paymentPlugins[$paymentPluginName])) {
 			$plugin = $this->paymentPlugins[$paymentPluginName];
-
-			// Save the plugin-specific settings
-			foreach ($plugin->getSettingsFormFieldNames() as $settingName) {
-				$plugin->updateSetting($context->getId(), $settingName, $this->getData($settingName));
-			}
+			$this->settingsForm->execute();
 
 			// Remove notification.
 			$notificationDao = DAORegistry::getDAO('NotificationDAO');
@@ -90,17 +103,16 @@ class PaymentMethodForm extends ContextSettingsForm {
 	}
 
 	/**
-	 * Adds plugin-specific validation checks to the form. Called by SettingsTabHandler before validate().
-	 * @see ContextSettingsForm::addValidationChecks()
+	 * Validate the form.
+	 * @copydoc Form::validate
 	 */
-	function addValidationChecks() {
-		$paymentPluginName = $this->getData('paymentPluginName');
-		if (isset($this->paymentPlugins[$paymentPluginName])) {
-			$plugin = $this->paymentPlugins[$paymentPluginName];
-			foreach ($plugin->getRequiredSettingsFormFieldNames() as $settingName) {
-				$this->addCheck(new FormValidator($this, $settingName, 'required', 'common.required'));
+	function validate() {
+		if (!$this->settingsForm->validate()) {
+			foreach ($this->settingsForm->getErrorsArray() as $field => $message) {
+				$this->addError($field, $message);
 			}
 		}
+		return parent::validate();
 	}
 }
 

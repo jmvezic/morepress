@@ -2,8 +2,8 @@
 /**
  * @file classes/security/authorization/SubmissionAccessPolicy.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionAccessPolicy
@@ -25,8 +25,9 @@ class SubmissionAccessPolicy extends ContextPolicy {
 	 * @param $roleAssignments array
 	 * @param $submissionParameterName string the request parameter we
 	 *  expect the submission id in.
+	 * @param $permitDeclined boolean True iff declined reviews are permitted for viewing by reviewers
 	 */
-	function __construct($request, $args, $roleAssignments, $submissionParameterName = 'submissionId') {
+	function __construct($request, $args, $roleAssignments, $submissionParameterName = 'submissionId', $permitDeclined = false) {
 		parent::__construct($request);
 
 		// We need a submission in the request.
@@ -80,7 +81,7 @@ class SubmissionAccessPolicy extends ContextPolicy {
 
 			// 2) ... but only if they have been assigned to the submission as reviewers.
 			import('lib.pkp.classes.security.authorization.internal.ReviewAssignmentAccessPolicy');
-			$reviewerSubmissionAccessPolicy->addPolicy(new ReviewAssignmentAccessPolicy($request));
+			$reviewerSubmissionAccessPolicy->addPolicy(new ReviewAssignmentAccessPolicy($request, $permitDeclined));
 			$submissionAccessPolicy->addPolicy($reviewerSubmissionAccessPolicy);
 		}
 

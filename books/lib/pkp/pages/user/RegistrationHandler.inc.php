@@ -3,8 +3,8 @@
 /**
  * @file pages/user/RegistrationHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class RegistrationHandler
@@ -17,12 +17,6 @@
 import('pages.user.UserHandler');
 
 class RegistrationHandler extends UserHandler {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * @see PKPHandler::initialize()
@@ -33,31 +27,38 @@ class RegistrationHandler extends UserHandler {
 	}
 
 	/**
-	 * Display registration form for new users.
+	 * Display registration form for new users, validate and execute that form,
+	 * or display a registration success page if the user is logged in.
 	 * @param $args array
 	 * @param $request PKPRequest
 	 */
 	function register($args, $request) {
+		if (Config::getVar('security', 'force_login_ssl') && $request->getProtocol() != 'https') {
+			// Force SSL connections for registration
+			$request->redirectSSL();
+		}
+
+		// If the user is logged in, show them the registration success page
+		if (Validation::isLoggedIn()) {
+			$this->setupTemplate($request);
+			$templateMgr = TemplateManager::getManager($request);
+			$templateMgr->assign('pageTitle', 'user.login.registrationComplete');
+			return $templateMgr->fetch('frontend/pages/userRegisterComplete.tpl');
+		}
+
 		$this->validate($request);
 		$this->setupTemplate($request);
 
 		import('lib.pkp.classes.user.form.RegistrationForm');
 		$regForm = new RegistrationForm($request->getSite());
-		$regForm->initData($request);
-		$regForm->display($request);
-	}
 
-	/**
-	 * Validate user registration information and register new user.
-	 * @param $args array
-	 * @param $request PKPRequest
-	 */
-	function registerUser($args, $request) {
-		$this->validate($request);
-		$this->setupTemplate($request);
+		// Initial GET request to register page
+		if (!$request->isPost()) {
+			$regForm->initData($request);
+			return $regForm->display($request);
+		}
 
-		import('lib.pkp.classes.user.form.RegistrationForm');
-		$regForm = new RegistrationForm($request->getSite());
+		// Form submitted
 		$regForm->readInputData();
 		if (!$regForm->validate()) {
 			return $regForm->display($request);
@@ -99,26 +100,23 @@ class RegistrationHandler extends UserHandler {
 			return $templateMgr->fetch('frontend/pages/error.tpl');
 		}
 
-		if ($source = $request->getUserVar('source')) {
-			return $request->redirectUrlJson($source);
+		$source = $request->getUserVar('source');
+		if (preg_match('#^/\w#', $source) === 1) {
+			return $request->redirectUrl($source);
 		} else {
-			$request->redirect(null, 'user', 'registrationComplete');
+			// Make a new request to update cookie details after login
+			$request->redirect(null, 'user', 'register');
 		}
 	}
 
 	/**
-	 * A landing page once users complete registration
-	 * @param $args array
-	 * @param $request PKPRequest
+	 * Re-route request to the register method.
+	 * Backwards-compatible with third-party themes that submit the registration
+	 * form to the registerUser method.
+	 * @see RegistrationHandler::register
 	 */
-	function registrationComplete($args, $request) {
-		if (!Validation::isLoggedIn()) {
-			$request->redirect(null, 'login');
-		}
-		$this->setupTemplate($request);
-		$templateMgr = TemplateManager::getManager($request);
-		$templateMgr->assign('pageTitle', 'user.login.registrationComplete');
-		return $templateMgr->fetch('frontend/pages/userRegisterComplete.tpl');
+	function registerUser($args, $request) {
+		$this->register($args, $request);
 	}
 
 	/**

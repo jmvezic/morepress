@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/customBlockManager/CustomBlockPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @package plugins.generic.customBlockManager
@@ -18,19 +18,19 @@ import('lib.pkp.classes.plugins.BlockPlugin');
 
 class CustomBlockPlugin extends BlockPlugin {
 	/** @var string Name of this block plugin */
-	var $blockName;
+	var $_blockName;
 
-	/** @var string Name of parent plugin */
-	var $parentPluginName;
+	/** @var CustomBlockManagerPlugin Parent plugin */
+	var $_parentPlugin;
 
 	/**
 	 * Constructor
 	 * @param $blockName string Name of this block plugin.
-	 * @param $parentPluginName string Name of block plugin management plugin.
+	 * @param $parentPlugin CustomBlockManagerPlugin Custom block plugin management plugin.
 	 */
-	function __construct($blockName, $parentPluginName) {
-		$this->blockName = $blockName;
-		$this->parentPluginName = $parentPluginName;
+	function __construct($blockName, $parentPlugin) {
+		$this->_blockName = $blockName;
+		$this->_parentPlugin = $parentPlugin;
 		parent::__construct();
 	}
 
@@ -39,14 +39,14 @@ class CustomBlockPlugin extends BlockPlugin {
 	 * @return CustomBlockManagerPlugin
 	 */
 	function getManagerPlugin() {
-		return PluginRegistry::getPlugin('generic', $this->parentPluginName);
+		return $this->_parentPlugin;
 	}
 
 	/**
 	 * @copydoc Plugin::getName()
 	 */
 	function getName() {
-		return $this->blockName;
+		return $this->_blockName;
 	}
 
 	/**
@@ -84,7 +84,7 @@ class CustomBlockPlugin extends BlockPlugin {
 	 * @copydoc Plugin::getDisplayName()
 	 */
 	function getDisplayName() {
-		return $this->blockName . ' ' . __('plugins.generic.customBlock.nameSuffix');
+		return $this->_blockName . ' ' . __('plugins.generic.customBlock.nameSuffix');
 	}
 
 	/**
@@ -97,17 +97,21 @@ class CustomBlockPlugin extends BlockPlugin {
 	/**
 	 * @copydoc BlockPlugin::getContents()
 	 */
-	function getContents(&$templateMgr, $request = null) {
-		// Ensure that we're dealing with a request with context
+	function getContents($templateMgr, $request = null) {
 		$context = $request->getContext();
-		if (!$context) return '';
+		$contextId = $context ? $context->getId() : 0;
 
 		// Get the block contents.
-		$customBlockContent = $this->getSetting($context->getId(), 'blockContent');
+		$customBlockContent = $this->getSetting($contextId, 'blockContent');
 		$currentLocale = AppLocale::getLocale();
+		$contextPrimaryLocale = $context?$context->getPrimaryLocale():$request->getSite()->getPrimaryLocale();
+
 		$divCustomBlockId = 'customblock-'.preg_replace('/\W+/', '-', $this->getName());
 		$templateMgr->assign('customBlockId', $divCustomBlockId);
-		$templateMgr->assign('customBlockContent', $customBlockContent[$currentLocale]);
+
+		$content = $customBlockContent[$currentLocale] ? $customBlockContent[$currentLocale] : $customBlockContent[$contextPrimaryLocale];
+
+		$templateMgr->assign('customBlockContent', $content);
 		return parent::getContents($templateMgr, $request);
 
 	}
@@ -123,9 +127,9 @@ class CustomBlockPlugin extends BlockPlugin {
 	/**
 	 * @copydoc BlockPlugin::getSeq()
 	 */
-	function getSeq() {
+	function getSeq($contextId = null) {
 		if (!Config::getVar('general', 'installed')) return 1;
-		return parent::getSeq();
+		return parent::getSeq($contextId);
 	}
 }
 

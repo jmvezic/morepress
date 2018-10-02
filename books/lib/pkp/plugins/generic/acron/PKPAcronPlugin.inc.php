@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/acron/PKPAcronPlugin.inc.php
  *
- * Copyright (c) 2013-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPAcronPlugin
@@ -29,10 +29,10 @@ class PKPAcronPlugin extends GenericPlugin {
 	var $_tasksToRun;
 
 	/**
-	 * @copydoc LazyLoadPlugin::register()
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		$success = parent::register($category, $path);
+	function register($category, $path, $mainContextId = null) {
+		$success = parent::register($category, $path, $mainContextId);
 		HookRegistry::register('Installer::postInstall', array(&$this, 'callbackPostInstall'));
 
 		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
@@ -46,7 +46,7 @@ class PKPAcronPlugin extends GenericPlugin {
 	}
 
 	/**
-	* @copydoc PKPPlugin::isSitePlugin()
+	* @copydoc Plugin::isSitePlugin()
 	*/
 	function isSitePlugin() {
 		// This is a site-wide plugin.
@@ -61,24 +61,63 @@ class PKPAcronPlugin extends GenericPlugin {
 	}
 
 	/**
-	 * @copydoc PKPPlugin::getDisplayName()
+	 * @copydoc Plugin::getDisplayName()
 	 */
 	function getDisplayName() {
 		return __('plugins.generic.acron.name');
 	}
 
 	/**
-	 * @copydoc PKPPlugin::getDescription()
+	 * @copydoc Plugin::getDescription()
 	 */
 	function getDescription() {
 		return __('plugins.generic.acron.description');
 	}
 
 	/**
-	* @copydoc PKPPlugin::getInstallSitePluginSettingsFile()
+	* @copydoc Plugin::getInstallSitePluginSettingsFile()
 	*/
 	function getInstallSitePluginSettingsFile() {
 		return PKP_LIB_PATH . DIRECTORY_SEPARATOR . $this->getPluginPath() . '/settings.xml';
+	}
+
+	/**
+	 * @copydoc Plugin::getActions()
+	 */
+	function getActions($request, $actionArgs) {
+		import('lib.pkp.classes.linkAction.request.AjaxAction');
+		$router = $request->getRouter();
+		return array_merge(
+			$this->getEnabled()?array(
+				new LinkAction(
+					'reload',
+					new AjaxAction(
+						$router->url($request, null, null, 'manage', null, array('verb' => 'reload', 'plugin' => $this->getName(), 'category' => 'generic'))
+					),
+					__('plugins.generic.acron.reload'),
+					null
+				)
+			):array(),
+			parent::getActions($request, $actionArgs)
+		);
+	}
+
+	/**
+	 * @see Plugin::manage()
+	 */
+	function manage($args, $request) {
+		switch($request->getUserVar('verb')) {
+			case 'reload':
+				$this->_parseCrontab();
+				$notificationManager = new NotificationManager();
+				$user = $request->getUser();
+				$notificationManager->createTrivialNotification(
+					$user->getId(), NOTIFICATION_TYPE_SUCCESS,
+					array('contents' => __('plugins.generic.acron.tasksReloaded'))
+				);
+				return DAO::getDataChangedEvent();
+		}
+		return parent::manage($args, $request);
 	}
 
 	/**
@@ -148,15 +187,13 @@ class PKPAcronPlugin extends GenericPlugin {
 
 		// Check if the plugin wants to add its own
 		// scheduled task into the cron tab.
-		$hooks = HookRegistry::getHooks();
-		$hookName = 'AcronPlugin::parseCronTab';
 
-		if (!isset($hooks[$hookName])) return false;
-
-		foreach ($hooks[$hookName] as $callback) {
-			if ($callback[0] == $plugin) {
-				$this->_parseCrontab();
-				break;
+		foreach (HookRegistry::getHooks('AcronPlugin::parseCronTab') as $hookPriorityList) {
+			foreach ($hookPriorityList as $priority => $callback) {
+				if ($callback[0] == $plugin) {
+					$this->_parseCrontab();
+					break;
+				}
 			}
 		}
 

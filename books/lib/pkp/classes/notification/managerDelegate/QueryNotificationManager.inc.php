@@ -3,8 +3,8 @@
 /**
  * @file classes/notification/managerDelegate/QueryNotificationManager.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class QueryNotificationManager
@@ -101,8 +101,8 @@ class QueryNotificationManager extends NotificationManagerDelegate {
 		assert(is_a($query, 'Query'));
 		$submission = $this->getQuerySubmission($query);
 
-		import('lib.pkp.controllers.grid.submissions.SubmissionsListGridCellProvider');
-		return SubmissionsListGridCellProvider::getUrlByUserRoles($request, $submission, $notification->getUserId());
+		import('classes.core.ServicesContainer');
+		return ServicesContainer::instance()->get('submission')->getWorkflowUrlByUserRoles($submission, $notification->getUserId());
 	}
 
 	/**

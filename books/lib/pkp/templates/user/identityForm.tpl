@@ -1,8 +1,8 @@
 {**
  * templates/user/identityForm.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * User profile form.
@@ -40,12 +40,14 @@
 			{fbvElement type="text" label="user.initials" name="initials" id="initials" value=$initials maxlength="5" inline=true size=$fbvStyles.size.SMALL}
 			{fbvElement type="text" label="user.suffix" id="suffix" value=$suffix inline=true size=$fbvStyles.size.SMALL}
 		{/fbvFormSection}
-		{fbvFormSection}
-			{fbvElement type="select" label="user.gender" name="gender" id="gender" from=$genderOptions translate="true" selected=$gender size=$fbvStyles.size.SMALL}
-		{/fbvFormSection}
 	{/fbvFormArea}
 
 	{fbvFormButtons hideCancel=true submitText="common.save"}
+
+	<p>
+		{capture assign="privacyUrl"}{url router=$smarty.const.ROUTE_PAGE page="about" op="privacy"}{/capture}
+		{translate key="user.privacyLink" privacyUrl=$privacyUrl}
+	</p>
 
 	<p><span class="formRequired">{translate key="common.requiredField"}</span></p>
 </form>

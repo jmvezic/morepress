@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/native/filter/NativeImportFilter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class NativeImportFilter
@@ -48,13 +48,19 @@ class NativeImportFilter extends NativeImportExportFilter {
 			// Multiple element (plural) import
 			for ($n = $document->documentElement->firstChild; $n !== null; $n=$n->nextSibling) {
 				if (!is_a($n, 'DOMElement')) continue;
-				$importedObjects[] = $this->handleElement($n);
+				$object = $this->handleElement($n);
+				if ($object) {
+					$importedObjects[] = $object;
+				}
 			}
 		} else {
 			assert($document->documentElement->tagName == $this->getSingularElementName());
 
 			// Single element (singular) import
-			$importedObjects[] = $this->handleElement($document->documentElement);
+			$object = $this->handleElement($document->documentElement);
+			if ($object) {
+				$importedObjects[] = $object;
+			}
 		}
 
 		return $importedObjects;

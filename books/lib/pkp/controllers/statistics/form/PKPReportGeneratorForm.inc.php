@@ -3,8 +3,8 @@
 /**
  * @file controllers/statistics/form/PKPReportGeneratorForm.inc.php
  *
- * Copyright (c) 2013-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPReportGeneratorForm
@@ -100,30 +100,32 @@ abstract class PKPReportGeneratorForm extends Form {
 		if (!is_null($reportTemplateIndex) && isset($reportTemplates[$reportTemplateIndex])) {
 			$reportTemplate = $reportTemplates[$reportTemplateIndex];
 			$reportColumns = $reportTemplate['columns'];
-			if (!is_array($reportColumns)) continue;
+			if (is_array($reportColumns)) {
 
-			$this->setData('columns', $reportColumns);
-			$this->setData('reportTemplate', $reportTemplateIndex);
-			if (isset($reportTemplate['aggregationColumns'])) {
-				$aggreationColumns = $reportTemplate['aggregationColumns'];
-				if (!is_array($aggreationColumns)) continue;
+				$this->setData('columns', $reportColumns);
+				$this->setData('reportTemplate', $reportTemplateIndex);
+				if (isset($reportTemplate['aggregationColumns'])) {
+					$aggreationColumns = $reportTemplate['aggregationColumns'];
+					if (is_array($aggreationColumns)) {
 
-				$aggreationOptions = $selectedAggregationOptions = array();
-				foreach ($aggreationColumns as $column) {
-					$columnName = $statsHelper->getColumnNames($column);
-					if (!$columnName) continue;
-					$aggreationOptions[$column] = $columnName;
+						$aggreationOptions = $selectedAggregationOptions = array();
+						foreach ($aggreationColumns as $column) {
+							$columnName = $statsHelper->getColumnNames($column);
+							if (!$columnName) continue;
+							$aggreationOptions[$column] = $columnName;
+						}
+						$this->setData('aggregationOptions', $aggreationOptions);
+						$this->setData('selectedAggregationOptions', array_intersect($aggreationColumns, $reportColumns));
+					}
 				}
-				$this->setData('aggregationOptions', $aggreationOptions);
-				$this->setData('selectedAggregationOptions', array_intersect($aggreationColumns, $reportColumns));
-			}
 
-			if (isset($reportTemplate['filter']) && is_array($reportTemplate['filter'])) {
-				foreach ($reportTemplate['filter'] as $dimension => $filter) {
-					switch ($dimension) {
-						case STATISTICS_DIMENSION_ASSOC_TYPE:
-							$this->setData('objectTypes', $filter);
-							break;
+				if (isset($reportTemplate['filter']) && is_array($reportTemplate['filter'])) {
+					foreach ($reportTemplate['filter'] as $dimension => $filter) {
+						switch ($dimension) {
+							case STATISTICS_DIMENSION_ASSOC_TYPE:
+								$this->setData('objectTypes', $filter);
+								break;
+						}
 					}
 				}
 			}

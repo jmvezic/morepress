@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/settings/category/form/CategoryForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class CategoryForm
@@ -47,15 +47,15 @@ class CategoryForm extends Form {
 		$this->_userId = $user->getId();
 
 		// Validation checks for this form
+		$form = $this;
 		$this->addCheck(new FormValidatorLocale($this, 'name', 'required', 'grid.category.nameRequired'));
 		$this->addCheck(new FormValidatorRegExp($this, 'path', 'required', 'grid.category.pathAlphaNumeric', '/^[a-zA-Z0-9\/._-]+$/'));
 		$this->addCheck(new FormValidatorCustom(
 			$this, 'path', 'required', 'grid.category.pathExists',
-			create_function(
-				'$path,$form,$categoryDao,$pressId',
-				'return !$categoryDao->categoryExistsByPath($path,$pressId) || ($form->getData(\'oldPath\') != null && $form->getData(\'oldPath\') == $path);'
-			),
-			array(&$this, DAORegistry::getDAO('CategoryDAO'), $pressId)
+			function($path) use ($form, $pressId) {
+				$categoryDao = DAORegistry::getDAO('CategoryDAO');
+				return !$categoryDao->categoryExistsByPath($path,$pressId) || ($form->getData('oldPath') != null && $form->getData('oldPath') == $path);
+			}
 		));
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));

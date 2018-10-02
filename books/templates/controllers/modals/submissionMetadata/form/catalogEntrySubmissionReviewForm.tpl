@@ -1,8 +1,8 @@
 {**
  * controllers/modals/submissionMetadata/form/catalogEntrySubmissionReviewForm.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Display a submission's catalog entry form.
@@ -50,7 +50,7 @@
 		{load_url_in_div id=$chaptersGridContainer url=$chaptersGridUrl}
 	{/if}
 
-	{include file="submission/submissionMetadataFormFields.tpl" readOnly=$formParams.readOnly}
+	{include file="submission/submissionMetadataFormFields.tpl" readOnly=$formParams.readOnly metadataModal=true}
 
 	{if !$formParams.hideSubmit}
 		{fbvFormButtons id="submissionMetadataFormSubmit" submitText="common.save"}

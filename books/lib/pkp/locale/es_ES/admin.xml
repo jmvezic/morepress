@@ -4,8 +4,8 @@
 <!--
   * locale/es_ES/admin.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   * Credits: https://pkp.sfu.ca/wiki/index.php?title=OMP:_Spanish_(es_ES)
   * Localization strings.
@@ -74,7 +74,7 @@ Uso (procesar todos los archivos de un directorio que empieza con la cadena pasa
 	<message key="admin.serverInformation">Información del servidor</message>
 	<message key="admin.server.phpVersion">Versión PHP</message>
 	<message key="admin.server.platform">Plataforma SO</message>
-	<message key="admin.settings">Preferéncias</message>
+	<message key="admin.settings">Preferencias</message>
 	<message key="admin.settings.aboutDescription">Descripción del sitio</message>
 	<message key="admin.settings.contactEmail">Correo electrónico del contacto principal</message>
 	<message key="admin.settings.contactName">Nombre del contacto principal</message>
@@ -140,4 +140,7 @@ Uso (procesamiento de todos los archivos dentro de un directorio): {$scriptName}
 	<message key="admin.error.executingUtil">Error: no se puede ejecutar "{$utilPath}". Compruebe su configuración {$utilVar} en config.inc.php.</message>
 	<message key="admin.scheduledTask.downloadLog">Su instalación de {$softwareName} ejecutó y finalizó automáticamente esta tarea y  puede descargarse el fichero de registro aquí: {$url}</message>
 	<message key="admin.scheduledTask.confirmClearLogs">Está seguro de que quiere eliminar todos los registros de ejecución de tareas programados?</message>
+	<message key="admin.settings.siteLogo">Logo del sitio</message>
+	<message key="admin.languages.noLocalesToDownload">No hay traducciones disponibles para descargar.</message>
+	<message key="admin.contexts.confirmDelete">¿Seguro que quiere eliminar permanentemente {$contextName} y todo su contenido?</message>
 </locale>

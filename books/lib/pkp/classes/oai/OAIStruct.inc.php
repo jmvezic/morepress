@@ -3,8 +3,8 @@
 /**
  * @file classes/oai/OAIStruct.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class OAIConfig
@@ -48,7 +48,7 @@ class OAIConfig {
 	/**
 	 * Constructor.
 	 */
-	function OAIConfig($baseUrl, $repositoryId) {
+	function __construct($baseUrl, $repositoryId) {
 		$this->baseUrl = $baseUrl;
 		$this->repositoryId = $repositoryId;
 
@@ -110,7 +110,7 @@ class OAIResumptionToken {
 	/**
 	 * Constructor.
 	 */
-	function OAIResumptionToken($id, $offset, $params, $expire) {
+	function __construct($id, $offset, $params, $expire) {
 		$this->id = $id;
 		$this->offset = $offset;
 		$this->params = $params;
@@ -137,7 +137,7 @@ class OAIMetadataFormat {
 	/**
 	 * Constructor.
 	 */
-	function OAIMetadataFormat($prefix, $schema, $namespace) {
+	function __construct($prefix, $schema, $namespace) {
 		$this->prefix = $prefix;
 		$this->schema = $schema;
 		$this->namespace = $namespace;
@@ -158,15 +158,6 @@ class OAIMetadataFormat {
 	 */
 	function toXml($record, $format = null) {
 		return '';
-	}
-
-	/**
-	 * Recursively strip HTML from a (multidimensional) array.
-	 * @param $values array
-	 * @return array the cleansed array
-	 */
-	function stripAssocArray($values) {
-		return stripAssocArray($values);
 	}
 }
 
@@ -190,7 +181,7 @@ class OAISet {
 	/**
 	 * Constructor.
 	 */
-	function OAISet($spec, $name, $description) {
+	function __construct($spec, $name, $description) {
 		$this->spec = $spec;
 		$this->name = $name;
 		$this->description = $description;
@@ -213,12 +204,6 @@ class OAIIdentifier {
 
 	/** @var string if this record is deleted */
 	var $status;
-
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-	}
 }
 
 
@@ -233,7 +218,6 @@ class OAIRecord extends OAIIdentifier {
 	 * Constructor
 	 */
 	function __construct() {
-		parent::__construct();
 		$this->data = array();
 	}
 

@@ -4,8 +4,8 @@
 <!--
   * xml/schema/reviews.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Review assignment schema in XML.
@@ -50,10 +50,6 @@
 			<NOTNULL/>
 			<DEFAULT VALUE="0"/>
 		</field>
-		<field name="cancelled" type="I1">
-			<NOTNULL/>
-			<DEFAULT VALUE="0"/>
-		</field>
 		<field name="reviewer_file_id" type="I8"/>
 		<field name="date_rated" type="T"/>
 		<field name="date_reminded" type="T"/>
@@ -88,6 +84,10 @@
 		</index>
 		<index name="review_assignments_form_id">
 			<col>review_form_id</col>
+		</index>
+		<index name="review_assignments_reviewer_review">
+			<col>reviewer_id</col>
+			<col>review_id</col>
 		</index>
 	</table>
 

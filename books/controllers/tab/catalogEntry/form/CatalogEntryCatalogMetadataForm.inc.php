@@ -3,8 +3,8 @@
 /**
  * @file controllers/tab/catalogEntry/form/CatalogEntryCatalogMetadataForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class CatalogEntryCatalogMetadataForm
@@ -72,6 +72,7 @@ class CatalogEntryCatalogMetadataForm extends Form {
 		$templateMgr->assign('submissionId', $this->getMonograph()->getId());
 		$templateMgr->assign('stageId', $this->getStageId());
 		$templateMgr->assign('formParams', $this->getFormParams());
+		$templateMgr->assign('datePublished', $this->getMonograph()->getDatePublished());
 
 		$onixCodelistItemDao = DAORegistry::getDAO('ONIXCodelistItemDAO');
 
@@ -84,6 +85,36 @@ class CatalogEntryCatalogMetadataForm extends Form {
 		$templateMgr->assign('audienceCodes', $audienceCodes);
 		$templateMgr->assign('audienceRangeQualifiers', $audienceRangeQualifiers);
 		$templateMgr->assign('audienceRanges', $audienceRanges);
+
+		// Workflow type
+		$templateMgr->assign(array(
+			'workTypeOptions' => array(
+				WORK_TYPE_EDITED_VOLUME => __('submission.workflowType.editedVolume'),
+				WORK_TYPE_AUTHORED_WORK => __('submission.workflowType.authoredWork'),
+			),
+			'workType' => $this->getMonograph()->getWorkType(),
+		));
+
+		// SelectListPanel for volume editors
+		$authorDao = DAORegistry::getDAO('AuthorDAO');
+		$authors = $authorDao->getBySubmissionId($this->getMonograph()->getId(), true);
+		$volumeEditorsListItems = array();
+		foreach ($authors as $author) {
+			$volumeEditorsListItems[] = array(
+				'id' => $author->getId(),
+				'title' => $author->getFullName() . ', ' . $author->getLocalizedUserGroupName(),
+			);
+		}
+		$volumeEditorsListData = array(
+			'items' => $volumeEditorsListItems,
+			'inputName' => 'volumeEditors[]',
+			'selected' => $this->getData('volumeEditors') ? $this->getData('volumeEditors') : [],
+			'i18n' => array(
+				'title' => __('submission.workflowType.editedVolume.selectEditors'),
+				'notice' => __('submission.workflowType.editedVolume.selectEditors.description'),
+			),
+		);
+		$templateMgr->assign('volumeEditorsListData', json_encode($volumeEditorsListData));
 
 		$publishedMonograph = $this->getPublishedMonograph();
 		if ($publishedMonograph) {
@@ -115,12 +146,22 @@ class CatalogEntryCatalogMetadataForm extends Form {
 		$copyrightYear = $submission->getCopyrightYear();
 		$licenseURL = $submission->getLicenseURL();
 
+		$authorDao = DAORegistry::getDAO('AuthorDAO');
+		$authors = $authorDao->getBySubmissionId($submission->getId(), true);
+		$volumeEditors = [];
+		foreach ($authors as $author) {
+			if ($author->getIsVolumeEditor()) {
+				$volumeEditors[] = $author->getId();
+			}
+		}
+
 		$this->_data = array(
 			'copyrightHolder' => $submission->getDefaultCopyrightHolder(null), // Localized
 			'copyrightYear' => $submission->getDefaultCopyrightYear(),
 			'licenseURL' => $submission->getDefaultLicenseURL(),
 			'arePermissionsAttached' => !empty($copyrightHolder) || !empty($copyrightYear) || !empty($licenseURL),
 			'confirm' => ($this->_publishedMonograph && $this->_publishedMonograph->getDatePublished())?true:false,
+			'volumeEditors' => $volumeEditors,
 		);
 	}
 
@@ -167,7 +208,8 @@ class CatalogEntryCatalogMetadataForm extends Form {
 			'audience', 'audienceRangeQualifier', 'audienceRangeFrom', 'audienceRangeTo', 'audienceRangeExact',
 			'copyrightYear', 'copyrightHolder', 'licenseURL', 'attachPermissions',
 			'temporaryFileId', // Cover image
-			'confirm',
+			'confirm', 'datePublished',
+			'workType', 'volumeEditors',
 		);
 
 		$this->readUserVars($vars);
@@ -211,6 +253,17 @@ class CatalogEntryCatalogMetadataForm extends Form {
 		if (!$publishedMonograph) {
 			$publishedMonograph = $publishedMonographDao->newDataObject();
 			$publishedMonograph->setId($monograph->getId());
+		}
+		$monograph->setDatePublished($this->getData('datePublished'));
+
+		if ($this->getData('workType') == WORK_TYPE_EDITED_VOLUME) {
+			$volumeEditors = $this->getData('volumeEditors') ? $this->getData('volumeEditors') : [];
+			$authorDao = DAORegistry::getDAO('AuthorDAO');
+			$authors = $authorDao->getBySubmissionId($monograph->getId(), true);
+			foreach ($authors as $author) {
+				$author->setIsVolumeEditor(in_array($author->getId(), $volumeEditors));
+				$authorDao->updateObject($author);
+			}
 		}
 
 		// Populate the published monograph with the cataloging metadata
@@ -289,6 +342,7 @@ class CatalogEntryCatalogMetadataForm extends Form {
 			$monograph->setCopyrightHolder(null, null);
 			$monograph->setLicenseURL(null);
 		}
+		$monograph->setWorkType($this->getData('workType'));
 		$monographDao->updateObject($monograph);
 
 		// Update the modified fields or insert new.
@@ -298,63 +352,12 @@ class CatalogEntryCatalogMetadataForm extends Form {
 			$publishedMonographDao->insertObject($publishedMonograph);
 		}
 
-		import('classes.publicationFormat.PublicationFormatTombstoneManager');
-		$publicationFormatTombstoneMgr = new PublicationFormatTombstoneManager();
-		$publicationFormatDao = DAORegistry::getDAO('PublicationFormatDAO');
-		$publicationFormatFactory = $publicationFormatDao->getBySubmissionId($monograph->getId());
-		$publicationFormats = $publicationFormatFactory->toAssociativeArray();
-		$notificationMgr = new NotificationManager();
+		import('classes.core.ServicesContainer');
+		$submissionService = ServicesContainer::instance()->get('submission');
 		if ($this->getData('confirm')) {
-			// Update the monograph status.
-			$monograph->setStatus(STATUS_PUBLISHED);
-			$monographDao->updateObject($monograph);
-
-			$publishedMonograph->setDatePublished(Core::getCurrentDate());
-			$publishedMonographDao->updateObject($publishedMonograph);
-
-			$notificationMgr->updateNotification(
-				$request,
-				array(NOTIFICATION_TYPE_APPROVE_SUBMISSION),
-				null,
-				ASSOC_TYPE_MONOGRAPH,
-				$publishedMonograph->getId()
-			);
-
-			// Remove publication format tombstones.
-			$publicationFormatTombstoneMgr->deleteTombstonesByPublicationFormats($publicationFormats);
-
-			// Update the search index for this published monograph.
-			import('classes.search.MonographSearchIndex');
-			MonographSearchIndex::indexMonographMetadata($monograph);
-
-			// Log the publication event.
-			import('lib.pkp.classes.log.SubmissionLog');
-			SubmissionLog::logEvent($request, $monograph, SUBMISSION_LOG_METADATA_PUBLISH, 'submission.event.metadataPublished');
-		} else {
-			if ($isExistingEntry) {
-				// Update the monograph status.
-				$monograph->setStatus(STATUS_QUEUED);
-				$monographDao->updateObject($monograph);
-
-				// Unpublish monograph.
-				$publishedMonograph->setDatePublished(null);
-				$publishedMonographDao->updateObject($publishedMonograph);
-
-				$notificationMgr->updateNotification(
-					$request,
-					array(NOTIFICATION_TYPE_APPROVE_SUBMISSION),
-					null,
-					ASSOC_TYPE_MONOGRAPH,
-					$publishedMonograph->getId()
-				);
-
-				// Create tombstones for each publication format.
-				$publicationFormatTombstoneMgr->insertTombstonesByPublicationFormats($publicationFormats, $request->getContext());
-
-				// Log the unpublication event.
-				import('lib.pkp.classes.log.SubmissionLog');
-				SubmissionLog::logEvent($request, $monograph, SUBMISSION_LOG_METADATA_UNPUBLISH, 'submission.event.metadataUnpublished');
-			}
+			$submissionService->addToCatalog($monograph);
+		} elseif ($isExistingEntry) {
+			$submissionService->removeFromCatalog($monograph);
 		}
 	}
 

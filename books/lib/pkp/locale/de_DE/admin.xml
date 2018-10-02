@@ -4,8 +4,8 @@
 <!--
   * locale/de_DE/admin.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   * Localization strings for the de_DE (Deutsch (Deutschland)) locale.
   * Please contact Marco Tullney, marco.tullney@fu-berlin.de, with any questions regarding this translation.
@@ -25,6 +25,7 @@
 	<message key="admin.confirmClearTemplateCache">Sind Sie sicher, dass Sie den Vorlagenspeicher leeren wollen?</message>
 	<message key="admin.confirmExpireSessions">Sind Sie sicher, dass Sie alle Benutzer/innensitzungen schließen wollen? Alle Benutzer/innen, die gerade arbeiten (auch Sie selbst), müssen sich danach neu einloggen.</message>
 	<message key="admin.contentsOfConfigFile">Inhalt der Konfigurationsdatei</message>
+	<message key="admin.contexts.confirmDelete">Sind Sie sicher, dass Sie {$contextName} und den gesamten zugehörigen Inhalt dauerhaft löschen wollen?</message>
 	<message key="admin.currentVersion">Aktuelle Version</message>
 	<message key="admin.dateInstalled">Installiert am</message>
 	<message key="admin.displayConfigFileInstructions"><![CDATA[Der Inhalt Ihrer aktualisierten Konfiguration wird nachstehend angezeigt. Öffnen Sie <tt>config.inc.php</tt> mit einem geeigneten Texteditor und ersetzen Sie den Inhalt durch den Text im nachstehenden Textfeld.]]></message>
@@ -83,8 +84,9 @@
 	<message key="admin.settings.siteLanguage">Sprache der Website</message>
 	<message key="admin.settings.siteStyleSheetInvalid">Ungültiges Format für die Formatvorlage der Website. Gültiges Format ist .css.</message>
 	<message key="admin.settings.siteStyleSheet">Formatvorlage der Website</message>
-	<message key="admin.settings.siteTheme">Thema der Website</message>
+	<message key="admin.settings.siteLogo">Logo der Website</message>
 	<message key="admin.settings.siteTitle">Titel der Website</message>
+	<message key="admin.settings.siteTheme">Thema der Website</message>
 	<message key="admin.siteAdmin">Administration der Website</message>
 	<message key="admin.siteManagement">Management der Website</message>
 	<message key="admin.siteSettings">Einstellungen der Website</message>
@@ -127,5 +129,5 @@ Benutzung (verarbeite alle Dateien in einem Verzeichnis): {$scriptName} path/to/
 	<message key="admin.copyAccessLogFileTool.success">Erfolgreich kopiert: {$filePath} nach {$destinationPath}</message>
 	<message key="admin.error.utilExecutionProblem">Die Ausführung des Programms "{$utilPath}" hat den folgenden Fehler geliefert: {$output}</message>
 	<message key="admin.error.executingUtil">Fehler: Ausführung von "{$utilPath}" nicht möglich. Überprüfen Sie die {$utilVar}-Einstellung in config.inc.php.</message>
-	<message key="admin.settings.siteLogo">Logo der Website</message>
+	<message key="admin.languages.noLocalesToDownload">Es sind keine Regionaleinstellungen zum Download verfügbar.</message>
 </locale>

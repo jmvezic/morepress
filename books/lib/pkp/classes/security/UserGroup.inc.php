@@ -3,8 +3,8 @@
 /**
  * @file classes/security/UserGroup.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserGroup
@@ -18,12 +18,6 @@
 import('lib.pkp.classes.security.Role');
 
 class UserGroup extends DataObject {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Get the role ID
@@ -100,7 +94,7 @@ class UserGroup extends DataObject {
 
 	/**
 	 * Set the "show title" flag
-	 * @param $isDefault boolean
+	 * @param $showTitle boolean
 	 */
 	function setShowTitle($showTitle) {
 		$this->setData('showTitle', $showTitle);
@@ -119,10 +113,28 @@ class UserGroup extends DataObject {
 
 	/**
 	 * Set the "permit self-registration" flag
-	 * @param $isDefault boolean
+	 * @param $permitSelfRegistration boolean
 	 */
 	function setPermitSelfRegistration($permitSelfRegistration) {
 		$this->setData('permitSelfRegistration', $permitSelfRegistration);
+	}
+
+	/**
+	 * Get the recommendOnly option (whether or not the manager or the sub-editor role
+	 * can only recommend or also make decisions in the submission review)
+	 * @return boolean
+	 */
+	function getRecommendOnly() {
+		return $this->getData('recommendOnly');
+	}
+
+	/**
+	 * Set the recommendOnly option (whether or not the manager or the sub-editor role
+	 * can only recommend or also make decisions in the submission review)
+	 * @param $recommendOnly boolean
+	 */
+	function setRecommendOnly($recommendOnly) {
+		$this->setData('recommendOnly', $recommendOnly);
 	}
 
 	/**
@@ -134,9 +146,9 @@ class UserGroup extends DataObject {
 	}
 
 	/**
-	 * Get user group name
-	 * @param $locale string
-	 * @return string
+	 * Get localized user group name, or array of localized names if $locale is null
+	 * @param $locale string|null
+	 * @return string|array|null localized name or array of localized names or null
 	 */
 	function getName($locale) {
 		return $this->getData('name', $locale);
@@ -160,16 +172,16 @@ class UserGroup extends DataObject {
 	}
 
 	/**
-	 * Get user group abbrev
-	 * @param $locale string
-	 * @return string
+	 * Get localized user group abbreviation, or array of localized abbreviations if $locale is null
+	 * @param $locale string|null
+	 * @return string|array|null localized abbreviation or array of localized abbreviations or null
 	 */
 	function getAbbrev($locale) {
 		return $this->getData('abbrev', $locale);
 	}
 
 	/**
-	 * Set user group abbrev
+	 * Set user group abbreviation
 	 * @param $abbrev string
 	 * @param $locale string
 	 */

@@ -3,8 +3,8 @@
 /**
  * @file classes/plugins/ImportExportPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ImportExportPlugin
@@ -19,12 +19,6 @@ abstract class ImportExportPlugin extends Plugin {
 	/** @var Request Request made available for plugin URL generation */
 	var $_request;
 
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Execute import/export tasks using the command-line interface.
@@ -151,18 +145,18 @@ abstract class ImportExportPlugin extends Plugin {
 	 * @param $xml string
 	 */
 	function displayXMLValidationErrors($errors, $xml) {
+		$charset = Config::getVar('i18n', 'client_charset');
+		header('Content-type: text/html; charset=' . $charset);
+		echo '<html><body>';
 		echo '<h2>' . __('plugins.importexport.common.validationErrors') . '</h2>';
-
 		foreach ($errors as $error) {
-			switch ($error->level) {
-				case LIBXML_ERR_ERROR:
-				case LIBXML_ERR_FATAL:
-					echo '<p>' . trim($error->message) . '</p>';
-			}
+			echo '<p>' . trim($error->message) . '</p>';
 		}
 		libxml_clear_errors();
 		echo '<h3>' . __('plugins.importexport.common.invalidXML') . '</h3>';
 		echo '<p><pre>' . htmlspecialchars($xml) . '</pre></p>';
+		echo '</body></html>';
+		fatalError(__('plugins.importexport.common.error.validation'));
 	}
 
 }

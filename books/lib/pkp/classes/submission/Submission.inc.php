@@ -10,8 +10,8 @@
 /**
  * @file classes/submission/Submission.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Submission
@@ -149,9 +149,8 @@ abstract class Submission extends DataObject {
 
 		// Fallback: Get the first available piece of data.
 		$data =& $this->getData($key, null);
-		if (!empty($data)) {
-			$keys = array_keys($data);
-			return $data[array_shift($keys)];
+		foreach ((array) $data as $dataValue) {
+			if (!empty($dataValue)) return $dataValue;
 		}
 
 		// No data available; return null.
@@ -305,16 +304,13 @@ abstract class Submission extends DataObject {
 	 * @return string
 	 */
 	function getShortAuthorString() {
-		$primaryAuthor = $this->getPrimaryAuthor();
 		$authors = $this->getAuthors();
-		if (!isset($primaryAuthor)) {
-			if (sizeof($authors) > 0) {
-				$primaryAuthor = $authors[0];
-			}
+		if (sizeof($authors) > 0) {
+			$firstAuthor = $authors[0];
 		}
-		if (!$primaryAuthor) return '';
+		if (!$firstAuthor) return '';
 
-		$authorString = $primaryAuthor->getLastName();
+		$authorString = $firstAuthor->getLastName();
 		AppLocale::requireComponents(LOCALE_COMPONENT_PKP_SUBMISSION);
 		if (count($authors) > 1) $authorString = __('submission.shortAuthor', array('author' => $authorString));
 		return $authorString;
@@ -484,7 +480,15 @@ abstract class Submission extends DataObject {
 	function getFullTitle($locale) {
 		$fullTitle = $this->getTitle($locale);
 
-		if ($subtitle = $this->getSubtitle($locale)) {
+		if (is_array($fullTitle)) {
+			foreach ($fullTitle as $locale => $title) {
+				if ($this->getSubtitle($locale)) {
+					$fullTitle[$locale] = PKPString::concatTitleFields(array($title, $this->getSubtitle($locale)));
+				} else {
+					$fullTitle[$locale] = $title;
+				}
+			}
+		} elseif ($this->getSubtitle($locale)) {
 			$fullTitle = PKPString::concatTitleFields(array($fullTitle, $subtitle));
 		}
 
@@ -846,9 +850,8 @@ abstract class Submission extends DataObject {
 		if (!isset($statusMap)) {
 			$statusMap = array(
 				STATUS_QUEUED => 'submissions.queued',
-				STATUS_PUBLISHED => 'submissions.published',
-				STATUS_DECLINED => 'submissions.declined',
-				STATUS_INCOMPLETE => 'submissions.incomplete'
+				STATUS_PUBLISHED => 'submission.status.published',
+				STATUS_DECLINED => 'submission.status.declined',
 			);
 		}
 		return $statusMap;
@@ -893,9 +896,11 @@ abstract class Submission extends DataObject {
 	 */
 	function getStartingPage() {
 		$ranges = $this->getPageArray();
-		$firstRange = array_pop(array_reverse($ranges));
-		$firstPage = is_array($firstRange) ? array_pop(array_reverse($firstRange)) : "";
-		return isset($firstPage) ? $firstPage : "";
+		$firstRange = array_shift($ranges);
+		if (is_array($firstRange)) {
+			return array_shift($firstRange);
+		}
+		return '';
 	}
 
 	/**
@@ -977,7 +982,7 @@ abstract class Submission extends DataObject {
 	 * @param $datePublished date
 	 */
 	function setDatePublished($datePublished) {
-		return $this->SetData('datePublished', $datePublished);
+		return $this->setData('datePublished', $datePublished);
 	}
 
 	/**

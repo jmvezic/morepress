@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/grid/queries/ReadQueryHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReadQueryHandler
@@ -110,9 +110,12 @@
 			showFetchedNoteForm_ = function(ajaxContext, jsonData) {
 
 		var processedJsonData = this.handleJson(jsonData),
-				$noteFormContainer = $('#newNotePlaceholder', this.getHtmlElement());
+				$noteFormContainer = $('#newNotePlaceholder', this.getHtmlElement()),
+				$openNoteForm = $('.openNoteForm.is_loading', this.getHtmlElement());
 
-		$('.openNoteForm.is_loading', this.getHtmlElement()).remove();
+		this.unbindPartial($openNoteForm);
+		$openNoteForm.remove();
+		this.unbindPartial($noteFormContainer);
 		$noteFormContainer.html(processedJsonData.content);
 	};
 
@@ -130,6 +133,7 @@
 				$participantsListContainer = $(
 				'#participantsListPlaceholder', this.getHtmlElement());
 
+		this.unbindPartial($participantsListContainer);
 		$participantsListContainer.children().remove();
 		$participantsListContainer.append(processedJsonData.content);
 	};

@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/files/copyedit/ManageCopyeditFilesGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ManageCopyeditFilesGridHandler
@@ -69,17 +69,21 @@ class ManageCopyeditFilesGridHandler extends SelectableSubmissionFileListCategor
 				$this->getGridCategoryDataElements($request, $this->getStageId())
 			);
 
-			$notificationMgr = new NotificationManager();
-			$notificationMgr->updateNotification(
-				$request,
-				array(
-					NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
-					NOTIFICATION_TYPE_AWAITING_COPYEDITS,
-				),
-				null,
-				ASSOC_TYPE_SUBMISSION,
-				$submission->getId()
-			);
+			if ($submission->getStageId() == WORKFLOW_STAGE_ID_EDITING ||
+				$submission->getStageId() == WORKFLOW_STAGE_ID_PRODUCTION) {
+
+				$notificationMgr = new NotificationManager();
+				$notificationMgr->updateNotification(
+					$request,
+					array(
+						NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
+						NOTIFICATION_TYPE_AWAITING_COPYEDITS,
+					),
+					null,
+					ASSOC_TYPE_SUBMISSION,
+					$submission->getId()
+				);
+			}
 
 			// Let the calling grid reload itself
 			return DAO::getDataChangedEvent();

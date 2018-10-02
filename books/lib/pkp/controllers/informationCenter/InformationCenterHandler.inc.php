@@ -3,8 +3,8 @@
 /**
  * @file controllers/informationCenter/InformationCenterHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class InformationCenterHandler
@@ -27,7 +27,7 @@ abstract class InformationCenterHandler extends Handler {
 	function __construct() {
 		parent::__construct();
 		$this->addRoleAssignment(
-			array(ROLE_ID_SUB_EDITOR, ROLE_ID_MANAGER, ROLE_ID_ASSISTANT),
+			array(ROLE_ID_SUB_EDITOR, ROLE_ID_MANAGER),
 			array(
 				'viewInformationCenter',
 				'viewHistory',
@@ -93,29 +93,6 @@ abstract class InformationCenterHandler extends Handler {
 	abstract function saveNote($args, $request);
 
 	/**
-	 * Display the list of existing notes.
-	 * @param $args array
-	 * @param $request PKPRequest
-	 * @return JSONMessage JSON object
-	 */
-	function listNotes($args, $request) {
-		$this->setupTemplate($request);
-
-		$templateMgr = TemplateManager::getManager($request);
-		$noteDao = DAORegistry::getDAO('NoteDAO');
-		$user = $request->getUser();
-		$templateMgr->assign(array(
-			'notes' => $noteDao->getByAssoc($this->_getAssocType(), $this->_getAssocId()),
-			'currentUserId' => $user->getId(),
-			'notesDeletable' => true,
-			'notesListId' => 'notesList'
-		));
-		$json = new JSONMessage(true, $templateMgr->fetch('controllers/informationCenter/notesList.tpl'));
-		$json->setEvent('dataChanged');
-		return $json;
-	}
-
-	/**
 	 * Delete a note.
 	 * @param $args array
 	 * @param $request PKPRequest
@@ -127,13 +104,41 @@ abstract class InformationCenterHandler extends Handler {
 		$noteId = (int) $request->getUserVar('noteId');
 		$noteDao = DAORegistry::getDAO('NoteDAO');
 		$note = $noteDao->getById($noteId);
+
 		if (!$request->checkCSRF() || !$note || $note->getAssocType() != $this->_getAssocType() || $note->getAssocId() != $this->_getAssocId()) fatalError('Invalid note!');
 		$noteDao->deleteById($noteId);
 
 		$user = $request->getUser();
 		NotificationManager::createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('notification.removedNote')));
 
-		return new JSONMessage(true);
+		$json = new JSONMessage(true);
+		$jsonViewNotesResponse = $this->viewNotes($args, $request);
+		$json->setEvent('dataChanged');
+		$json->setEvent('noteDeleted', $jsonViewNotesResponse->_content);
+
+		return $json;
+	}
+
+	/**
+	 * Display the list of existing notes.
+	 * @param $args array
+	 * @param $request PKPRequest
+	 * @return JSONMessage JSON object
+	 */
+	function _listNotes($args, $request) {
+		$this->setupTemplate($request);
+
+		$templateMgr = TemplateManager::getManager($request);
+		$noteDao = DAORegistry::getDAO('NoteDAO');
+		$templateMgr->assign('notes', $noteDao->getByAssoc($this->_getAssocType(), $this->_getAssocId()));
+
+		$user = $request->getUser();
+		$templateMgr->assign('currentUserId', $user->getId());
+		$templateMgr->assign('notesDeletable', true);
+
+		$templateMgr->assign('notesListId', 'notesList');
+
+		return $templateMgr->fetch('controllers/informationCenter/notesList.tpl');
 	}
 
 	/**
@@ -146,6 +151,29 @@ abstract class InformationCenterHandler extends Handler {
 		return array(
 			'submissionId' => $this->_submission->getId(),
 		);
+	}
+
+	/**
+	 * Log an event for this file or submission
+	 * @param $request PKPRequest
+	 * @param $object Submission or SubmissionFile
+	 * @param $eventType int SUBMISSION_LOG_...
+	 * @param $logClass SubmissionLog or SubmissionFileLog
+	 */
+	function _logEvent($request, $object, $eventType, $logClass) {
+		// Get the log event message
+		switch($eventType) {
+			case SUBMISSION_LOG_NOTE_POSTED:
+				$logMessage = 'informationCenter.history.notePosted';
+				break;
+			case SUBMISSION_LOG_MESSAGE_SENT:
+				$logMessage = 'informationCenter.history.messageSent';
+				break;
+			default:
+				assert(false);
+		}
+		import('lib.pkp.classes.log.SubmissionFileLog');
+		$logClass::logEvent($request, $object, $eventType, $logMessage);
 	}
 
 	function setupTemplate($request) {

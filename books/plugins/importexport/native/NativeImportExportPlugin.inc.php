@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/native/NativeImportExportPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class NativeImportExportPlugin
@@ -24,16 +24,16 @@ class NativeImportExportPlugin extends ImportExportPlugin {
 	}
 
 	/**
-	 * Called as a plugin is registered to the registry
-	 * @param $category String Name of category plugin was registered to
-	 * @param $path string
-	 * @return boolean True iff plugin initialized successfully; if false,
-	 * 	the plugin will not be registered.
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		$success = parent::register($category, $path);
-		$this->addLocaleData();
-		$this->import('NativeImportExportDeployment');
+	function register($category, $path, $mainContextId = null) {
+		$success = parent::register($category, $path, $mainContextId);
+		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
+		if ($success && $this->getEnabled()) {
+			$this->_registerTemplateResource();
+			$this->addLocaleData();
+			$this->import('NativeImportExportDeployment');
+		}
 		return $success;
 	}
 
@@ -41,7 +41,7 @@ class NativeImportExportPlugin extends ImportExportPlugin {
 	 * @see Plugin::getTemplatePath($inCore)
 	 */
 	function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates/';
+		return $this->getTemplateResourceName() . ':templates/';
 	}
 
 	/**
@@ -92,6 +92,14 @@ class NativeImportExportPlugin extends ImportExportPlugin {
 		switch (array_shift($args)) {
 			case 'index':
 			case '':
+				import('lib.pkp.controllers.list.submissions.SelectSubmissionsListHandler');
+				$exportSubmissionsListHandler = new SelectSubmissionsListHandler(array(
+					'title' => 'plugins.importexport.native.exportSubmissionsSelect',
+					'count' => 100,
+					'inputName' => 'selectedSubmissions[]',
+					'lazyLoad' => true,
+				));
+				$templateMgr->assign('exportSubmissionsListData', json_encode($exportSubmissionsListHandler->getConfig()));
 				$templateMgr->display($this->getTemplatePath() . 'index.tpl');
 				break;
 			case 'uploadImportXML':
@@ -133,17 +141,21 @@ class NativeImportExportPlugin extends ImportExportPlugin {
 				libxml_use_internal_errors(true);
 				$submissions = $this->importSubmissions(file_get_contents($temporaryFilePath), $deployment);
 				$templateMgr->assign('submissions', $submissions);
-				$validationErrors = array_filter(libxml_get_errors(), create_function('$a', 'return $a->level == LIBXML_ERR_ERROR ||  $a->level == LIBXML_ERR_FATAL;'));
+				$validationErrors = array_filter(libxml_get_errors(), function($a) {
+					return $a->level == LIBXML_ERR_ERROR ||  $a->level == LIBXML_ERR_FATAL;
+				});
 				$templateMgr->assign('validationErrors', $validationErrors);
 				libxml_clear_errors();
 
-				// Are there any submissions import errors
-				$processedSubmissionsIds = $deployment->getProcessedObjectsIds(ASSOC_TYPE_SUBMISSION);
-				if (!empty($processedSubmissionsIds)) {
-					$submissionsErrors = array_filter($processedSubmissionsIds, create_function('$a', 'return !empty($a);'));
-					if (!empty($submissionsErrors)) {
-						$templateMgr->assign('submissionsErrors', $processedSubmissionsIds);
-					}
+				// Are there any submissions import errors?
+				$submissionsErrors = $deployment->getProcessedObjectsErrors(ASSOC_TYPE_SUBMISSION);
+				if (!empty($submissionsErrors)) {
+					$templateMgr->assign('submissionsErrors', $submissionsErrors);
+				}
+				// Are there any submissions import warnings?
+				$submissionsWarnings = $deployment->getProcessedObjectsWarnings(ASSOC_TYPE_SUBMISSION);
+				if (!empty($submissionsWarnings)) {
+					$templateMgr->assign('submissionsWarnings', $submissionsWarnings);
 				}
 				// If there are any submissions or validataion errors
 				// delete imported submissions.
@@ -196,14 +208,11 @@ class NativeImportExportPlugin extends ImportExportPlugin {
 		libxml_use_internal_errors(true);
 		$submissionXml = $exportFilter->execute($submissions, true);
 		$xml = $submissionXml->saveXml();
-		$errors = array_filter(libxml_get_errors(), create_function('$a', 'return $a->level == LIBXML_ERR_ERROR || $a->level == LIBXML_ERR_FATAL;'));
+		$errors = array_filter(libxml_get_errors(), function($a) {
+			return $a->level == LIBXML_ERR_ERROR || $a->level == LIBXML_ERR_FATAL;
+		});
 		if (!empty($errors)) {
-			$charset = Config::getVar('i18n', 'client_charset');
-			header('Content-type: text/html; charset=' . $charset);
-			echo '<html><body>';
 			$this->displayXMLValidationErrors($errors, $xml);
-			echo '</body></html>';
-			fatalError(__('plugins.importexport.common.error.validation'));
 		}
 		return $xml;
 	}

@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/form/StaticPageForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class StaticPageForm
@@ -44,7 +44,12 @@ class StaticPageForm extends Form {
 		$this->addCheck(new FormValidatorCSRF($this));
 		$this->addCheck(new FormValidator($this, 'title', 'required', 'plugins.generic.staticPages.nameRequired'));
 		$this->addCheck(new FormValidatorRegExp($this, 'path', 'required', 'plugins.generic.staticPages.pathRegEx', '/^[a-zA-Z0-9\/._-]+$/'));
-		$this->addCheck(new FormValidatorCustom($this, 'path', 'required', 'plugins.generic.staticPages.duplicatePath', create_function('$path,$form,$staticPagesDao', '$page = $staticPagesDao->getByPath($form->contextId, $path); return !$page || $page->getId()==$form->staticPageId;'), array($this, DAORegistry::getDAO('StaticPagesDAO'))));
+		$form = $this;
+		$this->addCheck(new FormValidatorCustom($this, 'path', 'required', 'plugins.generic.staticPages.duplicatePath', function($path) use ($form) {
+			$staticPagesDao = DAORegistry::getDAO('StaticPagesDAO');
+			$page = $staticPagesDao->getByPath($form->contextId, $path);
+			return !$page || $page->getId()==$form->staticPageId;
+		}));
 	}
 
 	/**
@@ -74,20 +79,12 @@ class StaticPageForm extends Form {
 	 */
 	function fetch($request) {
 		$templateMgr = TemplateManager::getManager();
-		$templateMgr->assign('staticPageId', $this->staticPageId);
-		$templateMgr->assign('pluginJavaScriptURL', $this->plugin->getJavaScriptURL($request));
-
-		$context = $request->getContext();
-		if ($context) $templateMgr->assign('allowedVariables', array(
-			'contactName' => __('plugins.generic.tinymce.variables.principalContactName', array('value' => $context->getSetting('contactName'))),
-			'contactEmail' => __('plugins.generic.tinymce.variables.principalContactEmail', array('value' => $context->getSetting('contactEmail'))),
-			'supportName' => __('plugins.generic.tinymce.variables.supportContactName', array('value' => $context->getSetting('supportName'))),
-			'supportPhone' => __('plugins.generic.tinymce.variables.supportContactPhone', array('value' => $context->getSetting('supportPhone'))),
-			'supportEmail' => __('plugins.generic.tinymce.variables.supportContactEmail', array('value' => $context->getSetting('supportEmail'))),
+		$templateMgr->assign(array(
+			'staticPageId' => $this->staticPageId,
+			'pluginJavaScriptURL' => $this->plugin->getJavaScriptURL($request),
 		));
 
-		$context = $request->getContext();
-		if ($context) $templateMgr->assign('allowedVariables', array(
+		if ($context = $request->getContext()) $templateMgr->assign('allowedVariables', array(
 			'contactName' => __('plugins.generic.tinymce.variables.principalContactName', array('value' => $context->getSetting('contactName'))),
 			'contactEmail' => __('plugins.generic.tinymce.variables.principalContactEmail', array('value' => $context->getSetting('contactEmail'))),
 			'supportName' => __('plugins.generic.tinymce.variables.supportContactName', array('value' => $context->getSetting('supportName'))),

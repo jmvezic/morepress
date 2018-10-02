@@ -3,8 +3,8 @@
 /**
  * @file classes/user/form/ChangePasswordForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ChangePasswordForm
@@ -34,11 +34,18 @@ class ChangePasswordForm extends Form {
 		$this->_site = $site;
 
 		// Validation checks for this form
-		$this->addCheck(new FormValidatorCustom($this, 'oldPassword', 'required', 'user.profile.form.oldPasswordInvalid', create_function('$password,$username', 'return Validation::checkCredentials($username,$password);'), array($user->getUsername())));
+		$this->addCheck(new FormValidatorCustom($this, 'oldPassword', 'required', 'user.profile.form.oldPasswordInvalid', function($password) use ($user) {
+			return Validation::checkCredentials($user->getUsername(),$password);
+		}));
 		$this->addCheck(new FormValidatorLength($this, 'password', 'required', 'user.register.form.passwordLengthRestriction', '>=', $site->getMinPasswordLength()));
 		$this->addCheck(new FormValidator($this, 'password', 'required', 'user.profile.form.newPasswordRequired'));
-		$this->addCheck(new FormValidatorCustom($this, 'password', 'required', 'user.register.form.passwordsDoNotMatch', create_function('$password,$form', 'return $password == $form->getData(\'password2\');'), array($this)));
-		$this->addCheck(new FormValidatorCustom($this, 'password', 'required', 'user.profile.form.passwordSameAsOld', create_function('$password,$form', 'return $password != $form->getData(\'oldPassword\');'), array($this)));
+		$form = $this;
+		$this->addCheck(new FormValidatorCustom($this, 'password', 'required', 'user.register.form.passwordsDoNotMatch', function($password) use ($form) {
+			return $password == $form->getData('password2');
+		}));
+		$this->addCheck(new FormValidatorCustom($this, 'password', 'required', 'user.profile.form.passwordSameAsOld', function($password) use ($form) {
+			return $password != $form->getData('oldPassword');
+		}));
 
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));

@@ -9,8 +9,8 @@
 /**
  * @file classes/file/FileManager.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  * ePUB mime type added  Leah M Root (rootl) SUNY Geneseo
  * @class FileManager
@@ -228,13 +228,13 @@ class FileManager {
 	 * Outputs HTTP headers and file content for download
 	 * @param $filePath string the location of the file to be sent
 	 * @param $mediaType string the MIME type of the file, optional
-	 * @param $inline print file as inline instead of attachment, optional
+	 * @param $inline boolean print file as inline instead of attachment, optional
+	 * @param $fileName string Optional filename to use on the client side
 	 * @return boolean
 	 */
 	function downloadFile($filePath, $mediaType = null, $inline = false, $fileName = null) {
 		$result = null;
 		if (HookRegistry::call('FileManager::downloadFile', array(&$filePath, &$mediaType, &$inline, &$result, &$fileName))) return $result;
-		$postDownloadHookList = array('FileManager::downloadFileFinished', 'UsageEventPlugin::getUsageEvent');
 		if (is_readable($filePath)) {
 			if ($mediaType === null) {
 				// If the media type wasn't specified, try to detect.
@@ -246,37 +246,19 @@ class FileManager {
 				$fileName = basename($filePath);
 			}
 
-			// Free some memory
-			$postDownloadHooks = null;
-			$hooks = HookRegistry::getHooks();
-			foreach ($postDownloadHookList as $hookName) {
-				if (isset($hooks[$hookName])) {
-					$postDownloadHooks[$hookName] = $hooks[$hookName];
-				}
-			}
-			unset($hooks);
-			Registry::clear();
-
 			// Stream the file to the end user.
 			header("Content-Type: $mediaType");
 			header('Content-Length: ' . filesize($filePath));
+			header('Accept-Ranges: none');
 			header('Content-Disposition: ' . ($inline ? 'inline' : 'attachment') . "; filename=\"$fileName\"");
 			header('Cache-Control: private'); // Workarounds for IE weirdness
 			header('Pragma: public');
-
 			$this->readFileFromPath($filePath, true);
-
-			if ($postDownloadHooks) {
-				foreach ($postDownloadHooks as $hookName => $hooks) {
-					HookRegistry::setHooks($hookName, $hooks);
-				}
-			}
 			$returner = true;
 		} else {
 			$returner = false;
 		}
 		HookRegistry::call('FileManager::downloadFileFinished', array(&$returner));
-
 		return $returner;
 	}
 
@@ -455,6 +437,8 @@ class FileManager {
 			case 'image/x-ico':
 			case 'image/ico':
 				return '.ico';
+			case 'image/svg+xml':
+				return '.svg';
 			case 'application/x-shockwave-flash':
 				return '.swf';
 			case 'video/x-flv':
@@ -544,6 +528,11 @@ class FileManager {
 		// FIXME Check for evil
 		if (!isset($fileExtension) || stristr($fileExtension, 'php') || strlen($fileExtension) > 6 || !preg_match('/^\w+$/', $fileExtension)) {
 			$fileExtension = 'txt';
+		}
+
+		// consider .tar.gz extension
+		if (strtolower(substr($fileName, -7)) == '.tar.gz') {
+			$fileExtension = substr($fileName, -6);
 		}
 
 		return $fileExtension;

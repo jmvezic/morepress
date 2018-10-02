@@ -3,8 +3,8 @@
 /**
  * @file pages/submission/PKPSubmissionHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPSubmissionHandler
@@ -17,12 +17,6 @@ import('classes.handler.Handler');
 import('lib.pkp.classes.core.JSONMessage');
 
 abstract class PKPSubmissionHandler extends Handler {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * @copydoc PKPHandler::authorize()
@@ -38,9 +32,10 @@ abstract class PKPSubmissionHandler extends Handler {
 
 		// Are we in step one without a submission present?
 		if ($step === 1 && $submissionId === 0) {
-			// Authorize submission creation.
-			import('lib.pkp.classes.security.authorization.ContextAccessPolicy');
-			$this->addPolicy(new ContextAccessPolicy($request, $roleAssignments));
+			// Authorize submission creation. Author role not required.
+			import('lib.pkp.classes.security.authorization.UserRequiredPolicy');
+			$this->addPolicy(new UserRequiredPolicy($request));
+			$this->markRoleAssignmentsChecked();
 		} else {
 			// Authorize editing of incomplete submissions.
 			import('lib.pkp.classes.security.authorization.SubmissionAccessPolicy');
@@ -136,8 +131,8 @@ abstract class PKPSubmissionHandler extends Handler {
 			$templateMgr->assign('context', $context);
 
 			// Retrieve the correct url for author review his submission.
-			import('lib.pkp.controllers.grid.submissions.SubmissionsListGridCellProvider');
-			$reviewSubmissionUrl = SubmissionsListGridCellProvider::getUrlByUserRoles($request, $submission);
+			import('classes.core.ServicesContainer');
+			$reviewSubmissionUrl = ServicesContainer::instance()->get('submission')->getWorkflowUrlByUserRoles($submission);
 			$router = $request->getRouter();
 			$dispatcher = $router->getDispatcher();
 
@@ -183,6 +178,19 @@ abstract class PKPSubmissionHandler extends Handler {
 				$json->setEvent('setStep', max($step+1, $submission->getSubmissionProgress()));
 				return $json;
 			} else {
+				// Provide entered tagit fields values
+				$tagitKeywords = $submitForm->getData('keywords');
+				if (is_array($tagitKeywords)) {
+					$tagitFieldNames = $submitForm->_metadataFormImplem->getTagitFieldNames();
+					$locales = array_keys($submitForm->supportedLocales);
+					$formTagitData = array();
+					foreach ($tagitFieldNames as $tagitFieldName) {
+						foreach ($locales as $locale) {
+							$formTagitData[$locale] = array_key_exists($locale . "-$tagitFieldName", $tagitKeywords) ? $tagitKeywords[$locale . "-$tagitFieldName"] : array();
+						}
+						$submitForm->setData($tagitFieldName, $formTagitData);
+					}
+				}
 				return new JSONMessage(true, $submitForm->fetch($request));
 			}
 		}

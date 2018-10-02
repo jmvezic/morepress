@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/files/SubmissionFilesGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionFilesGridHandler
@@ -63,6 +63,14 @@ class SubmissionFilesGridHandler extends GridHandler {
 	}
 
 	/**
+	 * Set grid capabilities object.
+	 * @param $capabilities FilesGridCapabilities
+	 */
+	function setCapabilities($capabilities) {
+		$this->_capabilities = $capabilities;
+	}
+
+	/**
 	 * Get the workflow stage id.
 	 * @return integer
 	 */
@@ -104,10 +112,10 @@ class SubmissionFilesGridHandler extends GridHandler {
 	}
 
 	/**
-	 * @copydoc PKPHandler::initialize()
+	 * @copydoc GridHandler::initialize()
 	 */
-	function initialize($request) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 
 		// Load translations.
 		AppLocale::requireComponents(
@@ -127,7 +135,7 @@ class SubmissionFilesGridHandler extends GridHandler {
 			$this->addAction($dataProvider->getAddFileAction($request));
 		}
 
-		// Test whether the tar binary is available for the export to work, if so, add 'download all' grid action
+		// Test whether an archive tool is available for the export to work, if so, add 'download all' grid action
 		if ($capabilities->canDownloadAll() && $this->hasGridDataElements($request)) {
 			$submission = $this->getSubmission();
 			$stageId = $this->getStageId();

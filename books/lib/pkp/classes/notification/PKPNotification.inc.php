@@ -3,8 +3,8 @@
 /**
  * @file classes/notification/Notification.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Notification
@@ -14,8 +14,6 @@
  */
 
 import('lib.pkp.classes.notification.NotificationDAO');
-
-define('UNSUBSCRIBED_USER_NOTIFICATION',			0);
 
 /** Notification levels.  Determines notification behavior **/
 define('NOTIFICATION_LEVEL_TRIVIAL',				0x0000001);
@@ -62,7 +60,6 @@ define('NOTIFICATION_TYPE_REVIEW_ROUND_STATUS',			0x1000014);
 define('NOTIFICATION_TYPE_PENDING_INTERNAL_REVISIONS',		0x1000015);
 define('NOTIFICATION_TYPE_PENDING_EXTERNAL_REVISIONS',		0x1000016);
 define('NOTIFICATION_TYPE_COPYEDIT_ASSIGNMENT',			0x1000017);
-define('NOTIFICATION_TYPE_ALL_REVIEWS_IN',			0x1000018);
 define('NOTIFICATION_TYPE_LAYOUT_ASSIGNMENT',			0x1000019);
 define('NOTIFICATION_TYPE_INDEX_ASSIGNMENT',			0x100001A);
 define('NOTIFICATION_TYPE_APPROVE_SUBMISSION',			0x100001B);
@@ -70,23 +67,21 @@ define('NOTIFICATION_TYPE_CONFIGURE_PAYMENT_METHOD',		0x100001C);
 define('NOTIFICATION_TYPE_FORMAT_NEEDS_APPROVED_SUBMISSION',	0x100001D);
 define('NOTIFICATION_TYPE_VISIT_CATALOG',			0x100001E);
 define('NOTIFICATION_TYPE_EDITOR_ASSIGNMENT_REQUIRED',		0x100001F);
-define('NOTIFICATION_TYPE_ALL_REVISIONS_IN',			0x1000020);
 define('NOTIFICATION_TYPE_NEW_QUERY',				0x1000021);
 define('NOTIFICATION_TYPE_QUERY_ACTIVITY',			0x1000022);
 
 define('NOTIFICATION_TYPE_ASSIGN_COPYEDITOR',			0x1000023);
 define('NOTIFICATION_TYPE_AWAITING_COPYEDITS',			0x1000024);
-define('NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS', 	0x1000025);
+define('NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS', 		0x1000025);
 define('NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER',		0x1000026);
+
+define('NOTIFICATION_TYPE_EDITOR_ASSIGN',			0x1000027);
+define('NOTIFICATION_TYPE_PAYMENT_REQUIRED',			0x1000028);
+
+define('NOTIFICATION_TYPE_REVIEW_ASSIGNMENT_UPDATED',			0x1000029);
 
 
 class PKPNotification extends DataObject {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * get user id associated with this notification

@@ -1,8 +1,8 @@
 {**
  * catalog/form/catalogMetadataFormFields.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  *}
@@ -20,12 +20,14 @@
 					baseUrl: {$baseUrl|json_encode},
 					filters: {ldelim}
 						mime_types : [
-							{ldelim} title : "Image files", extensions : "jpg,jpeg,png" {rdelim}
+							{ldelim} title : "Image files", extensions : "jpg,jpeg,png,svg" {rdelim}
 						]
 					{rdelim}
 				{rdelim},
 				arePermissionsAttached: {if $arePermissionsAttached}true{else}false{/if},
-				coverImageMessage: "{$coverImageMessage|escape:"javascript"}"
+				coverImageMessage: "{$coverImageMessage|escape:"javascript"}",
+				workTypeEditedVolume: {$smarty.const.WORK_TYPE_EDITED_VOLUME|escape:"javascript"},
+				workTypeAuthoredWork: {$smarty.const.WORK_TYPE_AUTHORED_WORK|escape:"javascript"},
 			{rdelim}
 		);
 	{rdelim});
@@ -46,6 +48,23 @@
 			{fbvElement type="checkbox" id="confirm" checked=$confirm label="submission.catalogEntry.confirm" value="confirm"}
 		{/fbvFormSection}
 	{/if}
+
+	{fbvFormSection title="catalog.published"}
+		{fbvElement type="text" id="datePublished" value=$datePublished|date_format:$dateFormatShort class="datepicker"}
+	{/fbvFormSection}
+
+	{fbvFormSection label="submission.workflowType"}
+		{fbvElement type="select" id="workType" from=$workTypeOptions selected=$workType translate=false disabled=$formParams.readOnly size=$fbvStyles.size.SMALL}
+	{/fbvFormSection}
+
+	{fbvFormSection id="volumeEditors"}
+		{assign var="uuid" value=""|uniqid|escape}
+		<div id="volume-editors-{$uuid}">
+			<script type="text/javascript">
+				pkp.registry.init('volume-editors-{$uuid}', 'SelectListPanel', {$volumeEditorsListData});
+			</script>
+		</div>
+	{/fbvFormSection}
 
 	{fbvFormArea id="permissions" title="submission.permissions" class="border"}
 		{fbvFormSection list=true}

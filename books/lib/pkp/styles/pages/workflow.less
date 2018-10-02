@@ -1,8 +1,8 @@
 /**
  * @file styles/pages/workflow.less
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @brief Styles for the workflow pages
@@ -119,6 +119,16 @@
 		}
 
 	}
+}
+
+.pkp_no_workflow_decisions,
+.pkp_workflow_recommendations {
+	padding: @base;
+	font-size: @font-sml;
+	line-height: @line-sml;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+	border-radius: @radius;
+	border-top: @grid-border;
 }
 
 .export_actions {

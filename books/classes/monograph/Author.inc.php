@@ -3,8 +3,8 @@
 /**
  * @file classes/monograph/Author.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Author
@@ -23,6 +23,22 @@ class Author extends PKPAuthor {
 	 */
 	function __construct() {
 		parent::__construct();
+	}
+
+	/**
+	 * Get whether or not this author should be displayed as a volume editor
+	 * @return boolean
+	 */
+	public function getIsVolumeEditor() {
+		return $this->getData('isVolumeEditor');
+	}
+
+	/**
+	 * Set whether or not this author should be displayed as a volume editor
+	 * @param $isVolumeEditor boolean
+	 */
+	public function setIsVolumeEditor($isVolumeEditor) {
+		$this->setData('isVolumeEditor', $isVolumeEditor);
 	}
 }
 

@@ -2,8 +2,8 @@
 /**
  * @file controllers/grid/content/spotlights/form/SpotlightForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SpotlightForm
@@ -37,7 +37,11 @@ class SpotlightForm extends Form {
 		$this->_spotlightId = $spotlightId;
 		$this->_pressId = $pressId;
 
-		$this->addCheck(new FormValidatorCustom($this, 'assocId', 'required', 'grid.content.spotlights.itemRequired', create_function('$assocId, $form', 'list($id, $type) = preg_split("/:/", $assocId) ; return is_numeric($id) && $id > 0 && $form->_isValidSpotlightType($type);'), array(&$this)));
+		$form = $this;
+		$this->addCheck(new FormValidatorCustom($this, 'assocId', 'required', 'grid.content.spotlights.itemRequired', function($assocId) use ($form) {
+			list($id, $type) = preg_split('/:/', $assocId);
+			return is_numeric($id) && $id > 0 && $form->_isValidSpotlightType($type);
+		}));
 		$this->addCheck(new FormValidator($this, 'title', 'required', 'grid.content.spotlights.titleRequired'));
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));

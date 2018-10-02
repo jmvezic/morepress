@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/SubmissionLanguageDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionLanguageDAO
@@ -19,12 +19,6 @@ import('lib.pkp.classes.controlledVocab.ControlledVocabDAO');
 define('CONTROLLED_VOCAB_SUBMISSION_LANGUAGE', 'submissionLanguage');
 
 class SubmissionLanguageDAO extends ControlledVocabDAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Build/fetch and return a controlled vocabulary for languages.
@@ -33,7 +27,7 @@ class SubmissionLanguageDAO extends ControlledVocabDAO {
 	 */
 	function build($submissionId) {
 		// may return an array of ControlledVocabs
-		return parent::build(CONTROLLED_VOCAB_SUBMISSION_LANGUAGE, ASSOC_TYPE_SUBMISSION, $submissionId);
+		return parent::_build(CONTROLLED_VOCAB_SUBMISSION_LANGUAGE, ASSOC_TYPE_SUBMISSION, $submissionId);
 	}
 
 	/**

@@ -6,8 +6,8 @@
 /**
  * @file classes/user/form/RegistrationForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class RegistrationForm
@@ -36,12 +36,15 @@ class RegistrationForm extends Form {
 		parent::__construct('frontend/pages/userRegister.tpl');
 
 		// Validation checks for this form
+		$form = $this;
 		$this->addCheck(new FormValidatorCustom($this, 'username', 'required', 'user.register.form.usernameExists', array(DAORegistry::getDAO('UserDAO'), 'userExistsByUsername'), array(), true));
 		$this->addCheck(new FormValidator($this, 'username', 'required', 'user.profile.form.usernameRequired'));
 		$this->addCheck(new FormValidator($this, 'password', 'required', 'user.profile.form.passwordRequired'));
 		$this->addCheck(new FormValidatorUsername($this, 'username', 'required', 'user.register.form.usernameAlphaNumeric'));
 		$this->addCheck(new FormValidatorLength($this, 'password', 'required', 'user.register.form.passwordLengthRestriction', '>=', $site->getMinPasswordLength()));
-		$this->addCheck(new FormValidatorCustom($this, 'password', 'required', 'user.register.form.passwordsDoNotMatch', create_function('$password,$form', 'return $password == $form->getData(\'password2\');'), array(&$this)));
+		$this->addCheck(new FormValidatorCustom($this, 'password', 'required', 'user.register.form.passwordsDoNotMatch', function($password) use ($form) {
+			return $password == $form->getData('password2');
+		}));
 
 		$this->addCheck(new FormValidator($this, 'firstName', 'required', 'user.profile.form.firstNameRequired'));
 		$this->addCheck(new FormValidator($this, 'lastName', 'required', 'user.profile.form.lastNameRequired'));
@@ -59,8 +62,13 @@ class RegistrationForm extends Form {
 		$authDao = DAORegistry::getDAO('AuthSourceDAO');
 		$this->defaultAuth = $authDao->getDefaultPlugin();
 		if (isset($this->defaultAuth)) {
-			$this->addCheck(new FormValidatorCustom($this, 'username', 'required', 'user.register.form.usernameExists', create_function('$username,$form,$auth', 'return (!$auth->userExists($username) || $auth->authenticate($username, $form->getData(\'password\')));'), array(&$this, $this->defaultAuth)));
+			$auth = $this->defaultAuth;
+			$this->addCheck(new FormValidatorCustom($this, 'username', 'required', 'user.register.form.usernameExists', function($username) use ($form, $auth) {
+				return (!$auth->userExists($username) || $auth->authenticate($username, $form->getData('password')));
+			}));
 		}
+
+		$this->addCheck(new FormValidator($this, 'privacyConsent', 'required', 'user.profile.form.privacyConsentRequired'));
 
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));
@@ -87,9 +95,6 @@ class RegistrationForm extends Form {
 		$countries = $countryDao->getCountries();
 		$templateMgr->assign('countries', $countries);
 
-		$userDao = DAORegistry::getDAO('UserDAO');
-		$templateMgr->assign('genderOptions', $userDao->getGenderOptions());
-
 		$site = $request->getSite();
 		$templateMgr->assign('availableLocales', $site->getSupportedLocaleNames());
 
@@ -110,28 +115,9 @@ class RegistrationForm extends Form {
 	 * @param $request Request
 	 */
 	function initData($request) {
-		$userGroupIds = array();
-
-		// If a context exists, opt the user into reader and author roles in
-		// that context by default.
-		if ($request->getContext()) {
-			$context = $request->getContext();
-			$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-
-			$readerUserGroups = $userGroupDao->getByRoleId($context->getId(), ROLE_ID_READER);
-			while ($userGroup = $readerUserGroups->next()) {
-				if ($userGroup->getPermitSelfRegistration()) $userGroupIds[] = $userGroup->getId();
-			}
-
-			$authorUserGroups = $userGroupDao->getByRoleId($context->getId(), ROLE_ID_AUTHOR);
-			while ($userGroup = $authorUserGroups->next()) {
-				if ($userGroup->getPermitSelfRegistration()) $userGroupIds[] = $userGroup->getId();
-			}
-		}
-
 		$this->_data = array(
 			'userLocales' => array(),
-			'userGroupIds' => $userGroupIds,
+			'userGroupIds' => array(),
 		);
 	}
 
@@ -152,9 +138,10 @@ class RegistrationForm extends Form {
 			'email',
 			'country',
 			'interests',
-			'reviewerGroup',
-			'authorGroup',
+			'emailConsent',
+			'privacyConsent',
 			'readerGroup',
+			'reviewerGroup',
 		));
 
 		if ($this->captchaEnabled) {
@@ -165,24 +152,9 @@ class RegistrationForm extends Form {
 
 		// Collect the specified user group IDs into a single piece of data
 		$this->setData('userGroupIds', array_merge(
-			array_keys((array) $this->getData('reviewerGroup')),
-			array_keys((array) $this->getData('authorGroup')),
-			array_keys((array) $this->getData('readerGroup'))
+			array_keys((array) $this->getData('readerGroup')),
+			array_keys((array) $this->getData('reviewerGroup'))
 		));
-	}
-
-	/**
-	 * Validate the form
-	 */
-	function validate() {
-		if (	count((array) $this->getData('reviewerGroup')) == 0 &&
-			count((array) $this->getData('authorGroup')) == 0 &&
-			count((array) $this->getData('readerGroup')) == 0
-		) {
-			$this->addError('userGroups', __('user.register.form.userGroupRequired'));
-		}
-
-		return parent::validate();
 	}
 
 	/**
@@ -239,10 +211,39 @@ class RegistrationForm extends Form {
 		$session = $sessionManager->getUserSession();
 		$session->setSessionVar('username', $user->getUsername());
 
-		// Save the roles
-		import('lib.pkp.classes.user.form.UserFormHelper');
-		$userFormHelper = new UserFormHelper();
-		$userFormHelper->saveRoleContent($this, $user);
+		// Save the selected roles or assign the Reader role if none selected
+		if ($request->getContext() && !$this->getData('reviewerGroup')) {
+			$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+			$defaultReaderGroup = $userGroupDao->getDefaultByRoleId($request->getContext()->getId(), ROLE_ID_READER);
+			$userGroupDao->assignUserToGroup($user->getId(), $defaultReaderGroup->getId(), $request->getContext()->getId());
+		} else {
+			import('lib.pkp.classes.user.form.UserFormHelper');
+			$userFormHelper = new UserFormHelper();
+			$userFormHelper->saveRoleContent($this, $user);
+		}
+
+		// Save the email notification preference
+		if ($request->getContext() && !$this->getData('emailConsent')) {
+
+			// Get the public notification types
+			import('classes.notification.form.NotificationSettingsForm');
+			$notificationSettingsForm = new NotificationSettingsForm();
+			$notificationCategories = $notificationSettingsForm->getNotificationSettingCategories();
+			foreach ($notificationCategories as $notificationCategory) {
+				if ($notificationCategory['categoryKey'] === 'notification.type.public') {
+					$publicNotifications = $notificationCategory['settings'];
+				}
+			}
+			if (isset($publicNotifications)) {
+				$notificationSubscriptionSettingsDao = DAORegistry::getDAO('NotificationSubscriptionSettingsDAO');
+				$notificationSubscriptionSettingsDao->updateNotificationSubscriptionSettings(
+					'blocked_emailed_notification',
+					$publicNotifications,
+					$user->getId(),
+					$request->getContext()->getId()
+				);
+			}
+		}
 
 		// Insert the user interests
 		import('lib.pkp.classes.user.InterestManager');
@@ -260,9 +261,10 @@ class RegistrationForm extends Form {
 			$mail = new MailTemplate('USER_VALIDATE');
 			$this->_setMailFrom($request, $mail);
 			$context = $request->getContext();
+			$contextPath = $context ? $context->getPath() : null;
 			$mail->assignParams(array(
 				'userFullName' => $user->getFullName(),
-				'activateUrl' => $request->url($context->getPath(), 'user', 'activateUser', array($this->getData('username'), $accessKey))
+				'activateUrl' => $request->url($contextPath, 'user', 'activateUser', array($this->getData('username'), $accessKey))
 			));
 			$mail->addRecipient($user->getEmail(), $user->getFullName());
 			$mail->send();
@@ -274,7 +276,7 @@ class RegistrationForm extends Form {
 	/**
 	 * Set mail from address
 	 * @param $request PKPRequest
-	 * @param MailTemplate $mail
+	 * @param $mail MailTemplate
 	 */
 	function _setMailFrom($request, $mail) {
 		$site = $request->getSite();

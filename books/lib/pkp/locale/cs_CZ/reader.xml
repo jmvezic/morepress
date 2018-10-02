@@ -4,8 +4,8 @@
 <!--
   * locale/cs_CZ/reader.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Localization strings for the cs_CZ (Čeština) locale.
@@ -179,4 +179,5 @@
 	<message key="rt.version.title">Název</message>
 	<message key="rt.version">Verze</message>
 	<message key="rt.viewMetadata">Metadata pro indexaci</message>
+	<message key="rt.admin.settings.viewReviewPolicy">Prohlédněte si zásady pro recenze</message>
 </locale>

@@ -3,8 +3,8 @@
 /**
  * @file pages/about/HelpHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class HelpHandler
@@ -30,7 +30,6 @@ class HelpHandler extends Handler {
 	 * @param $request PKPRequest
 	 */
 	function index($args, $request) {
-		require_once('lib/pkp/lib/vendor/michelf/php-markdown/Michelf/Markdown.inc.php');
 		$path = 'docs/manual/';
 		$filename = join('/', $request->getRequestedArgs());
 

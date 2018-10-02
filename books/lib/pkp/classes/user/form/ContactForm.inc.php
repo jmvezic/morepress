@@ -3,8 +3,8 @@
 /**
  * @file classes/user/form/ContactForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ContactForm
@@ -25,6 +25,7 @@ class ContactForm extends BaseProfileForm {
 		parent::__construct('user/contactForm.tpl', $user);
 
 		// Validation checks for this form
+		$this->addCheck(new FormValidatorEmail($this, 'email', 'required', 'user.profile.form.emailRequired'));
 		$this->addCheck(new FormValidator($this, 'country', 'required', 'user.profile.form.countryRequired'));
 		$this->addCheck(new FormValidatorCustom($this, 'email', 'required', 'user.register.form.emailExists', array(DAORegistry::getDAO('UserDAO'), 'userExistsByEmail'), array($user->getId(), true), true));
 	}
@@ -56,6 +57,7 @@ class ContactForm extends BaseProfileForm {
 			'country' => $user->getCountry(),
 			'email' => $user->getEmail(),
 			'phone' => $user->getPhone(),
+			'signature' => $user->getSignature(null), // Localized
 			'mailingAddress' => $user->getMailingAddress(),
 			'affiliation' => $user->getAffiliation(null), // Localized
 			'userLocales' => $user->getLocales(),
@@ -69,7 +71,7 @@ class ContactForm extends BaseProfileForm {
 		parent::readInputData();
 
 		$this->readUserVars(array(
-			'country', 'email', 'phone', 'mailingAddress', 'affiliation', 'userLocales',
+			'country', 'email', 'signature', 'phone', 'mailingAddress', 'affiliation', 'userLocales',
 		));
 
 		if ($this->getData('userLocales') == null || !is_array($this->getData('userLocales'))) {
@@ -87,6 +89,7 @@ class ContactForm extends BaseProfileForm {
 
 		$user->setCountry($this->getData('country'));
 		$user->setEmail($this->getData('email'));
+		$user->setSignature($this->getData('signature'), null); // Localized
 		$user->setPhone($this->getData('phone'));
 		$user->setMailingAddress($this->getData('mailingAddress'));
 		$user->setAffiliation($this->getData('affiliation'), null); // Localized

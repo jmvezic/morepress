@@ -3,8 +3,8 @@
 /**
  * @file classes/db/SettingsDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SettingsDAO
@@ -14,12 +14,6 @@
  */
 
 class SettingsDAO extends DAO {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Retrieve (and newly cache) all settings.
@@ -275,16 +269,11 @@ class SettingsDAO extends DAO {
 	 * @return string
 	 */
 	function _performLocalizedReplacement($rawInput, $paramArray = array(), $locale = null) {
-		$value = preg_replace_callback(
-			'{{translate key="([^"]+)"}}',
-			// this only translates from mail locale file
-			create_function(
-				'$matches',
-				'$locale = "' . $locale . '";'.'$localeFileName = AppLocale::getMainLocaleFilename($locale);' .
-				'$localeFile = new LocaleFile($locale, $localeFileName);'.'return $localeFile->translate($matches[1]);'
-			),
-			$rawInput
-		);
+		// this only translates from the following locale files
+		AppLocale::requireComponents(LOCALE_COMPONENT_APP_DEFAULT, LOCALE_COMPONENT_PKP_COMMON, $locale);
+		$value = preg_replace_callback('{{translate key="([^"]+)"}}', function($matches) use ($locale) {
+			return __($matches[1], array(), $locale);
+		}, $rawInput);
 
 		foreach ($paramArray as $pKey => $pValue) {
 			$value = str_replace('{$' . $pKey . '}', $pValue, $value);

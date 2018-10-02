@@ -3,8 +3,8 @@
 /**
  * @file classes/core/Application.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Application
@@ -17,7 +17,7 @@
 
 import('lib.pkp.classes.core.PKPApplication');
 
-define('PHP_REQUIRED_VERSION', '4.2.0');
+define('PHP_REQUIRED_VERSION', '5.5.0');
 define('REQUIRES_XSL', true);
 
 define('ASSOC_TYPE_MONOGRAPH',			ASSOC_TYPE_SUBMISSION);
@@ -28,6 +28,8 @@ define('ASSOC_TYPE_PRESS',			0x0000200);
 define('ASSOC_TYPE_CATEGORY',			0x000020D);
 define('ASSOC_TYPE_SERIES',			ASSOC_TYPE_SECTION);
 
+define('ASSOC_TYPE_CHAPTER', 0x0000214);
+
 define('CONTEXT_PRESS', 1);
 
 class Application extends PKPApplication {
@@ -36,6 +38,13 @@ class Application extends PKPApplication {
 	 */
 	function __construct() {
 		parent::__construct();
+
+		// Register custom autoloader function for OMP namespace
+		spl_autoload_register(function($class) {
+			$prefix = 'OMP\\';
+			$rootPath = BASE_SYS_DIR . "/classes";
+			customAutoload($rootPath, $prefix, $class);
+		});
 	}
 
 	/**
@@ -92,12 +101,10 @@ class Application extends PKPApplication {
 			'ChapterAuthorDAO' => 'classes.monograph.ChapterAuthorDAO',
 			'ChapterDAO' => 'classes.monograph.ChapterDAO',
 			'CategoryDAO' => 'classes.press.CategoryDAO',
-			'EmailTemplateDAO' => 'classes.mail.EmailTemplateDAO',
 			'FeatureDAO' => 'classes.press.FeatureDAO',
 			'IdentificationCodeDAO' => 'classes.publicationFormat.IdentificationCodeDAO',
 			'LayoutAssignmentDAO' => 'submission.layoutAssignment.LayoutAssignmentDAO',
 			'MarketDAO' => 'classes.publicationFormat.MarketDAO',
-			'SubmissionCommentDAO' => 'lib.pkp.classes.submission.SubmissionCommentDAO',
 			'MetricsDAO' => 'lib.pkp.classes.statistics.PKPMetricsDAO',
 			'MonographDAO' => 'classes.monograph.MonographDAO',
 			'MonographFileEmailLogDAO' => 'classes.log.MonographFileEmailLogDAO',
@@ -113,22 +120,14 @@ class Application extends PKPApplication {
 			'PublicationFormatDAO' => 'classes.publicationFormat.PublicationFormatDAO',
 			'PublishedMonographDAO' => 'classes.monograph.PublishedMonographDAO',
 			'QualifierDAO' => 'classes.codelist.QualifierDAO',
-			'QueuedPaymentDAO' => 'lib.pkp.classes.payment.QueuedPaymentDAO',
 			'RepresentativeDAO' => 'classes.monograph.RepresentativeDAO',
-			'ReviewAssignmentDAO' => 'lib.pkp.classes.submission.reviewAssignment.ReviewAssignmentDAO',
 			'ReviewerSubmissionDAO' => 'classes.submission.reviewer.ReviewerSubmissionDAO',
-			'ReviewFormDAO' => 'lib.pkp.classes.reviewForm.ReviewFormDAO',
-			'ReviewFormElementDAO' => 'lib.pkp.classes.reviewForm.ReviewFormElementDAO',
-			'ReviewFormResponseDAO' => 'lib.pkp.classes.reviewForm.ReviewFormResponseDAO',
-			'RoleDAO' => 'lib.pkp.classes.security.RoleDAO',
 			'SalesRightsDAO' => 'classes.publicationFormat.SalesRightsDAO',
 			'SeriesDAO' => 'classes.press.SeriesDAO',
 			'SpotlightDAO' => 'classes.spotlight.SpotlightDAO',
-			'StageAssignmentDAO' => 'lib.pkp.classes.stageAssignment.StageAssignmentDAO',
 			'SubjectDAO' => 'classes.codelist.SubjectDAO',
 			'SubmissionEventLogDAO' => 'classes.log.SubmissionEventLogDAO',
 			'SubmissionFileDAO' => 'classes.monograph.SubmissionFileDAO',
-			'UserGroupAssignmentDAO' => 'lib.pkp.classes.security.UserGroupAssignmentDAO',
 			'UserDAO' => 'classes.user.UserDAO',
 			'UserSettingsDAO' => 'classes.user.UserSettingsDAO',
 		));
@@ -145,7 +144,6 @@ class Application extends PKPApplication {
 			// This is necessary as several other plug-in categories
 			// depend on meta-data. This is a very rudimentary type of
 			// dependency management for plug-ins.
-			'viewableFiles',
 			'metadata',
 			'pubIds',
 			'blocks',
@@ -166,10 +164,25 @@ class Application extends PKPApplication {
 	}
 
 	/**
+	 * Get the context settings DAO.
+	 * @return SettingsDAO
+	 */
+	static function getContextSettingsDAO() {
+		return DAORegistry::getDAO('PressSettingsDAO');
+	}
+
+	/**
 	 * Get the submission DAO.
 	 */
 	static function getSubmissionDAO() {
 		return DAORegistry::getDAO('MonographDAO');
+	}
+
+	/**
+	 * Get the published submission DAO.
+	 */
+	static function getPublishedSubmissionDAO() {
+		return DAORegistry::getDAO('PublishedMonographDAO');
 	}
 
 	/**
@@ -239,6 +252,16 @@ class Application extends PKPApplication {
 	 */
 	static function getContextAssocType() {
 		return ASSOC_TYPE_PRESS;
+	}
+
+	/**
+	 * Get the payment manager.
+	 * @param $context Context
+	 * @return OMPPaymentManager
+	 */
+	static function getPaymentManager($context) {
+		import('classes.payment.omp.OMPPaymentManager');
+		return new OMPPaymentManager($context);
 	}
 }
 

@@ -3,8 +3,8 @@
 /**
  * @file classes/core/PKPRouter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPRouter
@@ -74,6 +74,8 @@ class PKPRouter {
 	var $_contextPaths = array();
 	/** @var integer contexts */
 	var $_contexts = array();
+	/** @var PKPHandler Handler class */
+	var $_handler;
 
 	/**
 	 * Constructor
@@ -118,6 +120,22 @@ class PKPRouter {
 	 */
 	function setDispatcher($dispatcher) {
 		$this->_dispatcher = $dispatcher;
+	}
+
+	/**
+	 * Set the handler object for later retrieval.
+	 * @param $handler PKPHandler
+	 */
+	function setHandler($handler) {
+		$this->_handler = $handler;
+	}
+
+	/**
+	 * Get the handler object.
+	 * @return PKPHandler
+	 */
+	function getHandler() {
+		return $this->_handler;
 	}
 
 	/**

@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/native/filter/PublicationFormatNativeXmlFilter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PublicationFormatNativeXmlFilter
@@ -93,7 +93,9 @@ class PublicationFormatNativeXmlFilter extends RepresentationNativeXmlFilter {
 		$submissionFileDao = DAORegistry::getDAO('SubmissionFileDAO');
 		return array_filter(
 			$submissionFileDao->getLatestRevisions($submission->getId()),
-			create_function('$a', 'return $a->getAssocType() == ASSOC_TYPE_PUBLICATION_FORMAT && $a->getAssocId() == ' . ((int) $representation->getId()) . ';')
+			function($a) use ($representation) {
+				return $a->getAssocType() == ASSOC_TYPE_PUBLICATION_FORMAT && $a->getAssocId() == $representation->getId();
+			}
 		);
 	}
 }

@@ -2,8 +2,8 @@
 /**
  * @file classes/security/authorization/internal/SubmissionFileAssignedReviewerAccessPolicy.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionFileAssignedReviewerAccessPolicy
@@ -43,11 +43,12 @@ class SubmissionFileAssignedReviewerAccessPolicy extends SubmissionFileBaseAcces
 		$submissionFile = $this->getSubmissionFile($request);
 		if (!is_a($submissionFile, 'SubmissionFile')) return AUTHORIZATION_DENY;
 
+		$context = $request->getContext();
 		$reviewAssignmentDao = DAORegistry::getDAO('ReviewAssignmentDAO');
 		$reviewAssignments = $reviewAssignmentDao->getByUserId($user->getId());
 		$reviewFilesDao = DAORegistry::getDAO('ReviewFilesDAO');
 		foreach ($reviewAssignments as $reviewAssignment) {
-			if (!$reviewAssignment->getDateConfirmed()) continue;
+			if ($context->getSetting('restrictReviewerFileAccess') && !$reviewAssignment->getDateConfirmed()) continue;
 
 			if (
 				$submissionFile->getSubmissionId() == $reviewAssignment->getSubmissionId() &&

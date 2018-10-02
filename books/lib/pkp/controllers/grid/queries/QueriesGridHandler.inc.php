@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/queries/QueriesGridHandler.inc.php
  *
- * Copyright (c) 2016-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2016-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class QueriesGridHandler
@@ -33,11 +33,11 @@ class QueriesGridHandler extends GridHandler {
 	function __construct() {
 		parent::__construct();
 		$this->addRoleAssignment(
-			array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT, ROLE_ID_AUTHOR),
-			array('fetchGrid', 'fetchRow', 'readQuery', 'participants', 'addQuery', 'editQuery', 'updateQuery'));
+			array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT, ROLE_ID_REVIEWER, ROLE_ID_AUTHOR),
+			array('fetchGrid', 'fetchRow', 'readQuery', 'participants', 'addQuery', 'editQuery', 'updateQuery', 'deleteQuery'));
 		$this->addRoleAssignment(
 			array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT),
-			array('deleteQuery', 'openQuery', 'closeQuery', 'saveSequence'));
+			array('openQuery', 'closeQuery', 'saveSequence'));
 	}
 
 
@@ -114,19 +114,18 @@ class QueriesGridHandler extends GridHandler {
 			import('lib.pkp.classes.security.authorization.QueryAccessPolicy');
 			$this->addPolicy(new QueryAccessPolicy($request, $args, $roleAssignments, $this->_stageId));
 		} else {
-			import('lib.pkp.classes.security.authorization.WorkflowStageAccessPolicy');
-			$this->addPolicy(new WorkflowStageAccessPolicy($request, $args, $roleAssignments, 'submissionId', $this->_stageId));
+			import('lib.pkp.classes.security.authorization.QueryWorkflowStageAccessPolicy');
+			$this->addPolicy(new QueryWorkflowStageAccessPolicy($request, $args, $roleAssignments, 'submissionId', $this->_stageId));
 		}
 
 		return parent::authorize($request, $args, $roleAssignments);
 	}
 
 	/**
-	 * Configure the grid
-	 * @param $request PKPRequest
+	 * @copydoc GridHandler::initialize()
 	 */
-	function initialize($request) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 		import('lib.pkp.controllers.grid.queries.QueriesGridCellProvider');
 
 		switch ($this->getStageId()) {
@@ -189,7 +188,7 @@ class QueriesGridHandler extends GridHandler {
 		);
 
 		$router = $request->getRouter();
-		if ($this->getAccessHelper()->getCanCreate()) $this->addAction(new LinkAction(
+		if ($this->getAccessHelper()->getCanCreate($this->getStageId())) $this->addAction(new LinkAction(
 			'addQuery',
 			new AjaxModal(
 				$router->url($request, null, null, 'addQuery', null, $this->getRequestArgs()),
@@ -210,7 +209,7 @@ class QueriesGridHandler extends GridHandler {
 	 */
 	function initFeatures($request, $args) {
 		$features = parent::initFeatures($request, $args);
-		if ($this->getAccessHelper()->getCanOrder()) {
+		if ($this->getAccessHelper()->getCanOrder($this->getStageId())) {
 			import('lib.pkp.classes.controllers.grid.feature.OrderGridItemsFeature');
 			$features[] = new OrderGridItemsFeature();
 		}
@@ -277,7 +276,7 @@ class QueriesGridHandler extends GridHandler {
 			$this->getAssocType(),
 			$this->getAssocId(),
 			$this->getStageId(),
-			$this->getAccessHelper()->getCanListAll()?null:$request->getUser()->getId()
+			$this->getAccessHelper()->getCanListAll($this->getStageId())?null:$request->getUser()->getId()
 		);
 	}
 
@@ -291,7 +290,7 @@ class QueriesGridHandler extends GridHandler {
 	 * @return JSONMessage JSON object
 	 */
 	function addQuery($args, $request) {
-		if (!$this->getAccessHelper()->getCanCreate()) return new JSONMessage(false);
+		if (!$this->getAccessHelper()->getCanCreate($this->getStageId())) return new JSONMessage(false);
 
 		import('lib.pkp.controllers.grid.queries.form.QueryForm');
 		$queryForm = new QueryForm(
@@ -320,20 +319,24 @@ class QueriesGridHandler extends GridHandler {
 		$notificationDao = DAORegistry::getDAO('NotificationDAO');
 		$notificationDao->deleteByAssoc(ASSOC_TYPE_QUERY, $query->getId());
 
-		// Update submission notifications
-		$notificationMgr = new NotificationManager();
-		$notificationMgr->updateNotification(
-			$request,
-			array(
-				NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
-				NOTIFICATION_TYPE_AWAITING_COPYEDITS,
-				NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
-				NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
-			),
-			null,
-			ASSOC_TYPE_SUBMISSION,
-			$this->getAssocId()
-		);
+		if ($this->getStageId() == WORKFLOW_STAGE_ID_EDITING ||
+			$this->getStageId() == WORKFLOW_STAGE_ID_PRODUCTION) {
+
+			// Update submission notifications
+			$notificationMgr = new NotificationManager();
+			$notificationMgr->updateNotification(
+				$request,
+				array(
+					NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
+					NOTIFICATION_TYPE_AWAITING_COPYEDITS,
+					NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
+					NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
+				),
+				null,
+				ASSOC_TYPE_SUBMISSION,
+				$this->getAssocId()
+			);
+		}
 
 		return DAO::getDataChangedEvent($query->getId());
 	}
@@ -346,7 +349,7 @@ class QueriesGridHandler extends GridHandler {
 	 */
 	function openQuery($args, $request) {
 		$query = $this->getQuery();
-		if (!$query || !$this->getAccessHelper()->getCanOpenClose($query->getId())) return new JSONMessage(false);
+		if (!$query || !$this->getAccessHelper()->getCanOpenClose($query)) return new JSONMessage(false);
 
 		$queryDao = DAORegistry::getDAO('QueryDAO');
 		$query->setIsClosed(false);
@@ -362,7 +365,7 @@ class QueriesGridHandler extends GridHandler {
 	 */
 	function closeQuery($args, $request) {
 		$query = $this->getQuery();
-		if (!$query || !$this->getAccessHelper()->getCanOpenClose($query->getId())) return new JSONMessage(false);
+		if (!$query || !$this->getAccessHelper()->getCanOpenClose($query)) return new JSONMessage(false);
 
 		$queryDao = DAORegistry::getDAO('QueryDAO');
 		$query->setIsClosed(true);
@@ -484,21 +487,24 @@ class QueriesGridHandler extends GridHandler {
 		if ($queryForm->validate()) {
 			$queryForm->execute($request);
 
-			// Update submission notifications
-			$notificationMgr = new NotificationManager();
-			$notificationMgr->updateNotification(
-				$request,
-				array(
-					NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
-					NOTIFICATION_TYPE_AWAITING_COPYEDITS,
-					NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
-					NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
-				),
-				null,
-				ASSOC_TYPE_SUBMISSION,
-				$this->getAssocId()
-			);
+			if ($this->getStageId() == WORKFLOW_STAGE_ID_EDITING ||
+				$this->getStageId() == WORKFLOW_STAGE_ID_PRODUCTION) {
 
+				// Update submission notifications
+				$notificationMgr = new NotificationManager();
+				$notificationMgr->updateNotification(
+					$request,
+					array(
+						NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
+						NOTIFICATION_TYPE_AWAITING_COPYEDITS,
+						NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
+						NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
+					),
+					null,
+					ASSOC_TYPE_SUBMISSION,
+					$this->getAssocId()
+				);
+			}
 			return DAO::getDataChangedEvent($query->getId());
 		}
 		return new JSONMessage(

@@ -2,8 +2,8 @@
 /**
  * @file classes/filter/FilterHelper.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class FilterHelper
@@ -100,7 +100,7 @@ class FilterHelper {
 
 		// We ensure idempotence of plug-in installation by checking
 		// for existing identical filters.
-		$similarFilterFactory =& $filterDao->getObjectsByGroupAndClass($filterGroupSymbolic, $filterClassName, 0, $isTemplate);
+		$similarFilterFactory = $filterDao->getObjectsByGroupAndClass($filterGroupSymbolic, $filterClassName, 0, $isTemplate);
 		if ($similarFilterFactory->getCount() > 0) {
 			// 1) Find similar filters.
 			$similarFilters =& $similarFilterFactory->toArray();
@@ -153,7 +153,7 @@ class FilterHelper {
 			foreach($filterBSubfilters as $filterBSubfilter) { /* @var $filterBSubfilter PersistableFilter */
 				$seq = $filterBSubfilter->getSequence();
 				$filterASubfilter =& $filterA->getFilter($seq);
-				if (get_class($filterASubfilter) != get_class($filterBSubfilter)) {
+				if (!$filterASubfilter || !$filterBSubfilter || get_class($filterASubfilter) != get_class($filterBSubfilter)) {
 					return false;
 				}
 

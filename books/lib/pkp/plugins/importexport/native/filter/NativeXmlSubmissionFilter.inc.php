@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/native/filter/NativeXmlSubmissionFilter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class NativeXmlSubmissionFilter
@@ -65,7 +65,6 @@ class NativeXmlSubmissionFilter extends NativeImportFilter {
 	function handleElement($node) {
 		$deployment = $this->getDeployment();
 		$context = $deployment->getContext();
-		$user = $deployment->getUser();
 
 		// Create and insert the submission (ID needed for other entities)
 		$submissionDao = Application::getSubmissionDAO();
@@ -76,7 +75,7 @@ class NativeXmlSubmissionFilter extends NativeImportFilter {
 		if (empty($submissionLocale)) $submissionLocale = $context->getPrimaryLocale();
 		$submission->setLocale($submissionLocale);
 		$submission->setSubmissionProgress(0);
-		$workflowStageDao = DAORegistry::getDAO('WorkflowStageDAO');
+		import('lib.pkp.classes.workflow.WorkflowStageDAO');
 		$submission->setStageId(WorkflowStageDAO::getIdFromPath($node->getAttribute('stage')));
 		$submissionDao->insertObject($submission);
 		$deployment->setSubmission($submission);
@@ -103,6 +102,8 @@ class NativeXmlSubmissionFilter extends NativeImportFilter {
 		$submissionDao = Application::getSubmissionDAO();
 		if ($dateSubmitted = $node->getAttribute('date_submitted')) {
 			$submission->setDateSubmitted(strtotime($dateSubmitted));
+		} else {
+			$submission->setDateSubmitted(time());
 		}
 		$submissionDao->updateObject($submission);
 
@@ -162,8 +163,15 @@ class NativeXmlSubmissionFilter extends NativeImportFilter {
 			case 'submission_file':
 				$this->parseSubmissionFile($n, $submission);
 				break;
+			case 'copyrightYear':
+				$submission->setCopyrightYear($n->textContent);
+				break;
+			case 'licenseUrl':
+				$submission->setLicenseUrl($n->textContent);
+				break;
 			default:
-				$deployment->addError(ASSOC_TYPE_SUBMISSION, $submission->getId(), __('plugins.importexport.common.error.unknownElement', array('param' => $n->tagName)));
+				$deployment = $this->getDeployment();
+				$deployment->addWarning(ASSOC_TYPE_SUBMISSION, $submission->getId(), __('plugins.importexport.common.error.unknownElement', array('param' => $n->tagName)));
 		}
 	}
 
@@ -258,6 +266,7 @@ class NativeXmlSubmissionFilter extends NativeImportFilter {
 			'type' => 'setType',
 			'source' => 'setSource',
 			'rights' => 'setRights',
+			'copyrightHolder' => 'setCopyrightHolder',
 		);
 	}
 

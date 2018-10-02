@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/SubmissionAgencyDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionAgencyDAO
@@ -19,12 +19,6 @@ import('lib.pkp.classes.controlledVocab.ControlledVocabDAO');
 define('CONTROLLED_VOCAB_SUBMISSION_AGENCY', 'submissionAgency');
 
 class SubmissionAgencyDAO extends ControlledVocabDAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Build/fetch and return a controlled vocabulary for agencies.
@@ -32,7 +26,7 @@ class SubmissionAgencyDAO extends ControlledVocabDAO {
 	 * @return ControlledVocab
 	 */
 	function build($submissionId) {
-		return parent::build(CONTROLLED_VOCAB_SUBMISSION_AGENCY, ASSOC_TYPE_SUBMISSION, $submissionId);
+		return parent::_build(CONTROLLED_VOCAB_SUBMISSION_AGENCY, ASSOC_TYPE_SUBMISSION, $submissionId);
 	}
 
 	/**

@@ -3,8 +3,8 @@
 /**
  * @file classes/log/EmailLogDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class EmailLogDAO
@@ -18,12 +18,6 @@
 import ('lib.pkp.classes.log.EmailLogEntry');
 
 class EmailLogDAO extends DAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Retrieve a log entry by ID.
@@ -63,7 +57,7 @@ class EmailLogDAO extends DAO {
 	 * @param $rangeInfo object optional
 	 * @return EmailLogEntry
 	 */
-	function getByEventType($assocType, $assocId, $eventType, $userId = null, $rangeInfo = null) {
+	function _getByEventType($assocType, $assocId, $eventType, $userId = null, $rangeInfo = null) {
 		$params = array(
 				(int) $assocType,
 				(int) $assocId,

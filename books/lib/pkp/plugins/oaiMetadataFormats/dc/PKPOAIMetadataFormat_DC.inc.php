@@ -3,8 +3,8 @@
 /**
  * @file plugins/oaiMetadataFormats/dc/PKPOAIMetadataFormat_DC.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPOAIMetadataFormat_DC
@@ -17,7 +17,7 @@ class PKPOAIMetadataFormat_DC extends OAIMetadataFormat {
 	/**
 	 * @copydoc OAIMetadataFormat::toXML
 	 */
-	function toXml(&$dataObject, $format = null) {
+	function toXml($dataObject, $format = null) {
 		import('plugins.metadata.dc11.schema.Dc11Schema');
 		$dcDescription = $dataObject->extractMetadata(new Dc11Schema());
 

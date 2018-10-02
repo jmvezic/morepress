@@ -3,14 +3,16 @@
 <!--
   * dbscripts/xml/upgrade.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University Library
-  * Copyright (c) 2003-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2003-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Upgrade descriptor file.
   -->
 
-<install version="3.1.0.0">
+<install version="3.1.1.4">
+	<code function="checkPhpVersion" />
+
 	<!-- there are some column and table name changes that need to occur first. -->
 	<upgrade minversion="0.9.9.0" maxversion="1.0.9.0">
 		<!-- Upgrade prior versions to 1.1.0.0 -->
@@ -28,6 +30,11 @@
 		<data file="dbscripts/xml/upgrade/3.1.0_preupdate.xml" />
 	</upgrade>
 
+	<upgrade minversion="0.9.9.0" maxversion="3.1.0.9">
+		<data file="dbscripts/xml/upgrade/3.1.1_preupdate_citations.xml" condition="return $installer->columnExists('citations', 'assoc_type');" />
+		<data file="dbscripts/xml/upgrade/3.1.1_preupdate_payments.xml" condition="return $installer->columnExists('completed_payments', 'press_id');" />
+	</upgrade>
+
 	<!-- PKP schema components -->
 	<schema file="lib/pkp/xml/schema/common.xml" />
 	<schema file="lib/pkp/xml/schema/scheduledTasks.xml" />
@@ -41,16 +48,20 @@
 	<schema file="lib/pkp/xml/schema/reviewForms.xml" />
 	<schema file="lib/pkp/xml/schema/submissions.xml" />
 	<schema file="lib/pkp/xml/schema/submissionFiles.xml" />
-	<schema file="lib/pkp/xml/schema/mutex.xml" />
 	<schema file="lib/pkp/xml/schema/tombstone.xml" />
 	<schema file="lib/pkp/xml/schema/genres.xml" />
 	<schema file="lib/pkp/xml/schema/rolesAndUserGroups.xml" />
 	<schema file="lib/pkp/xml/schema/views.xml" />
 	<schema file="lib/pkp/xml/schema/metrics.xml" />
+	<schema file="lib/pkp/xml/schema/navigationMenus.xml" />
 
 	<!-- OMP schema -->
 	<schema file="dbscripts/xml/omp_schema.xml" />
 
+	<!-- Install default NavigationMenus -->
+	<code function="installDefaultNavigationMenus" />
+	<code function="migrateStaticPagesToNavigationMenuItems" />
+	
 	<upgrade minversion="0.9.9.0" maxversion="1.0.9.9">
 		<!-- Upgrade prior versions to 1.1.0.0 -->
 		<data file="dbscripts/xml/upgrade/1.1.0.0_update.xml" />
@@ -85,6 +96,20 @@
 	<upgrade minversion="1.2.0.0" maxversion="1.2.0.9">
 		<code function="fixQueriesAssocTypes" />
 		<code function="convertCommentsToEditor" condition="return $installer->tableExists('submissions_tmp');" />
+	</upgrade>
+
+	<upgrade minversion="0.9.9.0" maxversion="1.2.0.9">
+		<data file="dbscripts/xml/upgrade/3.1.0_update.xml" />
+		<note file="docs/release-notes/README-3.1.0" />
+	</upgrade>
+
+	<upgrade minversion="0.9.9.0" maxversion="3.1.0.9">
+		<data file="dbscripts/xml/upgrade/3.1.1_notifications.xml" />
+		<data file="dbscripts/xml/upgrade/3.1.1_update.xml" />
+		<code function="installEmailTemplate" key="EDITOR_DECISION_INITIAL_DECLINE" locales="en_US" />
+		<code function="installEmailTemplate" key="EDITOR_RECOMMENDATION" locales="en_US" />
+		<code function="clearDataCache" />
+		<note file="docs/release-notes/README-3.1.1" />
 	</upgrade>
 
 	<!-- Update plugin configuration - should be done as the final upgrade task -->

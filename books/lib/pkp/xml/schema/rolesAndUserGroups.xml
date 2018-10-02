@@ -4,8 +4,8 @@
 <!--
   * xml/schema/rolesAndUserGroups.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Roles and User Groups schema in XML.
@@ -62,7 +62,7 @@
 		<field name="user_group_id" type="I8">
 			<NOTNULL />
 		</field>
-		<field name="locale" type="C2" size="5">
+		<field name="locale" type="C2" size="14">
 			<NOTNULL />
 			<DEFAULT VALUE=""/>
 		</field>
@@ -163,6 +163,10 @@
 		</field>
 		<field name="date_assigned" type="T">
 			<NOTNULL/>
+		</field>
+		<field name="recommend_only" type="I1">
+			<NOTNULL/>
+			<DEFAULT VALUE="0"/>
 		</field>
 		<descr>Stage Assignments</descr>
 		<index name="stage_assignment">

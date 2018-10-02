@@ -1,18 +1,16 @@
 {**
  * templates/user/loginChangePassword.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Form to change a user's password in order to login.
  *
  *}
-{strip}
-{assign var="pageTitle" value="user.changePassword"}
-{url|assign:"currentUrl" page="login" op="changePassword"}
-{include file="common/header.tpl"}
-{/strip}
+{include file="common/header.tpl" pageTitle="user.changePassword"}
+
+<div class="pkp_page_content pkp_page_loginChangePassword">
 
 <script>
 	$(function() {ldelim}
@@ -48,7 +46,14 @@
 		{fbvFormButtons}
 	{/fbvFormArea}
 
+	<p>
+		{capture assign="privacyUrl"}{url router=$smarty.const.ROUTE_PAGE page="about" op="privacy"}{/capture}
+		{translate key="user.privacyLink" privacyUrl=$privacyUrl}
+	</p>
+
 	<p><span class="formRequired">{translate key="common.requiredField"}</span></p>
 </form>
+
+</div>
 
 {include file="common/footer.tpl"}

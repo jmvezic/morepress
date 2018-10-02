@@ -2,8 +2,8 @@
 /**
  * @file classes/security/authorization/DataObjectRequiredPolicy.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class DataObjectRequiredPolicy
@@ -114,6 +114,11 @@ class DataObjectRequiredPolicy extends AuthorizationPolicy {
 						&& ctype_digit((string) $this->_args[$this->_parameterName])) {
 					return (int) $this->_args[$this->_parameterName];
 				}
+				break;
+
+			case is_a($router, 'APIRouter'):
+				$handler = $router->getHandler();
+				return $handler->getParameter($this->_parameterName);
 				break;
 
 			default:

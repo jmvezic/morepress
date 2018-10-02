@@ -9,8 +9,8 @@
 /**
  * @file classes/oai/OAI.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class OAI
@@ -796,7 +796,7 @@ abstract class OAI {
 	 */
 	function extractDateParams($params, &$from, &$until) {
 		if (isset($params['from'])) {
-			$from = OAIUtils::UTCtoTimestamp($params['from']);
+			$from = OAIUtils::UTCtoTimestamp($params['from'], $this->config->granularity);
 
 			if ($from == 'invalid') {
 				$this->error('badArgument', 'Illegal from parameter');
@@ -809,7 +809,7 @@ abstract class OAI {
 		}
 
 		if(isset($params['until'])) {
-			$until = OAIUtils::UTCtoTimestamp($params['until']);
+			$until = OAIUtils::UTCtoTimestamp($params['until'], $this->config->granularity);
 
 			if($until == 'invalid') {
 				$this->error('badArgument', 'Illegal until parameter');

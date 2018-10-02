@@ -3,8 +3,8 @@
 /**
  * @file controllers/tab/settings/submissionStage/form/SubmissionStageForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionStageForm
@@ -42,6 +42,7 @@ class SubmissionStageForm extends ContextSettingsForm {
 					'copySubmissionAckPrimaryContact' => 'bool',
 					'copySubmissionAckAddress' => 'string',
 					'authorGuidelines' => 'string',
+					'privacyStatement' => 'string',
 				),
 				array_combine($metadataSettings, array_fill(0, count($metadataSettings), 'bool'))
 			),
@@ -54,7 +55,7 @@ class SubmissionStageForm extends ContextSettingsForm {
 	 * @copydoc Form::getLocaleFieldNames()
 	 */
 	function getLocaleFieldNames() {
-		return array('authorGuidelines');
+		return array('authorGuidelines', 'privacyStatement');
 	}
 
 	/**

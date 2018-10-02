@@ -3,8 +3,8 @@
 /**
  * @file classes/query/Query.inc.php
  *
- * Copyright (c) 2016-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2016-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Query
@@ -17,12 +17,6 @@
 import('lib.pkp.classes.note.NoteDAO'); // Constants
 
 class Query extends DataObject {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Get query assoc type

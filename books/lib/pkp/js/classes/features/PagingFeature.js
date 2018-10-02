@@ -1,8 +1,8 @@
 /**
  * @file js/classes/features/PagingFeature.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PagingFeature
@@ -95,7 +95,7 @@
 		} else {
 			params.bottomLimitRowId = this.gridHandler.getRowDataId($lastRow);
 		}
-	
+
 		this.setGridParams(params);
 
 		return false;
@@ -114,7 +114,7 @@
 									loadLastPage: boolean,
 									newTopRow: string}} */
 				handledJsonData;
-	
+
 		if (castJsonData.deletedRowReplacement != undefined) {
 			rowMarkup = handledJsonData.deletedRowReplacement;
 			this.gridHandler.insertOrReplaceElement(rowMarkup);
@@ -124,8 +124,8 @@
 			pagingInfo = handledJsonData.pagingInfo;
 			this.setOptions(pagingInfo);
 
-			$('div.gridPaging', this.getGridHtmlElement()).
-					replaceWith(pagingInfo.pagingMarkup);
+			this.gridHandler.replacePartialWith(pagingInfo.pagingMarkup,
+					$('div.gridPaging', this.getGridHtmlElement()));
 			this.init();
 		}
 

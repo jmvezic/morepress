@@ -1,8 +1,8 @@
 /**
  * @file js/controllers/TabHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class TabHandler
@@ -103,14 +103,6 @@
 	$.pkp.controllers.TabHandler.prototype.currentTabIndex_ = 0;
 
 
-	/**
-	 * Whether to empty the previous tab when switching to a new one
-	 * @private
-	 * @type {boolean}
-	 */
-	$.pkp.controllers.TabHandler.prototype.emptyLastTab_ = false;
-
-
 	//
 	// Public methods
 	//
@@ -153,6 +145,9 @@
 			// an Error.
 			$(window).one('error', function(msg, url, line) { return false; });
 			if (this.$currentTab_) {
+				// Unbind global events for handlers embedded in this tab's
+				// content.
+				this.unbindPartial(this.$currentTab_);
 				this.$currentTab_.empty();
 			}
 		}
@@ -230,6 +225,12 @@
 	$.pkp.controllers.TabHandler.prototype.tabsBeforeLoad =
 			function(tabsElement, event, ui) {
 
+		// We must unbind global events before the new tab content is loaded.
+		// This reaches out to the tab content element and unbinds any events
+		// attached to that element or any embedded handlers before it gets
+		// destroyed.
+		this.unbindPartial($('#' + ui.tab.attr('aria-controls')));
+
 		// Initialize AJAX settings for loading tab content remotely
 		ui.ajaxSettings.cache = false;
 		ui.ajaxSettings.dataFilter = this.callbackWrapper(this.dataFilter);
@@ -274,10 +275,11 @@
 	$.pkp.controllers.TabHandler.prototype.tabsReloadRequested =
 			function(divElement, event, jsonContent) {
 
-		var $element = this.getHtmlElement();
+		var $element = this.getHtmlElement(),
+				self = this;
 		$.get(jsonContent.tabsUrl, function(data) {
 			var jsonData = $.parseJSON(data);
-			$element.replaceWith(jsonData.content);
+			self.replaceWith(jsonData.content);
 		});
 	};
 

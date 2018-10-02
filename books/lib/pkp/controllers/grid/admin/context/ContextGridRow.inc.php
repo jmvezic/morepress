@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/admin/context/ContextGridRow.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ContextGridRow
@@ -17,13 +17,6 @@ import('lib.pkp.classes.controllers.grid.GridRow');
 import('lib.pkp.classes.linkAction.request.RemoteActionConfirmationModal');
 
 class ContextGridRow extends GridRow {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Overridden methods from GridRow
@@ -59,7 +52,7 @@ class ContextGridRow extends GridRow {
 				'delete',
 				new RemoteActionConfirmationModal(
 					$request->getSession(),
-					__('admin.contexts.confirmDelete'),
+					__('admin.contexts.confirmDelete', array('contextName' => $element->getLocalizedName())),
 					null,
 					$router->url($request, null, null, 'deleteContext', null, array('rowId' => $rowId))
 					),
@@ -67,7 +60,6 @@ class ContextGridRow extends GridRow {
 				'delete'
 			)
 		);
-
 		import('lib.pkp.classes.linkAction.request.RedirectAction');
 		$dispatcher = $router->getDispatcher();
 		$this->addAction(
@@ -79,6 +71,20 @@ class ContextGridRow extends GridRow {
 				'wrench'
 			)
 		);
+		$this->addAction(
+			new LinkAction(
+				'users',
+				new AjaxModal(
+					$router->url($request, $element->getPath(), null, 'users', null),
+					__('manager.users'),
+					'modal_edit',
+					true
+				),
+				__('manager.users'),
+				'users'
+			)
+		);
+
 	}
 }
 

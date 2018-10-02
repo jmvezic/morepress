@@ -3,8 +3,8 @@
 /**
  * @file StaticPagesPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @package plugins.generic.staticPages
@@ -16,16 +16,14 @@ import('lib.pkp.classes.plugins.GenericPlugin');
 
 class StaticPagesPlugin extends GenericPlugin {
 	/**
-	 * Get the plugin's display (human-readable) name.
-	 * @return string
+	 * @copydoc Plugin::getDisplayName()
 	 */
 	function getDisplayName() {
 		return __('plugins.generic.staticPages.displayName');
 	}
 
 	/**
-	 * Get the plugin's display (human-readable) description.
-	 * @return string
+	 * @copydoc Plugin::getDescription()
 	 */
 	function getDescription() {
 		$description = __('plugins.generic.staticPages.description');
@@ -45,14 +43,11 @@ class StaticPagesPlugin extends GenericPlugin {
 	}
 
 	/**
-	 * Register the plugin, attaching to hooks as necessary.
-	 * @param $category string
-	 * @param $path string
-	 * @return boolean
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		if (parent::register($category, $path)) {
-			if ($this->getEnabled()) {
+	function register($category, $path, $mainContextId = null) {
+		if (parent::register($category, $path, $mainContextId)) {
+			if ($this->getEnabled($mainContextId)) {
 				// Register the static pages DAO.
 				import('plugins.generic.staticPages.classes.StaticPagesDAO');
 				$staticPagesDao = new StaticPagesDAO();
@@ -67,6 +62,8 @@ class StaticPagesPlugin extends GenericPlugin {
 				// Register the components this plugin implements to
 				// permit administration of static pages.
 				HookRegistry::register('LoadComponentHandler', array($this, 'setupGridHandler'));
+
+				$this->_registerTemplateResource();
 			}
 			return true;
 		}
@@ -196,7 +193,7 @@ class StaticPagesPlugin extends GenericPlugin {
 	 * @copydoc PKPPlugin::getTemplatePath
 	 */
 	function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates/';
+		return $this->getTemplateResourceName() . ':templates/';
 	}
 
 	/**

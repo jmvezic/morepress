@@ -3,8 +3,8 @@
 /**
  * @file classes/user/UserStageAssignmentDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserStageAssignmentDAO
@@ -17,12 +17,6 @@
 import('classes.user.UserDAO');
 
 class UserStageAssignmentDAO extends UserDAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Retrieve a set of users not assigned to a given submission stage as a user group

@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/files/review/ReviewerReviewFilesGridDataProvider.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewerReviewFilesGridDataProvider
@@ -34,7 +34,8 @@ class ReviewerReviewFilesGridDataProvider extends ReviewGridDataProvider {
 	 */
 	function getAuthorizationPolicy($request, $args, $roleAssignments) {
 		import('lib.pkp.classes.security.authorization.SubmissionAccessPolicy');
-		$policy = new SubmissionAccessPolicy($request, $args, $roleAssignments);
+		$context = $request->getContext();
+		$policy = new SubmissionAccessPolicy($request, $args, $roleAssignments, 'submissionId', !$context->getSetting('restrictReviewerFileAccess'));
 
 		$stageId = $request->getUserVar('stageId');
 		import('lib.pkp.classes.security.authorization.internal.WorkflowStageRequiredPolicy');

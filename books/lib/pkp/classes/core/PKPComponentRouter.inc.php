@@ -3,8 +3,8 @@
 /**
  * @file classes/core/PKPComponentRouter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPComponentRouter
@@ -78,12 +78,6 @@ class PKPComponentRouter extends PKPRouter {
 	/** @var callable the rpc service endpoint the request was routed to */
 	var $_rpcServiceEndpoint = false;
 
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Determines whether this router can route the given request.
@@ -180,6 +174,10 @@ class PKPComponentRouter extends PKPRouter {
 			// time.
 			$this->_rpcServiceEndpoint = $nullVar = null;
 
+			// Retrieve requested component operation
+			$op = $this->getRequestedOp($request);
+			assert(!empty($op));
+
 			//
 			// Component Handler
 			//
@@ -189,7 +187,7 @@ class PKPComponentRouter extends PKPRouter {
 			$allowedPackages = null;
 
 			// Give plugins a chance to intervene
-			if (!HookRegistry::call('LoadComponentHandler', array(&$component))) {
+			if (!HookRegistry::call('LoadComponentHandler', array(&$component, &$op))) {
 
 				if (empty($component)) return $nullVar;
 
@@ -217,10 +215,6 @@ class PKPComponentRouter extends PKPRouter {
 				);
 			}
 
-			// Retrieve requested component operation
-			$op = $this->getRequestedOp($request);
-			assert(!empty($op));
-
 			// A handler at least needs to implement the
 			// following methods:
 			$requiredMethods = array(
@@ -229,6 +223,7 @@ class PKPComponentRouter extends PKPRouter {
 
 			$componentInstance =& instantiate($component, 'PKPHandler', $allowedPackages, $requiredMethods);
 			if (!is_object($componentInstance)) return $nullVar;
+			$this->setHandler($componentInstance);
 
 			//
 			// Callable service endpoint

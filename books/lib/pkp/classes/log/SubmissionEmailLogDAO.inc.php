@@ -3,8 +3,8 @@
 /**
  * @file classes/log/SubmissionEmailLogDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionEmailLogDAO
@@ -18,12 +18,6 @@ import('lib.pkp.classes.log.EmailLogDAO');
 import('classes.log.SubmissionEmailLogEntry');
 
 class SubmissionEmailLogDAO extends EmailLogDAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Instantiate and return a SubmissionEmailLogEntry
@@ -43,7 +37,7 @@ class SubmissionEmailLogDAO extends EmailLogDAO {
 	 * @return DAOResultFactory
 	 */
 	function getByEventType($submissionId, $eventType, $userId = null) {
-		return parent::getByEventType(ASSOC_TYPE_SUBMISSION, $submissionId, $eventType, $userId);
+		return parent::_getByEventType(ASSOC_TYPE_SUBMISSION, $submissionId, $eventType, $userId);
 	}
 
 	/**

@@ -2,8 +2,8 @@
 /**
  * @file classes/security/authorization/ReviewStageAccessPolicy.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewStageAccessPolicy
@@ -23,8 +23,9 @@ class ReviewStageAccessPolicy extends ContextPolicy {
 	 * @param $roleAssignments array
 	 * @param $submissionParameterName string
 	 * @param $stageId integer One of the WORKFLOW_STAGE_ID_* constants.
+	 * @param $permitDeclined bool Whether to permit reviewers to fetch declined review assignments.
 	 */
-	function __construct($request, &$args, $roleAssignments, $submissionParameterName = 'submissionId', $stageId) {
+	function __construct($request, &$args, $roleAssignments, $submissionParameterName, $stageId, $permitDeclined = false) {
 		parent::__construct($request);
 
 		// Create a "permit overrides" policy set that specifies
@@ -38,7 +39,7 @@ class ReviewStageAccessPolicy extends ContextPolicy {
 		if ($stageId == WORKFLOW_STAGE_ID_INTERNAL_REVIEW || $stageId == WORKFLOW_STAGE_ID_EXTERNAL_REVIEW) {
 			// Add the submission policy, for reviewer roles
 			import('lib.pkp.classes.security.authorization.SubmissionAccessPolicy');
-			$submissionPolicy = new SubmissionAccessPolicy($request, $args, $roleAssignments, $submissionParameterName);
+			$submissionPolicy = new SubmissionAccessPolicy($request, $args, $roleAssignments, $submissionParameterName, $permitDeclined);
 			$submissionPolicy->addPolicy(new WorkflowStageRequiredPolicy($stageId));
 			$workflowStagePolicy->addPolicy($submissionPolicy);
 		}

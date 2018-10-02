@@ -4,8 +4,8 @@
 <!--
   * locale/fr_CA/locale.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University Library
-  * Copyright (c) 2003-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2003-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Localization strings for the fr_CA locale.
@@ -23,5 +23,9 @@
 	<message key="plugins.reports.reviews.dateConfirmed">Date de confirmation</message>
 	<message key="plugins.reports.reviews.dateCompleted">Date de complétion</message>
 	<message key="plugins.reports.reviews.dateReminded">Date de rappel</message>
+	<message key="plugins.reports.reviews.submissionTitle">Titre de la soumission</message>
+	<message key="plugins.reports.reviews.submissionId">ID de la soumission</message>
+	<message key="plugins.reports.reviews.recommendation">Recommandation</message>
+	<message key="plugins.reports.reviews.comments">Commentaires sur la soumission</message>
 </locale>
 

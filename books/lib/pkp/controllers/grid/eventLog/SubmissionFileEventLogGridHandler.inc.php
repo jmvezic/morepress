@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/eventLog/SubmissionFileEventLogGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionFileEventLogGridHandler
@@ -17,13 +17,6 @@
 import('lib.pkp.controllers.grid.eventLog.SubmissionEventLogGridHandler');
 
 class SubmissionFileEventLogGridHandler extends SubmissionEventLogGridHandler {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Getters/Setters

@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/catalogEntry/PublicationFormatGridCategoryRow.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PublicationFormatGridCategoryRow
@@ -20,13 +20,18 @@ class PublicationFormatGridCategoryRow extends GridCategoryRow {
 	/** @var Submission **/
 	var $_submission;
 
+	/** @var boolean */
+	protected $_canManage;
+
 	/**
 	 * Constructor
 	 * @param $submission Submission
 	 * @param $cellProvider GridCellProvider
+	 * @param $canManage boolean
 	 */
-	function __construct($submission, $cellProvider) {
+	function __construct($submission, $cellProvider, $canManage) {
 		$this->_submission = $submission;
+		$this->_canManage = $canManage;
 		parent::__construct();
 		$this->setCellProvider($cellProvider);
 	}
@@ -57,7 +62,7 @@ class PublicationFormatGridCategoryRow extends GridCategoryRow {
 
 		// Is this a new row or an existing row?
 		$representation = $this->getData();
-		if ($representation && is_numeric($representation->getId())) {
+		if ($representation && is_numeric($representation->getId()) && $this->_canManage) {
 			$router = $request->getRouter();
 			$actionArgs = array(
 				'submissionId' => $submission->getId(),

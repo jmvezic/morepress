@@ -3,8 +3,8 @@
 /**
  * @file classes/security/Validation.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Validation
@@ -12,8 +12,6 @@
  *
  * @brief Class providing user validation/authentication operations.
  */
-
-require_once(BASE_SYS_DIR . '/lib/pkp/lib/vendor/ircmaxell/password-compat/lib/password.php');
 
 class Validation {
 
@@ -126,6 +124,7 @@ class Validation {
 		$session->setSessionVar('userId', $user->getId());
 		$session->setUserId($user->getId());
 		$session->setSessionVar('username', $user->getUsername());
+		$session->getCSRFToken(); // Force generation (see issue #2417)
 		$session->setRemember($remember);
 
 		if ($remember && Config::getVar('general', 'session_lifetime') > 0) {

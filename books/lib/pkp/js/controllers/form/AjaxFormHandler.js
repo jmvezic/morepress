@@ -1,8 +1,8 @@
 /**
  * @file js/controllers/form/AjaxFormHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class AjaxFormHandler
@@ -83,11 +83,7 @@
 			function(sourceElement, event, content) {
 
 		if (content) {
-			// Get the form that we're updating
-			var $element = this.getHtmlElement();
-
-			// Replace the form content
-			$element.replaceWith(content);
+			this.replaceWith(content);
 		}
 	};
 
@@ -133,8 +129,7 @@
 				}
 
 				// Redisplay the form.
-				$form = this.getHtmlElement();
-				$form.replaceWith(processedJsonData.content);
+				this.replaceWith(processedJsonData.content);
 			}
 		} else {
 			// data was false -- assume errors, re-enable form controls.

@@ -3,8 +3,8 @@
 /**
  * @file classes/mail/MonographMailTemplate.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MonographMailTemplate
@@ -35,6 +35,9 @@ class MonographMailTemplate extends SubmissionMailTemplate {
 	function assignParams($paramArray = array()) {
 		$submission = $this->submission;
 		$paramArray['seriesName'] = strip_tags($submission->getSeriesTitle());
+		$seriesDao = DAORegistry::getDAO('SeriesDAO');
+		$series = $seriesDao->getById($submission->getSeriesId());
+		$paramArray['seriesPath'] = $series ? $series->getPath() : '';		
 		parent::assignParams($paramArray);
 	}
 

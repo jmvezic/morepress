@@ -3,8 +3,8 @@
 /**
  * @file classes/notification/managerDelegate/EditorDecisionNotificationManager.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class EditorDecisionNotificationManager
@@ -120,8 +120,8 @@ class EditorDecisionNotificationManager extends NotificationManagerDelegate {
 			case NOTIFICATION_TYPE_EDITOR_DECISION_SEND_TO_PRODUCTION:
 				$submissionDao = Application::getSubmissionDAO();
 				$submission = $submissionDao->getById($notification->getAssocId());
-				import('lib.pkp.controllers.grid.submissions.SubmissionsListGridCellProvider');
-				return SubmissionsListGridCellProvider::getUrlByUserRoles($request, $submission, $notification->getUserId());
+				import('classes.core.ServicesContainer');
+				return ServicesContainer::instance()->get('submission')->getWorkflowUrlByUserRoles($submission, $notification->getUserId());
 			default:
 				return '';
 		}
@@ -154,6 +154,7 @@ class EditorDecisionNotificationManager extends NotificationManagerDelegate {
 	function _getNotificationTaskLevel($type) {
 		switch ($type) {
 			case NOTIFICATION_TYPE_EDITOR_DECISION_PENDING_REVISIONS:
+			case NOTIFICATION_TYPE_EDITOR_DECISION_RESUBMIT:
 				return NOTIFICATION_LEVEL_TASK;
 			default:
 				return NOTIFICATION_LEVEL_NORMAL;

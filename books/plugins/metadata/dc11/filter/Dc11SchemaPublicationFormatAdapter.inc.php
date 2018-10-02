@@ -3,8 +3,8 @@
 /**
  * @file plugins/metadata/dc11/filter/Dc11SchemaPublicationFormatAdapter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Dc11SchemaPublicationFormatAdapter
@@ -47,9 +47,8 @@ class Dc11SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
 	 * @see MetadataDataObjectAdapter::injectMetadataIntoDataObject()
 	 * @param $dc11Description MetadataDescription
 	 * @param $publicationFormat PublicationFormat
-	 * @param $authorClassName string the application specific author class name
 	 */
-	function &injectMetadataIntoDataObject(&$dc11Description, &$publicationFormat, $authorClassName) {
+	function &injectMetadataIntoDataObject(&$dc11Description, &$publicationFormat) {
 		// Not implemented
 		assert(false);
 	}
@@ -59,7 +58,7 @@ class Dc11SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
 	 * @param $publicationFormat PublicationFormat
 	 * @return MetadataDescription
 	 */
-	function extractMetadataFromDataObject($publicationFormat) {
+	function extractMetadataFromDataObject(&$publicationFormat) {
 		assert(is_a($publicationFormat, 'PublicationFormat'));
 
 		AppLocale::requireComponents(LOCALE_COMPONENT_APP_COMMON);
@@ -97,9 +96,12 @@ class Dc11SchemaPublicationFormatAdapter extends MetadataDataObjectAdapter {
 		}
 
 		// Subject
+		$submissionKeywordDao = DAORegistry::getDAO('SubmissionKeywordDAO');
+		$submissionSubjectDao = DAORegistry::getDAO('SubmissionSubjectDAO');
+		$supportedLocales = array_keys(AppLocale::getSupportedFormLocales());
 		$subjects = array_merge_recursive(
-			(array) $monograph->getDiscipline(null),
-			(array) $monograph->getSubject(null)
+			(array) $submissionKeywordDao->getKeywords($monograph->getId(), $supportedLocales),
+			(array) $submissionSubjectDao->getSubjects($monograph->getId(), $supportedLocales)
 		);
 		$this->_addLocalizedElements($dc11Description, 'dc:subject', $subjects);
 

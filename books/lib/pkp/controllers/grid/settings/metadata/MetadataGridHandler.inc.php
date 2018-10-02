@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/settings/metadata/MetadataGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MetadataGridHandler
@@ -17,22 +17,15 @@ import('lib.pkp.classes.controllers.grid.GridHandler');
 import('lib.pkp.controllers.grid.settings.metadata.MetadataGridCellProvider');
 
 class MetadataGridHandler extends GridHandler {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Implement template methods from PKPHandler.
 	//
 	/**
-	 * @copydoc PKPHandler::initialize()
+	 * @copydoc GridHandler::initialize()
 	 */
-	function initialize($request) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 
 		// Load user-related translations.
 		AppLocale::requireComponents(
@@ -80,6 +73,17 @@ class MetadataGridHandler extends GridHandler {
 				array('alignment' => 'center')
 			)
 		);
+
+		$this->addColumn(
+			new GridColumn(
+				'required',
+				'common.required',
+				null,
+				'controllers/grid/common/cell/selectStatusCell.tpl',
+				$cellProvider,
+				array('alignment' => 'center')
+			)
+		);
 	}
 
 	/**
@@ -91,12 +95,12 @@ class MetadataGridHandler extends GridHandler {
 			'languages' => array('name' => __('rt.metadata.dublinCore.language')),
 			'rights' => array('name' => __('rt.metadata.dublinCore.rights')),
 			'source' => array('name' => __('rt.metadata.dublinCore.source')),
-			'subject' => array('name' => __('rt.metadata.dublinCore.subject')),
+			'subjects' => array('name' => __('rt.metadata.dublinCore.subject')),
 			'type' => array('name' => __('rt.metadata.dublinCore.type')),
 			'disciplines' => array('name' => __('rt.metadata.pkp.discipline')),
 			'keywords' => array('name' => __('rt.metadata.pkp.subject')),
 			'agencies' => array('name' => __('submission.supportingAgencies')),
-			'references' => array('name' => __('submission.citations')),
+			'citations' => array('name' => __('submission.citations')),
 		);
 	}
 

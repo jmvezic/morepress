@@ -3,8 +3,8 @@
 /**
  * @file controllers/tab/settings/WebsiteSettingsTabHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class WebsiteSettingsTabHandler
@@ -40,6 +40,7 @@ class WebsiteSettingsTabHandler extends ManagerSettingsTabHandler {
 			'languages' => 'controllers/tab/settings/languages/languages.tpl',
 			'plugins' => 'controllers/tab/settings/plugins/plugins.tpl',
 			'announcements' => 'lib.pkp.controllers.tab.settings.announcements.form.AnnouncementSettingsForm',
+			'navigationMenus' => 'lib.pkp.controllers.tab.settings.navigationMenus.form.NavigationMenuSettingsForm'
 		));
 	}
 
@@ -172,17 +173,8 @@ class WebsiteSettingsTabHandler extends ManagerSettingsTabHandler {
 		}
 
 		$press = $request->getPress();
-		$pressSettingsDao = DAORegistry::getDAO('PressSettingsDAO');
-		$pressSettingsDao->reloadLocalizedDefaultSettings(
-			$press->getId(), 'registry/pressSettings.xml',
-			array(
-				'indexUrl' => $request->getIndexUrl(),
-				'pressPath' => $press->getData('path'),
-				'primaryLocale' => $press->getPrimaryLocale(),
-				'pressName' => $press->getName($press->getPrimaryLocale())
-			),
-			$locale
-		);
+		$settingsDao = Application::getContextSettingsDAO();
+		$settingsDao->reloadLocalizedDefaultContextSettings($request, $locale);
 
 		// also reload the user group localizable data
 		$userGroupDao = DAORegistry::getDAO('UserGroupDAO');

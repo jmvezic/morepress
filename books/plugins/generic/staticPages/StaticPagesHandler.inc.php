@@ -3,8 +3,8 @@
 /**
  * @file StaticPagesHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @package plugins.generic.staticPages
@@ -21,13 +21,6 @@ class StaticPagesHandler extends Handler {
 	/** @var StaticPage The static page to view */
 	static $staticPage;
 
-
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Provide the static pages plugin to the handler.

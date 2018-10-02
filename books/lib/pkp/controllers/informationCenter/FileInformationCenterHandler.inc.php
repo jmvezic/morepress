@@ -3,8 +3,8 @@
 /**
  * @file controllers/informationCenter/FileInformationCenterHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class FileInformationCenterHandler
@@ -29,15 +29,13 @@ class FileInformationCenterHandler extends InformationCenterHandler {
 	 */
 	function __construct() {
 		parent::__construct();
-
 		$this->addRoleAssignment(
+			array(ROLE_ID_ASSISTANT),
 			array(
-				ROLE_ID_AUTHOR,
-				ROLE_ID_SUB_EDITOR,
-				ROLE_ID_MANAGER,
-				ROLE_ID_ASSISTANT
-			),
-			array('listPastNotes')
+				'viewInformationCenter',
+				'viewHistory',
+				'viewNotes', 'listNotes', 'saveNote', 'deleteNote',
+			)
 		);
 	}
 
@@ -82,7 +80,6 @@ class FileInformationCenterHandler extends InformationCenterHandler {
 		$fileName = (($s = $this->submissionFile->getLocalizedName()) != '') ? $s : __('common.untitled');
 		if (($i = $this->submissionFile->getRevision()) > 1) $fileName .= " ($i)"; // Add revision number to label
 		if (empty($fileName)) $fileName = __('common.untitled');
-		$templateMgr->assign('title', $fileName);
 		$templateMgr->assign('removeHistoryTab', (int) $request->getUserVar('removeHistoryTab'));
 
 		return parent::viewInformationCenter($args, $request);
@@ -101,6 +98,10 @@ class FileInformationCenterHandler extends InformationCenterHandler {
 		$notesForm = new NewFileNoteForm($this->submissionFile->getFileId());
 		$notesForm->initData();
 
+		$templateMgr = TemplateManager::getManager($request);
+		$templateMgr->assign('notesList', $this->_listNotes($args, $request));
+		$templateMgr->assign('pastNotesList', $this->_listPastNotes($args, $request));
+
 		return new JSONMessage(true, $notesForm->fetch($request));
 	}
 
@@ -110,7 +111,7 @@ class FileInformationCenterHandler extends InformationCenterHandler {
 	 * @param $request PKPRequest
 	 * @return JSONMessage JSON object
 	 */
-	function listPastNotes($args, $request) {
+	function _listPastNotes($args, $request) {
 		$this->setupTemplate($request);
 
 		$templateMgr = TemplateManager::getManager($request);
@@ -130,10 +131,13 @@ class FileInformationCenterHandler extends InformationCenterHandler {
 		$templateMgr->assign('notes', new ArrayItemIterator($notes));
 
 		$user = $request->getUser();
-		$templateMgr->assign('currentUserId', $user->getId());
+		$templateMgr->assign(array(
+			'currentUserId' => $user->getId(),
+			'notesListId' => 'pastNotesList',
+			'notesDeletable' => false,
+		));
 
-		$templateMgr->assign('notesListId', 'pastNotesList');
-		return $templateMgr->fetchJson('controllers/informationCenter/notesList.tpl');
+		return $templateMgr->fetch('controllers/informationCenter/notesList.tpl');
 	}
 
 	/**
@@ -153,11 +157,18 @@ class FileInformationCenterHandler extends InformationCenterHandler {
 			$notesForm->execute($request);
 
 			// Save to event log
-			$this->_logEvent($request, SUBMISSION_LOG_NOTE_POSTED);
+			$this->_logEvent($request, $this->submissionFile, SUBMISSION_LOG_NOTE_POSTED, 'SubmissionFileLog');
 
 			$user = $request->getUser();
 			NotificationManager::createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('notification.addedNote')));
-			return new JSONMessage(true);
+
+			$jsonViewNotesResponse = $this->viewNotes($args, $request);
+			$json = new JSONMessage(true);
+			$json->setEvent('dataChanged');
+			$json->setEvent('noteAdded', $jsonViewNotesResponse->_content);
+
+			return $json;
+
 		} else {
 			// Return a JSON string indicating failure
 			return new JSONMessage(false);
@@ -178,28 +189,6 @@ class FileInformationCenterHandler extends InformationCenterHandler {
 			'eventLogGrid',
 			$dispatcher->url($request, ROUTE_COMPONENT, null, 'grid.eventLog.SubmissionFileEventLogGridHandler', 'fetchGrid', null, $this->_getLinkParams())
 		);
-	}
-
-	/**
-	 * Log an event for this file
-	 * @param $request PKPRequest
-	 * @param $eventType int SUBMISSION_LOG_...
-	 */
-	function _logEvent ($request, $eventType) {
-		// Get the log event message
-		switch($eventType) {
-			case SUBMISSION_LOG_NOTE_POSTED:
-				$logMessage = 'informationCenter.history.notePosted';
-				break;
-			case SUBMISSION_LOG_MESSAGE_SENT:
-				$logMessage = 'informationCenter.history.messageSent';
-				break;
-			default:
-				assert(false);
-		}
-
-		import('lib.pkp.classes.log.SubmissionFileLog');
-		SubmissionFileLog::logEvent($request, $this->submissionFile, $eventType, $logMessage);
 	}
 
 	/**

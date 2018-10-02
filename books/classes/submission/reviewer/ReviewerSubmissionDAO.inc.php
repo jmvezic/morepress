@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/reviewer/ReviewerSubmissionDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewerSubmissionDAO
@@ -49,8 +49,7 @@ class ReviewerSubmissionDAO extends MonographDAO {
 			'SELECT	m.*, pm.date_published,
 				r.*,
 				u.first_name, u.last_name,
-				COALESCE(stl.setting_value, stpl.setting_value) AS series_title,
-				COALESCE(sal.setting_value, sapl.setting_value) AS series_abbrev
+				COALESCE(stl.setting_value, stpl.setting_value) AS series_title
 			FROM	submissions m
 				LEFT JOIN published_submissions pm ON (m.submission_id = pm.submission_id)
 				LEFT JOIN review_assignments r ON (m.submission_id = r.submission_id)
@@ -58,14 +57,10 @@ class ReviewerSubmissionDAO extends MonographDAO {
 				LEFT JOIN users u ON (r.reviewer_id = u.user_id)
 				LEFT JOIN series_settings stpl ON (s.series_id = stpl.series_id AND stpl.setting_name = ? AND stpl.locale = ?)
 				LEFT JOIN series_settings stl ON (s.series_id = stl.series_id AND stl.setting_name = ? AND stl.locale = ?)
-				LEFT JOIN series_settings sapl ON (s.series_id = sapl.series_id AND sapl.setting_name = ? AND sapl.locale = ?)
-				LEFT JOIN series_settings sal ON (s.series_id = sal.series_id AND sal.setting_name = ? AND sal.locale = ?)
 			WHERE	r.review_id = ?',
 			array(
 				'title', $primaryLocale, // Series title
 				'title', $locale, // Series title
-				'abbrev', $primaryLocale, // Series abbreviation
-				'abbrev', $locale, // Series abbreviation
 				(int) $reviewId
 			)
 		);
@@ -115,8 +110,6 @@ class ReviewerSubmissionDAO extends MonographDAO {
 		$reviewerSubmission->setDateDue($this->datetimeFromDB($row['date_due']));
 		$reviewerSubmission->setDateResponseDue($this->datetimeFromDB($row['date_response_due']));
 		$reviewerSubmission->setDeclined($row['declined']);
-		$reviewerSubmission->setReplaced($row['replaced']);
-		$reviewerSubmission->setCancelled((int) $row['cancelled']);
 		$reviewerSubmission->setQuality($row['quality']);
 		$reviewerSubmission->setRound($row['round']);
 		$reviewerSubmission->setStep($row['step']);
@@ -143,8 +136,6 @@ class ReviewerSubmissionDAO extends MonographDAO {
 					competing_interests = ?,
 					recommendation = ?,
 					declined = ?,
-					replaced = ?,
-					cancelled = ?,
 					date_assigned = %s,
 					date_notified = %s,
 					date_confirmed = %s,
@@ -171,8 +162,6 @@ class ReviewerSubmissionDAO extends MonographDAO {
 				$reviewerSubmission->getCompetingInterests(),
 				(int) $reviewerSubmission->getRecommendation(),
 				(int) $reviewerSubmission->getDeclined(),
-				(int) $reviewerSubmission->getReplaced(),
-				(int) $reviewerSubmission->getCancelled(),
 				(int) $reviewerSubmission->getQuality(),
 				(int) $reviewerSubmission->getReviewId()
 			)
@@ -194,7 +183,6 @@ class ReviewerSubmissionDAO extends MonographDAO {
 				u.first_name, u.last_name,
 				atl.setting_value AS submission_title,
 				COALESCE(stl.setting_value, stpl.setting_value) AS series_title,
-				COALESCE(sal.setting_value, sapl.setting_value) AS series_abbrev
 			FROM	submissions m
 				LEFT JOIN published_submissions pm ON (pm.submission_id = m.submission_id)
 				LEFT JOIN review_assignments r ON (m.submission_id = r.submission_id)
@@ -203,15 +191,13 @@ class ReviewerSubmissionDAO extends MonographDAO {
 				LEFT JOIN users u ON (r.reviewer_id = u.user_id)
 				LEFT JOIN series_settings stpl ON (s.series_id = stpl.series_id AND stpl.setting_name = ? AND stpl.locale = ?)
 				LEFT JOIN series_settings stl ON (s.series_id = stl.series_id AND stl.setting_name = ? AND stl.locale = ?)
-				LEFT JOIN series_settings sapl ON (s.series_id = sapl.series_id AND sapl.setting_name = ? AND sapl.locale = ?)
-				LEFT JOIN series_settings sal ON (s.series_id = sal.series_id AND sal.setting_name = ? AND sal.locale = ?)
 			WHERE r.reviewer_id = ? ' . ($pressId?	' AND m.context_id = ? ':'') .
 				'AND r.date_notified IS NOT NULL';
 
 		if ($active) {
-			$sql .=  ' AND r.date_completed IS NULL AND r.declined <> 1 AND (r.cancelled = 0 OR r.cancelled IS NULL)';
+			$sql .=  ' AND r.date_completed IS NULL AND r.declined <> 1';
 		} else {
-			$sql .= ' AND (r.date_completed IS NOT NULL OR r.cancelled = 1 OR r.declined = 1)';
+			$sql .= ' AND (r.date_completed IS NOT NULL OR r.declined = 1)';
 		}
 
 		if ($skipDeclined) {
@@ -226,8 +212,6 @@ class ReviewerSubmissionDAO extends MonographDAO {
 			'title', $locale, // Monograph title
 			'title', $primaryLocale, // Series title
 			'title', $locale, // Series title
-			'abbrev', $primaryLocale, // Series abbreviation
-			'abbrev', $locale, // Series abbreviation
 			(int) $reviewerId
 		);
 		if ($pressId) $params[] = (int) $pressId;
@@ -248,7 +232,7 @@ class ReviewerSubmissionDAO extends MonographDAO {
 		$submissionsCount[1] = 0;
 
 		$result = $this->retrieve(
-			'SELECT	r.date_completed, r.declined, r.cancelled
+			'SELECT	r.date_completed, r.declined
 			FROM	submissions m
 				LEFT JOIN review_assignments r ON (m.submission_id = r.submission_id)
 				LEFT JOIN series s ON (s.series_id = m.series_id)
@@ -261,7 +245,7 @@ class ReviewerSubmissionDAO extends MonographDAO {
 		);
 
 		while (!$result->EOF) {
-			if ($result->fields['date_completed'] == null && $result->fields['declined'] != 1 && $result->fields['cancelled'] != 1) {
+			if ($result->fields['date_completed'] == null && $result->fields['declined'] != 1) {
 				$submissionsCount[0] += 1; // Active
 			} else {
 				$submissionsCount[1] += 1; // Complete

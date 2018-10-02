@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/users/userSelect/UserSelectGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserSelectGridHandler
@@ -46,12 +46,11 @@ class UserSelectGridHandler extends GridHandler {
 		return parent::authorize($request, $args, $roleAssignments);
 	}
 
-	/*
-	 * Configure the grid
-	 * @param $request PKPRequest
+	/**
+	 * @copydoc GridHandler::initialize()
 	 */
-	function initialize($request) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 
 		AppLocale::requireComponents(
 			LOCALE_COMPONENT_PKP_SUBMISSION,

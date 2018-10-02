@@ -6,8 +6,8 @@
 /**
  * @file controllers/api/user/UserApiHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserApiHandler
@@ -23,13 +23,6 @@ import('lib.pkp.classes.handler.PKPHandler');
 import('lib.pkp.classes.core.JSONMessage');
 
 class UserApiHandler extends PKPHandler {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Implement template methods from PKPHandler

@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/modal/ModalHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ModalHandler
@@ -90,7 +90,8 @@
 		draggable: false,
 		resizable: false,
 		position: {my: 'center', at: 'center center-10%', of: window},
-		canClose: true
+		canClose: true,
+		closeCallback: false
 	};
 
 
@@ -248,9 +249,15 @@
 		$modalElement.removeClass('is_visible');
 		this.trigger('pkpModalClose');
 		setTimeout(function() {
-			modalHandler.getHtmlElement().empty();
+			modalHandler.unbindPartial($modalElement);
+			$modalElement.empty();
 			modalHandler.remove();
+			// Fire a callback function if one has been passed with options
+			if (typeof modalHandler.options.closeCallback === 'function') {
+				modalHandler.options.closeCallback.call();
+			}
 		}, 300);
+
 
 		return false;
 	};

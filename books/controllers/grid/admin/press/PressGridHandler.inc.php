@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/admin/press/PressGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PressGridHandler
@@ -42,7 +42,7 @@ class PressGridHandler extends ContextGridHandler {
 		// Form handling.
 		$settingsForm = new PressSiteSettingsForm(!isset($pressId) || empty($pressId) ? null : $pressId);
 		$settingsForm->initData();
-		return new JSONMessage(true, $settingsForm->fetch($args, $request));
+		return new JSONMessage(true, $settingsForm->fetch($request));
 	}
 
 	/**

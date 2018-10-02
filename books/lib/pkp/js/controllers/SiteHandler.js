@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/SiteHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SiteHandler
@@ -134,12 +134,15 @@
 					'/plugins/generic/tinymce/plugins/justboil.me/plugin.js');
 			tinyMCE.PluginManager.load('pkpTags', $.pkp.app.baseUrl +
 					'/plugins/generic/tinymce/plugins/pkpTags/plugin.js');
+			tinyMCE.PluginManager.load('pkpwordcount', $.pkp.app.baseUrl +
+					'/plugins/generic/tinymce/plugins/pkpWordcount/plugin.js');
 
 			var tinymceParams, tinymceParamDefaults = {
 				width: '100%',
 				resize: 'both',
 				entity_encoding: 'raw',
-				plugins: 'paste,fullscreen,link,code,-jbimages,-pkpTags,noneditable',
+				plugins: 'paste,fullscreen,link,lists,code,' +
+						'-jbimages,-pkpTags,noneditable',
 				convert_urls: false,
 				forced_root_block: 'p',
 				paste_auto_cleanup_on_paste: true,
@@ -184,7 +187,8 @@
 	$.pkp.controllers.SiteHandler.prototype.triggerTinyMCEInitialized =
 			function(tinyMCEObject) {
 
-		var $inputElement = $('#' + tinyMCEObject.id);
+		var $inputElement = $('#' +
+				$.pkp.classes.Helper.escapeJQuerySelector(tinyMCEObject.id));
 		$inputElement.trigger('tinyMCEInitialized', [tinyMCEObject]);
 	};
 
@@ -196,11 +200,19 @@
 	 */
 	$.pkp.controllers.SiteHandler.prototype.triggerTinyMCESetup =
 			function(tinyMCEObject) {
-		var target = $('#' + tinyMCEObject.id), height;
+		var target = $('#' +
+				$.pkp.classes.Helper.escapeJQuerySelector(tinyMCEObject.id)),
+				height;
 
 		// For read-only controls, set up TinyMCE read-only mode.
 		if (target.attr('readonly')) {
 			tinyMCEObject.settings.readonly = true;
+		}
+
+		if (target.attr('wordCount') && target.attr('wordCount') > 0) {
+			tinyMCEObject.settings.plugins =
+					tinyMCEObject.settings.plugins + ',pkpwordcount';
+			tinyMCEObject.settings.statusbar = true;
 		}
 
 		// Set height based on textarea rows
@@ -222,8 +234,8 @@
 			}
 
 			// Create placeholder element
-			$placeholder = /** @type {jQueryObject} */ ($('<span></span>')
-					.html(/** @type {string} */ (placeholderText)));
+			$placeholder = $('<span></span>');
+			$placeholder.html(/** @type {string} */ (placeholderText));
 			$placeholder.addClass('mcePlaceholder');
 			$placeholder.attr('id', 'mcePlaceholder-' + tinyMCEObject.id);
 
@@ -254,13 +266,14 @@
 
 		tinyMCEObject.on('BeforeSetContent', function(e) {
 			var variablesParsed = $.pkp.classes.TinyMCEHelper.prototype.getVariableMap(
-					'#' + tinyMCEObject.id);
+					'#' + $.pkp.classes.Helper.escapeJQuerySelector(tinyMCEObject.id));
 
 			e.content = e.content.replace(
 					/\{\$([a-zA-Z]+)\}(?![^<]*>)/g, function(match, contents, offset, s) {
 						if (variablesParsed[contents] !== undefined) {
 							return $.pkp.classes.TinyMCEHelper.prototype.getVariableElement(
-									contents, variablesParsed[contents]).html();
+									contents, variablesParsed[contents], '#' + tinyMCEObject.id)
+									.html();
 						}
 						return match;
 					});
@@ -436,14 +449,11 @@
 	 * @param {Event} event The "call when click outside" event.
 	 * @param {{
 	 *   container: jQueryObject,
-	 *   callback: Function,
-	 *   skipWhenVisibleModals: boolean
+	 *   callback: Function
 	 *   }} eventParams The event parameters.
 	 * - container: a jQuery element to be used to test if user click
 	 * outside of it or not.
 	 * - callback: a callback function in case test is true.
-	 * - skipWhenVisibleModals: boolean flag to tell whether skip the
-	 * callback when modals are visible or not.
 	 */
 	$.pkp.controllers.SiteHandler.prototype.callWhenClickOutsideHandler_ =
 			function(sourceElement, event, eventParams) {
@@ -490,7 +500,6 @@
 	 * option avoids it, use the callback.
 	 * @private
 	 * @param {{
-	 *   skipWhenVisibleModals: boolean,
 	 *   container: Object,
 	 *   callback: Function
 	 *   }} checkOptions Object with data to be used to
@@ -516,17 +525,6 @@
 		// container is hidden.
 		if ($container.is(':hidden')) {
 			return false;
-		}
-
-		// Check for the visible modals option.
-		if (checkOptions.skipWhenVisibleModals !==
-				undefined) {
-			if (checkOptions.skipWhenVisibleModals) {
-				if (this.getHtmlElement().find('div.ui-dialog').length > 0) {
-					// Found a modal, return.
-					return false;
-				}
-			}
 		}
 
 		// Do the click origin checking.

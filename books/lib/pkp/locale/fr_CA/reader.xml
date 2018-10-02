@@ -4,8 +4,8 @@
 <!--
   * locale/fr_CA/reader.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Localization strings for the fr_CA (Français (Canada)) locale.
@@ -174,5 +174,5 @@
 	<message key="rt.admin.sharing.logoColorLabel">Couleur du logo</message>
 	<message key="rt.admin.configureSharing">Configurer AddThis</message>
 	<message key="rt.captureCite.web">Web</message>
-	<message key="rt.admin.settings.viewReviewPolicy">Visionner la politique d'examen</message>
+	<message key="rt.admin.settings.viewReviewPolicy">Visionner la politique d'évaluation</message>
 </locale>

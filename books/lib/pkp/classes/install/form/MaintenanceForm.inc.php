@@ -3,8 +3,8 @@
 /**
  * @file classes/install/form/MaintenanceForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MaintenanceForm
@@ -33,9 +33,8 @@ class MaintenanceForm extends Form {
 	 * @copydoc Form::display
 	 */
 	function display($request = null, $template = null) {
-		$templateMgr = TemplateManager::getManager($request);
+		$templateMgr = TemplateManager::getManager($this->_request);
 		$templateMgr->assign('version', VersionCheck::getCurrentCodeVersion());
-
 		parent::display($request, $template);
 	}
 

@@ -9,8 +9,8 @@
 /**
  * @file classes/stageAssignment/StageAssignment.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class StageAssignment
@@ -21,12 +21,6 @@
  */
 
 class StageAssignment extends DataObject {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	//
 	// Get/set methods
@@ -110,6 +104,23 @@ class StageAssignment extends DataObject {
 	function getDateAssigned() {
 		return $this->getData('dateAssigned');
 	}
+
+	/**
+	 * Get recommendOnly option.
+	 * @return boolean
+	 */
+	function getRecommendOnly() {
+		return $this->getData('recommendOnly');
+	}
+
+	/**
+	 * Set recommendOnly option.
+	 * @param $recommendOnly boolean
+	 */
+	function setRecommendOnly($recommendOnly) {
+		$this->setData('recommendOnly', $recommendOnly);
+	}
+
 }
 
 ?>

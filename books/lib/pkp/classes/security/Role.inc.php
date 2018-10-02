@@ -3,8 +3,8 @@
 /**
  * @file classes/security/Role.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Role
@@ -22,6 +22,7 @@ define('ROLE_ID_AUTHOR',		0x00010000);
 define('ROLE_ID_REVIEWER',		0x00001000);
 define('ROLE_ID_ASSISTANT',		0x00001001);
 define('ROLE_ID_READER',		0x00100000);
+define('ROLE_ID_SUBSCRIPTION_MANAGER',	0x00200000);
 
 class Role extends DataObject {
 	/**

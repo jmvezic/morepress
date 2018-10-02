@@ -8,8 +8,8 @@
 /**
  * @file classes/db/DAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class DAO
@@ -22,6 +22,7 @@
 
 import('lib.pkp.classes.db.DBConnection');
 import('lib.pkp.classes.db.DAOResultFactory');
+import('lib.pkp.classes.db.DBResultRange');
 import('lib.pkp.classes.core.DataObject');
 
 define('SORT_DIRECTION_ASC', 0x00001);
@@ -186,7 +187,11 @@ class DAO {
 		if (isset($dbResultRange) && $dbResultRange->isValid()) {
 			$start = Core::microtime();
 			$dataSource = $this->getDataSource();
-			$result = $dataSource->PageExecute($sql, $dbResultRange->getCount(), $dbResultRange->getPage(), $params);
+			if (is_null($dbResultRange->getOffset())) {
+				$result = $dataSource->PageExecute($sql, $dbResultRange->getCount(), $dbResultRange->getPage(), $params);
+			} else {
+				$result = $dataSource->SelectLimit($sql, $dbResultRange->getCount(), $dbResultRange->getOffset(), $params);
+			}
 			if ($dataSource->errorNo()) {
 				fatalError('DB Error: ' . $dataSource->errorMsg());
 			}

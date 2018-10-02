@@ -3,8 +3,8 @@
 /**
  * @file controllers/tab/settings/AdminSettingsTabHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class AdminSettingsTabHandler
@@ -40,6 +40,7 @@ class AdminSettingsTabHandler extends SettingsTabHandler {
 			'siteSetup' => 'lib.pkp.controllers.tab.settings.siteSetup.form.SiteSetupForm',
 			'languages' => 'controllers/tab/admin/languages/languages.tpl',
 			'plugins' => 'controllers/tab/admin/plugins/sitePlugins.tpl',
+			'navigationMenus' => 'controllers/tab/settings/navigationMenus/form/navigationMenuSettingsForm.tpl',
 		)));
 	}
 
@@ -47,6 +48,22 @@ class AdminSettingsTabHandler extends SettingsTabHandler {
 	//
 	// Extended methods from SettingsTabHandler
 	//
+	/**
+	 * @see PKPHandler::authorize()
+	 */
+	function authorize($request, &$args, $roleAssignments) {
+		import('lib.pkp.classes.security.authorization.PolicySet');
+		$rolePolicy = new PolicySet(COMBINING_PERMIT_OVERRIDES);
+
+		import('lib.pkp.classes.security.authorization.RoleBasedHandlerOperationPolicy');
+		foreach($roleAssignments as $role => $operations) {
+			$rolePolicy->addPolicy(new RoleBasedHandlerOperationPolicy($request, $role, $operations));
+		}
+		$this->addPolicy($rolePolicy);
+
+		return parent::authorize($request, $args, $roleAssignments);
+	}
+
 	/**
 	 * @copydoc PKPHandler::initialize()
 	 */

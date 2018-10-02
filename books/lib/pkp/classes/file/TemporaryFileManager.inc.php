@@ -3,8 +3,8 @@
 /**
  * @file classes/file/TemporaryFileManager.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPTemporaryFileManager
@@ -96,7 +96,7 @@ class TemporaryFileManager extends PrivateFileManager {
 
 			$temporaryFile->setUserId($userId);
 			$temporaryFile->setServerFileName($newFileName);
-			$temporaryFile->setFileType(PKPString::mime_content_type($this->getBasePath() . $newFileName));
+			$temporaryFile->setFileType(PKPString::mime_content_type($this->getBasePath() . $newFileName, array_pop(explode('.', $_FILES[$fileName]['name']))));
 			$temporaryFile->setFileSize($_FILES[$fileName]['size']);
 			$temporaryFile->setOriginalFileName($this->truncateFileName($_FILES[$fileName]['name'], 127));
 			$temporaryFile->setDateUploaded(Core::getCurrentDate());

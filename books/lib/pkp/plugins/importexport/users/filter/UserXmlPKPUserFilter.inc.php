@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/users/filter/UserXmlPKPUserFilter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserXmlPKPUserFilter
@@ -85,16 +85,16 @@ class UserXmlPKPUserFilter extends NativeImportFilter {
 			case 'initials': $user->setInitials($n->textContent); break;
 			case 'salutation': $user->setSalutation($n->textContent); break;
 			case 'suffix': $user->setSuffix($n->textContent); break;
-			case 'gender': $user->setGender($n->textContent); break;
 			case 'affiliation': $user->setAffiliation($n->textContent, $n->getAttribute('locale')); break;
 			case 'country': $user->setCountry($n->textContent); break;
 			case 'email': $user->setEmail($n->textContent); break;
 			case 'url': $user->setUrl($n->textContent); break;
+			case 'orcid': $user->setOrcid($n->textContent); break;
 			case 'phone': $user->setPhone($n->textContent); break;
 			case 'billing_address': $user->setBillingAddress($n->textContent); break;
 			case 'mailing_address': $user->setMailingAddress($n->textContent); break;
 			case 'biography': $user->setBiography($n->textContent, $n->getAttribute('locale')); break;
-			case 'gossip': $user->setGossip($n->textContent, $n->getAttribute('locale')); break;
+			case 'gossip': $user->setGossip($n->textContent); break;
 			case 'signature': $user->setSignature($n->textContent, $n->getAttribute('locale')); break;
 			case 'date_registered': $user->setDateRegistered($n->textContent); break;
 			case 'date_last_login': $user->setDateLastLogin($n->textContent); break;
@@ -111,7 +111,7 @@ class UserXmlPKPUserFilter extends NativeImportFilter {
 					$user->setMustChangePassword(true);
 				}
 				if ($n->getAttribute('is_disabled') == 'true') {
-					$user->setIsDisabled(true);
+					$user->setDisabled(true);
 				}
 				$passwordValueNodeList = $n->getElementsByTagNameNS($deployment->getNamespace(), 'value');
 				if ($passwordValueNodeList->length == 1) {
@@ -133,7 +133,7 @@ class UserXmlPKPUserFilter extends NativeImportFilter {
 
 			// Insert reviewing interests, now that there is a userId.
 			$interestNodeList = $node->getElementsByTagNameNS($deployment->getNamespace(), 'review_interests');
-			if ($interestNodeList->length == 0) {
+			if ($interestNodeList->length == 1) {
 				$n = $interestNodeList->item(0);
 				if ($n) {
 					$interests = preg_split('/,\s*/', $n->textContent);

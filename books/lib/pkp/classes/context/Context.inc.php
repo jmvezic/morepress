@@ -3,8 +3,8 @@
 /**
  * @file classes/context/Context.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Context
@@ -14,12 +14,6 @@
  */
 
 class Context extends DataObject {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Get the localized name of the context
@@ -417,7 +411,7 @@ class Context extends DataObject {
 	/**
 	* Retrieve a statistics report pre-filtered on this context.
 	*
-	* @see <http://pkp.sfu.ca/wiki/index.php/OJSdeStatisticsConcept#Input_and_Output_Formats_.28Aggregation.2C_Filters.2C_Metrics_Data.29>
+	* @see <https://pkp.sfu.ca/wiki/index.php/OJSdeStatisticsConcept#Input_and_Output_Formats_.28Aggregation.2C_Filters.2C_Metrics_Data.29>
 	* for a full specification of the input and output format of this method.
 	*
 	* @param $metricType null|integer|array metrics selection

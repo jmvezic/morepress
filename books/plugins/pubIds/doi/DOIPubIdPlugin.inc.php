@@ -3,8 +3,8 @@
 /**
  * @file plugins/pubIds/doi/DOIPubIdPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class DOIPubIdPlugin
@@ -17,6 +17,20 @@
 import('classes.plugins.PubIdPlugin');
 
 class DOIPubIdPlugin extends PubIdPlugin {
+
+	/**
+	 * @copydoc Plugin::register()
+	 */
+	function register($category, $path, $mainContextId = null) {
+		if (parent::register($category, $path, $mainContextId)) {
+			if ($this->getEnabled($mainContextId)) {
+				$this->_registerTemplateResource();
+			}
+			return true;
+		}
+		return false;
+	}
+
 
 	//
 	// Implement template methods from Plugin.
@@ -39,7 +53,7 @@ class DOIPubIdPlugin extends PubIdPlugin {
 	 * @copydoc Plugin::getTemplatePath()
 	 */
 	function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates/';
+		return $this->getTemplateResourceName() . ':templates/';
 	}
 
 
@@ -166,6 +180,7 @@ class DOIPubIdPlugin extends PubIdPlugin {
 			'Submission' => 'doiSubmissionSuffixPattern',
 			'Representation' => 'doiRepresentationSuffixPattern',
 			'SubmissionFile' => 'doiSubmissionFileSuffixPattern',
+			'Chapter' => 'doiChapterSuffixPattern',
 		);
 	}
 

@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/usageStats/PKPUsageStatsPlugin.inc.php
  *
- * Copyright (c) 2013-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPUsageStatsPlugin
@@ -58,23 +58,14 @@ class PKPUsageStatsPlugin extends GenericPlugin {
 	// Implement methods from PKPPlugin.
 	//
 	/**
-	 * @see LazyLoadPlugin::register()
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		$success = parent::register($category, $path);
+	function register($category, $path, $mainContextId = null) {
+		$success = parent::register($category, $path, $mainContextId);
 
 		HookRegistry::register('AcronPlugin::parseCronTab', array($this, 'callbackParseCronTab'));
 
-		if ($this->getEnabled() && $success) {
-			// Register callbacks.
-			HookRegistry::register('PluginRegistry::loadCategory', array($this, 'callbackLoadCategory'));
-			HookRegistry::register('LoadHandler', array($this, 'callbackLoadHandler'));
-
-			// If the plugin will provide the access logs,
-			// register to the usage event hook provider.
-			if ($this->getSetting(CONTEXT_ID_NONE, 'createLogFiles')) {
-				HookRegistry::register('UsageEventPlugin::getUsageEvent', array(&$this, 'logUsageEvent'));
-			}
+		if ($this->getEnabled($mainContextId) && $success) {
 
 			$this->_dataPrivacyOn = $this->getSetting(CONTEXT_ID_NONE, 'dataPrivacyOption');
 			$this->_saltpath = $this->getSetting(CONTEXT_ID_NONE, 'saltFilepath');
@@ -87,9 +78,28 @@ class PKPUsageStatsPlugin extends GenericPlugin {
 				// Renew the Opt-Out cookie if present.
 				$request->setCookieVar('usageStats-opt-out', true, time() + 60*60*24*365);
 			}
-			if ($this->getSetting(CONTEXT_ID_NONE, 'displayStatistics')) {
-				$this->displayReaderStatistics();
+
+			if ($this->_dataPrivacyOn) {
+				$this->import('UsageStatsOptoutBlockPlugin');
+				$blockPlugin = new UsageStatsOptoutBlockPlugin($this);
+				PluginRegistry::register('blocks', $blockPlugin, $this->getPluginPath());
 			}
+
+			$reportPlugin = $this->getReportPlugin();
+			PluginRegistry::register('reports', $reportPlugin, $this->getPluginPath());
+
+			// Register callbacks.
+			HookRegistry::register('LoadHandler', array($this, 'callbackLoadHandler'));
+
+			// If the plugin will provide the access logs,
+			// register to the usage event hook provider.
+			if ($this->getSetting(CONTEXT_ID_NONE, 'createLogFiles')) {
+				HookRegistry::register('UsageEventPlugin::getUsageEvent', array(&$this, 'logUsageEvent'));
+			}
+
+			$this->_registerTemplateResource(true);
+
+			$this->displayReaderStatistics();
 		}
 
 		return $success;
@@ -203,32 +213,6 @@ class PKPUsageStatsPlugin extends GenericPlugin {
 	//
 	// Hook implementations.
 	//
-	/**
-	 * @see PluginRegistry::loadCategory()
-	 */
-	function callbackLoadCategory($hookName, $args) {
-		// Instantiate report plugin.
-		$plugin = null;
-		$category = $args[0];
-		if ($category == 'reports') {
-			$plugin = $this->getReportPlugin();
-		}
-		if ($category == 'blocks' && $this->_dataPrivacyOn) {
-			$this->import('UsageStatsOptoutBlockPlugin');
-			$plugin = new UsageStatsOptoutBlockPlugin($this->getName());
-		}
-
-		// Register report plugin (by reference).
-		if ($plugin) {
-			$seq = $plugin->getSeq();
-			$plugins =& $args[1];
-			if (!isset($plugins[$seq])) $plugins[$seq] = array();
-			$plugins[$seq][$this->getPluginPath()] = $plugin;
-		}
-
-		return false;
-	}
-
 	/**
  	 * @see PKPPageRouter::route()
 	 */
@@ -415,11 +399,13 @@ class PKPUsageStatsPlugin extends GenericPlugin {
 		);
 
 		// Add locale and configuration data
+		$context = $request->getContext();
+		$chartType = $this->_getPluginSetting($context, 'chartType');
 		$script_data = 'var pkpUsageStats = pkpUsageStats || {};';
 		$script_data .= 'pkpUsageStats.locale = pkpUsageStats.locale || {};';
 		$script_data .= 'pkpUsageStats.locale.months = ' . json_encode(explode(' ', __('plugins.generic.usageStats.monthInitials'))) . ';';
 		$script_data .= 'pkpUsageStats.config = pkpUsageStats.config || {};';
-		$script_data .= 'pkpUsageStats.config.chartType = ' . json_encode($this->getSetting(CONTEXT_ID_NONE, 'chartType')) . ';';
+		$script_data .= 'pkpUsageStats.config.chartType = ' . json_encode($chartType) . ';';
 		$templateMgr->addJavaScript(
 			'pkpUsageStatsConfig',
 			$script_data,
@@ -491,9 +477,13 @@ class PKPUsageStatsPlugin extends GenericPlugin {
 		$smarty->assign('year', key($statsYears));
 		$smarty->assign('statistics', json_encode(array('byRepresentation' => $statsByRepresentation, 'byMonth' => $statsByMonth)));
 		$smarty->assign('labels', json_encode(explode(' ', __('plugins.generic.usageStats.monthInitials'))));
-		$smarty->assign('chartType', $this->getSetting(CONTEXT_ID_NONE, 'chartType'));
-		$smarty->assign('datasetMaxCount', $this->getSetting(CONTEXT_ID_NONE, 'datasetMaxCount'));
-		$metricsHTML = $smarty->fetch($this->getTemplatePath(true) . 'outputBackend.tpl');
+		$request = Application::getRequest();
+		$context = $request->getContext();
+		$chartType = $this->_getPluginSetting($context, 'chartType');
+		$smarty->assign('chartType', $chartType);
+		$datasetMaxCount = $this->_getPluginSetting($context, 'datasetMaxCount');
+		$smarty->assign('datasetMaxCount', $datasetMaxCount);
+		$metricsHTML = $smarty->fetch($this->getTemplateResourceName(true) . ':templates/outputBackend.tpl');
 		$output .= $metricsHTML;
 
 		return false;
@@ -756,6 +746,22 @@ class PKPUsageStatsPlugin extends GenericPlugin {
 	function _getColor($num) {
 		$hash = md5('color' . $num * 2);
 		return hexdec(substr($hash, 0, 2)) . ',' . hexdec(substr($hash, 2, 2)) . ',' . hexdec(substr($hash, 4, 2));
+	}
+
+	/**
+	 * Get context wide setting. If the context or the setting does not exist,
+	 * get the site wide setting.
+	 * @param $context Context
+	 * @param $name Setting name
+	 * @return mixed
+	 */
+	function _getPluginSetting($context, $name) {
+		$pluginSettingsDao = DAORegistry::getDAO('PluginSettingsDAO');
+		if ($context && $pluginSettingsDao->settingExists($context->getId(), $this->getName(), $name)) {
+			return $this->getSetting($context->getId(), $name);
+		} else {
+			return $this->getSetting(CONTEXT_ID_NONE, $name);
+		}
 	}
 
 }

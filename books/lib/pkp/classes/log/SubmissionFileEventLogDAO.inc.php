@@ -3,8 +3,8 @@
 /**
  * @file classes/log/SubmissionFileEventLogDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionFileEventLogDAO
@@ -18,12 +18,6 @@ import('lib.pkp.classes.log.EventLogDAO');
 import('lib.pkp.classes.log.SubmissionFileEventLogEntry');
 
 class SubmissionFileEventLogDAO extends EventLogDAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Instantiate a submission file event log entry.

@@ -3,8 +3,8 @@
 /**
  * @file pages/catalog/CatalogBookHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class CatalogBookHandler
@@ -64,76 +64,90 @@ class CatalogBookHandler extends Handler {
 		// Provide the publication formats to the template
 		$publicationFormats = $publishedMonograph->getPublicationFormats(true);
 		$availablePublicationFormats = array();
+		$availableRemotePublicationFormats = array();
 		foreach ($publicationFormats as $format) {
 			if ($format->getIsAvailable()) {
 				$availablePublicationFormats[] = $format;
+				if ($format->getRemoteURL()) {
+					$availableRemotePublicationFormats[] = $format;
+				}
 			}
 		}
-		$templateMgr->assign('publicationFormats', $availablePublicationFormats);
+		$templateMgr->assign(array(
+			'publicationFormats' => $availablePublicationFormats,
+			'remotePublicationFormats' => $availableRemotePublicationFormats,
+		));
 
 		// Assign chapters (if they exist)
 		$chapterDao = DAORegistry::getDAO('ChapterDAO');
 		$chapters = $chapterDao->getChapters($publishedMonograph->getId());
 		$templateMgr->assign('chapters', $chapters->toAssociativeArray());
 
-		// Determine which pubId plugins are enabled.
 		$pubIdPlugins = PluginRegistry::loadCategory('pubIds', true);
-		$enabledPubIdTypes = array();
-		$metaCustomHeaders = '';
-
-		foreach ((array) $pubIdPlugins as $plugin) {
-			if ($plugin->getEnabled()) {
-				$enabledPubIdTypes[] = $plugin->getPubIdType();
-				// check to see if the format has a pubId set.  If not, generate one.
-				foreach ($publicationFormats as $publicationFormat) {
-					if ($plugin->getPubIdType() == 'doi' && $publicationFormat->getStoredPubId('doi')) {
-						$pubId = strip_tags($publicationFormat->getStoredPubId('doi'));
-						$metaCustomHeaders .= '<meta name="DC.Identifier.DOI" content="' . $pubId . '"/><meta name="citation_doi" content="'. $pubId . '"/>';
-					}
-				}
-			}
-		}
 		$templateMgr->assign(array(
-			'enabledPubIdTypes' => $enabledPubIdTypes,
-			'metaCustomHeaders' => $metaCustomHeaders,
+			'pubIdPlugins' => PluginRegistry::loadCategory('pubIds', true),
 			'licenseUrl' => $publishedMonograph->getLicenseURL(),
 			'ccLicenseBadge' => Application::getCCLicenseBadge($publishedMonograph->getLicenseURL())
 		));
 
-		// e-Commerce
-		import('classes.payment.omp.OMPPaymentManager');
-		$ompPaymentManager = new OMPPaymentManager($request);
-		$submissionFileDao = DAORegistry::getDAO('SubmissionFileDAO');
-		if ($ompPaymentManager->isConfigured()) {
-			$availableFiles = array_filter(
-				$submissionFileDao->getLatestRevisions($publishedMonograph->getId()),
-				create_function('$a', 'return $a->getViewable() && $a->getDirectSalesPrice() !== null && $a->getAssocType() == ASSOC_TYPE_PUBLICATION_FORMAT;')
-			);
+		// Citations
+		$citationDao = DAORegistry::getDAO('CitationDAO');
+		$parsedCitations = $citationDao->getBySubmissionId($publishedMonograph->getId());
+		$templateMgr->assign('parsedCitations', $parsedCitations);
 
-			// Only pass files in pub formats that are also available
-			$filteredAvailableFiles = array();
-			foreach ($availableFiles as $file) {
-				foreach ($availablePublicationFormats as $format) {
-					if ($file->getAssocId() == $format->getId()) {
-						$filteredAvailableFiles[] = $file;
-						break;
-					}
+		// Retrieve editors for an edited volume
+		$authors = $publishedMonograph->getAuthors(true);
+		$editors = array();
+		if ($publishedMonograph->getWorkType() == WORK_TYPE_EDITED_VOLUME) {
+			foreach ($authors as $author) {
+				if ($author->getIsVolumeEditor()) {
+					$editors[] = $author;
 				}
 			}
-
-			// Expose variables to template
-			$templateMgr->assign('availableFiles', $filteredAvailableFiles);
 		}
+		$templateMgr->assign(array(
+			'authors' => $authors,
+			'editors' => $editors,
+		));
+
+		// Consider public identifiers
+		$pubIdPlugins = PluginRegistry::loadCategory('pubIds', true);
+		$templateMgr->assign('pubIdPlugins', $pubIdPlugins);
+
+		// e-Commerce
+		$press = $request->getPress();
+		$paymentManager = Application::getPaymentManager($press);
+		$submissionFileDao = DAORegistry::getDAO('SubmissionFileDAO');
+
+		$availableFiles = array_filter(
+			$submissionFileDao->getLatestRevisions($publishedMonograph->getId()),
+			function($a) {
+				return $a->getDirectSalesPrice() !== null && $a->getAssocType() == ASSOC_TYPE_PUBLICATION_FORMAT;
+			}
+		);
+
+		// Only pass files in pub formats that are also available
+		$filteredAvailableFiles = array();
+		foreach ($availableFiles as $file) {
+			foreach ($availablePublicationFormats as $format) {
+				if ($file->getAssocId() == $format->getId()) {
+					$filteredAvailableFiles[] = $file;
+					break;
+				}
+			}
+		}
+		$templateMgr->assign('availableFiles', $filteredAvailableFiles);
 
 		// Provide the currency to the template, if configured.
 		$currencyDao = DAORegistry::getDAO('CurrencyDAO');
-		$press = $request->getPress();
 		if ($currency = $press->getSetting('currency')) {
 			$templateMgr->assign('currency', $currencyDao->getCurrencyByAlphaCode($currency));
 		}
 
 		// Display
-		$templateMgr->display('frontend/pages/book.tpl');
+		if (!HookRegistry::call('CatalogBookHandler::book', array(&$request, &$publishedMonograph))) {
+			return $templateMgr->display('frontend/pages/book.tpl');
+		}
 	}
 
 	/**
@@ -164,7 +178,7 @@ class CatalogBookHandler extends Handler {
 
 		$publicationFormatDao = DAORegistry::getDAO('PublicationFormatDAO');
 		$publicationFormat = $publicationFormatDao->getByBestId($representationId, $publishedMonograph->getId());
-		if (!$publicationFormat || !$publicationFormat->getIsApproved() || !$publicationFormat->getIsAvailable() || $remoteURL = $publicationFormat->getRemoteURL()) fatalError('Invalid publication format specified.');
+		if (!$publicationFormat || !$publicationFormat->getIsAvailable() || $remoteURL = $publicationFormat->getRemoteURL()) fatalError('Invalid publication format specified.');
 
 		$submissionFileDao = DAORegistry::getDAO('SubmissionFileDAO');
 		import('lib.pkp.classes.submission.SubmissionFile'); // File constants
@@ -172,7 +186,9 @@ class CatalogBookHandler extends Handler {
 		if (!$submissionFile) $dispatcher->handle404();
 
 		$fileIdAndRevision = $submissionFile->getFileIdAndRevision();
-		list($fileId, $revision) = array_map(create_function('$a', 'return (int) $a;'), preg_split('/-/', $fileIdAndRevision));
+		list($fileId, $revision) = array_map(function($a) {
+			return (int) $a;
+		}, preg_split('/-/', $fileIdAndRevision));
 		import('lib.pkp.classes.file.SubmissionFileManager');
 		$monographFileManager = new SubmissionFileManager($publishedMonograph->getContextId(), $publishedMonograph->getId());
 
@@ -189,6 +205,16 @@ class CatalogBookHandler extends Handler {
 			default: fatalError('Invalid monograph file specified!');
 		}
 
+		$chapterDao = DAORegistry::getDAO('ChapterDAO');
+		$templateMgr = TemplateManager::getManager($request);
+		$templateMgr->assign(array(
+			'publishedMonograph' => $publishedMonograph,
+			'publicationFormat' => $publicationFormat,
+			'submissionFile' => $submissionFile,
+			'chapter' => $chapterDao->getChapter($submissionFile->getData('chapterId')),
+			'downloadUrl' => $dispatcher->url($request, ROUTE_PAGE, null, null, 'download', array($publishedMonograph->getBestId(), $publicationFormat->getBestId(), $submissionFile->getBestId()), array('inline' => true)),
+		));
+
 		$ompCompletedPaymentDao = DAORegistry::getDAO('OMPCompletedPaymentDAO');
 		$user = $request->getUser();
 		if ($submissionFile->getDirectSalesPrice() === '0' || ($user && $ompCompletedPaymentDao->hasPaidPurchaseFile($user->getId(), $fileIdAndRevision))) {
@@ -198,9 +224,6 @@ class CatalogBookHandler extends Handler {
 				Validation::redirectLogin();
 			}
 
-			// If inline viewing is requested, permit plugins to
-			// handle the document.
-			PluginRegistry::loadCategory('viewableFiles', true);
 			if ($view) {
 				if (HookRegistry::call('CatalogBookHandler::view', array(&$this, &$publishedMonograph, &$publicationFormat, &$submissionFile))) {
 					// If the plugin handled the hook, prevent further default activity.
@@ -225,24 +248,23 @@ class CatalogBookHandler extends Handler {
 
 		// They're logged in but need to pay to view.
 		import('classes.payment.omp.OMPPaymentManager');
-		$ompPaymentManager = new OMPPaymentManager($request);
-		if (!$ompPaymentManager->isConfigured()) {
+		$paymentManager = new OMPPaymentManager($press);
+		if (!$paymentManager->isConfigured()) {
 			$request->redirect(null, 'catalog');
 		}
 
-		$queuedPayment = $ompPaymentManager->createQueuedPayment(
-			$press->getId(),
+		$queuedPayment = $paymentManager->createQueuedPayment(
+			$request,
 			PAYMENT_TYPE_PURCHASE_FILE,
 			$user->getId(),
 			$fileIdAndRevision,
 			$submissionFile->getDirectSalesPrice(),
 			$press->getSetting('currency')
 		);
+		$paymentManager->queuePayment($queuedPayment);
 
-		$ompPaymentManager->displayPaymentForm(
-			$ompPaymentManager->queuePayment($queuedPayment),
-			$queuedPayment
-		);
+		$paymentForm = $paymentManager->getPaymentForm($queuedPayment);
+		$paymentForm->display($request);
 	}
 
 	/**

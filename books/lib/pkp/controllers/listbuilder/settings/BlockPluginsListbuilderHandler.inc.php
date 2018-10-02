@@ -2,8 +2,8 @@
 /**
  * @file controllers/listbuilder/settings/BlockPluginsListbuilderHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class BlockPluginsListbuilderHandler
@@ -65,6 +65,13 @@ class BlockPluginsListbuilderHandler extends MultipleListsListbuilderHandler {
 		$this->addColumn($nameColumn);
 	}
 
+	/**
+	 * @copydoc ListbuilderHandler::canAddItems()
+	 */
+	public function canAddItems() {
+		return false;
+	}
+
 
 	//
 	// Overridden template methods
@@ -73,20 +80,20 @@ class BlockPluginsListbuilderHandler extends MultipleListsListbuilderHandler {
 	 * @copydoc MultipleListsListbuilderHandler::setListsData()
 	 */
 	function setListsData($request, $filter) {
-		$leftBlockPlugins = $disabledBlockPlugins = array();
+		$sidebarBlockPlugins = $disabledBlockPlugins = array();
 		$plugins = PluginRegistry::loadCategory('blocks');
 		foreach ($plugins as $key => $junk) {
 			if (!$plugins[$key]->getEnabled() || $plugins[$key]->getBlockContext() == '') {
 				if (count(array_intersect($plugins[$key]->getSupportedContexts(), array(BLOCK_CONTEXT_SIDEBAR))) > 0) $disabledBlockPlugins[$key] = $plugins[$key];
 			} else switch ($plugins[$key]->getBlockContext()) {
 				case BLOCK_CONTEXT_SIDEBAR:
-					$leftBlockPlugins[$key] = $plugins[$key];
+					$sidebarBlockPlugins[$key] = $plugins[$key];
 					break;
 			}
 		}
 
 		$lists = $this->getLists();
-		$lists['sidebarContext']->setData($leftBlockPlugins);
+		$lists['sidebarContext']->setData($sidebarBlockPlugins);
 		$lists['unselected']->setData($disabledBlockPlugins);
 	}
 }

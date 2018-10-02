@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/reviewer/form/ReviewerReviewStep3Form.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewerReviewStep3Form
@@ -27,7 +27,12 @@ class ReviewerReviewStep3Form extends ReviewerReviewForm {
 		// Validation checks for this form
 		$reviewFormElementDao = DAORegistry::getDAO('ReviewFormElementDAO');
 		$requiredReviewFormElementIds = $reviewFormElementDao->getRequiredReviewFormElementIds($reviewAssignment->getReviewFormId());
-		$this->addCheck(new FormValidatorCustom($this, 'reviewFormResponses', 'required', 'reviewer.submission.reviewFormResponse.form.responseRequired', create_function('$reviewFormResponses, $requiredReviewFormElementIds', 'foreach ($requiredReviewFormElementIds as $requiredReviewFormElementId) { if (!isset($reviewFormResponses[$requiredReviewFormElementId]) || $reviewFormResponses[$requiredReviewFormElementId] == \'\') return false; } return true;'), array($requiredReviewFormElementIds)));
+		$this->addCheck(new FormValidatorCustom($this, 'reviewFormResponses', 'required', 'reviewer.submission.reviewFormResponse.form.responseRequired', function($reviewFormResponses) use ($requiredReviewFormElementIds) {
+			foreach ($requiredReviewFormElementIds as $requiredReviewFormElementId) {
+				if (!isset($reviewFormResponses[$requiredReviewFormElementId]) || $reviewFormResponses[$requiredReviewFormElementId] == '') return false;
+			}
+			return true;
+		}));
 
 		$this->addCheck(new FormValidatorPost($this));
 		$this->addCheck(new FormValidatorCSRF($this));
@@ -226,21 +231,6 @@ class ReviewerReviewStep3Form extends ReviewerReviewForm {
 		$reviewAssignmentDao = DAORegistry::getDAO('ReviewAssignmentDAO'); /* @var $reviewAssignmentDao ReviewAssignmentDAO */
 		$reviewAssignmentDao->updateObject($reviewAssignment);
 
-		// Update the review round status.
-		$reviewRoundDao = DAORegistry::getDAO('ReviewRoundDAO'); /* @var $reviewRoundDao ReviewRoundDAO */
-		$reviewRound = $reviewRoundDao->getById($reviewAssignment->getReviewRoundId());
-		$reviewAssignments = $reviewAssignmentDao->getByReviewRoundId($reviewRound->getId(), true);
-		$reviewRoundDao->updateStatus($reviewRound, $reviewAssignments);
-
-		// Update "all reviews in" notification.
-		$notificationMgr->updateNotification(
-			$request,
-			array(NOTIFICATION_TYPE_ALL_REVIEWS_IN),
-			null,
-			ASSOC_TYPE_REVIEW_ROUND,
-			$reviewRound->getId()
-		);
-
 		// Remove the task
 		$notificationDao = DAORegistry::getDAO('NotificationDAO');
 		$notificationDao->deleteByAssoc(
@@ -249,6 +239,8 @@ class ReviewerReviewStep3Form extends ReviewerReviewForm {
 			$reviewAssignment->getReviewerId(),
 			NOTIFICATION_TYPE_REVIEW_ASSIGNMENT
 		);
+
+		parent::execute();
 	}
 }
 

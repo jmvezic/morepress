@@ -1,8 +1,8 @@
 {**
  * plugins/generic/usageStats/templates/usageStatsSettingsForm.tpl
  *
- * Copyright (c) 2013-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Usage statistics plugin management form.
@@ -46,7 +46,15 @@
 			{fbvElement type="checkboxgroup" id="optionalColumns" from=$optionalColumnsOptions selected=$selectedOptionalColumns translate=false}
 		{/fbvFormSection}
 	{/fbvFormArea}
+
 	{fbvFormArea id="usageStatsDisplayOptions" title="plugins.generic.usageStats.settings.statsDisplayOptions"}
+		<p>
+			{if $currentContext}
+				{translate key="plugins.generic.usageStats.settings.statsDisplayOptions.contextWide" contextName=$currentContext->getLocalizedName()}
+			{else}
+				{translate key="plugins.generic.usageStats.settings.statsDisplayOptions.siteWide"}
+			{/if}
+		</p>
 		{fbvFormSection for="displayStatistics" list=true}
 			{fbvElement type="checkbox" id="displayStatistics" value="1" checked=$displayStatistics label="plugins.generic.usageStats.settings.statsDisplayOptions.display"}
 		{/fbvFormSection}

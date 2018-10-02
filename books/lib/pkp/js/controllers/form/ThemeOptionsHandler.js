@@ -1,8 +1,8 @@
 /**
  * @file js/controllers/form/ThemeOptionsHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @brief This handles theme options. When a new theme is selected, it removes
@@ -22,11 +22,13 @@
 	 */
 	$.pkp.controllers.form.ThemeOptionsHandler = function($container, options) {
 		this.parent($container, options);
-		var $activeThemeOptions, hexColour;
+		var $activeThemeOptions, hexColour, self;
 
 		$activeThemeOptions = $container.find('#activeThemeOptions');
 		if ($activeThemeOptions.length) {
+			self = this;
 			$container.find('#themePluginPath').change(function(e) {
+				self.unbindPartial($activeThemeOptions);
 				$activeThemeOptions.empty();
 			});
 			$activeThemeOptions.find('input[type="color"]').each(function() {

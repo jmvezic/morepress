@@ -3,8 +3,8 @@
 /**
  * @file controllers/tab/settings/masthead/form/MastheadForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MastheadForm
@@ -27,7 +27,7 @@ class MastheadForm extends ContextSettingsForm {
 			'mailingAddress' => 'string',
 			'customAboutItems' => 'object',
 			'description' => 'string',
-			'masthead' => 'string',
+			'editorialTeam' => 'string',
 			'about' => 'string',
 		);
 
@@ -44,7 +44,7 @@ class MastheadForm extends ContextSettingsForm {
 	 * Get all locale field names
 	 */
 	function getLocaleFieldNames() {
-		return array('name', 'acronym', 'description', 'customAboutItems', 'masthead', 'about');
+		return array('name', 'acronym', 'description', 'customAboutItems', 'editorialTeam', 'about');
 	}
 
 	//

@@ -3,8 +3,8 @@
 /**
  * @file classes/template/TemplateManager.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class TemplateManager
@@ -58,7 +58,6 @@ class TemplateManager extends PKPTemplateManager {
 			$this->assign(array(
 				'brandImage' => 'templates/images/omp_brand.png',
 				'packageKey' => 'common.openMonographPress',
-				'pkpLink'    => 'http://pkp.sfu.ca/omp',
 			));
 
 			// Get a count of unread tasks.
@@ -103,7 +102,7 @@ class TemplateManager extends PKPTemplateManager {
 				// variable in templates/common/header.tpl, instead of
 				// reproducing a lot of OMP/OJS-specific logic there.
 				$dispatcher = $request->getDispatcher();
-				$this->assign( 'contextSettingsUrl', $dispatcher->url($request, ROUTE_PAGE, null, 'management', 'settings', 'press') );
+				$this->assign( 'contextSettingsUrl', $dispatcher->url($request, ROUTE_PAGE, null, 'management', 'settings', 'context') );
 
 				$this->assign('pageFooter', $context->getLocalizedSetting('pageFooter'));
 			} else {

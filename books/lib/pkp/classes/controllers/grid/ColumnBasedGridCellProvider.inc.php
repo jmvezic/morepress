@@ -3,8 +3,8 @@
 /**
  * @file classes/controllers/grid/ColumnBasedGridCellProvider.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ColumnBasedGridCellProvider
@@ -22,13 +22,6 @@
 import('lib.pkp.classes.controllers.grid.GridCellProvider');
 
 class ColumnBasedGridCellProvider extends GridCellProvider {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Implement protected template methods from GridCellProvider

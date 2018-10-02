@@ -1,8 +1,8 @@
 /**
  * @file js/controllers/grid/CategoryGridHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class CategoryGridHandler
@@ -338,6 +338,7 @@
 		if ($element.hasClass('category_grid_body')) {
 			// Need to delete the category empty placeholder.
 			$emptyPlaceholder = this.getCategoryEmptyPlaceholder($element);
+			this.unbindPartial($emptyPlaceholder);
 			$emptyPlaceholder.remove();
 		}
 
@@ -381,6 +382,7 @@
 		if ($newElement.hasClass('category_grid_body')) {
 			// Need to delete the category empty placeholder.
 			var $emptyPlaceholder = this.getCategoryEmptyPlaceholder($existingElement);
+			this.unbindPartial($emptyPlaceholder);
 			$emptyPlaceholder.remove();
 		}
 

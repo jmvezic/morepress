@@ -9,8 +9,8 @@
 /**
  * @file classes/plugins/Plugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Plugin
@@ -46,6 +46,7 @@
 
 // Define the well-known file name for filter configuration data.
 define('PLUGIN_FILTER_DATAFILE', 'filterConfig.xml');
+define('PLUGIN_TEMPLATE_RESOURCE_PREFIX', 'plugins');
 
 abstract class Plugin {
 	/** @var string Path name to files for this plugin */
@@ -78,10 +79,15 @@ abstract class Plugin {
 	 *
 	 * @param $category String Name of category plugin was registered to
 	 * @param $path String The path the plugin was found in
+	 * @param $mainContextId integer To identify if the plugin is enabled
+	 *  we need a context. This context is usually taken from the
+	 *  request but sometimes there is no context in the request
+	 *  (e.g. when executing CLI commands). Then the main context
+	 *  can be given as an explicit ID.
 	 * @return boolean True iff plugin registered successfully; if false,
 	 * 	the plugin will not be executed.
 	 */
-	function register($category, $path) {
+	function register($category, $path, $mainContextId = null) {
 		$this->pluginPath = $path;
 		$this->pluginCategory = $category;
 		if ($this->getInstallSchemaFile()) {
@@ -106,7 +112,9 @@ abstract class Plugin {
 		if ($this->getContextSpecificPluginSettingsFile()) {
 			HookRegistry::register ($this->_getContextSpecificInstallationHook(), array($this, 'installContextSpecificSettings'));
 		}
+
 		HookRegistry::register ('Installer::postInstall', array($this, 'installFilters'));
+
 		return true;
 	}
 
@@ -304,6 +312,22 @@ abstract class Plugin {
 	}
 
 	/**
+	 * Return the Resource Name for templates in this plugin.
+	 *
+	 * @return string
+	 */
+	public function getTemplateResourceName($inCore = false) {
+		$pluginPath = $this->getPluginPath();
+		if ($inCore) {
+			$pluginPath = PKP_LIB_PATH . DIRECTORY_SEPARATOR . $pluginPath;
+		}
+		$plugin = basename($pluginPath);
+		$category = basename(dirname($pluginPath));
+
+		return join('/', array(PLUGIN_TEMPLATE_RESOURCE_PREFIX, $pluginPath, $category, $plugin));
+	}
+
+	/**
 	 * Return the canonical template path of this plug-in
 	 * @param $inCore Return the core template path if true.
 	 * @return string
@@ -311,9 +335,56 @@ abstract class Plugin {
 	function getTemplatePath($inCore = false) {
 		$basePath = Core::getBaseDir();
 		if ($inCore) {
-			$basePath = $basePath . DIRECTORY_SEPARATOR . PKP_LIB_PATH;
+			$basePath .= DIRECTORY_SEPARATOR . PKP_LIB_PATH;
 		}
 		return "file:$basePath" . DIRECTORY_SEPARATOR . $this->getPluginPath() . DIRECTORY_SEPARATOR;
+	}
+
+	/**
+	 * Register this plugin's templates as a template resource
+	 */
+	public function _registerTemplateResource($inCore = false) {
+		$templateMgr = TemplateManager::getManager();
+		$pluginPath = $this->getPluginPath();
+		if ($inCore) {
+			$pluginPath = PKP_LIB_PATH . DIRECTORY_SEPARATOR . $pluginPath;
+		}
+		$pluginTemplateResource = new PKPTemplateResource($pluginPath);
+		$templateMgr->register_resource($this->getTemplateResourceName($inCore), array(
+			array($pluginTemplateResource, 'fetch'),
+			array($pluginTemplateResource, 'fetchTimestamp'),
+			array($pluginTemplateResource, 'getSecure'),
+			array($pluginTemplateResource, 'getTrusted')
+		));
+	}
+
+	/**
+	 * Call this method when an enabled plugin is registered in order to override
+	 * template files in other plugins. Any plugin which calls this method can
+	 * override template files by adding their own templates to:
+	 * <overridingPlugin>/templates/plugins/<category>/<originalPlugin>/<path>.tpl
+	 *
+	 * @param $hookName string TemplateResource::getFilename
+	 * @param $args array [
+	 *		@option string File path to preferred template. Leave as-is to not
+	 *			override template.
+	 *		@option string Template file requested
+	 * ]
+	 */
+	public function _overridePluginTemplates($hookName, $args) {
+		$filePath =& $args[0];
+		$template = $args[1];
+
+		if (strpos($filePath, PLUGIN_TEMPLATE_RESOURCE_PREFIX) !== 0) {
+			return false;
+		}
+
+		$checkPath = sprintf('%s/templates/%s', $this->getPluginPath(), $filePath);
+		if (file_exists($checkPath)) {
+			$filePath = $checkPath;
+		}
+
+		return false;
 	}
 
 	/**

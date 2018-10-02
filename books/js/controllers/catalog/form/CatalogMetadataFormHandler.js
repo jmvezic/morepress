@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/catalog/form/CatalogMetadataFormHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class CatalogMetadataFormHandler
@@ -33,6 +33,15 @@
 	$.pkp.controllers.catalog.form.CatalogMetadataFormHandler =
 			function($form, options) {
 		this.parent($form, options);
+
+		if (options.workTypeEditedVolume) {
+			this.workTypeEditedVolume_ = options.workTypeEditedVolume;
+		}
+		if (options.workTypeAuthoredWork) {
+			this.workTypeAuthoredWork_ = options.workTypeAuthoredWork;
+		}
+		$('#workType', $form).change(
+				this.callbackWrapper(this.toggleVolumeEditors));
 
 		$('#audienceRangeExact', $form).change(
 				this.callbackWrapper(this.ensureValidAudienceRanges_));
@@ -85,6 +94,24 @@
 	 */
 	$.pkp.controllers.catalog.form.CatalogMetadataFormHandler.prototype.
 			coverImageMessage_ = null;
+
+
+	/**
+	 * Value matching the edited volume worktype
+	 * @private
+	 * @type {?number}
+	 */
+	$.pkp.controllers.catalog.form.CatalogMetadataFormHandler.prototype.
+			workTypeEditedVolume_ = null;
+
+
+	/**
+	 * Value matching the single author worktype
+	 * @private
+	 * @type {?number}
+	 */
+	$.pkp.controllers.catalog.form.CatalogMetadataFormHandler.prototype.
+			workTypeAuthoredWork_ = null;
 
 
 	//
@@ -140,11 +167,33 @@
 			handleCoverImageUpload = function(caller, event) {
 
 		var $coverImage = this.getHtmlElement().find('.currentCoverImage')
-			.addClass('changed');
+				.addClass('changed');
 
 		$coverImage.find('img').remove();
 		$coverImage.find('.coverImageMessage').html(
 				/** @type {string} */ (this.coverImageMessage_));
+	};
+
+
+	/**
+	 * Callback for showing or hiding the volume editor control when the workflow
+	 * type has changed
+	 *
+	 * @param {HTMLElement} sourceElement The element that
+	 *  issued the event.
+	 * @param {Event} event The triggering event.
+	 */
+	$.pkp.controllers.catalog.form.CatalogMetadataFormHandler.prototype.
+			toggleVolumeEditors = function(sourceElement, event) {
+
+		var $workType = $(sourceElement),
+				$volumeEditors = $('#volumeEditors', this.getHtmlElement());
+
+		if ($workType.val() == this.workTypeEditedVolume_) {
+			$volumeEditors.fadeIn();
+		} else {
+			$volumeEditors.fadeOut();
+		}
 	};
 
 

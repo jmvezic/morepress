@@ -1,8 +1,8 @@
 {**
- * controllers/grid/settings/user/form/userDetailsForm.tpl
+ * templates/controllers/grid/settings/user/form/userDetailsForm.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Form for creating/editing a user.
@@ -46,15 +46,23 @@
 			disableSendNotifySection=$disableSendNotifySection
 		}
 
-		{if $userId}
-			<div id="userRoles" class="full left">
-				<div id="userRolesContainer" class="full left">
-					{url|assign:userRolesUrl router=$smarty.const.ROUTE_COMPONENT component="listbuilder.users.UserUserGroupListbuilderHandler" op="fetch" userId=$userId title="grid.user.userRoles" escape=false}
-					{load_url_in_div id="userRolesContainer" url=$userRolesUrl}
-				</div>
-			</div>
+		{if $canCurrentUserGossip}
+			{fbvFormSection label="user.gossip" description="user.gossip.description"}
+				{fbvElement type="textarea" name="gossip" id="gossip" rich=true value=$gossip}
+			{/fbvFormSection}
 		{/if}
+
+		{if $userId}
+			{fbvFormSection}
+				{assign var="uuid" value=""|uniqid|escape}
+				<div id="userGroups-{$uuid}">
+					<script type="text/javascript">
+						pkp.registry.init('userGroups-{$uuid}', 'SelectListPanel', {$selectUserListData});
+					</script>
+				</div>
+			{/fbvFormSection}
+		{/if}
+		<p><span class="formRequired">{translate key="common.requiredField"}</span></p>
 		{fbvFormButtons}
 	</div>
 </form>
-<p><span class="formRequired">{translate key="common.requiredField"}</span></p>

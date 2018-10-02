@@ -1,8 +1,8 @@
 /**
  * closure-externs.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2010-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2010-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Import symbols into the closure compiler that are not defined
@@ -144,7 +144,7 @@ jQueryObject.prototype.ajaxSettings = null;
  * @constructor
  * @private
  */
-function tinyMCEObject() {};
+function tinyMCEObject() {}
 
 tinyMCEObject.prototype.PluginManager = {};
 
@@ -295,5 +295,29 @@ $.pkp.cons = {
 	LISTBUILDER_SOURCE_TYPE_SELECT: 0,
 	LISTBUILDER_OPTGROUP_LABEL: 0,
 	ORDER_CATEGORY_GRID_CATEGORIES_ROWS_ONLY: 0,
-	UPLOAD_MAX_FILESIZE: 0
-}
+	UPLOAD_MAX_FILESIZE: 0,
+	INSERT_TAG_VARIABLE_TYPE_PLAIN_TEXT: 0
+};
+
+/**
+ * @type {Object}
+ */
+var _ = {
+	isNull: function(object) {},
+	each: function(array, callback) {},
+	reject: function(array, callback) {}
+};
+
+/**
+ * @type {Object}
+ */
+var pkp = {
+	eventBus: {
+		$emit: function(name, data) {},
+		$on: function(name, callback) {},
+		$off: function(name, callback) {}
+	},
+	registry: {
+		_instances: []
+	}
+};

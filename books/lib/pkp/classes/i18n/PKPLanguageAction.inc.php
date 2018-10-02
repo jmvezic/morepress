@@ -3,8 +3,8 @@
 /**
  * @file classes/i18n/PKPLanguageAction.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPLanguageAction
@@ -66,7 +66,7 @@ class PKPLanguageAction {
 	 */
 	function getDownloadableLocales() {
 		$versionDao = DAORegistry::getDAO('VersionDAO');
-		$version =& $versionDao->getCurrentVersion();
+		$version = $versionDao->getCurrentVersion();
 		$versionString = $version->getVersionString();
 
 		$descriptorFilename = sprintf(LANGUAGE_PACK_DESCRIPTOR_URL, $versionString);
@@ -87,7 +87,7 @@ class PKPLanguageAction {
 		}
 
 		$versionDao = DAORegistry::getDAO('VersionDAO');
-		$version =& $versionDao->getCurrentVersion();
+		$version = $versionDao->getCurrentVersion();
 		$versionString = $version->getVersionString();
 
 		// Set up to download and extract the language pack

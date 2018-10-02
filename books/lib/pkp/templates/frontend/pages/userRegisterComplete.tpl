@@ -1,8 +1,8 @@
 {**
  * templates/frontend/pages/userRegisterComplete.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @brief A landing page displayed to users upon successful registration
@@ -22,11 +22,13 @@
 				</a>
 			</li>
 		{/if}
-		<li class="new_submission">
-			<a href="{url page="submission" op="wizard"}">
-				{translate key="user.login.registrationComplete.newSubmission"}
-			</a>
-		</li>
+		{if $currentContext}
+			<li class="new_submission">
+				<a href="{url page="submission" op="wizard"}">
+					{translate key="user.login.registrationComplete.newSubmission"}
+				</a>
+			</li>
+		{/if}
 		<li class="edit_profile">
 			<a href="{url router=$smarty.const.ROUTE_PAGE page="user" op="profile"}">
 				{translate key="user.editMyProfile"}

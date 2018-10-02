@@ -1,8 +1,8 @@
 /**
  * @file js/classes/TinyMCEHelper.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class TinyMCEHelper
@@ -50,14 +50,46 @@
 
 
 	/**
+	 * Get the list of variables and their types for a specified field.
+	 * @param {string} selector The textarea field's selector.
+	 * @return {?Object} Map of variableName: variableType entries.
+	 */
+	$.pkp.classes.TinyMCEHelper.prototype.getVariableTypesMap =
+			function(selector) {
+
+		var variablesTypeEncoded = $(selector).attr('data-variablesType');
+
+		// If we found the data attribute, decode and return it.
+		if (variablesTypeEncoded !== undefined) {
+			return $.parseJSON(decodeURIComponent(
+					/** @type {string} */(variablesTypeEncoded)));
+		}
+
+		// If we could not find the data attribute, return an empty list.
+		return [];
+	};
+
+
+	/**
 	 * Generate an element to represent a PKP variable (e.g. primary contact name
 	 * in setup) within the TinyMCE editor.
 	 * @param {string} variableSymbolic The variable symbolic name.
 	 * @param {string} variableName The human-readable name for the variable.
+	 * @param {string} selector The selector to use for the element.
 	 * @return {jQueryObject} JQuery DOM representing the PKP variable.
 	 */
 	$.pkp.classes.TinyMCEHelper.prototype.getVariableElement =
-			function(variableSymbolic, variableName) {
+			function(variableSymbolic, variableName, selector) {
+		var variableType, variableTypes =
+				$.pkp.classes.TinyMCEHelper.prototype.getVariableTypesMap(selector);
+
+		// Check if there is a variable type that should be treated otherwise
+		if (variableTypes[variableSymbolic] != undefined) {
+			variableType = variableTypes[variableSymbolic];
+			if (variableType == $.pkp.cons.INSERT_TAG_VARIABLE_TYPE_PLAIN_TEXT) {
+				return $('<div/>').append($('<span/>').text(variableName));
+			}
+		}
 
 		return $('<div/>').append($('<span/>')
 				.addClass('pkpTag mceNonEditable')

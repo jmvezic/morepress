@@ -3,8 +3,8 @@
 /**
  * @file ReviewReportPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewReportPlugin
@@ -18,13 +18,10 @@ import('lib.pkp.classes.plugins.ReportPlugin');
 
 class ReviewReportPlugin extends ReportPlugin {
 	/**
-	 * Called as a plugin is registered to the registry
-	 * @param $category String Name of category plugin was registered to
-	 * @return boolean True if plugin initialized successfully; if false,
-	 * 	the plugin will not be registered.
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		$success = parent::register($category, $path);
+	function register($category, $path, $mainContextId = null) {
+		$success = parent::register($category, $path, $mainContextId);
 		if ($success && Config::getVar('general', 'installed')) {
 			$this->import('ReviewReportDAO');
 			$reviewReportDAO = new ReviewReportDAO();
@@ -35,18 +32,22 @@ class ReviewReportPlugin extends ReportPlugin {
 	}
 
 	/**
-	 * Get the name of this plugin. The name must be unique within
-	 * its category.
-	 * @return String name of plugin
+	 * @copydoc Plugin::getName()
 	 */
 	function getName() {
 		return 'ReviewReportPlugin';
 	}
 
+	/**
+	 * @copydoc Plugin::getDisplayName()
+	 */
 	function getDisplayName() {
 		return __('plugins.reports.reviews.displayName');
 	}
 
+	/**
+	 * @copydoc Plugin::getDescription()
+	 */
 	function getDescription() {
 		return __('plugins.reports.reviews.description');
 	}
@@ -98,7 +99,6 @@ class ReviewReportPlugin extends ReportPlugin {
 			'datecompleted' => __('plugins.reports.reviews.dateCompleted'),
 			'datereminded' => __('plugins.reports.reviews.dateReminded'),
 			'declined' => __('submissions.declined'),
-			'cancelled' => __('common.cancelled'),
 			'recommendation' => __('plugins.reports.reviews.recommendation'),
 			'comments' => __('plugins.reports.reviews.comments')
 		);
@@ -112,7 +112,6 @@ class ReviewReportPlugin extends ReportPlugin {
 					$columns[$index] = __(WorkflowStageDAO::getTranslationKeyFromId($row[$index]));
 					break;
 				case 'declined':
-				case 'cancelled':
 					$columns[$index] = __($row[$index]?'common.yes':'common.no');
 					break;
 				case 'recommendation':

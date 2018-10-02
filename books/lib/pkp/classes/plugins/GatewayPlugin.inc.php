@@ -3,8 +3,8 @@
 /**
  * @file classes/plugins/GatewayPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class GatewayPlugin
@@ -16,12 +16,6 @@
 import('lib.pkp.classes.plugins.Plugin');
 
 abstract class GatewayPlugin extends Plugin {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Handle fetch requests for this plugin.

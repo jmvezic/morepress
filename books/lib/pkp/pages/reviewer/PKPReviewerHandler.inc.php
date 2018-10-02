@@ -3,8 +3,8 @@
 /**
  * @file pages/reviewer/PKPReviewerHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPReviewerHandler
@@ -18,12 +18,6 @@ import('lib.pkp.classes.core.JSONMessage');
 import('lib.pkp.classes.submission.reviewer.ReviewerAction');
 
 class PKPReviewerHandler extends Handler {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Display the submission review page.
@@ -123,6 +117,7 @@ class PKPReviewerHandler extends Handler {
 			$json->setEvent('setStep', $step+1);
 			return $json;
 		} else {
+			$this->setupTemplate($request);
 			return new JSONMessage(true, $reviewerForm->fetch($request));
 		}
 	}
@@ -184,7 +179,9 @@ class PKPReviewerHandler extends Handler {
 			LOCALE_COMPONENT_APP_SUBMISSION,
 			LOCALE_COMPONENT_APP_COMMON,
 			LOCALE_COMPONENT_PKP_GRID,
-			LOCALE_COMPONENT_PKP_REVIEWER
+			LOCALE_COMPONENT_PKP_REVIEWER,
+			LOCALE_COMPONENT_PKP_EDITOR,
+			LOCALE_COMPONENT_PKP_USER
 		);
 	}
 

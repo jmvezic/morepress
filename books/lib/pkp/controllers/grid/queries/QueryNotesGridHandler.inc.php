@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/queries/QueryNotesGridHandler.inc.php
  *
- * Copyright (c) 2016-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2016-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class QueryNotesGridHandler
@@ -30,7 +30,7 @@ class QueryNotesGridHandler extends GridHandler {
 	function __construct() {
 		parent::__construct();
 		$this->addRoleAssignment(
-			array(ROLE_ID_MANAGER, ROLE_ID_AUTHOR, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT),
+			array(ROLE_ID_MANAGER, ROLE_ID_REVIEWER, ROLE_ID_AUTHOR, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT),
 			array('fetchGrid', 'fetchRow', 'addNote', 'insertNote', 'deleteNote'));
 	}
 
@@ -79,11 +79,10 @@ class QueryNotesGridHandler extends GridHandler {
 	}
 
 	/**
-	 * Configure the grid
-	 * @param $request PKPRequest
+	 * @copydoc GridHandler::initialize()
 	 */
-	function initialize($request) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 		$this->setTitle('submission.query.messages');
 
 		// Load pkp-lib translations

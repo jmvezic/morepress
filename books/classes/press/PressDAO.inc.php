@@ -2,8 +2,8 @@
 /**
  * @file classes/press/PressDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PressDAO
@@ -85,7 +85,7 @@ class PressDAO extends ContextDAO {
 	 * (see <http://dtd.nlm.nih.gov/publishing/tag-library/n-4zh0.html>).
 	 */
 	function deleteAllPubIds($pressId, $pubIdType) {
-		$pubObjectDaos = array('MonographDAO', 'PublicationFormatDAO');
+		$pubObjectDaos = array('MonographDAO', 'ChapterDAO', 'PublicationFormatDAO');
 		foreach($pubObjectDaos as $daoName) {
 			$dao = DAORegistry::getDAO($daoName);
 			$dao->deleteAllPubIds($pressId, $pubIdType);
@@ -114,6 +114,7 @@ class PressDAO extends ContextDAO {
 			$assocType = ASSOC_TYPE_ANY, $assocId = 0, $forSameType = false) {
 				$pubObjectDaos = array(
 						ASSOC_TYPE_SUBMISSION => Application::getSubmissionDAO(),
+						ASSOC_TYPE_CHAPTER => DAORegistry::getDAO('ChapterDAO'),
 						ASSOC_TYPE_REPRESENTATION => Application::getRepresentationDAO(),
 						ASSOC_TYPE_SUBMISSION_FILE => DAORegistry::getDAO('SubmissionFileDAO')
 				);

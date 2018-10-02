@@ -3,8 +3,8 @@
 /**
  * @file classes/core/PKPRequest.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPRequest
@@ -189,7 +189,7 @@ class PKPRequest {
 			// and we need to avoid stripping the terminal directory
 			$path = preg_replace('#/[^/]*$#', '', $_SERVER['SCRIPT_NAME'].(substr($_SERVER['SCRIPT_NAME'], -1) == '/' || preg_match('#.php$#i', $_SERVER['SCRIPT_NAME']) ? '' : '/'));
 
-			// Encode charcters which need to be encoded in a URL.
+			// Encode characters which need to be encoded in a URL.
 			// Simply using rawurlencode() doesn't work because it
 			// also encodes characters which are valid in a URL (i.e. @, $).
 			$parts = explode('/', $path);
@@ -327,7 +327,7 @@ class PKPRequest {
 			if ($_this->isRestfulUrlsEnabled()) {
 				$_this->_requestPath = $_this->getBasePath();
 			} else {
-				$_this->_requestPath = $_SERVER['SCRIPT_NAME'];
+				$_this->_requestPath = isset($_SERVER['SCRIPT_NAME'])?$_SERVER['SCRIPT_NAME']:'';
 			}
 
 			if ($_this->isPathInfoEnabled()) {
@@ -561,10 +561,20 @@ class PKPRequest {
 	 * @return User
 	 */
 	function &getUser() {
-		PKPRequest::_checkThis();
+		$_this = PKPRequest::_checkThis();
 
-		// Reference required
 		$user =& Registry::get('user', true, null);
+
+		$router = $_this->getRouter();
+		if (is_a($router, 'APIRouter') && !is_null($handler = $router->getHandler()) && !is_null($token = $handler->getApiToken())) {
+			if ($user === null) {
+				$userDao = DAORegistry::getDAO('UserDAO');
+				$user = $userDao->getBySetting('apiKey', $token);
+			}
+			if (is_null($user) || !$user->getData('apiKeyEnabled')) return null;
+			return $user;
+		}
+
 		if ($user === null) {
 			$sessionManager = SessionManager::getManager();
 			$session = $sessionManager->getUserSession();
@@ -580,6 +590,16 @@ class PKPRequest {
 	 */
 	function getUserVar($key) {
 		$_this = PKPRequest::_checkThis();
+
+		// special treatment for APIRouter. APIHandler gets to fetch parameter first
+		$router = $_this->getRouter();
+		if (is_a($router, 'APIRouter') && (!is_null($handler = $router->getHandler()))) {
+			$handler = $router->getHandler();
+			$value = $handler->getParameter($key);
+			if (!is_null($value)) {
+				return $value;
+			}
+		}
 
 		// Get all vars (already cleaned)
 		$vars = $_this->getUserVars();

@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/settings/roles/UserGroupGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserGroupGridHandler
@@ -89,8 +89,8 @@ class UserGroupGridHandler extends GridHandler {
 	/**
 	 * @copydoc PKPHandler::initialize()
 	 */
-	function initialize($request) {
-		parent::initialize($request);
+	function initialize($request, $args = null) {
+		parent::initialize($request, $args);
 
 		$context = $request->getContext();
 		$this->_contextId = $context->getId();
@@ -129,7 +129,7 @@ class UserGroupGridHandler extends GridHandler {
 		// Set array containing the columns info with the same cell provider.
 		$columnsInfo = array(
 			1 => array('id' => 'name', 'title' => 'settings.roles.roleName', 'template' => null),
-			2 => array('id' => 'abbrev', 'title' => 'settings.roles.roleAbbrev', 'template' => null)
+			2 => array('id' => 'roleId', 'title' => 'settings.roles.from', 'template' => null)
 		);
 
 		foreach ($workflowStagesLocales as $stageId => $stageTitleKey) {
@@ -195,7 +195,7 @@ class UserGroupGridHandler extends GridHandler {
 	function renderFilter($request) {
 		// Get filter data.
 		$roleDao = DAORegistry::getDAO('RoleDAO');
-		$roleOptions = array(0 => 'grid.user.allPermissionLevels') + $roleDao->getRoleNames(true);
+		$roleOptions = array(0 => 'grid.user.allPermissionLevels') + Application::getRoleNames(true);
 
 		// Reader roles are not important for stage assignments.
 		if (array_key_exists(ROLE_ID_READER, $roleOptions)) {

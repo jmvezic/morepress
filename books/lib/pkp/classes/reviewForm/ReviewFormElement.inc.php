@@ -3,8 +3,8 @@
 /**
  * @file classes/reviewForm/ReviewFormElement.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewFormElement
@@ -23,12 +23,6 @@ define('REVIEW_FORM_ELEMENT_TYPE_RADIO_BUTTONS',	0x000005);
 define('REVIEW_FORM_ELEMENT_TYPE_DROP_DOWN_BOX',	0x000006);
 
 class ReviewFormElement extends DataObject {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Get localized question.

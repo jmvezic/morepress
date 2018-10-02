@@ -3,8 +3,8 @@
 /**
  * @file pages/workflow/WorkflowHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class WorkflowHandler
@@ -101,7 +101,7 @@ class WorkflowHandler extends PKPWorkflowHandler {
 					);
 
 					foreach ($monographFiles as $file) {
-						if ($file->getViewable() && !is_null($file->getDirectSalesPrice())) {
+						if (!is_null($file->getDirectSalesPrice())) {
 							// at least one file has a price set.
 							return true;
 						}

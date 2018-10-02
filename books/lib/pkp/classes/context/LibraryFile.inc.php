@@ -3,8 +3,8 @@
 /**
  * @file classes/context/LibraryFile.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class LibraryFile
@@ -23,12 +23,6 @@ define('LIBRARY_FILE_TYPE_OTHER',	0x00005);
 import('lib.pkp.classes.file.FileManager');
 
 class LibraryFile extends DataObject {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Return absolute path to the file on the host filesystem.
@@ -230,6 +224,22 @@ class LibraryFile extends DataObject {
 	function getDocumentType() {
 		$fileManager = new FileManager();
 		return $fileManager->getDocumentType($this->getFileType());
+	}
+
+	/**
+	 * Get public access indication
+	 * @return boolean
+	 */
+	function getPublicAccess() {
+		return $this->getData('publicAccess');
+	}
+
+	/**
+	 * Set public access indication
+	 * @param $publicAccess boolean
+	 */
+	function setPublicAccess($publicAccess) {
+		$this->setData('publicAccess', $publicAccess);
 	}
 }
 

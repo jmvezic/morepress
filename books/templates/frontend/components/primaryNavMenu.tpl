@@ -1,8 +1,8 @@
 {**
  * templates/frontend/components/primaryNavMenu.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Primary navigation menu list for OMP
@@ -24,32 +24,32 @@
 		</a>
 	</li>
 
-	{if $currentPress && ($currentPress->getLocalizedSetting('masthead') || $currentPress->getLocalizedSetting('submissions'))}
-		{assign var="submenu_attr" value=" aria-haspopup='true' aria-expanded='false'"}
+	{if $currentPress && ($currentPress->getLocalizedSetting('editorialTeam') || $currentPress->getLocalizedSetting('submissions'))}
+		{assign var="hasSubmenu" value=true}
 	{/if}
-	<li{$submenu_attr}>
+	<li>
 		<a href="{url router=$smarty.const.ROUTE_PAGE page="about"}">
 			{translate key="navigation.about"}
 		</a>
-		{if $submenu_attr}
+		{if $hasSubmenu}
 		<ul>
 			<li>
 				<a href="{url router=$smarty.const.ROUTE_PAGE page="about"}">
 					{translate key="about.aboutContext"}
 				</a>
 			</li>
-			{if $currentPress && $currentPress->getLocalizedSetting('masthead') != ''}
+			{if $currentPress && $currentPress->getLocalizedSetting('editorialTeam') != ''}
 				<li>
 					<a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="editorialTeam"}">
 						{translate key="about.editorialTeam"}
 					</a>
 				</li>
 			{/if}
-			<!-- <li>
+			<li>
 				<a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="submissions"}">
 					{translate key="about.submissions"}
 				</a>
-			</li> -->
+			</li>
 			{if $currentPress && ($currentPress->getSetting('mailingAddress') || $currentPress->getSetting('contactName'))}
 				<li>
 					<a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="contact"}">

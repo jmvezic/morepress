@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/customBlockManager/controllers/grid/form/CustomBlockForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class CustomBlockForm
@@ -77,7 +77,8 @@ class CustomBlockForm extends Form {
 		if (!$plugin) {
 			// Create a new custom block plugin
 			import('plugins.generic.customBlockManager.CustomBlockPlugin');
-			$plugin = new CustomBlockPlugin($this->getData('blockName'), CUSTOMBLOCKMANAGER_PLUGIN_NAME);
+			$customBlockManagerPlugin = PluginRegistry::getPlugin('generic', CUSTOMBLOCKMANAGER_PLUGIN_NAME);
+			$plugin = new CustomBlockPlugin($this->getData('blockName'), $customBlockManagerPlugin);
 			// Default the block to being enabled
 			$plugin->setEnabled(true);
 
@@ -86,7 +87,6 @@ class CustomBlockForm extends Form {
 
 			// Add the custom block to the list of the custom block plugins in the
 			// custom block manager plugin
-			$customBlockManagerPlugin = $plugin->getManagerPlugin();
 			$blocks = $customBlockManagerPlugin->getSetting($contextId, 'blocks');
 			if (!isset($blocks)) $blocks = array();
 

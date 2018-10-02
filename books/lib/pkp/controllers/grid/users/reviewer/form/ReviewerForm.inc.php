@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/users/reviewer/form/ReviewerForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewerForm
@@ -232,12 +232,14 @@ class ReviewerForm extends Form {
 		$templateMgr = TemplateManager::getManager($request);
 		$templateMgr->assign('reviewMethods', $reviewMethods);
 		$templateMgr->assign('reviewerActions', $this->getReviewerFormActions());
+
 		$reviewFormDao = DAORegistry::getDAO('ReviewFormDAO');
-		$reviewForms = array(0 => __('editor.article.selectReviewForm'));
 		$reviewFormsIterator = $reviewFormDao->getActiveByAssocId(Application::getContextAssocType(), $context->getId());
+		$reviewForms = array();
 		while ($reviewForm = $reviewFormsIterator->next()) {
 			$reviewForms[$reviewForm->getId()] = $reviewForm->getLocalizedTitle();
 		}
+
 		$templateMgr->assign('reviewForms', $reviewForms);
 		$templateMgr->assign('emailVariables', array(
 			'reviewerName' => __('user.name'),
@@ -257,7 +259,7 @@ class ReviewerForm extends Form {
 		foreach ($userRoles as $userRole) {
 			if (in_array($userRole->getId(), array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT))) {
 				$emailTemplateDao = DAORegistry::getDAO('EmailTemplateDAO');
-				$customTemplates = $emailTemplateDao->getCustomTemplateKeys(Application::getContextAssocType(), $submission->getContextId());
+				$customTemplates = $emailTemplateDao->getCustomTemplateKeys($submission->getContextId());
 				$templateKeys = array_merge($templateKeys, $customTemplates);
 				break;
 			}
@@ -339,7 +341,6 @@ class ReviewerForm extends Form {
 		$reviewAssignmentDao = DAORegistry::getDAO('ReviewAssignmentDAO'); /* @var $reviewAssignmentDao ReviewAssignmentDAO */
 		$reviewAssignment = $reviewAssignmentDao->getReviewAssignment($currentReviewRound->getId(), $reviewerId, $currentReviewRound->getRound(), $stageId);
 		$reviewAssignment->setDateNotified(Core::getCurrentDate());
-		$reviewAssignment->setCancelled(0);
 		$reviewAssignment->stampModified();
 
 		// Ensure that the review form ID is valid, if specified
@@ -362,15 +363,14 @@ class ReviewerForm extends Form {
 			}
 		}
 
-
 		// Notify the reviewer via email.
 		import('lib.pkp.classes.mail.SubmissionMailTemplate');
 		$templateKey = $this->getData('template');
 		$mail = new SubmissionMailTemplate($submission, $templateKey, null, null, null, false);
+		$userDao = DAORegistry::getDAO('UserDAO'); /* @var $userDao UserDAO */
+		$reviewer = $userDao->getById($reviewerId);
 
 		if ($mail->isEnabled() && !$this->getData('skipEmail')) {
-			$userDao = DAORegistry::getDAO('UserDAO'); /* @var $userDao UserDAO */
-			$reviewer = $userDao->getById($reviewerId);
 			$user = $request->getUser();
 			$mail->addRecipient($reviewer->getEmail(), $reviewer->getFullName());
 			$mail->setBody($this->getData('personalMessage'));
@@ -381,7 +381,7 @@ class ReviewerForm extends Form {
 			if ($context->getSetting('reviewerAccessKeysEnabled')) {
 				import('lib.pkp.classes.security.AccessKeyManager');
 				$accessKeyManager = new AccessKeyManager();
-				$expiryDays = $context->getSetting('numWeeksPerReview') + 4 * 7;
+				$expiryDays = ($context->getSetting('numWeeksPerReview') + 4) * 7;
 				$accessKey = $accessKeyManager->createKey($context->getId(), $reviewerId, $reviewAssignment->getId(), $expiryDays);
 				$reviewUrlArgs = array_merge($reviewUrlArgs, array('reviewId' => $reviewAssignment->getId(), 'key' => $accessKey));
 			}
@@ -397,6 +397,16 @@ class ReviewerForm extends Form {
 			$mail->send($request);
 		}
 
+		// Insert a trivial notification to indicate the reviewer was added successfully.
+		$currentUser = $request->getUser();
+		$notificationMgr = new NotificationManager();
+		$msgKey = $this->getData('skipEmail') ? 'notification.addedReviewerNoEmail' : 'notification.addedReviewer';
+		$notificationMgr->createTrivialNotification(
+			$currentUser->getId(),
+			NOTIFICATION_TYPE_SUCCESS,
+			array('contents' => __($msgKey, array('reviewerName' => $reviewer->getFullName())))
+		);
+
 		return $reviewAssignment;
 	}
 
@@ -411,15 +421,14 @@ class ReviewerForm extends Form {
 	 */
 	function getAdvancedSearchAction($request) {
 		$reviewRound = $this->getReviewRound();
-
-		$actionArgs['submissionId'] = $this->getSubmissionId();
-		$actionArgs['stageId'] = $reviewRound->getStageId();
-		$actionArgs['reviewRoundId'] = $reviewRound->getId();
-		$actionArgs['selectionType'] = REVIEWER_SELECT_ADVANCED_SEARCH;
-
 		return new LinkAction(
 			'addReviewer',
-			new AjaxAction($request->url(null, null, 'reloadReviewerForm', null, $actionArgs)),
+			new AjaxAction($request->url(null, null, 'reloadReviewerForm', null, array(
+				'submissionId' => $this->getSubmissionId(),
+				'stageId' => $reviewRound->getStageId(),
+				'reviewRoundId' => $reviewRound->getId(),
+				'selectionType' => REVIEWER_SELECT_ADVANCED_SEARCH,
+			))),
 			__('editor.submission.backToSearch'),
 			'return'
 		);
@@ -450,18 +459,21 @@ class ReviewerForm extends Form {
 
 	/**
 	 * Get the email template key depending on if reviewer one click access is
-	 * enabled or not.
+	 * enabled or not as well as on review round.
 	 *
-	 * @param mixed $context Context
+	 * @param $context Context The user's current context.
 	 * @return int Email template key
 	 */
 	function _getMailTemplateKey($context) {
-		$templateKey = 'REVIEW_REQUEST';
-		if ($context->getSetting('reviewerAccessKeysEnabled')) {
-			$templateKey = 'REVIEW_REQUEST_ONECLICK';
-		}
+		$reviewerAccessKeysEnabled = $context->getSetting('reviewerAccessKeysEnabled');
+		$round = $this->getReviewRound()->getRound();
 
-		return $templateKey;
+		switch(1) {
+			case $reviewerAccessKeysEnabled && $round == 1: return 'REVIEW_REQUEST_ONECLICK';
+			case $reviewerAccessKeysEnabled: return 'REVIEW_REQUEST_ONECLICK_SUBSEQUENT';
+			case $round == 1: return 'REVIEW_REQUEST';
+			default: return 'REVIEW_REQUEST_SUBSEQUENT';
+		}
 	}
 }
 

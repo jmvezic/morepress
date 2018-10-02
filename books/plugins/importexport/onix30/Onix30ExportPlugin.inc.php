@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/onix30/Onix30ExportPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Onix30ExportPlugin
@@ -24,16 +24,16 @@ class Onix30ExportPlugin extends ImportExportPlugin {
 	}
 
 	/**
-	 * Called as a plugin is registered to the registry
-	 * @param $category String Name of category plugin was registered to
-	 * @param $path string
-	 * @return boolean True iff plugin initialized successfully; if false,
-	 * 	the plugin will not be registered.
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		$success = parent::register($category, $path);
-		$this->addLocaleData();
-		$this->import('Onix30ExportDeployment');
+	function register($category, $path, $mainContextId = null) {
+		$success = parent::register($category, $path, $mainContextId);
+		if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return $success;
+		if ($success && $this->getEnabled()) {
+			$this->_registerTemplateResource();
+			$this->addLocaleData();
+			$this->import('Onix30ExportDeployment');
+		}
 		return $success;
 	}
 
@@ -41,7 +41,7 @@ class Onix30ExportPlugin extends ImportExportPlugin {
 	 * @see Plugin::getTemplatePath($inCore)
 	 */
 	function getTemplatePath($inCore = false) {
-		return parent::getTemplatePath($inCore) . 'templates/';
+		return $this->getTemplateResourceName() . ':templates/';
 	}
 
 	/**
@@ -92,6 +92,14 @@ class Onix30ExportPlugin extends ImportExportPlugin {
 		switch (array_shift($args)) {
 			case 'index':
 			case '':
+				import('lib.pkp.controllers.list.submissions.SelectSubmissionsListHandler');
+				$exportSubmissionsListHandler = new SelectSubmissionsListHandler(array(
+					'title' => 'plugins.importexport.onix30.exportSubmissionsSelect',
+					'count' => 100,
+					'inputName' => 'selectedSubmissions[]',
+					'lazyLoad' => true,
+				));
+				$templateMgr->assign('exportSubmissionsListData', json_encode($exportSubmissionsListHandler->getConfig()));
 				$templateMgr->display($this->getTemplatePath() . 'index.tpl');
 				break;
 			case 'export':

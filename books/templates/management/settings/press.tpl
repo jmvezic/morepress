@@ -1,8 +1,8 @@
 {**
  * templates/management/settings/press.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * The press settings page.
@@ -29,6 +29,7 @@
 		<li><a name="contact" href="{url router=$smarty.const.ROUTE_COMPONENT component="tab.settings.PressSettingsTabHandler" op="showTab" tab="contact"}">{translate key="about.contact"}</a></li>
 		<li><a name="series" href="{url router=$smarty.const.ROUTE_COMPONENT component="tab.settings.PressSettingsTabHandler" op="showTab" tab="series"}">{translate key="series.series"}</a></li>
 		<li><a name="categories" href="{url router=$smarty.const.ROUTE_COMPONENT component="tab.settings.PressSettingsTabHandler" op="showTab" tab="categories"}">{translate key="grid.category.categories"}</a></li>
+		{call_hook name="Templates::Management::Settings::press"}
 	</ul>
 </div>
 

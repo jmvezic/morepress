@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/StaticPageGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class StaticPageGridHandler
@@ -54,10 +54,10 @@ class StaticPageGridHandler extends GridHandler {
 	}
 
 	/**
-	 * @copydoc Gridhandler::initialize()
+	 * @copydoc GridHandler::initialize()
 	 */
 	function initialize($request, $args = null) {
-		parent::initialize($request);
+		parent::initialize($request, $args);
 		$context = $request->getContext();
 
 		// Set the grid details.
@@ -106,7 +106,7 @@ class StaticPageGridHandler extends GridHandler {
 	// Overridden methods from GridHandler
 	//
 	/**
-	 * @copydoc Gridhandler::getRowInstance()
+	 * @copydoc GridHandler::getRowInstance()
 	 */
 	function getRowInstance() {
 		return new StaticPageGridRow();
@@ -124,8 +124,7 @@ class StaticPageGridHandler extends GridHandler {
 		$context = $request->getContext();
 		import('lib.pkp.classes.form.Form');
 		$form = new Form(self::$plugin->getTemplatePath() . 'staticPages.tpl');
-		$json = new JSONMessage(true, $form->fetch($request));
-		return $json->getString();
+		return new JSONMessage(true, $form->fetch($request));
 	}
 
 	/**
@@ -155,8 +154,7 @@ class StaticPageGridHandler extends GridHandler {
 		$staticPagesPlugin = self::$plugin;
 		$staticPageForm = new StaticPageForm(self::$plugin, $context->getId(), $staticPageId);
 		$staticPageForm->initData();
-		$json = new JSONMessage(true, $staticPageForm->fetch($request));
-		return $json->getString();
+		return new JSONMessage(true, $staticPageForm->fetch($request));
 	}
 
 	/**
@@ -183,8 +181,7 @@ class StaticPageGridHandler extends GridHandler {
  			return DAO::getDataChangedEvent();
 		} else {
 			// Present any errors
-			$json = new JSONMessage(true, $staticPageForm->fetch($request));
-			return $json->getString();
+			return new JSONMessage(true, $staticPageForm->fetch($request));
 		}
 	}
 

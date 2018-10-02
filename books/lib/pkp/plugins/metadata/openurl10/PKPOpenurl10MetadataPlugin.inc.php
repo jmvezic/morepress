@@ -6,8 +6,8 @@
 /**
  * @file plugins/metadata/openurl10/PKPOpenurl10MetadataPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPOpenurl10MetadataPlugin
@@ -20,13 +20,6 @@
 import('lib.pkp.classes.plugins.MetadataPlugin');
 
 class PKPOpenurl10MetadataPlugin extends MetadataPlugin {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Override protected template methods from Plugin
@@ -50,6 +43,31 @@ class PKPOpenurl10MetadataPlugin extends MetadataPlugin {
 	 */
 	function getDescription() {
 		return __('plugins.metadata.openurl10.description');
+	}
+
+	/**
+	 * @copydoc MetadataPlugin::supportsFormat()
+	 */
+	public function supportsFormat($format) {
+		return $format === 'openurl10book' || $format === 'openurl10dissertation' || $format === 'openurl10journal';
+	}
+
+	/**
+	 * @copydoc MetadataPlugin::getSchemaObject()
+	 */
+	public function getSchemaObject($format) {
+		assert($this->supportsFormat($format));
+		if ($format === 'openurl10book') {
+			import('lib.pkp.plugins.metadata.openurl10.schema.Openurl10BookSchema');
+			return new Openurl10BookSchema();
+		} elseif ($format === 'openurl10dissertation') {
+			import('lib.pkp.plugins.metadata.openurl10.schema.Openurl10DissertationSchema');
+			return new Openurl10DissertationSchema();
+		} elseif ($format === 'openurl10journal') {
+			import('lib.pkp.plugins.metadata.openurl10.schema.Openurl10JournalSchema');
+			return new Openurl10JournalSchema();
+		}
+		assert(false);
 	}
 }
 

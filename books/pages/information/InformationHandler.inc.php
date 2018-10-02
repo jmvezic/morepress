@@ -3,8 +3,8 @@
 /**
  * @file pages/information/InformationHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class InformationHandler
@@ -29,7 +29,7 @@ class InformationHandler extends Handler {
 	 * @param $request PKPRequest
 	 */
 	function index($args, $request) {
-		$this->validate();
+		$this->validate(null, $request);
 		$press = $request->getPress();
 		if ($press == null) $request->redirect('index');
 

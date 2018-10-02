@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/customBlockManager/CustomBlockManagerPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @package plugins.generic.customBlockManager
@@ -34,17 +34,39 @@ class CustomBlockManagerPlugin extends GenericPlugin {
 	/**
 	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		if (parent::register($category, $path)) {
+	function register($category, $path, $mainContextId = null) {
+		if (parent::register($category, $path, $mainContextId)) {
 			// If the system isn't installed, or is performing an upgrade, don't
 			// register hooks. This will prevent DB access attempts before the
 			// schema is installed.
 			if (!Config::getVar('general', 'installed') || defined('RUNNING_UPGRADE')) return true;
 
-			if ($this->getEnabled()) {
-				// This hook is used to step in when block plugins are registered to add
-				// each custom block that has been created with this plugin.
-				HookRegistry::register('PluginRegistry::loadCategory', array($this, 'callbackLoadCategory'));
+			if ($this->getEnabled($mainContextId)) {
+				$this->import('CustomBlockPlugin');
+
+				// Ensure that there is a context (journal or press)
+				if ($request = Application::getRequest()) {
+					if ($mainContextId) {
+						$contextId = $mainContextId;
+					} else {
+						$context = $request->getContext();
+						$contextId = $context ? $context->getId() : CONTEXT_SITE;
+					}
+
+					// Load the custom blocks we have created
+					$blocks = $this->getSetting($contextId, 'blocks');
+					if (!is_array($blocks)) $blocks = array();
+
+					// Loop through each custom block and register it
+					$i=0;
+					foreach ($blocks as $block) {
+						PluginRegistry::register(
+							'blocks',
+							new CustomBlockPlugin($block, $this),
+							$this->getPluginPath()
+						);
+					}
+				}
 
 				// This hook is used to register the components this plugin implements to
 				// permit administration of custom block plugins.
@@ -73,28 +95,17 @@ class CustomBlockManagerPlugin extends GenericPlugin {
 
 				// Ensure that there is a context (journal or press)
 				$context = $request->getContext();
-				if (!$context) return false;
+				$contextId = $context ? $context->getId() : 0;
 
 				// Load the custom blocks we have created
-				$blocks = $this->getSetting($context->getId(), 'blocks');
+				$blocks = $this->getSetting($contextId, 'blocks');
 				if (!is_array($blocks)) break;
 
 				// Loop through each custom block and register it
 				$i=0;
 				foreach ($blocks as $block) {
-					$blockPlugin = new CustomBlockPlugin($block, $this->getName());
-
-					// Default the block to being enabled (for newly created blocks)
-					if ($blockPlugin->getEnabled() !== false) {
-						$blockPlugin->setEnabled(true);
-					}
-					// Default the block to the left sidebar (for newly created blocks)
-					if (!is_numeric($blockPlugin->getBlockContext())) {
-						$blockPlugin->setBlockContext(BLOCK_CONTEXT_SIDEBAR);
-					}
-
 					// Add the plugin to the list of registered plugins
-					$plugins[$blockPlugin->getSeq()][$blockPlugin->getPluginPath() . $i] = $blockPlugin;
+					$plugins[$blockPlugin->getSeq()][$blockPlugin->getPluginPath() . $i] = new CustomBlockPlugin($block, $this);
 					$i++;
 				}
 				break;
@@ -157,6 +168,19 @@ class CustomBlockManagerPlugin extends GenericPlugin {
 				'plugins.generic.customBlockManager.controllers.grid.CustomBlockGridHandler', 'fetchGrid'
 			)
 		);
+	}
+
+	/**
+	 * This plugin can be used site-wide or in a specific context. The
+	 * isSitePlugin check is used to grant access to different users, so this
+	 * plugin must return true only if the user is currently in the site-wide
+	 * context.
+	 *
+	 * @see PluginGridRow::_canEdit()
+	 * @return boolean
+	 */
+	function isSitePlugin() {
+		return !Application::getRequest()->getContext();
 	}
 }
 

@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/users/reviewer/ReviewerGridCellProvider.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewerGridCellProvider
@@ -19,13 +19,19 @@ import('lib.pkp.classes.linkAction.request.AjaxModal');
 import('lib.pkp.classes.linkAction.request.AjaxAction');
 
 class ReviewerGridCellProvider extends DataObjectGridCellProvider {
+
+	/** @var boolean Is the current user assigned as an author to this submission */
+	public $_isCurrentUserAssignedAuthor;
+
 	/**
 	 * Constructor
+	 * @param $isCurrentUserAssignedAuthor boolean Is the current user assigned
+	 *  as an author to this submission?
 	 */
-	function __construct() {
+	public function __construct($isCurrentUserAssignedAuthor) {
 		parent::__construct();
+		$this->_isCurrentUserAssignedAuthor = $isCurrentUserAssignedAuthor;
 	}
-
 
 	//
 	// Template methods from GridCellProvider
@@ -42,76 +48,11 @@ class ReviewerGridCellProvider extends DataObjectGridCellProvider {
 		assert(is_a($reviewAssignment, 'DataObject') && !empty($columnId));
 		switch ($columnId) {
 			case 'name':
+			case 'method':
 				return '';
 			case 'considered':
 			case 'actions':
-
-				if ($reviewAssignment->getDeclined()) {
-					return 'declined';
-				}
-
-				// The review has not been completed.
-				if (!$reviewAssignment->getDateCompleted()) {
-					if ($reviewAssignment->getDateDue() < Core::getCurrentDate(strtotime('tomorrow'))) {
-						return 'overdue';
-					} elseif($reviewAssignment->getDateResponseDue() < Core::getCurrentDate(strtotime('tomorrow')) && !$reviewAssignment->getDateConfirmed()) {
-						return 'overdue_response';
-					} else {
-						if (!$reviewAssignment->getDateConfirmed()) {
-							return 'waiting';
-						} else {
-							return 'accepted';
-						}
-					}
-				}
-
-				// The reviewer has been sent an acknowledgement.
-				// Completed states can be 'unconsidered' by an editor.
-				if ($reviewAssignment->getDateAcknowledged() && !$reviewAssignment->getUnconsidered()) {
-					return 'completed';
-				}
-
-				if ($reviewAssignment->getUnconsidered() == REVIEW_ASSIGNMENT_UNCONSIDERED) {
-					return 'reviewReady';
-				}
-
-				// Check if the somebody assigned to this stage has read the review.
-				$submissionDao = Application::getSubmissionDAO();
-				$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-				$userStageAssignmentDao = DAORegistry::getDAO('UserStageAssignmentDAO');
-				$viewsDao = DAORegistry::getDAO('ViewsDAO');
-
-				$submission = $submissionDao->getById($reviewAssignment->getSubmissionId());
-
-				// Get the user groups for this stage
-				$userGroups = $userGroupDao->getUserGroupsByStage(
-					$submission->getContextId(),
-					$reviewAssignment->getStageId()
-				);
-				while ($userGroup = $userGroups->next()) {
-					if (!in_array($userGroup->getRoleId(), array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR))) continue;
-
-					// Get the users assigned to this stage and user group
-					$stageUsers = $userStageAssignmentDao->getUsersBySubmissionAndStageId(
-						$reviewAssignment->getSubmissionId(),
-						$reviewAssignment->getStageId(),
-						$userGroup->getId()
-					);
-
-					// mark as completed (viewed) if any of the manager/editor users viewed it.
-					while ($user = $stageUsers->next()) {
-						if ($viewsDao->getLastViewDate(
-							ASSOC_TYPE_REVIEW_RESPONSE,
-							$reviewAssignment->getId(), $user->getId()
-						)) {
-							// Some user has read the review.
-							return 'read';
-						}
-					}
-				}
-
-				// Nobody has read the review.
-				return 'reviewReady';
+				return $reviewAssignment->getStatus();
 		}
 	}
 
@@ -128,7 +69,14 @@ class ReviewerGridCellProvider extends DataObjectGridCellProvider {
 		assert(is_a($element, 'DataObject') && !empty($columnId));
 		switch ($columnId) {
 			case 'name':
+				$isAuthorBlind = in_array($element->getReviewMethod(), array(SUBMISSION_REVIEW_METHOD_BLIND, SUBMISSION_REVIEW_METHOD_DOUBLEBLIND));
+				if ($this->_isCurrentUserAssignedAuthor && $isAuthorBlind) {
+					return array('label' => __('editor.review.anonymousReviewer'));
+				}
 				return array('label' => $element->getReviewerFullName());
+
+			case 'method':
+				return array('label' => __($element->getReviewMethodKey()));
 
 			case 'considered':
 				return array('label' => $this->_getStatusText($this->getCellState($row, $column), $row));
@@ -149,6 +97,12 @@ class ReviewerGridCellProvider extends DataObjectGridCellProvider {
 	 */
 	function getCellActions($request, $row, $column, $position = GRID_ACTION_POSITION_DEFAULT) {
 		$reviewAssignment = $row->getData();
+
+		// Authors can't perform action on reviews
+		if ($this->_isCurrentUserAssignedAuthor) {
+			return array();
+		}
+
 		$actionArgs = array(
 			'submissionId' => $reviewAssignment->getSubmissionId(),
 			'reviewAssignmentId' => $reviewAssignment->getId(),
@@ -165,21 +119,26 @@ class ReviewerGridCellProvider extends DataObjectGridCellProvider {
 		$columnId = $column->getId();
 		if ($columnId == 'actions') {
 			switch($this->getCellState($row, $column)) {
-				case 'overdue':
-				case 'overdue_response':
+				case REVIEW_ASSIGNMENT_STATUS_RESPONSE_OVERDUE:
+				case REVIEW_ASSIGNMENT_STATUS_REVIEW_OVERDUE:
 					import('lib.pkp.controllers.api.task.SendReminderLinkAction');
 					return array(new SendReminderLinkAction($request, 'editor.review.reminder', $actionArgs));
-				case 'read':
+				case REVIEW_ASSIGNMENT_STATUS_COMPLETE:
 					import('lib.pkp.controllers.api.task.SendThankYouLinkAction');
-					return array(new SendThankYouLinkAction($request, 'editor.review.thankReviewer', $actionArgs));
-				case 'completed':
+					import('lib.pkp.controllers.review.linkAction.UnconsiderReviewLinkAction');
+					return array(
+						new SendThankYouLinkAction($request, 'editor.review.thankReviewer', $actionArgs),
+						new UnconsiderReviewLinkAction($request, $reviewAssignment, $submission),
+					);
+				case REVIEW_ASSIGNMENT_STATUS_THANKED:
 					import('lib.pkp.controllers.review.linkAction.UnconsiderReviewLinkAction');
 					return array(new UnconsiderReviewLinkAction($request, $reviewAssignment, $submission));
-				case 'reviewReady':
+				case REVIEW_ASSIGNMENT_STATUS_RECEIVED:
 					$user = $request->getUser();
 					import('lib.pkp.controllers.review.linkAction.ReviewNotesLinkAction');
-					return array(new ReviewNotesLinkAction($request, $reviewAssignment, $submission, $user, true));
+					return array(new ReviewNotesLinkAction($request, $reviewAssignment, $submission, $user, 'grid.users.reviewer.ReviewerGridHandler', true));
 			}
+
 		}
 		return parent::getCellActions($request, $row, $column, $position);
 	}
@@ -193,22 +152,20 @@ class ReviewerGridCellProvider extends DataObjectGridCellProvider {
 	function _getStatusText($state, $row) {
 		$reviewAssignment = $row->getData();
 		switch ($state) {
-			case 'waiting':
+			case REVIEW_ASSIGNMENT_STATUS_AWAITING_RESPONSE:
 				return '<span class="state">'.__('editor.review.requestSent').'</span><span class="details">'.__('editor.review.responseDue', array('date' => substr($reviewAssignment->getDateResponseDue(),0,10))).'</span>';
-			case 'accepted':
+			case REVIEW_ASSIGNMENT_STATUS_ACCEPTED:
 				return '<span class="state">'.__('editor.review.requestAccepted').'</span><span class="details">'.__('editor.review.reviewDue', array('date' => substr($reviewAssignment->getDateDue(),0,10))).'</span>';
-			case 'completed':
+			case REVIEW_ASSIGNMENT_STATUS_COMPLETE:
 				return $this->_getStatusWithRecommendation('common.complete', $reviewAssignment);
-			case 'overdue':
+			case REVIEW_ASSIGNMENT_STATUS_REVIEW_OVERDUE:
 				return '<span class="state overdue">'.__('common.overdue').'</span><span class="details">'.__('editor.review.reviewDue', array('date' => substr($reviewAssignment->getDateDue(),0,10))).'</span>';
-			case 'overdue_response':
+			case REVIEW_ASSIGNMENT_STATUS_RESPONSE_OVERDUE:
 				return '<span class="state overdue">'.__('common.overdue').'</span><span class="details">'.__('editor.review.responseDue', array('date' => substr($reviewAssignment->getDateResponseDue(),0,10))).'</span>';
-			case 'declined':
+			case REVIEW_ASSIGNMENT_STATUS_DECLINED:
 				return '<span class="state declined">'.__('common.declined').'</span>';
-			case 'reviewReady':
-				return $this->_getStatusWithRecommendation('editor.review.reviewSubmitted', $reviewAssignment);
-			case 'read':
-				return $this->_getStatusWithRecommendation('editor.review.reviewConfirmed', $reviewAssignment);
+			case REVIEW_ASSIGNMENT_STATUS_RECEIVED:
+				return  $this->_getStatusWithRecommendation('editor.review.reviewSubmitted', $reviewAssignment);
 			default:
 				return '';
 		}

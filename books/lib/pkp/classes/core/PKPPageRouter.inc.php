@@ -3,8 +3,8 @@
 /**
  * @file classes/core/PKPPageRouter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPPageRouter
@@ -35,13 +35,6 @@ class PKPPageRouter extends PKPRouter {
 	var $_indexUrl;
 	/** @var string cache filename */
 	var $_cacheFilename;
-
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * get the installation pages
@@ -182,8 +175,7 @@ class PKPPageRouter extends PKPRouter {
 			$user = $request->getUser();
 			$currentContext = $request->getContext();
 			if ($currentContext && !$currentContext->getEnabled() && !is_a($user, 'User')) {
-				$op = ROUTER_DEFAULT_OP;
-				$page = ROUTER_DEFAULT_PAGE;
+				if ($page != 'login') $request->redirect(null, 'login');
 			}
 		}
 
@@ -225,6 +217,7 @@ class PKPPageRouter extends PKPRouter {
 		// Instantiate the handler class
 		$handlerClass = HANDLER_CLASS;
 		$handler = new $handlerClass($request);
+		$this->setHandler($handler);
 
 		// Authorize and initialize the request but don't call the
 		// validate() method on page handlers.
@@ -441,13 +434,13 @@ class PKPPageRouter extends PKPRouter {
 	// Private helper methods.
 	//
 	/**
-	* Retrieve part of the current requested
-	* url using the passed callback method.
-	* @param $callback array Core method to retrieve
-	* page, operation or arguments from url.
-	* @param $request PKPRequest
-	* @return array|string|null
-	*/
+	 * Retrieve part of the current requested
+	 * url using the passed callback method.
+	 * @param $callback array Core method to retrieve
+	 * page, operation or arguments from url.
+	 * @param $request PKPRequest
+	 * @return array|string|null
+	 */
 	private function _getRequestedUrlParts($callback, &$request) {
 		$url = null;
 		assert(is_a($request->getRouter(), 'PKPPageRouter'));

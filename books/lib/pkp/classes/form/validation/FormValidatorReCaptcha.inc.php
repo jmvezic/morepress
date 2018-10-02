@@ -3,8 +3,8 @@
 /**
  * @file classes/form/validation/FormValidatorReCaptcha.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class FormValidatorReCaptcha
@@ -66,6 +66,20 @@ class FormValidatorReCaptcha extends FormValidator {
 				)),
 			),
 		);
+
+		$proxySettings = array(
+			'host' => Config::getVar('proxy', 'http_host'),
+			'port' => Config::getVar('proxy', 'http_port'),
+			'user' => Config::getVar('proxy', 'proxy_username'),
+			'pass' => Config::getVar('proxy', 'proxy_password'),
+		);
+		if (!empty($proxySettings['host'])) {
+			$requestOptions['http']['proxy'] = $proxySettings['host'] . ((!empty($proxySettings['port'])) ? ':'.$proxySettings['port'] : '');
+			$requestOptions['http']['request_fulluri'] = true;
+			if (!empty($proxySettings['user'])) {
+				$requestOptions['http']['header'] .= 'Proxy-Authorization: Basic ' . base64_encode($proxySettings['user'].':'.$proxySettings['pass']);
+			}
+		}
 
 		$requestContext = stream_context_create($requestOptions);
 		$response = file_get_contents(RECAPTCHA_HOST . RECAPTCHA_PATH, false, $requestContext);

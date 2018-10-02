@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/grid/settings/roles/form/UserGroupFormHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserGroupFormHandler
@@ -46,6 +46,12 @@
 			this.selfRegistrationRoleIds_ = options.selfRegistrationRoleIds;
 		}
 
+		// Set the role IDs for which the recommendOnly checkbox
+		// is relevant.
+		if (options.recommendOnlyRoleIds) {
+			this.recommendOnlyRoleIds_ = options.recommendOnlyRoleIds;
+		}
+
 		this.roleForbiddenStages_ = options.roleForbiddenStagesJSON.content;
 		this.stagesSelector_ = options.stagesSelector;
 
@@ -57,6 +63,11 @@
 		// ...also initialize the stage options, disabling the ones
 		// that are forbidden for the current role.
 		this.updateStageOptions(
+				/** @type {string} */ ($roleId.val()));
+
+		// ...also initialize the recommendOnly option, disabling it
+		// if it is forbidden for the current role.
+		this.updateRecommendOnly(
 				/** @type {string} */ ($roleId.val()));
 
 		// ...and make sure both it's updated when changing roles.
@@ -113,6 +124,9 @@
 
 		// Also update the stages options.
 		this.updateStageOptions(/** @type {string} */ (dropDownValue));
+
+		this.updateRecommendOnly(/** @type {string} */ (dropDownValue));
+
 	};
 
 
@@ -177,6 +191,33 @@
 		} else {
 			$stageContainer.show('slow');
 			$('#showTitle').removeAttr('disabled');
+		}
+	};
+
+
+	/**
+	 * Update the enabled/disabled state of the recommendOnly checkbox.
+	 * @param {number|string} roleId The role ID to select.
+	 */
+	$.pkp.controllers.grid.settings.roles.form.UserGroupFormHandler.prototype.
+			updateRecommendOnly = function(roleId) {
+
+		// JQuerify the element
+		var $checkbox = $('[id^=\'recommendOnly\']', this.getHtmlElement()),
+				i,
+				found = false;
+
+		for (i = 0; i < this.recommendOnlyRoleIds_.length; i++) {
+			if (this.recommendOnlyRoleIds_[i] == roleId) {
+				found = true;
+			}
+		}
+
+		if (found) {
+			$checkbox.removeAttr('disabled');
+		} else {
+			$checkbox.attr('disabled', 'disabled');
+			$checkbox.removeAttr('checked');
 		}
 	};
 

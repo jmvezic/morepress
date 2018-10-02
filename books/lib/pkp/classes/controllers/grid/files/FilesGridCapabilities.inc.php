@@ -3,8 +3,8 @@
 /**
  * @file classes/controllers/grid/files/FilesGridCapabilities.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class FilesGridCapabilities
@@ -97,8 +97,8 @@ class FilesGridCapabilities {
 	 * @return boolean
 	 */
 	function canDownloadAll() {
-		$tarBinary = Config::getVar('cli', 'tar');
-		return $this->_canDownloadAll && !empty($tarBinary) && file_exists($tarBinary);
+		import('lib.pkp.classes.file.FileArchive');
+		return $this->_canDownloadAll && FileArchive::isFunctional();
 	}
 
 	/**

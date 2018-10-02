@@ -6,8 +6,8 @@
 /**
  * @file classes/plugins/importexport/PKPImportExportDeployment.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPImportExportDeployment
@@ -28,10 +28,19 @@ class PKPImportExportDeployment {
 	var $_submission;
 
 	/** @var array The processed import objects IDs */
-	var $_processedObjectsIds;
+	var $_processedObjectsIds = array();
+
+	/** @var array Warnings keyed by object IDs */
+	var $_processedObjectsErrors = array();
+
+	/** @var array Errors keyed by object IDs */
+	var $_processedObjectsWarnings = array();
 
 	/** @var array Connection between the file and revision IDs from the XML import file and the DB file IDs */
 	var $_fileDBIds;
+
+	/** @var string Base path for the import source */
+	var $_baseImportPath = '';
 
 	/**
 	 * Constructor
@@ -131,7 +140,7 @@ class PKPImportExportDeployment {
 	 * @param $assocId integer
 	 */
 	function addProcessedObjectId($assocType, $assocId) {
-		$this->_processedObjectsIds[$assocType][$assocId] = array();
+		$this->_processedObjectsIds[$assocType][] = $assocId;
 	}
 
 	/**
@@ -141,17 +150,51 @@ class PKPImportExportDeployment {
 	 * @param $errorMsg string
 	 */
 	function addError($assocType, $assocId, $errorMsg) {
-		$this->_processedObjectsIds[$assocType][$assocId][] = $errorMsg;
+		$this->_processedObjectsErrors[$assocType][$assocId][] = $errorMsg;
+	}
+
+	/**
+	 * Add the warning message to the processed object ID.
+	 * @param $assocType integer ASSOC_TYPE_...
+	 * @param $assocId integer
+	 * @param $warningMsg string
+	 */
+	function addWarning($assocType, $assocId, $warningMsg) {
+		$this->_processedObjectsWarnings[$assocType][$assocId][] = $warningMsg;
 	}
 
 	/**
 	 * Get the processed objects IDs.
 	 * @param $assocType integer ASSOC_TYPE_...
-	 * @return array Associative array (assoc object Id => array of errors)
+	 * @return array
 	 */
 	function getProcessedObjectsIds($assocType) {
 		if (array_key_exists($assocType, $this->_processedObjectsIds)) {
 			return $this->_processedObjectsIds[$assocType];
+		}
+		return null;
+	}
+
+	/**
+	 * Get the processed objects errors.
+	 * @param $assocType integer ASSOC_TYPE_...
+	 * @return array
+	 */
+	function getProcessedObjectsErrors($assocType) {
+		if (array_key_exists($assocType, $this->_processedObjectsErrors)) {
+			return $this->_processedObjectsErrors[$assocType];
+		}
+		return null;
+	}
+	/**
+	 * Get the processed objects errors.
+	 * @param $assocType integer ASSOC_TYPE_...
+	 * @return array
+	 */
+
+	function getProcessedObjectsWarnings($assocType) {
+		if (array_key_exists($assocType, $this->_processedObjectsWarnings)) {
+			return $this->_processedObjectsWarnings[$assocType];
 		}
 		return null;
 	}
@@ -166,8 +209,10 @@ class PKPImportExportDeployment {
 				$processedSubmisssionsIds = $this->getProcessedObjectsIds(ASSOC_TYPE_SUBMISSION);
 				if (!empty($processedSubmisssionsIds)) {
 					$submissionDao = Application::getSubmissionDAO();
-					foreach ($processedSubmisssionsIds as $submissionId => $errorMessages) {
-						$submissionDao->deleteById($submissionId);
+					foreach ($processedSubmisssionsIds as $submissionId) {
+						if ($submissionId) {
+							$submissionDao->deleteById($submissionId);
+						}
 					}
 				}
 				break;
@@ -238,6 +283,22 @@ class PKPImportExportDeployment {
 	 */
 	function setFileDBId($fileId, $revisionId, $DBId) {
 		return $this->_fileDBIds[$fileId][$revisionId]= $DBId;
+	}
+
+	/**
+	 * Set the directory location for the import source
+	 * @param $path string
+	 */
+	function setImportPath($path) {
+		$this->_baseImportPath = $path;
+	}
+
+	/**
+	 * Get the directory location for the import source
+	 * @return string
+	 */
+	function getImportPath() {
+		return $this->_baseImportPath;
 	}
 }
 

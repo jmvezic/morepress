@@ -6,8 +6,8 @@
 /**
  * @file plugins/metadata/mods34/PKPMods34MetadataPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPMods34MetadataPlugin
@@ -20,13 +20,6 @@
 import('lib.pkp.classes.plugins.MetadataPlugin');
 
 class PKPMods34MetadataPlugin extends MetadataPlugin {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Override protected template methods from Plugin
@@ -50,6 +43,22 @@ class PKPMods34MetadataPlugin extends MetadataPlugin {
 	 */
 	function getDescription() {
 		return __('plugins.metadata.mods34.description');
+	}
+
+	/**
+	 * @copydoc MetadataPlugin::supportsFormat()
+	 */
+	public function supportsFormat($format) {
+		return $format === 'mods34';
+	}
+
+	/**
+	 * @copydoc MetadataPlugin::getSchemaObject()
+	 */
+	public function getSchemaObject($format) {
+		assert($this->supportsFormat($format));
+		import('plugins.metadata.mods34.schema.Mods34Schema');
+		return new Mods34Schema();
 	}
 }
 

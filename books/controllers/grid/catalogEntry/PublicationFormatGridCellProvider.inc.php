@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/catalogEntry/PublicationFormatGridCellProvider.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PublicationFormatGridCellProvider
@@ -23,13 +23,18 @@ class PublicationFormatGridCellProvider extends DataObjectGridCellProvider {
 	/** @var int Submission ID */
 	var $_submissionId;
 
+	/** @var boolean */
+	protected $_canManage;
+
 	/**
 	 * Constructor
 	 * @param $submissionId int Submission ID
+	 * @param $canManage boolean
 	 */
-	function __construct($submissionId) {
+	function __construct($submissionId, $canManage) {
 		parent::__construct();
 		$this->_submissionId = $submissionId;
+		$this->_canManage = $canManage;
 	}
 
 
@@ -122,13 +127,15 @@ class PublicationFormatGridCellProvider extends DataObjectGridCellProvider {
 					if ($remoteURL) {
 						return array();
 					}
+					// If this is just an author account, don't give any actions
+					if (!$this->_canManage) return array();
 					import('lib.pkp.controllers.api.file.linkAction.AddFileLinkAction');
 					import('lib.pkp.controllers.grid.files.fileList.linkAction.SelectFilesLinkAction');
 					AppLocale::requireComponents(LOCALE_COMPONENT_PKP_EDITOR);
 					return array(
 						new AddFileLinkAction(
 							$request, $data->getSubmissionId(), WORKFLOW_STAGE_ID_PRODUCTION,
-							array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT), null, SUBMISSION_FILE_PROOF,
+							array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR, ROLE_ID_ASSISTANT), SUBMISSION_FILE_PROOF,
 							ASSOC_TYPE_REPRESENTATION, $data->getId()
 						),
 						new SelectFilesLinkAction(

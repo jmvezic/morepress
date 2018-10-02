@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/webFeed/WebFeedPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class WebFeedPlugin
@@ -32,11 +32,22 @@ class WebFeedPlugin extends GenericPlugin {
 		return __('plugins.generic.webfeed.description');
 	}
 
-	function register($category, $path) {
-		if (parent::register($category, $path)) {
-			if ($this->getEnabled()) {
+	/**
+	 * @copydoc Plugin::register()
+	 */
+	function register($category, $path, $mainContextId = null) {
+		if (parent::register($category, $path, $mainContextId)) {
+			if ($this->getEnabled($mainContextId)) {
 				HookRegistry::register('TemplateManager::display',array($this, 'callbackAddLinks'));
-				HookRegistry::register('PluginRegistry::loadCategory', array($this, 'callbackLoadCategory'));
+				$this->import('WebFeedBlockPlugin');
+				$blockPlugin = new WebFeedBlockPlugin($this);
+				PluginRegistry::register('blocks', $blockPlugin, $this->getPluginPath());
+
+				$this->import('WebFeedGatewayPlugin');
+				$gatewayPlugin = new WebFeedGatewayPlugin($this);
+				PluginRegistry::register('gateways', $gatewayPlugin, $this->getPluginPath());
+
+				$this->_registerTemplateResource();
 			}
 			return true;
 		}
@@ -57,31 +68,6 @@ class WebFeedPlugin extends GenericPlugin {
 	 */
 	function getTemplatePath($inCore = false) {
 		return parent::getTemplatePath($inCore) . 'templates/';
-	}
-
-	/**
-	 * Register as a block plugin, even though this is a generic plugin.
-	 * This will allow the plugin to behave as a block plugin, i.e. to
-	 * have layout tasks performed on it.
-	 * @param $hookName string
-	 * @param $args array
-	 */
-	function callbackLoadCategory($hookName, $args) {
-		$category =& $args[0];
-		$plugins =& $args[1];
-		switch ($category) {
-			case 'blocks':
-				$this->import('WebFeedBlockPlugin');
-				$blockPlugin = new WebFeedBlockPlugin($this->getName());
-				$plugins[$blockPlugin->getSeq()][$blockPlugin->getPluginPath()] = $blockPlugin;
-				break;
-			case 'gateways':
-				$this->import('WebFeedGatewayPlugin');
-				$gatewayPlugin = new WebFeedGatewayPlugin($this->getName());
-				$plugins[$gatewayPlugin->getSeq()][$gatewayPlugin->getPluginPath()] = $gatewayPlugin;
-				break;
-		}
-		return false;
 	}
 
 	/**

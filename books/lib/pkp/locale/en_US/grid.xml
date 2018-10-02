@@ -4,8 +4,8 @@
 <!--
   * locale/en_US/grid.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Localization strings.
@@ -18,6 +18,7 @@
 	<message key="grid.noAuditors">No Auditors</message>
 	<message key="grid.remotelyHostedItem">This item is remotely hosted.</message>
 
+	<message key="grid.action.uninstall">Uninstall</message>
 	<message key="grid.action.manageAccess">Manage Access</message>
 	<message key="grid.action.sort">Sort</message>
 	<message key="grid.action.addItem">Add Item</message>
@@ -73,7 +74,6 @@
 	<message key="grid.action.sendToProduction">Send this submission to production</message>
 	<message key="grid.action.settings">Settings</message>
 	<message key="grid.action.importexport">Import or export content or site data</message>
-	<message key="grid.action.restoreDefaults">Restore defaults</message>
 	<message key="grid.action.orderItems">Enable ordering mode</message>
 	<message key="grid.action.editSubmissionChecklist">Edit this checklist item</message>
 	<message key="grid.action.deleteSubmissionChecklist">Delete this checklist item</message>
@@ -229,12 +229,8 @@
 	<message key="grid.user.mergeUsers">Merge Users</message>
 	<message key="grid.user.mergeUsers.mergeUser">Merge User</message>
 	<message key="grid.user.mergeUsers.mergeIntoUser">Merge into this User</message>
-	<message key="grid.user.mergeUsers.into.description">Now, you must select a user to whom to attribute the previous user's authorships, editing assignments, etc.</message>
-	<message key="grid.user.mergeUsers.from.description">Select a user to merge into another user account (e.g., when someone has two user accounts). The account selected first will be deleted and its submissions, assignments, etc. will be attributed to the second account.</message>
 	<message key="grid.user.mergeUsers.allUsers">All Enrolled Users</message>
-	<message key="grid.user.mergeUsers.mergeUserSelect.confirm">Are you sure you wish to merge this user with another one?  You will choose the next user on the following screen.</message>
 	<message key="grid.user.mergeUsers.confirm">Are you sure you wish to merge the account with the username "{$oldUsername}" into the account with the username "{$newUsername}"? The account with the username "{$oldUsername}" will not exist afterwards. This action is not reversible.</message>
-	<message key="grid.user.mergeUsers.noneEnrolled">No users exist with that role.</message>
 
 	<!-- Prepared emails -->
 	<message key="grid.preparedEmails.title">Prepared Email Templates</message>
@@ -269,4 +265,11 @@
 	<!-- Submission list grids -->
 	<message key="grid.submission.itemTitle">Author; Title</message>
 	<message key="grid.submission.active.selectOrphaned">Include incomplete submissions not submitted by an author.</message>
+
+	<!-- Navigation Menus -->
+	<message key="grid.action.addNavigationMenu">Add Menu</message>
+	<message key="grid.action.addNavigationMenuItem">Add item</message>
+	<message key="grid.navigationMenus.navigationMenuItems.noneExist">No Navigation Menu Items</message>
+	<message key="grid.navigationMenus.navigationMenu.noneExist">No Navigation Menus</message>
+	<message key="grid.navigationMenus.navigationMenu.selectType">Choose a type...</message>
 </locale>

@@ -3,8 +3,8 @@
 /**
  * @file pages/manageCatalog/ManageCatalogHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ManageCatalogHandler
@@ -67,6 +67,15 @@ class ManageCatalogHandler extends Handler {
 	function index($args, $request) {
 		// Render the view.
 		$templateMgr = TemplateManager::getManager($request);
+
+		// Catalog list
+		import('controllers.list.submissions.CatalogSubmissionsListHandler');
+		$catalogListHandler = new CatalogSubmissionsListHandler(array(
+			'title' => 'submission.list.monographs',
+		));
+		$templateMgr->assign('catalogListData', json_encode($catalogListHandler->getConfig()));
+
+
 		return $templateMgr->display('manageCatalog/index.tpl');
 	}
 }

@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/form/PKPSubmissionSubmitStep3Form.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPSubmissionSubmitStep3Form
@@ -32,6 +32,7 @@ class PKPSubmissionSubmitStep3Form extends SubmissionSubmitForm {
 	function __construct($context, $submission, $metadataFormImplementation) {
 		parent::__construct($context, $submission, 3);
 
+		$this->setDefaultFormLocale($submission->getLocale());
 		$this->_metadataFormImplem = $metadataFormImplementation;
 		$this->_metadataFormImplem->addChecks($submission);
 	}
@@ -54,7 +55,7 @@ class PKPSubmissionSubmitStep3Form extends SubmissionSubmitForm {
 
 		// Tell the form what fields are enabled (and which of those are required)
 		foreach (array_keys(MetadataGridHandler::getNames()) as $field) {
-			$templateMgr->assign($a = array(
+			$templateMgr->assign(array(
 				$field . 'Enabled' => $context->getSetting($field . 'EnabledSubmission'),
 				$field . 'Required' => $context->getSetting($field . 'Required')
 			));

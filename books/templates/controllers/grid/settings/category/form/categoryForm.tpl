@@ -1,8 +1,8 @@
 {**
  * templates/controllers/grid/settings/category/form/categoryForm.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Form to edit or create a category
@@ -21,7 +21,7 @@
 					baseUrl: {$baseUrl|json_encode},
 					filters: {ldelim}
 						mime_types : [
-							{ldelim} title : "Image files", extensions : "jpg,jpeg,png" {rdelim}
+							{ldelim} title : "Image files", extensions : "jpg,jpeg,png,svg" {rdelim}
 						]
 					{rdelim}
 				{rdelim}
@@ -74,8 +74,8 @@
 			{/fbvFormSection}
 		{/if}
 
+		<p><span class="formRequired">{translate key="common.requiredField"}</span></p>
 		{fbvFormButtons}
 
 	{/fbvFormArea}
 </form>
-<p><span class="formRequired">{translate key="common.requiredField"}</span></p>

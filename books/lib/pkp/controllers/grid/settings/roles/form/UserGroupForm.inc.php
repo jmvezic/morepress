@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/settings/roles/form/UserGroupForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserGroupForm
@@ -102,6 +102,7 @@ class UserGroupForm extends Form {
 				'assignedStages' => array_keys($assignedStages),
 				'showTitle' => $userGroup->getShowTitle(),
 				'permitSelfRegistration' => $userGroup->getPermitSelfRegistration(),
+				'recommendOnly' => $userGroup->getRecommendOnly(),
 			);
 			foreach ($data as $field => $value) {
 				$this->setData($field, $value);
@@ -113,7 +114,7 @@ class UserGroupForm extends Form {
 	 * @copydoc Form::readInputData()
 	 */
 	function readInputData() {
-		$this->readUserVars(array('roleId', 'name', 'abbrev', 'assignedStages', 'showTitle', 'permitSelfRegistration'));
+		$this->readUserVars(array('roleId', 'name', 'abbrev', 'assignedStages', 'showTitle', 'permitSelfRegistration', 'recommendOnly'));
 	}
 
 	/**
@@ -123,13 +124,14 @@ class UserGroupForm extends Form {
 		$templateMgr = TemplateManager::getManager($request);
 
 		$roleDao = DAORegistry::getDAO('RoleDAO');
-		$templateMgr->assign('roleOptions', $roleDao->getRoleNames(true));
+		$templateMgr->assign('roleOptions', Application::getRoleNames(true));
 
 		// Users can't edit the role once user group is created.
 		// userGroupId is 0 for new User Groups because it is cast to int in UserGroupGridHandler.
 		$disableRoleSelect = ($this->getUserGroupId() > 0) ? true : false;
 		$templateMgr->assign('disableRoleSelect', $disableRoleSelect);
 		$templateMgr->assign('selfRegistrationRoleIds', $this->getPermitSelfRegistrationRoles());
+		$templateMgr->assign('recommendOnlyRoleIds', $this->getRecommendOnlyRoles());
 
 		return parent::fetch($request);
 	}
@@ -143,11 +145,20 @@ class UserGroupForm extends Form {
 	}
 
 	/**
+	 * Get a list of roles optionally permitting recommendOnly option.
+	 * @return array
+	 */
+	function getRecommendOnlyRoles() {
+		return array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR);
+	}
+
+	/**
 	 * @copydoc Form::execute()
 	 */
 	function execute($request) {
 		$userGroupId = $this->getUserGroupId();
 		$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
+		$roleDao = DAORegistry::getDAO('RoleDAO');
 
 		// Check if we are editing an existing user group or creating another one.
 		if ($userGroupId == null) {
@@ -157,6 +168,7 @@ class UserGroupForm extends Form {
 			$userGroup->setDefault(false);
 			$userGroup->setShowTitle($this->getData('showTitle'));
 			$userGroup->setPermitSelfRegistration($this->getData('permitSelfRegistration') && in_array($userGroup->getRoleId(), $this->getPermitSelfRegistrationRoles()));
+			$userGroup->setRecommendOnly($this->getData('recommendOnly') && in_array($userGroup->getRoleId(), $this->getRecommendOnlyRoles()));
 			$userGroup = $this->_setUserGroupLocaleFields($userGroup, $request);
 			$userGroupId = $userGroupDao->insertObject($userGroup);
 		} else {
@@ -164,12 +176,16 @@ class UserGroupForm extends Form {
 			$userGroup = $this->_setUserGroupLocaleFields($userGroup, $request);
 			$userGroup->setShowTitle($this->getData('showTitle'));
 			$userGroup->setPermitSelfRegistration($this->getData('permitSelfRegistration') && in_array($userGroup->getRoleId(), $this->getPermitSelfRegistrationRoles()));
+			$userGroup->setRecommendOnly($this->getData('recommendOnly') && in_array($userGroup->getRoleId(), $this->getRecommendOnlyRoles()));
 			$userGroupDao->updateObject($userGroup);
 		}
 
 		// After we have created/edited the user group, we assign/update its stages.
-		if ($this->getData('assignedStages')) {
-			$this->_assignStagesToUserGroup($userGroupId, $this->getData('assignedStages'));
+		$assignedStages = $this->getData('assignedStages');
+		// Always set all stages active for some permission levels.
+		if (in_array($userGroup->getRoleId(), $roleDao->getAlwaysActiveStages())) $assignedStages = array_keys(WorkflowStageDAO::getWorkflowStageTranslationKeys());
+		if ($assignedStages) {
+			$this->_assignStagesToUserGroup($userGroupId, $assignedStages);
 		}
 	}
 
@@ -196,11 +212,11 @@ class UserGroupForm extends Form {
 		foreach ($userAssignedStages as $stageId) {
 
 			// Make sure we don't assign forbidden stages based on
-			// user groups role id.
+			// user groups role id. Override in case of some permission levels.
 			$roleId = $this->getData('roleId');
 			$roleDao = DAORegistry::getDAO('RoleDAO'); /* @var $roleDao RoleDAO */
 			$forbiddenStages = $roleDao->getForbiddenStages($roleId);
-			if (in_array($stageId, $forbiddenStages)) {
+			if (in_array($stageId, $forbiddenStages) && !in_array($roleId, $roleDao->getAlwaysActiveStages())) {
 				continue;
 			}
 

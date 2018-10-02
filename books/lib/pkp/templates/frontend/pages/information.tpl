@@ -1,8 +1,8 @@
 {**
  * templates/frontend/pages/information.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Information page.
@@ -14,6 +14,8 @@
 
 <div class="page page_information">
 	{include file="frontend/components/breadcrumbs.tpl" currentTitleKey=$pageTitle}
+	{include file="frontend/components/editLink.tpl" page="management" op="settings" path="website" anchor="information" sectionTitleKey="manager.website.information"}
+
 	<div class="description">
 		{$content}
 	</div>

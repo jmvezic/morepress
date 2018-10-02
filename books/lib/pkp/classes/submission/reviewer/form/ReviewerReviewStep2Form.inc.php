@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/reviewer/form/ReviewerReviewStep2Form.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewerReviewStep2Form
@@ -52,6 +52,8 @@ class ReviewerReviewStep2Form extends ReviewerReviewForm {
 	function execute() {
 		// Set review to next step.
 		$this->updateReviewStepAndSaveSubmission($this->getReviewerSubmission());
+
+		parent::execute();
 	}
 
 }

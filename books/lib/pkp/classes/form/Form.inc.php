@@ -10,8 +10,8 @@
 /**
  * @file classes/form/Form.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Form
@@ -79,6 +79,9 @@ class Form {
 	/** @var array Set of supported locales */
 	var $supportedLocales;
 
+	/** @var string Default form locale */
+	var $defaultLocale;
+
 	/**
 	 * Constructor.
 	 * @param $template string the path to the form template file
@@ -89,6 +92,8 @@ class Form {
 		$this->requiredLocale = $requiredLocale;
 		if ($supportedLocales === null) $supportedLocales = AppLocale::getSupportedFormLocales();
 		$this->supportedLocales = $supportedLocales;
+
+		$this->defaultLocale = AppLocale::getLocale();
 
 		$this->_template = $template;
 		$this->_data = array();
@@ -161,7 +166,6 @@ class Form {
 		// Set custom template.
 		if (!is_null($template)) $this->_template = $template;
 
-
 		// Call hooks based on the calling entity, assuming
 		// this method is only called by a subclass. Results
 		// in hook calls named e.g. "papergalleyform::display"
@@ -179,23 +183,26 @@ class Form {
 		$fbv = $templateMgr->getFBV();
 		$fbv->setForm($this);
 
-		$templateMgr->assign($this->_data);
-		$templateMgr->assign('isError', !$this->isValid());
-		$templateMgr->assign('errors', $this->getErrorsArray());
+		$templateMgr->assign(array_merge(
+			$this->_data,
+			array(
+				'isError' => !$this->isValid(),
+				'errors' => $this->getErrorsArray(),
+				'formLocales' => $this->supportedLocales,
+				'formLocale' => $this->getFormLocale(),
+			)
+		));
 
 		$templateMgr->register_function('form_language_chooser', array($this, 'smartyFormLanguageChooser'));
-		$templateMgr->assign('formLocales', $this->supportedLocales);
+		if ($display) {
+			$templateMgr->display($this->_template);
+			$returner = null;
+		} else {
+			$returner = $templateMgr->fetch($this->_template);
+		}
 
-		// Determine the current locale to display fields with
-		$templateMgr->assign('formLocale', $this->getFormLocale());
-
-		// N.B: We have to call $templateMgr->display instead of ->fetch($display)
-		// in order for the TemplateManager::display hook to be called
-		$returner = $templateMgr->display($this->_template, null, null, $display);
-
-		// Need to reset the FBV's form in case the template manager does another fetch on a template that is not within a form.
-		$nullVar = null;
-		$fbv->setForm($nullVar);
+		// Reset the FBV's form in case template manager fetches another template not within a form.
+		$fbv->setForm(null);
 
 		return $returner;
 	}
@@ -210,13 +217,17 @@ class Form {
 	}
 
 	/**
-	 * Set the value of a form field.
-	 * @param $key
-	 * @param $value
+	 * Set the value of one or several form fields.
+	 * @param $key string|array If a string, then set a single field. If an associative array, then set many.
+	 * @param $value mixed
 	 */
-	function setData($key, $value) {
-		if (is_string($value)) $value = Core::cleanVar($value);
-		$this->_data[$key] = $value;
+	function setData($key, $value = null) {
+		if (is_array($key)) foreach($key as $aKey => $aValue) {
+			$this->setData($aKey, $aValue);
+		} else {
+			if (is_string($value)) $value = Core::cleanVar($value);
+			$this->_data[$key] = $value;
+		}
 	}
 
 	/**
@@ -295,17 +306,16 @@ class Form {
 	/**
 	 * Execute the form's action.
 	 * (Note that it is assumed that the form has already been validated.)
-	 * @param $object object The object edited by this form.
-	 * @return $object The same object, potentially changed via hook.
 	 */
-	function execute($object = null) {
+	function execute() {
 		// Call hooks based on the calling entity, assuming
 		// this method is only called by a subclass. Results
 		// in hook calls named e.g. "papergalleyform::execute"
 		// Note that class and function names are always lower
 		// case.
-		HookRegistry::call(strtolower_codesafe(get_class($this) . '::execute'), array($this, &$object));
-		return $object;
+		$returner = null;
+		HookRegistry::call(strtolower_codesafe(get_class($this) . '::execute'), array_merge(array($this), func_get_args(), array(&$returner)));
+		return $returner;
 	}
 
 	/**
@@ -338,9 +348,17 @@ class Form {
 	 * @return string
 	 */
 	function getDefaultFormLocale() {
-		$formLocale = AppLocale::getLocale();
+		$formLocale = $this->defaultLocale;
 		if (!isset($this->supportedLocales[$formLocale])) $formLocale = $this->requiredLocale;
 		return $formLocale;
+	}
+
+	/**
+	 * Set the default form locale.
+	 * @param $defaultLocale string
+	 */
+	function setDefaultFormLocale($defaultLocale) {
+		$this->defaultLocale = $defaultLocale;
 	}
 
 	/**
@@ -368,22 +386,6 @@ class Form {
 		HookRegistry::call(strtolower_codesafe(get_class($this) . '::readUserVars'), array($this, &$vars));
 		foreach ($vars as $k) {
 			$this->setData($k, Request::getUserVar($k));
-		}
-	}
-
-	/**
-	 * Adds specified user date variables to input data.
-	 * @param $vars array the names of the date variables to read
-	 */
-	function readUserDateVars($vars) {
-		// Call hooks based on the calling entity, assuming
-		// this method is only called by a subclass. Results
-		// in hook calls named e.g. "papergalleyform::readUserDateVars"
-		// Note that class and function names are always lower
-		// case.
-		HookRegistry::call(strtolower_codesafe(get_class($this) . '::readUserDateVars'), array($this, &$vars));
-		foreach ($vars as $k) {
-			$this->setData($k, Request::getUserDateVar($k));
 		}
 	}
 

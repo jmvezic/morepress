@@ -3,8 +3,8 @@
 /**
  * @file includes/functions.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @ingroup index
@@ -246,9 +246,11 @@ function &instantiate($fullyQualifiedClassName, $expectedTypes = null, $expected
  * @param $array array
  * @return array
  */
-function arrayClean(&$array) {
+function arrayClean($array) {
 	if (!is_array($array)) return null;
-	return array_filter($array, create_function('$o', 'return !empty($o);'));
+	return array_filter($array, function($o) {
+		return !empty($o);
+	});
 }
 
 
@@ -291,5 +293,40 @@ function cygwinConversion($path) {
 		$path = PKPString::regexp_replace('/^[A-Z]:/i', '/cygdrive/' . strtolower($matches[1]), $path);
 	}
 	return $path;
+}
+
+/**
+ * Helper function to define custom autoloader 
+ * @param string $rootPath
+ * @param string $prefix
+ * @param string $class
+ * 
+ * @return void
+ */
+function customAutoload($rootPath, $prefix, $class) {
+	if (substr($class, 0, strlen($prefix)) !== $prefix) {
+		return;
+	}
+
+	$class = substr($class, strlen($prefix));
+	$parts = explode('\\', $class);
+
+	// we expect at least one folder in the namespace
+	// there is no class defined directly under classes/ folder
+	if (count($parts) < 2) {
+		return;
+	}
+
+	$className = Core::cleanFileVar(array_pop($parts));
+	$parts = array_map(function($part) {
+		return lcfirst(Core::cleanFileVar($part));
+	}, $parts);
+
+	$subParts = join('/', $parts);
+	$filePath = "{$rootPath}/{$subParts}/{$className}.inc.php";
+
+	if (is_file($filePath)) {
+		require_once($filePath);
+	}
 }
 ?>

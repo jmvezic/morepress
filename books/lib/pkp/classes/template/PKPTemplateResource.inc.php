@@ -3,8 +3,8 @@
 /**
  * @file classes/template/PKPTemplateResource.inc.php
  *
- * Copyright (c) 2016-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2016-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPTemplateResource
@@ -43,7 +43,7 @@ class PKPTemplateResource {
 	 * @return boolean
 	 */
 	function fetchTimestamp($template, &$templateTimestamp, $smarty) {
-		$filename = $this->_getFilename($name);
+		$filename = $this->_getFilename($template);
 		if (!file_exists($filename)) return false;
 		$templateTimestamp = filemtime($filename);
 		return true;
@@ -55,7 +55,9 @@ class PKPTemplateResource {
 	 * @return string
 	 */
 	protected function _getFilename($template) {
-		return $this->templateDir . DIRECTORY_SEPARATOR . $template;
+		$filePath = $this->templateDir . DIRECTORY_SEPARATOR . $template;
+		HookRegistry::call('TemplateResource::getFilename', array(&$filePath, $template));
+		return $filePath;
 	}
 
 	/**

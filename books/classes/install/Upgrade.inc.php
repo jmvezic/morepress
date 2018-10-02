@@ -3,8 +3,8 @@
 /**
  * @file classes/install/Upgrade.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Upgrade
@@ -548,6 +548,36 @@ class Upgrade extends Installer {
 		$signoffsResult->Close();
 
 		$submissionFileDao->update('DELETE FROM signoffs WHERE signoff_id=?', array($signoffId));
+	}
+
+	/**
+	 * If StaticPages table exists we should port the data as NMIs
+	 * @return boolean
+	 */
+	function migrateStaticPagesToNavigationMenuItems() {
+		if ($this->tableExists('static_pages')) {
+			$contextDao = Application::getContextDAO();
+			$navigationMenuItemDao = DAORegistry::getDAO('NavigationMenuItemDAO');
+
+			import('plugins.generic.staticPages.classes.StaticPagesDAO');
+
+			$staticPagesDao = new StaticPagesDAO();
+
+			$contexts = $contextDao->getAll();
+			while ($context = $contexts->next()) {
+				$contextStaticPages = $staticPagesDao->getByContextId($context->getId())->toAssociativeArray();
+				foreach($contextStaticPages as $staticPage) {
+					$retNMIId = $navigationMenuItemDao->portStaticPage($staticPage);
+					if ($retNMIId) {
+						$staticPagesDao->deleteById($staticPage->getId());
+					} else {
+						error_log('WARNING: The StaticPage "' . $staticPage->getLocalizedTitle() . '" uses a path (' . $staticPage->getPath() . ') that conflicts with an existing Custom Navigation Menu Item path. Skipping this StaticPage.');
+					}
+				}
+			}
+		}
+
+		return true;
 	}
 }
 

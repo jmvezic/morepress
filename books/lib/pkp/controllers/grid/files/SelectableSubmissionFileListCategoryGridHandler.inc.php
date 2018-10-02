@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/files/SelectableSubmissionFileListCategoryGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SelectableSubmissionFileListCategoryGridHandler
@@ -186,7 +186,7 @@ class SelectableSubmissionFileListCategoryGridHandler extends CategoryGridHandle
 			$this->addAction($dataProvider->getAddFileAction($request));
 		}
 
-		// Test whether the tar binary is available for the export to work, if so, add 'download all' grid action
+		// Test whether an archive tool is available for the export to work, if so, add 'download all' grid action
 		if ($capabilities->canDownloadAll() && $this->hasGridDataElements($request)) {
 			$submission = $this->getSubmission();
 			$stageId = $this->getStageId();

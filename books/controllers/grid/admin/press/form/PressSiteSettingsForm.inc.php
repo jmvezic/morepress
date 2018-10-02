@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/admin/press/form/PressSiteSettingsForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PressSiteSettingsForm
@@ -26,9 +26,9 @@ class PressSiteSettingsForm extends ContextSiteSettingsForm {
 
 	/**
 	 * Save press settings.
-	 * @param $request PKPRequest
 	 */
-	function execute($request) {
+	function execute() {
+		$request = Application::getRequest();
 		$pressDao = DAORegistry::getDAO('PressDAO');
 
 		if (isset($this->contextId)) {
@@ -102,8 +102,13 @@ class PressSiteSettingsForm extends ContextSiteSettingsForm {
 				'ldelim' => '{', // Used to add variables to settings without translating now
 				'rdelim' => '}',
 			));
+
+			$press->updateSetting('supportedLocales', $site->getSupportedLocales());
+
+			// load default navigationMenus.
+			$this->_loadDefaultNavigationMenus($press->getId());
+
 		}
-		$press->updateSetting('supportedLocales', $site->getSupportedLocales());
 		$press->updateSetting('name', $this->getData('name'), 'string', true);
 		$press->updateSetting('description', $this->getData('description'), 'string', true);
 

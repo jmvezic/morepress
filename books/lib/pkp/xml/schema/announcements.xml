@@ -4,8 +4,8 @@
 <!--
   * xml/schema/announcements.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Announcements schema in XML.
@@ -44,7 +44,7 @@
 		<field name="type_id" type="I8">
 			<NOTNULL />
 		</field>
-		<field name="locale" type="C2" size="5">
+		<field name="locale" type="C2" size="14">
 			<NOTNULL />
 			<DEFAULT VALUE=""/>
 		</field>
@@ -104,7 +104,7 @@
 		<field name="announcement_id" type="I8">
 			<NOTNULL />
 		</field>
-		<field name="locale" type="C2" size="5">
+		<field name="locale" type="C2" size="14">
 			<NOTNULL />
 			<DEFAULT VALUE=""/>
 		</field>

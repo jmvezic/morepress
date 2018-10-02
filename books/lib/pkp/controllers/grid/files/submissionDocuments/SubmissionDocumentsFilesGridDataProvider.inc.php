@@ -2,8 +2,8 @@
 /**
  * @file controllers/grid/files/submissionDocuments/SubmissionDocumentsFilesGridDataProvider.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionDocumentsFilesGridDataProvider
@@ -15,13 +15,6 @@
 import('lib.pkp.classes.controllers.grid.CategoryGridDataProvider');
 
 class SubmissionDocumentsFilesGridDataProvider extends CategoryGridDataProvider {
-
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * @copydoc GridDataProvider::getAuthorizationPolicy()

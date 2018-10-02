@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/users/PKPUserImportExportPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserImportExportPlugin
@@ -16,22 +16,12 @@
 import('lib.pkp.classes.plugins.ImportExportPlugin');
 
 abstract class PKPUserImportExportPlugin extends ImportExportPlugin {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
-	 * Called as a plugin is registered to the registry
-	 * @param $category String Name of category plugin was registered to
-	 * @param $path string
-	 * @return boolean True iff plugin initialized successfully; if false,
-	 * 	the plugin will not be registered.
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		$success = parent::register($category, $path);
+	function register($category, $path, $mainContextId = null) {
+		$success = parent::register($category, $path, $mainContextId);
 		$this->addLocaleData();
 		$this->import('PKPUserImportExportDeployment');
 		return $success;
@@ -128,7 +118,9 @@ abstract class PKPUserImportExportPlugin extends ImportExportPlugin {
 				$temporaryFilePath = $temporaryFile->getFilePath();
 				libxml_use_internal_errors(true);
 				$users = $this->importUsers(file_get_contents($temporaryFilePath), $context, $user);
-				$validationErrors = array_filter(libxml_get_errors(), create_function('$a', 'return $a->level == LIBXML_ERR_ERROR ||  $a->level == LIBXML_ERR_FATAL;'));
+				$validationErrors = array_filter(libxml_get_errors(), function($a) {
+					return $a->level == LIBXML_ERR_ERROR || $a->level == LIBXML_ERR_FATAL;
+				});
 				$templateMgr->assign('validationErrors', $validationErrors);
 				libxml_clear_errors();
 				$templateMgr->assign('users', $users);
@@ -152,8 +144,8 @@ abstract class PKPUserImportExportPlugin extends ImportExportPlugin {
 					$request->getContext(),
 					$request->getUser()
 				);
-				import('lib.pkp.classes.file.TemporaryFileManager');
-				$fileManager = new TemporaryFileManager();
+				import('lib.pkp.classes.file.FileManager');
+				$fileManager = new FileManager();
 				$exportFileName = $this->getExportFileName($this->getExportPath(), 'users', $context, '.xml');
 				$fileManager->writeFile($exportFileName, $exportXml);
 				$fileManager->downloadFile($exportFileName);

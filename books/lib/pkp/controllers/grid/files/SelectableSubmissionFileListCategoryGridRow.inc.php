@@ -2,8 +2,8 @@
 /**
  * @file controllers/grid/files/SelectableSubmissionFileListCategoryGridRow.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SelectableSubmissionFileListCategoryGridRow
@@ -15,13 +15,6 @@
 import('lib.pkp.classes.controllers.grid.GridCategoryRow');
 
 class SelectableSubmissionFileListCategoryGridRow extends GridCategoryRow {
-
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	//
 	// Overridden methods from GridCategoryRow

@@ -4,8 +4,8 @@
 <!--
   * @file plugins/pubIds/doi/locale/pt_BR/locale.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University Library
-  * Copyright (c) 2003-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2003-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   * Locale information: https://pkp.sfu.ca/wiki/index.php?title=OMP:_Portuguese_(pt_BR)
   * DOI plugin localization strings
@@ -13,6 +13,7 @@
  
 <locale name="pt_BR" full_name="Português (Brasil)">
 	<message key="plugins.pubIds.doi.displayName">DOI</message>
+	<message key="plugins.pubIds.doi.readerDisplayName">DOI:</message>
 
 	<!-- settings form -->
 	<message key="plugins.pubIds.doi.manager.settings.description">Por favor, configure o plug-in DOI para ser capaz de gerir e utilizar DOIs no OMP:</message>

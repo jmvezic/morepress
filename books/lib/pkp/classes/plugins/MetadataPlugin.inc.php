@@ -3,8 +3,8 @@
 /**
  * @file classes/plugins/MetadataPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MetadataPlugin
@@ -20,22 +20,15 @@ import('lib.pkp.classes.plugins.Plugin');
 define('METADATA_PLUGIN_VOCAB_DATAFILE', 'controlledVocabs.xml');
 
 abstract class MetadataPlugin extends Plugin {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Override public methods from Plugin
 	//
 	/**
-	 * @see Plugin::register()
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		if (!parent::register($category, $path)) return false;
+	function register($category, $path, $mainContextId = null) {
+		if (!parent::register($category, $path, $mainContextId)) return false;
 		$this->addLocaleData();
 		return true;
 	}
@@ -61,6 +54,23 @@ abstract class MetadataPlugin extends Plugin {
 		}
 		return $controlledVocabFiles;
 	}
+
+	/**
+	 * Get a unique id for this metadata format
+	 *
+	 * @param $format string The format to check for support.
+	 * @return string
+	 */
+	abstract function supportsFormat($format);
+
+	/**
+	 * Instantiate and return the schema object for this metadata format
+	 *
+	 * @param $format string The format to return the schema object for in case
+	 *  the plugin supports multiple formats.
+	 * @return mixed
+	 */
+	abstract function getSchemaObject($format);
 }
 
 ?>

@@ -1,8 +1,8 @@
 {**
  * templates/editStaticPageForm.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Form for editing a static page
@@ -20,7 +20,7 @@
 	{rdelim});
 </script>
 
-{url|assign:actionUrl router=$smarty.const.ROUTE_COMPONENT component="plugins.generic.staticPages.controllers.grid.StaticPageGridHandler" op="updateStaticPage" existingPageName=$blockName escape=false}
+{capture assign=actionUrl}{url router=$smarty.const.ROUTE_COMPONENT component="plugins.generic.staticPages.controllers.grid.StaticPageGridHandler" op="updateStaticPage" existingPageName=$blockName escape=false}{/capture}
 <form class="pkp_form" id="staticPageForm" method="post" action="{$actionUrl}">
 	{csrf}
 	{if $staticPageId}
@@ -29,10 +29,10 @@
 	{fbvFormArea id="staticPagesFormArea" class="border"}
 		{fbvFormSection}
 			{fbvElement type="text" label="plugins.generic.staticPages.path" id="path" value=$path maxlength="40" inline=true size=$fbvStyles.size.MEDIUM}
-			{fbvElement type="text" label="plugins.generic.staticPages.pageTitle" id="title" value=$title maxlength="80" inline=true multilingual=true size=$fbvStyles.size.MEDIUM}
+			{fbvElement type="text" label="plugins.generic.staticPages.pageTitle" id="title" value=$title maxlength="255" inline=true multilingual=true size=$fbvStyles.size.MEDIUM}
 		{/fbvFormSection}
 		{fbvFormSection}
-			{url|replace:"REPLACEME":"%PATH%"|assign:"exampleUrl" router=$smarty.const.ROUTE_PAGE context=$currentContext->getPath() page="REPLACEME"}
+			{capture assign="exampleUrl"}{url|replace:"REPLACEME":"%PATH%" router=$smarty.const.ROUTE_PAGE context=$currentContext->getPath() page="REPLACEME"}{/capture}
 			{translate key="plugins.generic.staticPages.viewInstructions" pagesPath=$exampleUrl}
 		{/fbvFormSection}
 		{fbvFormSection label="plugins.generic.staticPages.content" for="content"}

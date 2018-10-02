@@ -3,8 +3,8 @@
 /**
  * @file classes/log/SubmissionFileEventLogEntry.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionFileEventLogEntry
@@ -30,12 +30,6 @@ define('SUBMISSION_LOG_FILE_AUDIT_UPLOAD', 		0x50000006);
 define('SUBMISSION_LOG_FILE_SIGNOFF_SIGNOFF', 	0x50000007);
 
 class SubmissionFileEventLogEntry extends EventLogEntry {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Set the associated file ID.

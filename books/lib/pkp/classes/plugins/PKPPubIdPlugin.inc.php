@@ -3,8 +3,8 @@
 /**
  * @file classes/plugins/PKPPubIdPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPPubIdPlugin
@@ -17,23 +17,15 @@ import('lib.pkp.classes.plugins.Plugin');
 
 abstract class PKPPubIdPlugin extends LazyLoadPlugin {
 
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
-
 	//
 	// Implement template methods from Plugin
 	//
 	/**
 	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		if (!parent::register($category, $path)) return false;
-		if ($this->getEnabled()) {
+	function register($category, $path, $mainContextId = null) {
+		if (!parent::register($category, $path, $mainContextId)) return false;
+		if ($this->getEnabled($mainContextId)) {
 			// Enable storage of additional fields.
 			foreach($this->getDAOs() as $publicObjectType => $dao) {
 				HookRegistry::register(strtolower_codesafe(get_class($dao)).'::getAdditionalFieldNames', array($this, 'getAdditionalFieldNames'));
@@ -95,7 +87,6 @@ abstract class PKPPubIdPlugin extends LazyLoadPlugin {
 				if (!$request->checkCSRF()) return new JSONMessage(false);
 				$contextDao = Application::getContextDAO();
 				$contextDao->deleteAllPubIds($context->getId(), $this->getPubIdType());
-				$notificationManager->createTrivialNotification($user->getId(), NOTIFICATION_TYPE_SUCCESS);
 				return new JSONMessage(true);
 			default:
 				$form->initData();
@@ -408,10 +399,6 @@ abstract class PKPPubIdPlugin extends LazyLoadPlugin {
 	 * Set and store a public identifier.
 	 * @param $pubObject object
 	 * @param $pubId string
-	 * @return string
-	 *
-	 * This function is currently only used in the pubId import/export plugin.
-	 * After the migration of that plugin, check if this function is still needed.
 	 */
 	function setStoredPubId(&$pubObject, $pubId) {
 		$dao = $pubObject->getDAO();

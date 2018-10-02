@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/settings/user/form/UserRoleForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class UserRoleForm
@@ -44,7 +44,7 @@ class UserRoleForm extends UserForm {
 			'userId' => $this->userId,
 			'userFullName' => $this->_userFullName,
 		));
-		return $this->fetch($request);
+		return parent::display($args, $request);
 	}
 
 	/**
@@ -53,7 +53,7 @@ class UserRoleForm extends UserForm {
 	 * @param $request PKPRequest
 	 */
 	function execute($args, $request) {
-		parent::execute($request);
+		parent::execute($args, $request);
 
 		// Role management handled by parent form, just return user.
 		$userDao = DAORegistry::getDAO('UserDAO');

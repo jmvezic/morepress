@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/users/author/form/AuthorForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class AuthorForm
@@ -193,7 +193,8 @@ class AuthorForm extends Form {
 		$author = $this->getAuthor();
 		if (!$author) {
 			// this is a new submission contributor
-			$author = new Author();
+			$this->_author = new Author();
+			$author = $this->getAuthor();
 			$author->setSubmissionId($submission->getId());
 			$existingAuthor = false;
 		} else {

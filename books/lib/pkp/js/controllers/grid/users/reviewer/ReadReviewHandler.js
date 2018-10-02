@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/grid/users/reviewer/ReadReviewHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReadReviewHandler
@@ -14,12 +14,6 @@
  * @brief Handle the advanced reviewer search tab in the add reviewer modal.
  */
 (function($) {
-
-	/** @type {Object} */
-	$.pkp.controllers.grid.users.reviewer =
-			$.pkp.controllers.grid.users.reviewer ||
-			{ };
-
 
 
 	/**
@@ -100,7 +94,7 @@
 			prototype.showWarning_ = function() {
 		this.getHtmlElement().find('#noFilesWarning').show(250);
 	};
-	
+
 
 /** @param {jQuery} $ jQuery closure. */
 }(jQuery));

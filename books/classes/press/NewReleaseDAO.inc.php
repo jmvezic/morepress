@@ -3,8 +3,8 @@
 /**
  * @file classes/press/NewReleaseDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class NewReleaseDAO
@@ -158,6 +158,30 @@ class NewReleaseDAO extends DAO {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Return the monograph's new release settings in all assoc types
+	 *
+	 * @param $monographId int The monograph ID to get the new release state
+	 * @return array
+	 */
+	function getNewReleaseAll($monographId) {
+		$result = $this->retrieve(
+			'SELECT assoc_type, assoc_id FROM new_releases WHERE submission_id = ?',
+			array((int) $monographId)
+		);
+
+		$newRelease = array();
+		while (!$result->EOF) {
+			$newRelease[] = array(
+				'assoc_type' => (int) $result->fields['assoc_type'],
+				'assoc_id' => (int) $result->fields['assoc_id'],
+			);
+			$result->MoveNext();
+		}
+
+		return $newRelease;
 	}
 }
 

@@ -3,8 +3,8 @@
 /**
  * @file classes/handler/PKPHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @package core
@@ -40,6 +40,12 @@ class PKPHandler {
 	/** @var AuthorizationDecisionManager authorization decision manager for this handler */
 	var $_authorizationDecisionManager;
 
+	/** @var boolean Whether to enforce site access restrictions. */
+	var $_enforceRestrictedSite = true;
+
+	/** @var boolean Whether role assignments have been checked. */
+	var $_roleAssignmentsChecked = false;
+
 	/**
 	 * Constructor
 	 */
@@ -49,6 +55,10 @@ class PKPHandler {
 	//
 	// Setters and Getters
 	//
+	function setEnforceRestrictedSite($enforceRestrictedSite) {
+		$this->_enforceRestrictedSite = $enforceRestrictedSite;
+	}
+
 	/**
 	 * Set the controller id
 	 * @param $id string
@@ -189,6 +199,9 @@ class PKPHandler {
 				$operations
 			);
 		}
+
+		// Flag role assignments as needing checking.
+		$this->_roleAssignmentsChecked = false;
 	}
 
 	/**
@@ -217,6 +230,13 @@ class PKPHandler {
 	}
 
 	/**
+	 * Flag role assignment checking as completed.
+	 */
+	function markRoleAssignmentsChecked() {
+		$this->_roleAssignmentsChecked = true;
+	}
+
+	/**
 	 * Authorize this request.
 	 *
 	 * Routers will call this method automatically thereby enforcing
@@ -230,12 +250,11 @@ class PKPHandler {
 	 * @param $args array request arguments
 	 * @param $roleAssignments array the operation role assignment,
 	 *  see getRoleAssignment() for more details.
-	 * @param $enforceRestrictedSite boolean True iff site restrictions are to be enforced
 	 * @return boolean
 	 */
-	function authorize($request, &$args, $roleAssignments, $enforceRestrictedSite = true) {
+	function authorize($request, &$args, $roleAssignments) {
 		// Enforce restricted site access if required.
-		if ($enforceRestrictedSite) {
+		if ($this->_enforceRestrictedSite) {
 			import('lib.pkp.classes.security.authorization.RestrictedSiteAccessPolicy');
 			$this->addPolicy(new RestrictedSiteAccessPolicy($request), true);
 		}
@@ -249,7 +268,7 @@ class PKPHandler {
 		if (!defined('SESSION_DISABLE_INIT')) {
 			// Add user roles in authorized context.
 			$user = $request->getUser();
-			if (is_a($user, 'User')) {
+			if (is_a($user, 'User') || is_a($request->getRouter(), 'APIRouter')) {
 				import('lib.pkp.classes.security.authorization.UserRolesRequiredPolicy');
 				$this->addPolicy(new UserRolesRequiredPolicy($request), true);
 			}
@@ -275,7 +294,7 @@ class PKPHandler {
 
 		// Let the authorization decision manager take a decision.
 		$decision = $this->_authorizationDecisionManager->decide();
-		if ($decision == AUTHORIZATION_PERMIT) {
+		if ($decision == AUTHORIZATION_PERMIT && (empty($this->_roleAssignments) || $this->_roleAssignmentsChecked)) {
 			return true;
 		} else {
 			return false;
@@ -331,9 +350,8 @@ class PKPHandler {
 	 * authorization.
 	 *
 	 * @param $request PKPRequest
-	 * @param $args array
 	 */
-	function initialize($request, $args = null) {
+	function initialize($request) {
 		// Set the controller id to the requested
 		// page (page routing) or component name
 		// (component routing) by default.
@@ -346,6 +364,8 @@ class PKPHandler {
 			// becomes "grid-citation-citationgrid"
 			$componentId = str_replace('.', '-', PKPString::strtolower(PKPString::substr($componentId, 0, -7)));
 			$this->setId($componentId);
+		} elseif (is_a($router, 'APIRouter')) {
+			$this->setId($router->getEntity());
 		} else {
 			assert(is_a($router, 'PKPPageRouter'));
 			$this->setId($router->getRequestedPage($request));

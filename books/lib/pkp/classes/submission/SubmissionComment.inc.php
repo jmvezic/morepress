@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/SubmissionComment.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionComment
@@ -22,12 +22,6 @@ define('COMMENT_TYPE_LAYOUT', 0x04);
 define('COMMENT_TYPE_PROOFREAD', 0x05);
 
 class SubmissionComment extends DataObject {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * get comment type

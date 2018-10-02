@@ -1,8 +1,8 @@
 /**
  * @file js/controllers/form/MultilingualInputHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MultilingualInputHandler
@@ -160,6 +160,10 @@
 				$inputs = [],
 				valuesCount = 0;
 
+		if (typeof tinyMCE === 'undefined') {
+			return;
+		}
+
 		// Track current values in the tinyMCE control
 		if (this.getHtmlElement().find('.richContent').length) {
 			$popover.find('textarea').each(function() {
@@ -207,6 +211,10 @@
 			return;
 		}
 
+		if (typeof tinyMCE === 'undefined') {
+			return;
+		}
+
 		var htmlElement = this.getHtmlElement(),
 				tinyMCEObject = tinyMCE.EditorManager.get(/** @type {string} */(
 				htmlElement.find('textarea').first().attr('id')));
@@ -226,8 +234,7 @@
 			// close because no blur event will be triggered.
 			this.trigger('callWhenClickOutside', {
 				container: this.getHtmlElement(),
-				callback: this.callbackWrapper(this.hidePopover_),
-				skipWhenVisibleModals: false
+				callback: this.callbackWrapper(this.hidePopover_)
 			});
 
 			this.showPopover_();

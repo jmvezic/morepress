@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/settings/series/form/SeriesForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SeriesForm
@@ -32,23 +32,23 @@ class SeriesForm extends PKPSectionForm {
 			$seriesId
 		);
 
-		$this->_pressId = $request->getContext()->getId();
+		$this->_pressId = $pressId = $request->getContext()->getId();
 
 		// Validation checks for this form
+		$form = $this;
 		$this->addCheck(new FormValidatorLocale($this, 'title', 'required', 'manager.setup.form.series.nameRequired'));
 		$this->addCheck(new FormValidatorISSN($this, 'onlineIssn', 'optional', 'catalog.manage.series.issn.validation'));
 		$this->addCheck(new FormValidatorISSN($this, 'printIssn', 'optional', 'catalog.manage.series.issn.validation'));
-		$this->addCheck(new FormValidatorCustom($this, 'printIssn', 'optional', 'catalog.manage.series.issn.equalValidation', create_function('$printIssn,$form', 'return !($form->getData(\'onlineIssn\') != \'\' && $form->getData(\'onlineIssn\') == $printIssn);'), array(&$this)));
+		$this->addCheck(new FormValidatorCustom($this, 'printIssn', 'optional', 'catalog.manage.series.issn.equalValidation', function($printIssn) use ($form) {
+			return !($form->getData('onlineIssn') != '' && $form->getData('onlineIssn') == $printIssn);
+		}));
 		$this->addCheck(new FormValidatorRegExp($this, 'path', 'required', 'grid.series.pathAlphaNumeric', '/^[a-zA-Z0-9\/._-]+$/'));
 		$this->addCheck(new FormValidatorCustom(
 			$this, 'path', 'required', 'grid.series.pathExists',
-			create_function(
-				'$path,$form,$seriesDao,$pressId',
-				'return !$seriesDao->getByPath($path,$pressId) || ($form->getData(\'oldPath\') != null && $form->getData(\'oldPath\') == $path);'
-			),
-			array(&$this, DAORegistry::getDAO('SeriesDAO'), $this->_pressId)
-		));
-
+			function($path) use ($form, $pressId) {
+				$seriesDao = DAORegistry::getDAO('SeriesDAO');
+				return !$seriesDao->getByPath($path,$pressId) || ($form->getData('oldPath') != null && $form->getData('oldPath') == $path);
+		}));
 	}
 
 	/**
@@ -63,6 +63,12 @@ class SeriesForm extends PKPSectionForm {
 		$seriesId = $this->getSeriesId();
 		if ($seriesId) {
 			$series = $seriesDao->getById($seriesId, $press->getId());
+		}
+
+		$categories = $seriesDao->getCategories($seriesId, $press->getId());
+		$categoryIds = array();
+		while ($category = $categories->next()) {
+			$categoryIds[] = $category->getId();
 		}
 
 		if (isset($series) ) {
@@ -81,6 +87,8 @@ class SeriesForm extends PKPSectionForm {
 				'onlineIssn' => $series->getOnlineISSN(),
 				'printIssn' => $series->getPrintISSN(),
 				'sortOption' => $sortOption,
+				'subEditors' => $this->_getAssignedSubEditorIds($seriesId, $press->getId()),
+				'categories' => $categoryIds,
 			);
 		}
 	}
@@ -116,9 +124,6 @@ class SeriesForm extends PKPSectionForm {
 		$templateMgr->assign('seriesId', $this->getSeriesId());
 
 		$press = $request->getPress();
-		$userGroupDao = DAORegistry::getDAO('UserGroupDAO');
-		$seriesEditorCount = $userGroupDao->getContextUsersCount($press->getId(), null, ROLE_ID_SUB_EDITOR);
-		$templateMgr->assign('seriesEditorCount', $seriesEditorCount);
 
 		$categoryDao = DAORegistry::getDAO('CategoryDAO');
 		$categoryCount = $categoryDao->getCountByPressId($press->getId());
@@ -127,6 +132,28 @@ class SeriesForm extends PKPSectionForm {
 		// Sort options.
 		$publishedMonographDao = DAORegistry::getDAO('PublishedMonographDAO');
 		$templateMgr->assign('sortOptions', $publishedMonographDao->getSortSelectOptions());
+
+		// Series Editors
+		$seriesEditorsListData = $this->_getSubEditorsListPanelData($press->getId(), $request);
+		$templateMgr->assign(array(
+			'hasSubEditors' => !empty($seriesEditorsListData['items']),
+			'subEditorsListData' => json_encode($seriesEditorsListData),
+		));
+
+		// Get SelectCategoryListHandler data
+		import('controllers.list.SelectCategoryListHandler');
+		$categoriesList = new SelectCategoryListHandler(array(
+			'title' => 'grid.category.categories',
+			'inputName' => 'categories[]',
+			'selected' => $this->getData('categories'),
+		));
+
+		$categoriesListData = $categoriesList->getConfig();
+
+		$templateMgr->assign(array(
+			'hasCategories' => !empty($categoriesListData['items']),
+			'categoriesListData' => json_encode($categoriesListData),
+		));
 
 		return parent::fetch($request);
 	}
@@ -258,24 +285,18 @@ class SeriesForm extends PKPSectionForm {
 		// Update series object to store image information.
 		$seriesDao->updateObject($series);
 
-		import('lib.pkp.classes.controllers.listbuilder.ListbuilderHandler');
 		// Save the series editor associations.
-		ListbuilderHandler::unpack(
-			$request,
-			$this->getData('subEditors'),
-			array(&$this, 'deleteSubEditorEntry'),
-			array(&$this, 'insertSubEditorEntry'),
-			array(&$this, 'updateSubEditorEntry')
-		);
+		$this->_saveSubEditors($press->getId());
 
 		// Save the category associations.
-		ListbuilderHandler::unpack(
-			$request,
-			$this->getData('categories'),
-			array(&$this, 'deleteCategoryEntry'),
-			array(&$this, 'insertCategoryEntry'),
-			array(&$this, 'updateCategoryEntry')
-		);
+		$seriesDao = DAORegistry::getDAO('SeriesDAO');
+		$seriesDao->removeCategories($this->getSeriesId());
+		$categoryIds = $this->getData('categories');
+		if (!empty($categoryIds)) {
+			foreach ($categoryIds as $categoryId) {
+				$seriesDao->addCategory($this->getSeriesId(), $categoryId);
+			}
+		}
 
 		return true;
 	}
@@ -294,50 +315,6 @@ class SeriesForm extends PKPSectionForm {
 	 */
 	function setSeriesId($seriesId) {
 		$this->setSectionId($seriesId);
-	}
-
-	/**
-	 * Persist a category association
-	 * @see ListbuilderHandler::insertEntry
-	 */
-	function insertCategoryEntry($request, $newRowId) {
-		$categoryId = array_shift($newRowId);
-
-		$seriesDao = DAORegistry::getDAO('SeriesDAO');
-
-		// Make sure the membership doesn't already exist
-		if ($seriesDao->categoryAssociationExists($this->getSeriesId(), $categoryId)) {
-			return false;
-		}
-
-		// Otherwise, insert the row.
-		$seriesDao->addCategory($this->getSeriesId(), $categoryId);
-		return true;
-	}
-
-	/**
-	 * Delete a category association with this series.
-	 * @see ListbuilderHandler::deleteEntry
-	 * @param $request PKPRequest
-	 * @param $rowId int
-	 */
-	function deleteCategoryEntry($request, $rowId) {
-		$seriesDao = DAORegistry::getDAO('SeriesDAO');
-		$seriesDao->removeCategory($this->getSeriesId(), $rowId);
-		return true;
-	}
-
-	/**
-	 * Update a category association with this series.
-	 * @see ListbuilderHandler::updateEntry
-	 * @param $request PKPRequest
-	 * @param $rowId int old category
-	 * @param $newRowId array new category
-	 */
-	function updateCategoryEntry($request, $rowId, $newRowId) {
-		$this->deleteCategoryEntry($request, $rowId);
-		$this->insertCategoryEntry($request, $newRowId);
-		return true;
 	}
 }
 

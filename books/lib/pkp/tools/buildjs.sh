@@ -2,8 +2,8 @@
 
 # @file tools/buildjs.sh
 #
-# Copyright (c) 2014-2017 Simon Fraser University Library
-# Copyright (c) 2010-2017 John Willinsky
+# Copyright (c) 2014-2018 Simon Fraser University
+# Copyright (c) 2010-2018 John Willinsky
 # Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
 #
 # Script to check and minimize JavaScript for distribution.
@@ -67,8 +67,8 @@ shift $((OPTIND-1))
 ### Start Processing ###
 echo >&2
 echo "Starting PKP JavaScript builder." >&2
-echo "Copyright (c) 2014-2017 Simon Fraser University Library" >&2
-echo "Copyright (c) 2010-2017 John Willinsky" >&2
+echo "Copyright (c) 2014-2018 Simon Fraser University" >&2
+echo "Copyright (c) 2010-2018 John Willinsky" >&2
 
 
 ### Checking Requirements ###
@@ -188,7 +188,7 @@ java -jar "$TOOL_PATH/compiler.jar" --language_in=ECMASCRIPT5 --jscomp_warning v
 	| sed "s/^/${TAB}/" >>"$WORKDIR/.compile-warnings.out"
 
 # Only minify when there were no warnings.
-if [ -n "`cat $WORKDIR/.compile-warnings.out | grep '^	'`" ]; then
+if [ -n "`cat $WORKDIR/.compile-warnings.out | grep '^	' | grep -v 'Picked up _JAVA_OPTIONS'`" ]; then
 	# Issue warnings. If interactive, use "less".
 	case "$-" in
 		*i*)	less "$WORKDIR/.compile-warnings.out" ;;
@@ -215,11 +215,6 @@ COMPILE_FILES=`echo "$COMPILE_FILES" | tr '\n' ' ' | sed -$EXTENDED_REGEX_FLAG '
 # Run Closure - second pass to minify
 java -jar "$TOOL_PATH/compiler.jar" --language_in=ECMASCRIPT5 --jscomp_off checkTypes --warning_level VERBOSE $COMPILE_FILES \
 	$CLOSURE_EXTERNS --js_output_file "$JS_OUTPUT" 2>&1
-echo >&2
-
-echo "Compiling third-party libraries..." >&2
-echo "Pines Notify..." >&2
-sh lib/pkp/js/lib/pnotify/build-tools/minify.sh
 echo >&2
 
 echo "Please don't forget to set enable_minified=On in your config.inc.php." >&2

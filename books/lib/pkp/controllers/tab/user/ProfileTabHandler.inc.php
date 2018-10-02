@@ -7,8 +7,8 @@
 /**
  * @file controllers/tab/user/ProfileTabHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ProfileTabHandler
@@ -22,12 +22,6 @@ import('classes.handler.Handler');
 import('lib.pkp.classes.core.JSONMessage');
 
 class ProfileTabHandler extends Handler {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	//
 	// Implement template methods from PKPHandler
@@ -110,7 +104,7 @@ class ProfileTabHandler extends Handler {
 			$notificationMgr->createTrivialNotification($request->getUser()->getId());
 			return new JSONMessage(true);
 		}
-		return new JSONMessage(false, $contactForm->fetch($request));
+		return new JSONMessage(true, $contactForm->fetch($request));
 	}
 
 	/**
@@ -210,6 +204,41 @@ class ProfileTabHandler extends Handler {
 			return new JSONMessage(true);
 		}
 		return new JSONMessage(true, $publicProfileForm->fetch($request));
+	}
+
+	/**
+	 * Display form to edit user's API key settings.
+	 * @param $args array
+	 * @param $request PKPRequest
+	 * @return JSONMessage JSON-formatted response
+	 */
+	function apiProfile($args, $request) {
+		$this->setupTemplate($request);
+		import('lib.pkp.classes.user.form.APIProfileForm');
+		$apiProfileForm = new APIProfileForm($request->getUser());
+		$apiProfileForm->initData($request);
+		return new JSONMessage(true, $apiProfileForm->fetch($request));
+	}
+
+	/**
+	 * Validate and save changes to user's API key settings.
+	 * @param $args array
+	 * @param $request PKPRequest
+	 * @return JSONMessage JSON-formatted response
+	 */
+	function saveAPIProfile($args, $request) {
+		$this->setupTemplate($request);
+
+		import('lib.pkp.classes.user.form.APIProfileForm');
+		$apiProfileForm = new APIProfileForm($request->getUser());
+		$apiProfileForm->readInputData();
+		if ($apiProfileForm->validate()) {
+			$apiProfileForm->execute($request);
+			$notificationMgr = new NotificationManager();
+			$notificationMgr->createTrivialNotification($request->getUser()->getId());
+			return new JSONMessage(true);
+		}
+		return new JSONMessage(true, $apiProfileForm->fetch($request));
 	}
 
 	/**

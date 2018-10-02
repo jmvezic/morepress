@@ -4,8 +4,8 @@
 <!--
   * locale/tr_TR/common.xml
   *
-  * Copyright (c) 2014-2017 Simon Fraser University
-  * Copyright (c) 2000-2017 John Willinsky
+  * Copyright (c) 2014-2018 Simon Fraser University
+  * Copyright (c) 2000-2018 John Willinsky
   * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
   *
   * Localization strings for the tr_TR (Türkçe) locale.
@@ -107,8 +107,8 @@
 	<message key="common.fileName">Dosya Adı</message>
 	<message key="common.fileSize">Dosya Boyutu</message>
 	<message key="common.fileType">Dosya Türü</message>
-	<message key="common.file.namingPattern">{$username}, {$userGroup}, {$originalFilename}</message>
-	<message key="common.file.anonymousNamingPattern">{$userGroup}, {$originalFilename}</message>
+	<message key="common.file.namingPattern">{$username}, {$originalFilename}</message>
+	<message key="common.file.anonymousNamingPattern">{$genre}, {$originalFilename}</message>
 	<message key="common.height">Boyut</message>
 	<message key="common.homePageHeaderLogo.altText">Ana Sayfa Başlık Logosu</message>
 	<message key="common.hour">Saat</message>
@@ -279,30 +279,13 @@
 	<message key="notification.allow">Bu tür bildirimlerin görüntülenmesine izin ver.</message>
 	<message key="notification.confirmError">Abonelik doğrulamanızda bir hata var.</message>
 	<message key="notification.confirmSuccess">Başarılı bir şekilde üye oldunuz.</message>
-	<message key="notification.email">Bu tür bildirimler için bana e-posta gönder.</message>
-	<message key="notification.location">URL'e git</message>
-	<message key="notification.mailList">Bildirim Gönderi Listesi</message>
-	<message key="notification.mailList.emailInvalid">Lütfen geçerli bir e-posta adresi giriniz.</message>
-	<message key="notification.mailList.privacyProtection">Gizlilik koruma politikası</message>
-	<message key="notification.mailList.protectedContent"><![CDATA[Korunan içerik için <a href="{$subscribeUrl}">abone</a> ol.]]></message>
-	<message key="notification.mailList.submit"><![CDATA[<a href="{$submitUrl}">Makale Göndersi</a>]]></message>
-	<message key="notification.mailList.register">Bu siteye üye olabilirsiniz...</message>
-	<message key="notification.mailList.review"><![CDATA[<a href="{$reviewUrl}">Değerlendirme</a> sürecine katılabiliriniz]]></message>
 	<message key="notification.noneExist">Her hangi bir bildirim yok.</message>
 	<message key="notification.notification">BİLDİRİM</message>
 	<message key="notification.notifications">BİLDİRİMLER</message>
-	<message key="notification.notificationsNew">({$numNew} yeni)</message>
-	<message key="notification.notificationsDescription"><![CDATA[{$unreadCount} okunmamış, {$readCount} okunmuş bildiriminiz var. Bildirim ayarlarınızı değiştirmek için   <a href="{$settingsUrl}"> tıklayınız </a>.]]></message>
 	<message key="notification.settings">Bilgilendirme Ayarları</message>
 	<message key="notification.settingsDescription">Belirlenmiş sistem durumlarından istediğinizi seçiniz. Gösterilen bildirimlerinizden engellemek istediklerinzin çek işeretini kaldırınız.</message>
-	<message key="notification.subscribe">Üye Ol</message>
-	<message key="notification.subscribeError">Abone olduğunuz bildirimlerde e-posta adresiniz zaten mevcut.</message>
-	<message key="notification.subscribeSuccess">Belirtmiş olduğunuz e-posta adresinize bir mesaj gönderilmiştir. E-posta adresinizin gönderi listesine dahil edilebilmesi için lütfen onay linkini klik ediniz.</message>
 	<message key="notification.reminderError">Parolanızı gönderirken bir hata oluştu. Lütfen girmiş olduğunuz e-posta adresinizin doğru olduğundan emin olunuz.</message>
 	<message key="notification.reminderSent">Yeni parolanız belirtmiş olduğunuz e-posta adresine gönderilmiştir.</message>
-	<message key="notification.unsubscribe">Üyelik İptali</message>
-	<message key="notification.unsubscribeError">Aboneliğiniz sonlandırılırken bir hata oluştu. Lütfen e-posta adresinizin ve parolanızın doğru olduğundan emin olunuz.</message>
-	<message key="notification.unsubscribeSuccess">Aboneliğiniz başarılı bir şekilde sonlandırıldı.</message>
 	<message key="search.abstract">Öz</message>
 	<message key="search.author">Yazarlar</message>
 	<message key="search.coverage">Kapsam</message>
@@ -372,4 +355,6 @@
 	<message key="common.acknowledged">Kabul Edilen</message>
 	<message key="common.notified">Bildirilmiş</message>
 	<message key="common.reset">Yeniden Ayarlamak</message>
+
+	<message key="semicolon">{$label}:</message>
 </locale>

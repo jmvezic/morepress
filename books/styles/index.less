@@ -1,8 +1,8 @@
 /**
  * @file styles/index.less
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @brief Main OMP stylesheet wrapper
@@ -22,13 +22,15 @@
  */
 @import "lib/pkp/styles/index.less";
 
-/*
+
+/**
  * OMP application
  *
  * Any components or styling required by OMP separate from PKP should be
  * imported below. Re-usablee components should be declared first, followed by
  * unique or one-off styling required by individual pages.
  */
+
 // Workflow > Publication > Publication Formats Grid
 [id^=formatsGridContainer] {
 
@@ -103,7 +105,7 @@
         text-decoration: none;
 
         &:before {
-            &:extend(.fa);
+            .fa();
             margin-right:  0.5em;
         }
 

@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/users/reviewer/form/ReviewReminderForm.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewReminderForm
@@ -25,6 +25,7 @@ class ReviewReminderForm extends Form {
 	function __construct($reviewAssignment) {
 		parent::__construct('controllers/grid/users/reviewer/form/reviewReminderForm.tpl');
 		$this->_reviewAssignment = $reviewAssignment;
+		AppLocale::requireComponents(LOCALE_COMPONENT_APP_SUBMISSION);
 
 		// Validation checks for this form
 		$this->addCheck(new FormValidatorPost($this));
@@ -64,7 +65,10 @@ class ReviewReminderForm extends Form {
 		$submission = $submissionDao->getById($reviewAssignment->getSubmissionId());
 
 		import('lib.pkp.classes.mail.SubmissionMailTemplate');
-		$email = new SubmissionMailTemplate($submission, 'REVIEW_REMIND');
+		$context = $request->getContext();
+		$templateKey = $this->_getMailTemplateKey($context);		
+		
+		$email = new SubmissionMailTemplate($submission, $templateKey);
 
 		// Format the review due date
 		$reviewDueDate = strtotime($reviewAssignment->getDateDue());
@@ -141,15 +145,26 @@ class ReviewReminderForm extends Form {
 		$user = $request->getUser();
 
 		import('lib.pkp.classes.mail.SubmissionMailTemplate');
-		$email = new SubmissionMailTemplate($submission, 'REVIEW_REMIND', null, null, null, false);
+		$context = $request->getContext();
+		$templateKey = $this->_getMailTemplateKey($context);	
+		$email = new SubmissionMailTemplate($submission, $templateKey, null, null, null, false);
+		
+		$reviewUrlArgs = array('submissionId' => $reviewAssignment->getSubmissionId());
+		if ($context->getSetting('reviewerAccessKeysEnabled')) {
+			import('lib.pkp.classes.security.AccessKeyManager');
+			$accessKeyManager = new AccessKeyManager();
+			$expiryDays = ($context->getSetting('numWeeksPerReview') + 4) * 7;
+			$accessKey = $accessKeyManager->createKey($context->getId(), $reviewerId, $reviewAssignment->getId(), $expiryDays);
+			$reviewUrlArgs = array_merge($reviewUrlArgs, array('reviewId' => $reviewAssignment->getId(), 'key' => $accessKey));
+		}		
 
 		$email->addRecipient($reviewer->getEmail(), $reviewer->getFullName());
 		$email->setBody($this->getData('message'));
 		$email->assignParams(array(
 			'reviewerName' => $reviewer->getFullName(),
 			'reviewDueDate' => $reviewDueDate,
-			'passwordResetUrl' => $dispatcher->url($request, ROUTE_PAGE, null, 'login', 'resetPassword', $reviewer->getUsername(), array('confirm' => Validation::generatePasswordResetHash($reviewer->getId()))),
-			'submissionReviewUrl' => $dispatcher->url($request, ROUTE_PAGE, null, 'reviewer', 'submission', null, array('submissionId' => $reviewAssignment->getSubmissionId())),
+			'passwordResetUrl' => $dispatcher->url($request, ROUTE_PAGE, null, 'login', 'resetPassword', $reviewer->getUsername(), array('confirm' => Validation::generatePasswordResetHash($reviewer->getId()))),			
+			'submissionReviewUrl' => $dispatcher->url($request, ROUTE_PAGE, null, 'reviewer', 'submission', null, $reviewUrlArgs),
 			'editorialContactSignature' => $user->getContactSignature(),
 		));
 		$email->send($request);
@@ -160,6 +175,23 @@ class ReviewReminderForm extends Form {
 		$reviewAssignmentDao = DAORegistry::getDAO('ReviewAssignmentDAO');
 		$reviewAssignmentDao->updateObject($reviewAssignment);
 	}
+
+	/**
+	 * Get the email template key depending on if reviewer one click access is
+	 * enabled or not.
+	 *
+	 * @param $context Context The user's current context.
+	 * @return int Email template key
+	 */
+	function _getMailTemplateKey($context) {
+		$templateKey = 'REVIEW_REMIND';
+		if ($context->getSetting('reviewerAccessKeysEnabled')) {
+			$templateKey = 'REVIEW_REMIND_ONECLICK';
+		}
+
+		return $templateKey;
+	}	
+	
 }
 
 ?>

@@ -3,8 +3,8 @@
 /**
  * @file classes/metadata/MetadataDescriptionDummyAdapter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MetadataDescriptionDummyAdapter
@@ -65,7 +65,7 @@ class MetadataDescriptionDummyAdapter extends MetadataDataObjectAdapter {
 	 * @param $sourceMetadataDescription MetadataDescription
 	 * @return MetadataDescription
 	 */
-	function extractMetadataFromDataObject($sourceMetadataDescription) {
+	function extractMetadataFromDataObject(&$sourceMetadataDescription) {
 		// Create a copy of the meta-data description to decouple
 		// it from the original.
 		return clone($sourceMetadataDescription);

@@ -3,8 +3,8 @@
 /**
  * @file classes/press/FeatureDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class FeatureDAO
@@ -141,6 +141,30 @@ class FeatureDAO extends DAO {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Return the monograph's featured settings in all assoc types
+	 * @param $monographId int The monograph id to get the feature state.
+	 * @return array
+	 */
+	function getFeaturedAll($monographId) {
+		$result = $this->retrieve(
+			'SELECT assoc_type, assoc_id, seq FROM features WHERE submission_id = ?',
+			array((int) $monographId)
+		);
+
+		$featured = array();
+		while (!$result->EOF) {
+			$featured[] = array(
+				'assoc_type' => (int) $result->fields['assoc_type'],
+				'assoc_id' => (int) $result->fields['assoc_id'],
+				'seq' => (int) $result->fields['seq'],
+			);
+			$result->MoveNext();
+		}
+
+		return $featured;
 	}
 
 	/**

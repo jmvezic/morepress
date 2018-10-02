@@ -3,8 +3,8 @@
 /**
  * @file controllers/grid/users/stageParticipant/StageParticipantGridHandler.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class StageParticipantGridHandler
@@ -127,7 +127,7 @@ class StageParticipantGridHandler extends CategoryGridHandler {
 						__('editor.submission.addStageParticipant'),
 						'modal_add_user'
 					),
-					__('common.add'),
+					__('common.assign'),
 					'add_user'
 				)
 			);
@@ -290,13 +290,14 @@ class StageParticipantGridHandler extends CategoryGridHandler {
 					ASSOC_TYPE_SUBMISSION,
 					$submission->getId()
 				);
-				$stages = Application::getApplicationStages();
-				foreach ($stages as $workingStageId) {
-					// remove the 'editor required' task if we now have an editor assigned
-					if ($stageAssignmentDao->editorAssignedToStage($submission->getId(), $stageId)) {
-						$notificationDao = DAORegistry::getDAO('NotificationDAO');
-						$notificationDao->deleteByAssoc(ASSOC_TYPE_SUBMISSION, $submission->getId(), null, NOTIFICATION_TYPE_EDITOR_ASSIGNMENT_REQUIRED);
-					}
+			}
+
+			$stages = Application::getApplicationStages();
+			foreach ($stages as $workingStageId) {
+				// remove the 'editor required' task if we now have an editor assigned
+				if ($stageAssignmentDao->editorAssignedToStage($submission->getId(), $workingStageId)) {
+					$notificationDao = DAORegistry::getDAO('NotificationDAO');
+					$notificationDao->deleteByAssoc(ASSOC_TYPE_SUBMISSION, $submission->getId(), null, NOTIFICATION_TYPE_EDITOR_ASSIGNMENT_REQUIRED);
 				}
 			}
 
@@ -309,12 +310,6 @@ class StageParticipantGridHandler extends CategoryGridHandler {
 			$assignedUser = $userDao->getById($userId);
 			import('lib.pkp.classes.log.SubmissionLog');
 			SubmissionLog::logEvent($request, $submission, SUBMISSION_LOG_ADD_PARTICIPANT, 'submission.event.participantAdded', array('name' => $assignedUser->getFullName(), 'username' => $assignedUser->getUsername(), 'userGroupName' => $userGroup->getLocalizedName()));
-
-			// send message to user if form is filled in.
-			if ($form->getData('message')) {
-				$form->sendMessage($form->getData('userId'), $submission, $request);
-				$this->_logEventAndCreateNotification($request);
-			}
 
 			return DAO::getDataChangedEvent($userGroupId);
 		} else {
@@ -354,19 +349,23 @@ class StageParticipantGridHandler extends CategoryGridHandler {
 			$submission->getId()
 		);
 
-		// Update submission notifications
-		$notificationMgr->updateNotification(
-			$request,
-			array(
-				NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
-				NOTIFICATION_TYPE_AWAITING_COPYEDITS,
-				NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
-				NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
-			),
-			null,
-			ASSOC_TYPE_SUBMISSION,
-			$submission->getId()
-		);
+		if ($stageId == WORKFLOW_STAGE_ID_EDITING ||
+			$stageId == WORKFLOW_STAGE_ID_PRODUCTION) {
+
+			// Update submission notifications
+			$notificationMgr->updateNotification(
+				$request,
+				array(
+					NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
+					NOTIFICATION_TYPE_AWAITING_COPYEDITS,
+					NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
+					NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
+				),
+				null,
+				ASSOC_TYPE_SUBMISSION,
+				$submission->getId()
+			);
+		}
 
 		// Log removal.
 		$userDao = DAORegistry::getDAO('UserDAO');
@@ -442,44 +441,33 @@ class StageParticipantGridHandler extends CategoryGridHandler {
 
 		if ($notifyForm->validate()) {
 			$noteId = $notifyForm->execute($request);
-			// Return a JSON string indicating success
-			// (will clear the form on return)
-			$this->_logEventAndCreateNotification($request);
 
-			// Update submission notifications
-			$notificationMgr = new NotificationManager();
-			$notificationMgr->updateNotification(
-				$request,
-				array(
-					NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
-					NOTIFICATION_TYPE_AWAITING_COPYEDITS,
-					NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
-					NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
-				),
-				null,
-				ASSOC_TYPE_SUBMISSION,
-				$this->getSubmission()->getId()
-			);
+			if ($this->getStageId() == WORKFLOW_STAGE_ID_EDITING ||
+				$this->getStageId() == WORKFLOW_STAGE_ID_PRODUCTION) {
 
-			return new JSONMessage(true);
+				// Update submission notifications
+				$notificationMgr = new NotificationManager();
+				$notificationMgr->updateNotification(
+					$request,
+					array(
+						NOTIFICATION_TYPE_ASSIGN_COPYEDITOR,
+						NOTIFICATION_TYPE_AWAITING_COPYEDITS,
+						NOTIFICATION_TYPE_ASSIGN_PRODUCTIONUSER,
+						NOTIFICATION_TYPE_AWAITING_REPRESENTATIONS,
+					),
+					null,
+					ASSOC_TYPE_SUBMISSION,
+					$this->getSubmission()->getId()
+				);
+			}
+
+			$json = new JSONMessage(true);
+			$json->setGlobalEvent('stageStatusUpdated');
+			return $json;
 		} else {
 			// Return a JSON string indicating failure
 			return new JSONMessage(false);
 		}
-	}
-
-	/**
-	 * Convenience function for logging the message sent event and creating the notification.  Called from more than one place.
-	 * @param PKPRequest $request
-	 */
-	function _logEventAndCreateNotification($request) {
-		import('lib.pkp.classes.log.SubmissionLog');
-		SubmissionLog::logEvent($request, $this->getSubmission(), SUBMISSION_LOG_MESSAGE_SENT, 'informationCenter.history.messageSent');
-
-		// Create trivial notification.
-		$currentUser = $request->getUser();
-		$notificationMgr = new NotificationManager();
-		$notificationMgr->createTrivialNotification($currentUser->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('stageParticipants.history.messageSent')));
 	}
 
 	/**

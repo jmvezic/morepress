@@ -8,8 +8,8 @@
 /**
  * @file classes/mail/Mail.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Mail
@@ -342,7 +342,7 @@ class Mail extends DataObject {
 		if (!array_key_exists('email', $replyTo) || $replyTo['email'] == null) {
 			return null;
 		} else {
-			return (Mail::encodeDisplayName($replyTo['name'], $send) . ' <'.$replyTo['email'].'>');
+			return (self::encodeDisplayName($replyTo['name'], $send) . ' <'.$replyTo['email'].'>');
 		}
 	}
 
@@ -388,7 +388,7 @@ class Mail extends DataObject {
 		if ($from == null) {
 			return null;
 		} 
-		return (Mail::encodeDisplayName($from['name'], $send) . ' <'.$from['email'].'>');
+		return (self::encodeDisplayName($from['name'], $send) . ' <'.$from['email'].'>');
 	}
 
 	/**
@@ -412,7 +412,7 @@ class Mail extends DataObject {
 					$addressString .= $address['email'];
 
 				} else {
-					$addressString .= Mail::encodeDisplayName($address['name'], $send) . ' <'.$address['email'].'>';
+					$addressString .= self::encodeDisplayName($address['name'], $send) . ' <'.$address['email'].'>';
 				}
 			}
 
@@ -460,9 +460,9 @@ class Mail extends DataObject {
 			}
 		}
 
-		require_once('lib/pkp/lib/vendor/phpmailer/phpmailer/class.phpmailer.php');
 		$mailer = new PHPMailer();
 		$mailer->IsHTML(true);
+		$mailer->Encoding = 'base64';
 		if (Config::getVar('email', 'smtp')) {
 			$mailer->IsSMTP();
 			$mailer->Port = Config::getVar('email', 'smtp_port');
@@ -473,10 +473,15 @@ class Mail extends DataObject {
 			$mailer->Host = Config::getVar('email', 'smtp_server');
 			$mailer->Username = Config::getVar('email', 'smtp_username');
 			$mailer->Password = Config::getVar('email', 'smtp_password');
+			if (Config::getVar('debug', 'show_stacktrace')) {
+				// debug level 3 represents client and server interaction, plus initial connection debugging
+				$mailer->SMTPDebug = 3;
+				$mailer->Debugoutput = 'error_log';
+			}
 		}
 		$mailer->CharSet = Config::getVar('i18n', 'client_charset');
 		if (($t = $this->getContentType()) != null) $mailer->ContentType = $t;
-		$mailer->XMailer = 'Public Knowledge Project Suite v2';
+		$mailer->XMailer = 'Public Knowledge Project Suite v3';
 		$mailer->WordWrap = MAIL_WRAP;
 		foreach ((array) $this->getHeaders() as $header) {
 			$mailer->AddCustomHeader($header['key'], $mailer->SecureHeader($header['content']));
@@ -514,7 +519,11 @@ class Mail extends DataObject {
 		}
 
 		try {
-			$mailer->Send();
+			$success = $mailer->Send();
+			if (!$success) {
+				error_log($mailer->ErrorInfo);
+				return false;
+			}
 		} catch (phpmailerException $e) {
 			error_log($mailer->ErrorInfo);
 			return false;
@@ -528,7 +537,7 @@ class Mail extends DataObject {
 	 * @param $send boolean True to encode the results for sending
 	 * @return string
 	 */
-	function encodeDisplayName($displayName, $send = false) {
+	static function encodeDisplayName($displayName, $send = false) {
 		if (PKPString::regexp_match('!^[-A-Za-z0-9\!#\$%&\'\*\+\/=\?\^_\`\{\|\}~]+$!', $displayName)) return $displayName;
 		return ('"' . ($send ? PKPString::encode_mime_header(str_replace(
 			array('"', '\\'),

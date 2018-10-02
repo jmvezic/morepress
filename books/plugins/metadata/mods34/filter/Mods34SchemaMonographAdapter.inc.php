@@ -3,8 +3,8 @@
 /**
  * @file plugins/metadata/mods34/filter/Mods34SchemaMonographAdapter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Mods34SchemaMonographAdapter
@@ -70,7 +70,7 @@ class Mods34SchemaMonographAdapter extends Mods34SchemaSubmissionAdapter {
 	 * @see MetadataDataObjectAdapter::extractMetadataFromDataObject()
 	 * @param $monograph Monograph
 	 */
-	function extractMetadataFromDataObject($monograph) {
+	function extractMetadataFromDataObject(&$monograph) {
 		assert(is_a($monograph, 'Monograph'));
 
 		// Define the role of the author(s) of the monograph object

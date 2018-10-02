@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/SubmissionSubjectEntryDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class SubmissionSubjectEntryDAO
@@ -18,12 +18,6 @@ import('lib.pkp.classes.submission.SubmissionSubject');
 import('lib.pkp.classes.controlledVocab.ControlledVocabEntryDAO');
 
 class SubmissionSubjectEntryDAO extends ControlledVocabEntryDAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Construct a new data object corresponding to this DAO.

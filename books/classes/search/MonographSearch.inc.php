@@ -3,8 +3,8 @@
 /**
  * @file classes/search/MonographSearch.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MonographSearch
@@ -29,7 +29,7 @@ class MonographSearch extends SubmissionSearch {
 	/**
 	 * See SubmissionSearch::getSparseArray()
 	 */
-	function &getSparseArray(&$unorderedResults, $orderBy, $orderDir, $exclude) {
+	function getSparseArray($unorderedResults, $orderBy, $orderDir, $exclude) {
 		// Calculate a well-ordered (unique) score.
 		$resultCount = count($unorderedResults);
 		$i = 0;
@@ -231,13 +231,11 @@ class MonographSearch extends SubmissionSearch {
 		}
 		return $keywords;
 	}
+
 	/**
-	 * See implementation of retrieveResults for a description of this
-	 * function.
-	 * Note that this function is also called externally to fetch
-	 * results for the title index, and possibly elsewhere.
+	 * @copydoc SubmissionSearch::formatResults()
 	 */
-	static function formatResults($results) {
+	function formatResults($results, $user = null) {
 		$pressDao = DAORegistry::getDAO('PressDAO');
 		$monographDao = DAORegistry::getDAO('MonographDAO');
 		$seriesDao = DAORegistry::getDAO('SeriesDAO');

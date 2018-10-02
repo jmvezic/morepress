@@ -3,8 +3,8 @@
 /**
  * @file classes/core/PKPString.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPString
@@ -475,8 +475,6 @@ class PKPString {
 	 * @return string
 	 */
 	static function stripUnsafeHtml($input) {
-		require_once('lib/pkp/lib/vendor/ezyang/htmlpurifier/library/HTMLPurifier.path.php');
-		require_once('HTMLPurifier.includes.php');
 		static $purifier;
 		if (!isset($purifier)) {
 			$config = HTMLPurifier_Config::createDefault();
@@ -995,7 +993,7 @@ class PKPString {
 	 * Create a new UUID (version 4)
 	 * @return string
 	 */
-	function generateUUID() {
+	static function generateUUID() {
 		mt_srand((double)microtime()*10000);
 		$charid = strtoupper(md5(uniqid(rand(), true)));
 		$hyphen = '-';
@@ -1013,7 +1011,7 @@ class PKPString {
 	 * @param $phpFormat string
 	 * @return string
 	 */
-	function dateformatPHP2JQueryDatepicker($phpFormat) {
+	static function dateformatPHP2JQueryDatepicker($phpFormat) {
 		$symbols = array(
 			// Day
 			'a' => 'D',	// date() format 'D'

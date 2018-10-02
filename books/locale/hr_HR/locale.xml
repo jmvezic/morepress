@@ -11,7 +11,7 @@
   * Localization strings.
   -->
 
-<locale name="en_US" full_name="U.S. English">
+<locale name="hr_HR" full_name="Hrvatski">
 	<!-- General monograph keys -->
 	<message key="monograph.audience">Audience</message>
 	<message key="monograph.coverImage">Cover Image</message>

@@ -3,8 +3,8 @@
 /**
  * @file classes/reviewForm/ReviewFormElementDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReviewFormElementDAO
@@ -18,12 +18,6 @@
 import ('lib.pkp.classes.reviewForm.ReviewFormElement');
 
 class ReviewFormElementDAO extends DAO {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Retrieve a review form element by ID.

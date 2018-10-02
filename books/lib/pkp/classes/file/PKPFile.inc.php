@@ -3,8 +3,8 @@
 /**
  * @file classes/file/PKPFile.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPFile
@@ -14,35 +14,10 @@
  */
 
 class PKPFile extends DataObject {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Get/set methods
 	//
-	/**
-	 * Get ID of file.
-	 * @return int
-	 */
-	function getFileId() {
-		if (Config::getVar('debug', 'deprecation_warnings')) trigger_error('Deprecated function.');
-		return $this->getId();
-	}
-
-	/**
-	 * Set ID of file.
-	 * @param $fileId int
-	 */
-	function setFileId($fileId) {
-		if (Config::getVar('debug', 'deprecation_warnings')) trigger_error('Deprecated function.');
-		return $this->setId($fileId);
-	}
-
 	/**
 	 * Get server-side file name of the file.
 	 * @param return string
@@ -77,7 +52,7 @@ class PKPFile extends DataObject {
 
 	/**
 	 * Get type of the file.
-	 * @ return string
+	 * @return string
 	 */
 	function getFileType() {
 		return $this->getData('filetype');

@@ -3,8 +3,8 @@
 /**
  * @file classes/note/NoteDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class NoteDAO
@@ -20,12 +20,6 @@ define('NOTE_ORDER_DATE_CREATED',	0x0001);
 define('NOTE_ORDER_ID',			0x0002);
 
 class NoteDAO extends DAO {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Create a new data object

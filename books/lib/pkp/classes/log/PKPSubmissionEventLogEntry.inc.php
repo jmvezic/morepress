@@ -3,8 +3,8 @@
 /**
  * @file classes/log/PKPSubmissionEventLogEntry.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PKPSubmissionEventLogEntry
@@ -37,8 +37,8 @@ define('SUBMISSION_LOG_METADATA_PUBLISH',		0x10000006);
 define('SUBMISSION_LOG_METADATA_UNPUBLISH',		0x10000007);
 
 // Editor events
-
 define('SUBMISSION_LOG_EDITOR_DECISION',			0x30000003);
+define('SUBMISSION_LOG_EDITOR_RECOMMENDATION',			0x30000004);
 
 // Reviewer events					0x40000000
 define('SUBMISSION_LOG_REVIEW_ASSIGN',			0x40000001);
@@ -58,13 +58,6 @@ define('SUBMISSION_LOG_LAST_REVISION_DELETED', 	0x50000003);
 define('SUBMISSION_LOG_PROOFS_APPROVED',		0x50000008);
 
 class PKPSubmissionEventLogEntry extends EventLogEntry {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Getters/setters

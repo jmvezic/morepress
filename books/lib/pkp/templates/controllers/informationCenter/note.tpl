@@ -1,8 +1,8 @@
 {**
  * templates/controllers/informationCenter/note.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Display a single information center note.
@@ -31,11 +31,8 @@
 		<span class="date">
 			{$note->getDateCreated()|date_format:$datetimeFormatShort}
 		</span>
-		{if ($notesDeletable && array_intersect(array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR), (array)$userRoles)) || $noteFileDownloadLink}
+		{if ($notesDeletable && array_intersect(array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR), (array)$userRoles))}
 			<div class="actions">
-				{if $noteFileDownloadLink}
-					{include file="linkAction/linkAction.tpl" action=$noteFileDownloadLink contextId=$note->getId()}
-				{/if}
 				{if $notesDeletable && array_intersect(array(ROLE_ID_MANAGER, ROLE_ID_SUB_EDITOR), (array)$userRoles)}
 					<form class="pkp_form" id="{$formId}" action="{url op="deleteNote" noteId=$noteId params=$linkParams}">
 						{csrf}
@@ -48,6 +45,9 @@
 		{/if}
 	</div>
 	<div class="message">
+		{if $noteFileDownloadLink}
+			{include file="linkAction/linkAction.tpl" action=$noteFileDownloadLink contextId=$note->getId()}
+		{/if}
 		{include file="controllers/revealMore.tpl" content=$note->getContents()|strip_unsafe_html}
 	</div>
 </div>

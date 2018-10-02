@@ -3,8 +3,8 @@
 /**
  * @file classes/log/MonographFileEmailLogDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class MonographFileEmailLogDAO
@@ -43,7 +43,7 @@ class MonographFileEmailLogDAO extends EmailLogDAO {
 	 * @return DAOResultFactory
 	 */
 	function getByEventType($fileId, $eventType, $userId = null) {
-		return parent::getByEventType(ASSOC_TYPE_SUBMISSION_FILE, $fileId, $eventType, $userId);
+		return parent::_getByEventType(ASSOC_TYPE_SUBMISSION_FILE, $fileId, $eventType, $userId);
 	}
 }
 

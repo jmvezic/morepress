@@ -3,8 +3,8 @@
 /**
  * @file plugins/importexport/native/filter/NativeXmlPKPAuthorFilter.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class NativeXmlPKPAuthorFilter
@@ -101,6 +101,7 @@ class NativeXmlPKPAuthorFilter extends NativeImportFilter {
 			case 'country': $author->setCountry($n->textContent); break;
 			case 'email': $author->setEmail($n->textContent); break;
 			case 'url': $author->setUrl($n->textContent); break;
+			case 'orcid': $author->setOrcid($n->textContent); break;
 			case 'biography':
 				$locale = $n->getAttribute('locale');
 				if (empty($locale)) $locale = $submission->getLocale();

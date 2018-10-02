@@ -3,8 +3,8 @@
 /**
  * @file classes/submission/EditDecisionDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class EditDecisionDAO
@@ -18,12 +18,6 @@
 import('classes.workflow.EditorDecisionActionsManager');
 
 class EditDecisionDAO extends DAO {
-	/**
-	 * Constructor.
-	 */
-	function __construct() {
-		parent::__construct();
-	}
 
 	/**
 	 * Update the editor decision table.
@@ -69,13 +63,15 @@ class EditDecisionDAO extends DAO {
 	 * @param $submissionId int Submission ID
 	 * @param $stageId int Optional STAGE_ID_...
 	 * @param $round int Optional review round number
+	 * @param $editorId int Optional editor ID
 	 * @return array List of information on the editor decisions:
 	 * 	editDecisionId, reviewRoundId, stageId, round, editorId, decision, dateDecided
 	 */
-	function getEditorDecisions($submissionId, $stageId = null, $round = null) {
+	function getEditorDecisions($submissionId, $stageId = null, $round = null, $editorId = null) {
 		$params = array((int) $submissionId);
 		if ($stageId) $params[] = (int) $stageId;
 		if ($round) $params[] = (int) $round;
+		if ($editorId) $params[] = (int) $editorId;
 
 		$result = $this->retrieve(
 			'SELECT	edit_decision_id, editor_id, decision,
@@ -84,7 +80,8 @@ class EditDecisionDAO extends DAO {
 			WHERE	submission_id = ?
 				' . ($stageId?' AND stage_id = ?':'') . '
 				' . ($round?' AND round = ?':'') . '
-			ORDER BY date_decided ASC',
+				' . ($editorId?' AND editor_id = ?':'') . '
+				ORDER BY date_decided ASC',
 			$params
 		);
 
@@ -116,27 +113,31 @@ class EditDecisionDAO extends DAO {
 			array((int) $newUserId, (int) $oldUserId)
 		);
 	}
-	
+
 	/**
 	 * Find any still valid pending revisions decision for the passed
 	 * submission id. A valid decision is one that is not overriden by any
 	 * other decision.
 	 * @param $submissionId int
 	 * @param $expectedStageId int
+	 * @param $revisionDecision int SUBMISSION_EDITOR_DECISION_PENDING_REVISIONS or SUBMISSION_EDITOR_DECISION_RESUBMIT
 	 * @return mixed array or null
 	 */
-	function findValidPendingRevisionsDecision($submissionId, $expectedStageId) {
+	function findValidPendingRevisionsDecision($submissionId, $expectedStageId, $revisionDecision = SUBMISSION_EDITOR_DECISION_PENDING_REVISIONS) {
+		$postReviewDecisions = array(SUBMISSION_EDITOR_DECISION_SEND_TO_PRODUCTION);
+		$revisionDecisions = array(SUBMISSION_EDITOR_DECISION_PENDING_REVISIONS, SUBMISSION_EDITOR_DECISION_RESUBMIT);
+		if (!in_array($revisionDecision, $revisionDecisions)) return null;
+
 		$editDecisionDao = DAORegistry::getDAO('EditDecisionDAO');
 		$editorDecisions = $editDecisionDao->getEditorDecisions($submissionId);
 		$workingDecisions = array_reverse($editorDecisions);
-		$postReviewDecisions = array(SUBMISSION_EDITOR_DECISION_SEND_TO_PRODUCTION);
 		$pendingRevisionDecision = null;
 
 		foreach ($workingDecisions as $decision) {
 			if (in_array($decision['decision'], $postReviewDecisions)) {
 				// Decisions at later stages do not override the pending revisions one.
 				continue;
-			} elseif ($decision['decision'] == SUBMISSION_EDITOR_DECISION_PENDING_REVISIONS) {
+			} elseif ($decision['decision'] == $revisionDecision) {
 				if ($decision['stageId'] == $expectedStageId) {
 					$pendingRevisionDecision = $decision;
 					// Only the last pending revisions decision is relevant.

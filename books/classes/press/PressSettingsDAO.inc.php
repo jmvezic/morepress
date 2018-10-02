@@ -3,8 +3,8 @@
 /**
  * @file classes/press/PressSettingsDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class PressSettingsDAO
@@ -16,11 +16,24 @@
 import('lib.pkp.classes.db.SettingsDAO');
 
 class PressSettingsDAO extends SettingsDAO {
+
 	/**
-	 * Constructor
+	 * @see SettingsDAO::reloadLocalizedDefaultSettings()
+	 *
+	 * Install locale field only settings from an XML file.
+	 * @param $request Request
+	 * @param $locale string locale id for which settings will be loaded
 	 */
-	function __construct() {
-		parent::__construct();
+	function reloadLocalizedDefaultContextSettings($request, $locale) {
+		$context = $request->getContext();
+		$filename = 'registry/pressSettings.xml';
+		$paramArray = array(
+			'indexUrl' => $request->getIndexUrl(),
+			'pressPath' => $context->getData('path'),
+			'primaryLocale' => $context->getPrimaryLocale(),
+			'pressName' => $context->getName($context->getPrimaryLocale())
+		);
+		parent::reloadLocalizedDefaultSettings($context->getId(), $filename, $paramArray, $locale);
 	}
 
 	/**

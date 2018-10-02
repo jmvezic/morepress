@@ -1,8 +1,8 @@
 {**
  * controllers/tab/settings/appearance/form/theme.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @brief Form fields for selecting the frontend theme
@@ -16,7 +16,12 @@
 </script>
 
 {fbvFormArea id="selectTheme"}
-	{fbvFormSection label="manager.setup.layout.theme" for="themePluginPath" description="manager.setup.layout.themeDescription"}
+	{if $wizardMode}{* Suppress the "click the plugins tab" message in the wizard *}
+		{assign var="themeDescription" value=""}
+	{else}
+		{assign var="themeDescription" value="manager.setup.layout.themeDescription"}
+	{/if}
+	{fbvFormSection label="manager.setup.layout.theme" for="themePluginPath" description=$themeDescription}
 		{fbvElement type="select" id="themePluginPath" from=$enabledThemes selected=$themePluginPath translate=false}
 	{/fbvFormSection}
 

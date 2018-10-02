@@ -1,8 +1,8 @@
 {**
  * controllers/modals/submissionMetadata/form/catalogEntryTabs.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * Display a submission's catalog entry form.
@@ -35,6 +35,12 @@
 			<a name="catalog" href="{url router=$smarty.const.ROUTE_COMPONENT component="tab.catalogEntry.CatalogEntryTabHandler" tab="identifiers" op="identifiers" submissionId=$submissionId stageId=$stageId tabPos="2"}">{translate key="submission.identifiers"}</a>
 		</li>
 		{counter start=3 assign="counter"}
+		{if $citationsEnabled}
+			<li>
+				<a name="citations" href="{url router=$smarty.const.ROUTE_COMPONENT component="tab.catalogEntry.CatalogEntryTabHandler" tab="citations" op="citations" submissionId=$submissionId stageId=$stageId tabPos=$counter}">{translate key="submission.citations"}</a>
+			</li>
+			{counter}
+		{/if}
 		{call_hook name="Templates::Controllers::Modals::SubmissionMetadata::CatalogEntryTabs::Tabs"}
 		{foreach from=$publicationFormats item=format}
 			<li>

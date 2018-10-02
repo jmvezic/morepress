@@ -9,8 +9,8 @@
 /**
  * @file classes/install/PKPInstall.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class Install
@@ -211,7 +211,7 @@ class PKPInstall extends Installer {
 				'general' => array(
 					'installed' => 'On',
 					'base_url' => Request::getBaseUrl(),
-					'enable_beacon' => $this->getParam('enableBeacon'),
+					'enable_beacon' => $this->getParam('enableBeacon')?'On':'Off',
 				),
 				'database' => array(
 					'driver' => $this->getParam('databaseDriver'),
@@ -247,7 +247,7 @@ class PKPInstall extends Installer {
 		$user->setUsername($this->getParam('adminUsername'));
 		$user->setPassword(Validation::encryptCredentials($this->getParam('adminUsername'), $this->getParam('adminPassword'), $this->getParam('encryption')));
 		$user->setFirstName($user->getUsername());
-		$user->setLastName('');
+		$user->setLastName($user->getUsername());
 		$user->setEmail($this->getParam('adminEmail'));
 		$user->setInlineHelp(1);
 		if (!$userDao->insertObject($user)) {

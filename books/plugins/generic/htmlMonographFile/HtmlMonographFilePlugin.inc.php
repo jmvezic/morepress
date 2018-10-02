@@ -3,8 +3,8 @@
 /**
  * @file plugins/generic/htmlMonographFile/HtmlMonographFilePlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class HtmlMonographFilePlugin
@@ -17,13 +17,14 @@ import('lib.pkp.classes.plugins.GenericPlugin');
 
 class HtmlMonographFilePlugin extends GenericPlugin {
 	/**
-	 * @see Plugin::register()
+	 * @copydoc Plugin::register()
 	 */
-	function register($category, $path) {
-		if (parent::register($category, $path)) {
-			if ($this->getEnabled()) {
+	function register($category, $path, $mainContextId = null) {
+		if (parent::register($category, $path, $mainContextId)) {
+			if ($this->getEnabled($mainContextId)) {
 				HookRegistry::register('CatalogBookHandler::view', array($this, 'viewCallback'));
 				HookRegistry::register('CatalogBookHandler::download', array($this, 'downloadCallback'));
+				$this->_registerTemplateResource();
 			}
 			return true;
 		}
@@ -54,9 +55,17 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 	}
 
 	/**
-	 * Callback to view HTML content rather than downloading.
-	 * @param string $hookName
-	 * @param array $args
+	 * @copydoc Plugin::getTemplatePath()
+	 */
+	function getTemplatePath($inCore = false) {
+		return $this->getTemplateResourceName() . ':';
+	}
+
+	/**
+	 * Callback to view the HTML content rather than downloading.
+	 * @param $hookName string
+	 * @param $args array
+	 * @return boolean
 	 */
 	function viewCallback($hookName, $params) {
 		$publishedMonograph =& $params[1];
@@ -78,7 +87,6 @@ class HtmlMonographFilePlugin extends GenericPlugin {
 			$templateMgr->assign(array(
 				'pluginTemplatePath' => $this->getTemplatePath(),
 				'pluginUrl' => $request->getBaseUrl() . '/' . $this->getPluginPath(),
-				'submissionFile' => $submissionFile,
 				'monograph' => $publishedMonograph,
 				'publicationFormat' => $publicationFormat,
 				'downloadFile' => $submissionFile,

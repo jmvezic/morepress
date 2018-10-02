@@ -3,8 +3,8 @@
 /**
  * @file classes/press/CategoryDAO.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class CategoryDAO
@@ -383,6 +383,36 @@ class CategoryDAO extends DAO {
 			$params
 		);
 		return new DAOResultFactory($result, $this, '_fromRow');
+	}
+
+	/**
+	 * Retrieve all categories assigned to a submission
+	 * @param $submissionId int Submission ID
+	 * @return DAOResultFactory containing Category ordered by sequence
+	 */
+	public function getBySubmissionId($submissionId) {
+		$result = $this->retrieveRange(
+			'SELECT *
+			FROM	categories
+			LEFT JOIN submission_categories AS sc ON (sc.category_id = categories.category_id)
+			WHERE	sc.submission_id = ?
+			ORDER BY seq',
+			array((int) $submissionId)
+		);
+
+		$categories = array();
+		while (!$result->EOF) {
+			$categories[] = array(
+				'id' => (int) $result->fields['category_id'],
+				'press_id' => (int) $result->fields['press_id'],
+				'parent_id' => (int) $result->fields['parent_id'],
+				'path' => $result->fields['path'],
+				'image' => $result->fields['image'],
+				'seq' => (int) $result->fields['seq'],
+			);
+			$result->MoveNext();
+		}
+		return $categories;
 	}
 
 	/**

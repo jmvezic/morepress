@@ -3,8 +3,8 @@
 /**
  * @file classes/plugins/ReportPlugin.inc.php
  *
- * Copyright (c) 2013-2017 Simon Fraser University
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2013-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class ReportPlugin
@@ -16,13 +16,6 @@
 import('lib.pkp.classes.plugins.Plugin');
 
 abstract class ReportPlugin extends Plugin {
-	/**
-	 * Constructor
-	 */
-	function __construct() {
-		parent::__construct();
-	}
-
 
 	//
 	// Public methods to be implemented by subclasses.
@@ -31,7 +24,7 @@ abstract class ReportPlugin extends Plugin {
 	 * Retrieve a range of aggregate, filtered, ordered metric values, i.e.
 	 * a statistics report.
 	 *
-	 * @see <http://pkp.sfu.ca/wiki/index.php/OJSdeStatisticsConcept#Input_and_Output_Formats_.28Aggregation.2C_Filters.2C_Metrics_Data.29>
+	 * @see <https://pkp.sfu.ca/wiki/index.php/OJSdeStatisticsConcept#Input_and_Output_Formats_.28Aggregation.2C_Filters.2C_Metrics_Data.29>
 	 * for a full specification of the input and output format of this method.
 	 *
 	 * @param $metricType null|string|array metrics selection
@@ -141,7 +134,7 @@ abstract class ReportPlugin extends Plugin {
 					'settings',
 					new RedirectAction($dispatcher->url(
 						$request, ROUTE_PAGE,
-						null, 'manager', 'reports', array('plugin' => $this->getName())
+						null, 'management', 'tools', 'report', array('pluginName' => $this->getName())
 					)),
 					__('manager.statistics.reports'),
 					null

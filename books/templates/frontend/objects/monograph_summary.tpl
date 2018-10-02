@@ -1,8 +1,8 @@
 {**
  * templates/frontend/objects/monograph_summary.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @brief Display a summary view of a monograph for display in lists
@@ -23,9 +23,9 @@
 		{$monograph->getLocalizedFullTitle()|escape}
 	</a>
 	<div class="author">
-		{$monograph->getAuthorString()|escape}
+		{$monograph->getAuthorOrEditorString()|escape}
 	</div>
 	<div class="date">
-		{$monograph->getDatePublished()|date_format:$dateFormatShort}
+		{$monograph->getDatePublished()|date_format:$dateFormatLong}
 	</div>
 </div><!-- .obj_monograph_summary -->

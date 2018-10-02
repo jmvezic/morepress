@@ -3,8 +3,8 @@
 /**
  * @file plugins/blocks/developedBy/DevelopedByBlockPlugin.inc.php
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class DevelopedByBlockPlugin
@@ -47,11 +47,12 @@ class DevelopedByBlockPlugin extends BlockPlugin {
 	/**
 	 * Get the block context. Overrides parent so that the plugin will be
 	 * displayed during install.
+	 * @param $contextId int optional
 	 * @return int
 	 */
-	function getBlockContext() {
+	function getBlockContext($contextId = null) {
 		if (!Config::getVar('general', 'installed')) return BLOCK_CONTEXT_SIDEBAR;
-		return parent::getBlockContext();
+		return parent::getBlockContext($contextId);
 	}
 
 	/**

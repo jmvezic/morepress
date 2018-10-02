@@ -4,8 +4,8 @@
 /**
  * @file js/controllers/grid/GridHandler.js
  *
- * Copyright (c) 2014-2017 Simon Fraser University
- * Copyright (c) 2000-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2000-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * @class GridHandler
@@ -199,7 +199,10 @@
 	 */
 	$.pkp.controllers.grid.GridHandler.prototype.getRowByDataId =
 			function(rowDataId, opt_parentElementId) {
-		return $('#' + this.getRowIdPrefix() + rowDataId, this.getHtmlElement());
+		return $('#' +
+				this.getRowIdPrefix() +
+				$.pkp.classes.Helper.escapeJQuerySelector(String(rowDataId)),
+				this.getHtmlElement());
 	};
 
 
@@ -360,7 +363,7 @@
 		}
 		for (index in sequenceMap) {
 			id = sequenceMap[index];
-			$row = $('#' + id);
+			$row = $('#' + $.pkp.classes.Helper.escapeJQuerySelector(String(id)));
 			if ($row.length == 0) {
 				$row = this.getRowByDataId(id);
 			}
@@ -402,14 +405,18 @@
 	$.pkp.controllers.grid.GridHandler.prototype.insertOrReplaceElement =
 			function(elementContent, opt_prepend) {
 		var $newElement, newElementId, $grid, $existingElement;
-
 		// Parse the HTML returned from the server.
 		$newElement = $(elementContent);
 		newElementId = $newElement.attr('id');
 
 		// Does the element exist already?
 		$grid = this.getHtmlElement();
-		$existingElement = newElementId ? $grid.find('#' + newElementId) : null;
+		$existingElement = newElementId ?
+				$grid.find('#' +
+				$.pkp.classes.Helper.escapeJQuerySelector(
+				/** @type {string} */ (newElementId))
+				) :
+				null;
 
 		if ($existingElement !== null && $existingElement.length > 1) {
 			throw new Error('There were ' + $existingElement.length +
@@ -444,7 +451,7 @@
 	 */
 	$.pkp.controllers.grid.GridHandler.prototype.deleteElement =
 			function($element, opt_noFadeOut) {
-		var lastElement, $emptyElement, deleteFunction;
+		var lastElement, $emptyElement, deleteFunction, self;
 
 		// Check whether we really only match one element.
 		if ($element.length !== 1) {
@@ -468,7 +475,9 @@
 		}
 
 		$emptyElement = this.getEmptyElement($element);
+		self = this;
 		deleteFunction = function() {
+			self.unbindPartial($element);
 			$element.remove();
 			if (lastElement) {
 				$emptyElement.fadeIn(100);
@@ -668,7 +677,7 @@
 			this.deleteControlsRow_($existingElement);
 		}
 
-		$existingElement.replaceWith($newElement);
+		this.replacePartialWith($newElement, $existingElement);
 		this.callFeaturesHook('replaceElement', $newElement);
 	};
 
@@ -824,7 +833,7 @@
 			isFilterVisible = $grid.find('.filter').is(':visible');
 
 			// Replace the grid content
-			$grid.replaceWith(handledJsonData.content);
+			this.replaceWith(handledJsonData.content);
 
 			// Update the html element of this handler.
 			$newGrid = $('div[id^="' + this.getGridIdPrefix() + '"]', $gridParent);
@@ -851,10 +860,12 @@
 	 */
 	$.pkp.controllers.grid.GridHandler.prototype.deleteControlsRow_ =
 			function($row) {
-		var $controlRow = $('#' + $row.attr('id') + '-control-row',
+		var $controlRow = $('#' + $.pkp.classes.Helper.escapeJQuerySelector(
+				/** @type {string} */ ($row.attr('id'))) + '-control-row',
 				this.getHtmlElement());
 
 		if ($controlRow.is('tr') && $controlRow.hasClass('row_controls')) {
+			this.unbindPartial($controlRow);
 			$controlRow.remove();
 		}
 	};
@@ -880,7 +891,8 @@
 
 		rowId = $gridRow.attr('id');
 		controlRowId = rowId + '-control-row';
-		return $context.filter('#' + controlRowId);
+		return $context.filter('#' +
+				$.pkp.classes.Helper.escapeJQuerySelector(controlRowId));
 	};
 
 

@@ -1,8 +1,8 @@
 {**
  * plugins/pubIds/doi/templates/settingsForm.tpl
  *
- * Copyright (c) 2014-2017 Simon Fraser University Library
- * Copyright (c) 2003-2017 John Willinsky
+ * Copyright (c) 2014-2018 Simon Fraser University
+ * Copyright (c) 2003-2018 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
  * DOI plugin settings
@@ -25,6 +25,7 @@
 		{fbvFormSection list="true"}
 			<p class="pkp_help">{translate key="plugins.pubIds.doi.manager.settings.explainDois"}</p>
 			{fbvElement type="checkbox" id="enableSubmissionDoi" label="plugins.pubIds.doi.manager.settings.enableSubmissionDoi" maxlength="40" checked=$enableSubmissionDoi|compare:true}
+			{fbvElement type="checkbox" id="enableChapterDoi" label="plugins.pubIds.doi.manager.settings.enableChapterDoi" maxlength="40" checked=$enableChapterDoi|compare:true}
 			{fbvElement type="checkbox" id="enableRepresentationDoi" label="plugins.pubIds.doi.manager.settings.enableRepresentationDoi" maxlength="40" checked=$enableRepresentationDoi|compare:true}
 			{fbvElement type="checkbox" id="enableSubmissionFileDoi" label="plugins.pubIds.doi.manager.settings.enableSubmissionFileDoi" maxlength="40" checked=$enableSubmissionFileDoi|compare:true}
 		{/fbvFormSection}
@@ -53,6 +54,7 @@
 			{fbvElement type="radio" id="doiSuffixPattern" name="doiSuffix" value="pattern" label="plugins.pubIds.doi.manager.settings.doiSuffixPattern" checked=$doiSuffix|compare:"pattern"}
 			<p class="pkp_help">{translate key="plugins.pubIds.doi.manager.settings.doiSuffixPattern.example"}</p>
 			{fbvElement type="text" id="doiSubmissionSuffixPattern" value=$doiSubmissionSuffixPattern label="plugins.pubIds.doi.manager.settings.doiSuffixPattern.submissions" maxlength="40" inline=true size=$fbvStyles.size.MEDIUM}
+			{fbvElement type="text" id="doiChapterSuffixPattern" value=$doiChapterSuffixPattern label="plugins.pubIds.doi.manager.settings.doiSuffixPattern.chapters" maxlength="40" inline=true size=$fbvStyles.size.MEDIUM}
 			{fbvElement type="text" id="doiRepresentationSuffixPattern" value=$doiRepresentationSuffixPattern label="plugins.pubIds.doi.manager.settings.doiSuffixPattern.representations" maxlength="40" inline=true size=$fbvStyles.size.MEDIUM}
 			{fbvElement type="text" id="doiSubmissionFileSuffixPattern" value=$doiSubmissionFileSuffixPattern label="plugins.pubIds.doi.manager.settings.doiSuffixPattern.files" maxlength="40" inline=true size=$fbvStyles.size.MEDIUM}
 		{/fbvFormSection}
