@@ -49,11 +49,11 @@ button {
         display: none;
     }
     #moreHeader {
-    	  width: 100%;    
+    	  width: 100%;
     }
     #moreHeader img {
     	  margin: 0 auto;
-    	  float: none;    
+    	  float: none;
     }
 }
 
@@ -172,7 +172,7 @@ background-color: rgba(0,0,0,0.1);
     #customFooter #colsCont {
 		width: 90%;
 	}
-	    
+
 }
 
 @media screen and (max-width: 800px) {
@@ -182,7 +182,7 @@ background-color: rgba(0,0,0,0.1);
 	#colsCont #footerCol {
 	 	width:-webkit-calc(33% - 30px);
     	width:-moz-calc(33% - 30px);
-    	width:calc(33% - 30px);	
+    	width:calc(33% - 30px);
 	}
 
 }
@@ -195,7 +195,7 @@ background-color: rgba(0,0,0,0.1);
 	#colsCont #footerCol {
 	 	width:-webkit-calc(100% - 30px);
     	width:-moz-calc(100% - 30px);
-    	width:calc(100% - 30px);	
+    	width:calc(100% - 30px);
 	}
 }
 
@@ -228,3 +228,5 @@ min-height:200px;
 line-height:200px;
 border-right:0 !important;
 }
+
+.pkp_nav_list li:hover > ul { left:0; }
