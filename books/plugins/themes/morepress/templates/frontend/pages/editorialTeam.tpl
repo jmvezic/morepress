@@ -13,7 +13,7 @@
 
 <div class="page page_editorial_team">
 	{include file="frontend/components/breadcrumbs.tpl" currentTitleKey="about.editorialTeam"}
-	{$currentContext->getLocalizedSetting('masthead')}
+	{$currentContext->getLocalizedSetting('editorialTeam')}
 </div><!-- .page -->
 
 {include file="frontend/components/footer.tpl"}

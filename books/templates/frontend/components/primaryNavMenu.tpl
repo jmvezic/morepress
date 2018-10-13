@@ -45,11 +45,11 @@
 					</a>
 				</li>
 			{/if}
-			<li>
+			<!-- <li>
 				<a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="submissions"}">
 					{translate key="about.submissions"}
 				</a>
-			</li>
+			</li> -->
 			{if $currentPress && ($currentPress->getSetting('mailingAddress') || $currentPress->getSetting('contactName'))}
 				<li>
 					<a href="{url router=$smarty.const.ROUTE_PAGE page="about" op="contact"}">
