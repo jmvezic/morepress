@@ -370,7 +370,7 @@
 				</div>
 			{/if}
 
-			<!-- {* Publication Date *}
+			 {* Publication Date *}
 			{if $monograph->getDatePublished()}
 				<div class="item date_published">
 					<div class="label">
@@ -381,10 +381,10 @@
 						{/if}
 					</div>
 					<div class="value">
-						{$monograph->getDatePublished()|date_format:$dateFormatShort}
+						{$monograph->getDatePublished()|date_format:"%d.%m.%Y."}
 					</div>
 				</div>
-			{/if} -->
+			{/if}
 
 			{* Series *}
 			{if $series}
