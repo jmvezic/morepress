@@ -576,7 +576,7 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="user.profile.form.showOtherContexts">Register with other presses</message>
 	<message key="user.profile.form.hideOtherContexts">Hide other presses</message>
 	<message key="grid.category.categories">Categories</message>
-	
+
 	<!-- MOREPRESS -->
 	<message key="navigation.aboutSite">O Morepress-u</message>
 	<message key="moreFooter.notif">Morepress notifications</message>
@@ -608,9 +608,10 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="common.logout">Odjava</message>
 	<message key="morepress.Books">Knjige</message>
 	<message key="morePress.moreBooks">Pregledaj sve</message>
+	<message key="catalog.fullText">Cjeloviti tekst</message>
 
 	<message key="common.homepageNavigationLabel">Morepress Knjige</message>
 	<message key="navigation.breadcrumbSeparator">&gt;</message>
 	<message key="search.searchAgain">Ponovno pretraživanje</message>
-	
+
 </locale>

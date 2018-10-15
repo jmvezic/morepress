@@ -576,7 +576,7 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="user.profile.form.showOtherContexts">Register with other presses</message>
 	<message key="user.profile.form.hideOtherContexts">Hide other presses</message>
 	<message key="grid.category.categories">Categories</message>
-	
+
 	<!-- MOREPRESS -->
 	<message key="navigation.aboutSite">About Morepress</message>
 	<message key="moreFooter.notif">Morepress notifications</message>
@@ -607,5 +607,6 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="navbar.about">About</message>
 	<message key="common.logout">Logout</message>
 	<message key="morePress.moreBooks">Browse all</message>
-		
+	<message key="catalog.fullText">Full text</message>
+
 </locale>

@@ -330,6 +330,8 @@
 						{* File downloads *}
 						{else}
 
+              <div class="label">{translate key="catalog.fullText"}</div>
+
 							{* Only display files that haven't been displayed in a chapter *}
 							{pluck_files assign=pubFormatFiles files=$nonChapterFiles by="publicationFormat" value=$format->getId()}
 
@@ -368,7 +370,7 @@
 				</div>
 			{/if}
 
-			{* Publication Date *}
+			<!-- {* Publication Date *}
 			{if $monograph->getDatePublished()}
 				<div class="item date_published">
 					<div class="label">
@@ -379,10 +381,10 @@
 						{/if}
 					</div>
 					<div class="value">
-						{$monograph->getDatePublished()|date_format:$dateFormatLong}
+						{$monograph->getDatePublished()|date_format:$dateFormatShort}
 					</div>
 				</div>
-			{/if}
+			{/if} -->
 
 			{* Series *}
 			{if $series}
