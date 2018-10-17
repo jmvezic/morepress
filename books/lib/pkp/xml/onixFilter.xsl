@@ -12,7 +12,7 @@
 
 <xsl:stylesheet
 	version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 >
@@ -25,10 +25,10 @@
 				<xsl:variable name="value"><xsl:value-of select="@value" /></xsl:variable>
 				<xsl:choose>
 					<!---
-						Lists not specifically referenced in a <xsl:when> block will be processed with 
-						all of their values included in the returned codelist. To filter a list, just 
-						create a new <xsl:when></xsl:when> block with a test for the list name, and then 
-						define the test you want to use. 
+						Lists not specifically referenced in a <xsl:when> block will be processed with
+						all of their values included in the returned codelist. To filter a list, just
+						create a new <xsl:when></xsl:when> block with a test for the list name, and then
+						define the test you want to use.
 					-->
 
 					<xsl:when test="$listName='List7'"><!--  ONIX list for formats -->
@@ -40,7 +40,7 @@
 						<xsl:call-template name="onixFilterOutputWithoutCode" />
 					</xsl:when>
 					<xsl:otherwise> <!-- define a case for all lists that are not filtered (yet) -->
-						<xsl:call-template name="onixFilterOutputWithCode" />
+						<xsl:call-template name="onixFilterOutputWithoutCode" />
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:for-each>
