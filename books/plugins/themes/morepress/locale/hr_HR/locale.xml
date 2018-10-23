@@ -282,7 +282,7 @@
 	<message key="catalog.newReleases">Novi naslovi</message>
 	<message key="catalog.dateAdded">Objavljeno na mreži</message>
 	<message key="catalog.publicationInfo">Informacije o knjizi</message>
-	<message key="catalog.published">Izdano</message>
+	<message key="catalog.published">Objavljeno</message>
 	<message key="catalog.categories">Kategorije</message>
 	<message key="catalog.parentCategory">Glavna kategorija</message>
 	<message key="catalog.subcategories">Podkategorija</message>
@@ -576,7 +576,7 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="user.profile.form.showOtherContexts">Register with other presses</message>
 	<message key="user.profile.form.hideOtherContexts">Hide other presses</message>
 	<message key="grid.category.categories">Categories</message>
-	
+
 	<!-- MOREPRESS -->
 	<message key="navigation.aboutSite">O Morepress-u</message>
 	<message key="moreFooter.notif">Morepress notifications</message>
@@ -612,5 +612,5 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="common.homepageNavigationLabel">Morepress Knjige</message>
 	<message key="navigation.breadcrumbSeparator">&gt;</message>
 	<message key="search.searchAgain">Ponovno pretraživanje</message>
-	
+
 </locale>

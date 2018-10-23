@@ -282,7 +282,7 @@
 	<message key="catalog.newReleases">Novi naslovi</message>
 	<message key="catalog.dateAdded">Objavljeno na mreži</message>
 	<message key="catalog.publicationInfo">Informacije o knjizi</message>
-	<message key="catalog.published">Izdano</message>
+	<message key="catalog.published">Objavljeno</message>
 	<message key="catalog.categories">Kategorije</message>
 	<message key="catalog.parentCategory">Glavna kategorija</message>
 	<message key="catalog.subcategories">Podkategorija</message>
