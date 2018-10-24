@@ -18,7 +18,7 @@
 		{/if}
 	</title>
 	<meta property="og:image" content="/images/graph.jpg" />
-	<link href="/books/plugins/themes/morepress/styles/additional.css?v=5" rel="stylesheet" type="text/css">
+	<link href="/books/plugins/themes/morepress/styles/additional.css?v=6" rel="stylesheet" type="text/css">
 	<script src="/journals/plugins/themes/morepress/js/fontawesome.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Cardo|Crimson+Text|Fira+Sans|Lato|Libre+Baskerville|Lora|Noto+Sans|Open+Sans|PT+Sans|PT+Serif+Caption|Quicksand|Roboto|Roboto+Slab|Taviraj" rel="stylesheet">
 	<script type="text/javascript" src="{$baseUrl}/plugins/themes/morepress/js/piwik.js"></script>

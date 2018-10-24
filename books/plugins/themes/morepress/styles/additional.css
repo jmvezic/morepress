@@ -265,7 +265,7 @@ background-image: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0
 margin-left:200px !important;
 }
 
-@media (min-width: 480px) {
+@media (max-width: 768px) {
 	.obj_monograph_summary > * {
 		margin-left:0 !important;
 	}
