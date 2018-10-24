@@ -237,3 +237,12 @@ background: #143c62 !important;
 color: white !important;
 border: 1px solid white !important;
 }
+
+.obj_monograph_summary .seriesPosition {
+padding-bottom: 6px !important;
+}
+
+@media (min-width: 768px)
+.obj_monograph_summary > * {
+margin-left:200px !important;
+}
