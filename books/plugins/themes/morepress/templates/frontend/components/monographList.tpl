@@ -49,10 +49,10 @@
 	{/foreach}
 	{* Close .row if we have an odd number of titles *}
 	{if $counter > 1 && $counter is even by 1}
-		{if not isset($monographs[$id])}<div class="obj_monograph_summary browse_catalog"><a href="{url router=$smarty.const.ROUTE_PAGE page="catalog"}" style="margin:0;">{translate key="morePress.moreBooks"}</a></div>{/if}
+		{if not isset($monographs[$id])}<div class="obj_monograph_summary browse_catalog"><a href="{url router=$smarty.const.ROUTE_PAGE page="catalog"}" style="margin:0 !important;">{translate key="morePress.moreBooks"}</a></div>{/if}
 		</div>
 	{else}
-		{if not isset($monographs[$id])}<div class="row"><div class="obj_monograph_summary browse_catalog" style="width:100%;"><a href="{url router=$smarty.const.ROUTE_PAGE page="catalog"}" style="margin:0;">{translate key="morePress.moreBooks"}</a></div></div>{/if}
+		{if not isset($monographs[$id])}<div class="row"><div class="obj_monograph_summary browse_catalog" style="width:100%;"><a href="{url router=$smarty.const.ROUTE_PAGE page="catalog"}" style="margin:0 !important;">{translate key="morePress.moreBooks"}</a></div></div>{/if}
 	{/if}
 
 </div>
