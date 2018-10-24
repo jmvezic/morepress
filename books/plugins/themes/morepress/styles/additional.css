@@ -242,7 +242,10 @@ border: 1px solid white !important;
 padding-bottom: 6px !important;
 }
 
-@media (min-width: 768px)
+.obj_monograph_summary .author {
+	overflow: hidden !important;
+}
+
 .obj_monograph_summary > * {
 margin-left:200px !important;
 }
