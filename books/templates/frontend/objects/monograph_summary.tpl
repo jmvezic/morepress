@@ -27,7 +27,11 @@ $this->assign('seriesDao',DAORegistry::getDAO('SeriesDAO'));
 		{$monograph->getLocalizedFullTitle()|escape}
 	</a>
 	<div class="author">
-		{$monograph->getAuthorOrEditorString()|escape}
+    {if $monograph->getWorkType() == $smarty.const.WORK_TYPE_EDITED_VOLUME}
+    {$monograph->getEditorString()|escape}
+    {else}
+    {$monograph->getAuthorOrEditorString()|escape}
+    {/if}
 	</div>
 	<div class="date">
 		{$monograph->getDatePublished()|date_format:"%d.%m.%Y."}

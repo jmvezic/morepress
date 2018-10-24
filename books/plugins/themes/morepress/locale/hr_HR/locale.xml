@@ -608,6 +608,7 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="common.logout">Odjava</message>
 	<message key="morepress.Books">Knjige</message>
 	<message key="morePress.moreBooks">Pregledaj sve</message>
+	<message key="morePress.volumeEditors">Urednici izdanja</message>
 
 	<message key="common.homepageNavigationLabel">Morepress Knjige</message>
 	<message key="navigation.breadcrumbSeparator">&gt;</message>

@@ -608,5 +608,6 @@ Your server currently supports mbstring: <strong>{$supportsMBString}</strong>]]>
 	<message key="common.logout">Logout</message>
 	<message key="morePress.moreBooks">Browse all</message>
 	<message key="catalog.fullText">Full text</message>
+	<message key="morePress.volumeEditors">Volume editors</message>
 
 </locale>

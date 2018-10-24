@@ -89,6 +89,7 @@
 				{if $monograph->getWorkType() == $smarty.const.WORK_TYPE_EDITED_VOLUME && $editors|@count}
 					{assign var="authors" value=$editors}
 					{assign var="identifyAsEditors" value=true}
+          <h3 class="label">{translate key="morePress.volumeEditors"}:</h3><br>
 				{/if}
 
 				{* Show short author lists on multiple lines *}
@@ -97,7 +98,7 @@
 						<div class="sub_item">
 							<div class="label">
 								{if $identifyAsEditors}
-									{translate key="submission.editorName" editorName=$author->getFullName()|escape}
+									{$author->getFullName()|escape}
 								{else}
 									{$author->getFullName()|escape}
 								{/if}

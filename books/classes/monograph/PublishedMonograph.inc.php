@@ -233,7 +233,7 @@ class PublishedMonograph extends Monograph {
 		$editorNames = array();
 		foreach ($authors as $author) {
 			if ($author->getIsVolumeEditor()) {
-				$editorNames[] = __('submission.editorName', array('editorName' => $author->getFullName()));
+				$editorNames[] = __('submission.editor', array('editorName' => $author->getFullName()));
 			}
 		}
 
@@ -245,6 +245,29 @@ class PublishedMonograph extends Monograph {
 
 		return $this->getAuthorString();
 	}
+
+	public function getEditorString() {
+
+		if ($this->getWorkType() == WORK_TYPE_EDITED_VOLUME) {
+			$authors = $this->getAuthors(true);
+			$editorNames = array();
+			foreach ($authors as $author) {
+				if ($author->getIsVolumeEditor()) {
+					$editorNames[] = $author->getFullName();
+				}
+			}
+
+			if (count($editorNames)) {
+				// Spaces are stripped from the locale strings, so we have to add the
+				// space in here.
+				return join('; ', $editorNames);
+			}
+
+			return $this->getAuthorString();
+		}
+
+	}
+
 }
 
 ?>
