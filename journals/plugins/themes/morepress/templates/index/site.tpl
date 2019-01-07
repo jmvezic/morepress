@@ -111,7 +111,7 @@ while (!$Journals->EOF) {
 
 
 	echo '<div id="jourBlock"';
-	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' style="width:calc(100% - 10px);overflow:hidden;" '; }
+	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' class="newlyPublishedContainer" '; }
 	echo '>';
 
 }
@@ -128,7 +128,7 @@ echo '</div>'; */
 
 
 	echo '<div id="jourThumb"';
-	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' style="height:auto;" '; }
+	if(strtotime($IssuePublished) > strtotime('-2 days')) { echo ' class="newlyPublished" '; }
 	echo '>';
 
 
