@@ -149,9 +149,9 @@ echo '</div>'; */
 
 	if(strtotime($IssuePublished) > strtotime('-2 days')) {
      $proba = $AppLocale->translate("morePress.newIssue");
-     echo '<div id="jourCategory" style="background-color:#10a915;color:white;"><i class="fa fa-star" aria-hidden="true"></i> &nbsp;';
+     echo '<a href="'.$JourInitials.'"><div id="jourCategory" style="background-color:#10a915;color:white;"><i class="fa fa-star" aria-hidden="true"></i> &nbsp;';
      echo $proba;
-     echo '</div>';
+     echo '</div></a>';
  	}
 	foreach($JourCatInfo as $v) {
 		$ControlVocabSettings = $DAO->retrieve("SELECT * FROM controlled_vocab_entry_settings");
