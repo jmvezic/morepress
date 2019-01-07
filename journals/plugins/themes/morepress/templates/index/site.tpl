@@ -96,7 +96,7 @@ while (!$Journals->EOF) {
 
 	$IssuePublished = $Journals->fields["MAX(issues.date_published)"];
 
-  if ($JourID < 12){
+  if ($JourID < 12 || $JourID > 17){
 
 	if ($casopisi[$JourPath] != 2) {
 
