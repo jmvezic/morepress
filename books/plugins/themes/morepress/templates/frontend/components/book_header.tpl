@@ -22,7 +22,7 @@ $ip = $_SERVER['REMOTE_ADDR']; // This will contain the ip of the request
 if (!isset($_COOKIE["ip"])){
 	setcookie("ip", $ip);
 	if (!isset($_COOKIE["country"])){
-		$country = "US";
+		$country = geoip_country_code_by_name($ip);
 	}
 }
 
@@ -37,7 +37,7 @@ $Locale = $AppLocale->getLocale();
 
 if (!isset($_COOKIE["country"])) {
 setcookie("country",$country,time()+31556926 ,'/');// where 31556926 is total seconds for a year.
-if ($country=="HR"){header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
+if ($country=="HR"){header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
 else {header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
 }
 else {
