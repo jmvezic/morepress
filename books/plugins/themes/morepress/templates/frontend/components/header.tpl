@@ -12,41 +12,6 @@
  *       sidebars have been configured for thesite.
  *}
 
- {php}
-if (!$PKPRequest->isBot){
-$ip = $_SERVER['REMOTE_ADDR']; // This will contain the ip of the request
-
-// You can use a more sophisticated method to retrieve the content of a webpage with php using a library or something
-// We will retrieve quickly with the file_get_contents
-if (!isset($_COOKIE["ip"])){
-	setcookie("ip", $ip);
-	if (!isset($_COOKIE["country"])){
-		$country = geoip_country_code_by_name($ip);
-	}
-}
-
-// outputs something like (obviously with the data of your IP) :
-
-// geoplugin_countryCode => "DE",
-// geoplugin_countryName => "Germany"
-// geoplugin_continentCode => "EU"
-
-$AppLocale = new AppLocale();
-$Locale = $AppLocale->getLocale();
-
-if (!isset($_COOKIE["country"])) {
-setcookie("country",$country,time()+31556926 ,'/');// where 31556926 is total seconds for a year.
-if ($country=="HR"){header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
-else {header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
-}
-else {
-if (($_COOKIE["country"]=="HR" && $Locale=="hr_HR") || ($_COOKIE["country"]!="HR" && $Locale!="hr_HR")) {} else {
-if ($_COOKIE["country"]=="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/hr_HR?source=$_SERVER[REQUEST_URI]");die();}
-if ($_COOKIE["country"]!="HR") {header('Location: '."http://"."$_SERVER[HTTP_HOST]/books/press/user/setLocale/en_US?source=$_SERVER[REQUEST_URI]");die();}
-}
-}
-}
-{/php}
 
 {strip}
 	{* Determine whether a logo or title string is being displayed *}
