@@ -209,6 +209,11 @@ background-color: #143c62 !important;
 color: white !important;
 }
 
+.cmp_download_link:focus {
+	background-color: #143c62 !important;
+	color: white !important;
+}
+
 .pkp_structure_sidebar.left {
 text-align:center !important;
 }
@@ -268,5 +273,26 @@ margin-left:200px !important;
 @media (max-width: 768px) {
 	.obj_monograph_summary > * {
 		margin-left:0 !important;
+	}
+}
+
+.thumbnailLinkImg {
+	box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.2), 0 0px 5px 0 rgba(0, 0, 0, 0.19) !important;
+	border: 0 !important;
+	transition: box-shadow 0.2s ease-in-out;
+	padding: 0 !important;
+	display: table !important;
+	margin: 0 auto !important;
+}
+
+.thumbnailLinkImg:hover {
+	box-shadow: 0 0px 30px 0 rgba(20, 60, 98, 0.2), 0 0px 15px 0 rgba(20, 60, 98, 0.19) !important;
+	background-color: transparent !important;
+}
+
+@media (max-width: 768px) {
+	.thumbnailLinkImg {
+		width: 50% !important;
+		height: auto !important;
 	}
 }
