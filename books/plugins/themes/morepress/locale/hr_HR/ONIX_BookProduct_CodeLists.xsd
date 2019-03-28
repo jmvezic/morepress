@@ -8191,7 +8191,7 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="01">
 				<xs:annotation>
-					<xs:documentation>Publication date</xs:documentation>
+					<xs:documentation>Datum izdavanja</xs:documentation>
 					<xs:documentation>The nominal date of publication in this market. If there is a strict embargo on retail sales before the expected date, it should be specified separately as an embargo date.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
@@ -20694,7 +20694,7 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="01">
 				<xs:annotation>
-					<xs:documentation>Publication date</xs:documentation>
+					<xs:documentation>Datum izdavanja</xs:documentation>
 					<xs:documentation>Nominal date of publication.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
@@ -21128,7 +21128,7 @@
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="01">
 				<xs:annotation>
-					<xs:documentation>Publication date</xs:documentation>
+					<xs:documentation>Datum izdavanja</xs:documentation>
 					<xs:documentation>Nominal date of publication.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
