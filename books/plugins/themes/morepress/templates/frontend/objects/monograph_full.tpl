@@ -308,16 +308,17 @@
         {foreach from=$publicationFormats item=format}
           {assign var=publicationFormatId value=$format->getId()}
         {pluck_files assign=pubFormatFiles files=$nonChapterFiles by="publicationFormat" value=$format->getId()}
+	{/foreach}
 
         {* Use a simplified presentation if only one file exists *}
-        {if $pubFormatFiles|@count == 1}
+        {if $publicationFormats|@count == 1}
             {foreach from=$pubFormatFiles item=file}
               {include file="frontend/components/thumbnailWithLink.tpl" downloadFile=$file monograph=$monograph publicationFormat=$format currency=$currency}
             {/foreach}
         {else}
         <img alt="{translate key="catalog.coverImageTitle" monographTitle=$monograph->getLocalizedFullTitle()|strip_tags|escape}" src="{url router=$smarty.const.ROUTE_COMPONENT component="submission.CoverHandler" op="cover" submissionId=$monograph->getId() random=$monograph->getId()|uniqid}" />
         {/if}
-        {/foreach}
+        
 			</div>
 
 			{* Sharing code *}
