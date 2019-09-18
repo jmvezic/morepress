@@ -267,7 +267,7 @@ exit();
     {/if}
 
 </div>
-{if $currentJournal->getJournalId() > 11}
+{if $currentJournal->getJournalId() > 11 and $currentJournal->getJournalId() < 18}
 <div id="tocLinksContainer">
   <span id="tocItemFullTextLink" class="disabledLink tocItemWarning" href="#" title="{translate key="morePress.ocrDesc"}"><i class="fa fa-warning"></i> OCR</span>
 </div>
